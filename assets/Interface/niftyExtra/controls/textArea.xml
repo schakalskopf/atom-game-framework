@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty-controls>
+    <controlDefinition style="nifty-textfield" name="textarea" controller="sg.atom.ui.common.textarea.TextAreaControl" inputMapping="de.lessvoid.nifty.controls.textfield.TextFieldInputMapping" passwordChar="$passwordChar" maxLength="$maxLength">
+        <panel style="#panel" focusable="true">
+            <interact onClick="onClick()" onClickMouseMove="onClickMouseMove()" />
+            <panel id="#field" style="#field" visibleToMouse="true">
+                <text id="#text" style="#text" text="$text" wrap="true" valign="top" textVAlign="top" width="100%" height="100%" />
+            </panel>
+            <panel style="#cursor-panel">
+                <image id="#cursor" style="#cursor"/>
+            </panel>
+        </panel>
+    </controlDefinition>
+</nifty-controls>
