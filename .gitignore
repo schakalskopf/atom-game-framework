@@ -1,2 +1,7 @@
 *.dll
 
+/Atom2D/nbproject/private/
+/AtomCore/nbproject/private/
+/AtomEditor/nbproject/private/
+/AtomPar/nbproject/private/
+/AtomScripting/nbproject/private/

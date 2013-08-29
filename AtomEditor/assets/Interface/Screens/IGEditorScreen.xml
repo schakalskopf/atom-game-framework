@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty xmlns="http://nifty-gui.sourceforge.net/nifty-1.3.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nifty-gui.sourceforge.net/nifty-1.3.xsd http://nifty-gui.sourceforge.net/nifty-1.3.xsd">
+    <useStyles filename="nifty-default-styles.xml"/>
+    <useControls filename="nifty-default-controls.xml"/>
+    <useStyles filename="Interface/Styles/Button/ex-button.xml"/>
+    <useControls filename="Interface/Controls/Button/ex-button.xml"/>
+    <useControls filename="Interface/niftyExtra/controls/textArea.xml"/>
+    <useControls filename="Interface/niftyExtra/controls/nonEditableTextArea.xml"/>
+    <useStyles filename="Interface/Styles/TextArea/MyTextArea.xml"/>
+  
+    <screen id="InGameEditorScreen" controller="atom.editor.EditorGUIManager">
+        <layer id="layer" childLayout="vertical">
+            <panel id="MenuContainer" height="25px" width="100%" align="center" valign="center" backgroundColor="#aaaf" childLayout="center" visibleToMouse="false">
+                <effect>
+                    <onStartScreen name="move" mode="in" direction="top" length="300" startDelay="0" inherit="true"/>
+                    <onEndScreen name="move" mode="out" direction="top" length="300" startDelay="0" inherit="true"/>
+                </effect>
+                
+            </panel>
+            <panel id="MainFrameContainer" height="*" width="100%" align="left" valign="center" childLayout="horizontal" visibleToMouse="false">
+
+                <panel id="SideContainer" height="*" width="20%" align="left" valign="center" childLayout="vertical" visibleToMouse="false">
+                    <effect>
+                        <onStartScreen name="move" mode="in" direction="left" length="100" startDelay="0" inherit="true" neverStopRendering="true"/>
+                        <onEndScreen  name="fade" start="#ff" end="#00" length="100" startDelay="0"  neverStopRendering="true"/>
+                        <onCustom customKey="moveOut" name="move" mode="out" direction="left" length="200" startDelay="0" inherit="true" neverStopRendering="true"/>
+                        <onCustom customKey="moveIn" name="move" mode="in" direction="left" length="200" startDelay="0" inherit="true" neverStopRendering="true"/>
+                    </effect>
+
+                    <panel id="TreeContainer" height="50%" width="100%" align="left" valign="center" childLayout="center" visibleToMouse="false">
+                        <effect>
+                            <onStartScreen name="move" mode="in" direction="left" length="300" startDelay="0" inherit="true"/>
+                            <onEndScreen name="move" mode="out" direction="left" length="300" startDelay="0" inherit="true"/>
+                        </effect>
+                
+                    </panel>
+                    <panel id="PropertiesContainer" backgroundColor="#aaa4" height="50%" width="100%" align="left" valign="center" childLayout="center" visibleToMouse="false">
+                        <effect>
+                            <onStartScreen name="move" mode="in" direction="left" length="300" startDelay="0" inherit="true"/>
+                            <onEndScreen name="move" mode="out" direction="left" length="300" startDelay="0" inherit="true"/>
+                        </effect>
+                        <control id="edit_tabs" name="tabGroup" height="100%">
+                            <control id="tabOveral" name="tab" caption="Overal" >
+                                <panel padding="20px" childLayout="vertical"  width="100%">
+                                    <text  style="base-font" text="Name" align="left" valign="center" />    
+                                    <control name="textfield" maxLength="20" />
+                                    <text  style="base-font" text="Face" align="left" valign="center" />    
+                                    <control id="sliderH" name="horizontalSlider" />
+                                    <text  style="base-font" text="Hair" align="left" valign="center" />    
+                                    <control id="sliderH" name="horizontalSlider" />
+                                    <text  style="base-font" text="Cloth" align="left" valign="center" />    
+                                    <control id="sliderH" name="horizontalSlider" />
+                                    <text  style="base-font" text="Height" align="left" valign="center" />    
+                                    <control id="sliderH" name="horizontalSlider" />
+                                </panel>
+                            </control>
+
+                            <control id="tabObject" name="tab" caption="Body" >
+                                <text text="foo " font="Interface/Fonts/Default.fnt" />
+                                <control id="cb1" name="checkbox" checked="true" />
+                            </control>
+
+                        </control>
+                    </panel>
+                </panel>
+                <panel id="MainViewContainer" height="*" width="80%" align="left" valign="center" childLayout="center" visibleToMouse="false">
+                    
+                </panel>
+            </panel>
+            <panel id="ToolbarContainer" height="25px" width="100%" align="center" valign="center" backgroundColor="#aaaf" childLayout="center" visibleToMouse="false">
+                <effect>
+                    <onStartScreen name="move" mode="in" direction="bottom" length="300" startDelay="0" inherit="true"/>
+                    <onEndScreen name="move" mode="out" direction="bottom" length="300" startDelay="0" inherit="true"/>
+                </effect>
+            </panel>
+        </layer>
+    </screen>
+</nifty>

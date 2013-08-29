@@ -1,0 +1,68 @@
+package sg.atom.script.engine;
+
+import groovy.lang.Binding;
+import groovy.lang.GroovyClassLoader;
+import groovy.lang.GroovyShell;
+import groovy.util.GroovyScriptEngine;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import org.codehaus.groovy.control.CompilationFailedException;
+
+/**
+ *
+ * @author hungcuong
+ */
+public class AtomScriptEngine {
+
+    private ScriptEngineManager factory;
+    private ScriptEngine genericScriptEngine;
+    private GroovyShell shell;
+    private String headerLine;
+    private GroovyScriptEngine scriptEngine;
+    GroovyClassLoader loader;
+    private static final Logger logger = Logger.getLogger(AtomScriptEngine.class.getName());
+    private boolean viaLoader = false;
+    private Binding binding;
+
+    public AtomScriptEngine() {
+        //factory = new ScriptEngineManager();
+        //headerLine = "== Groovy Script Engine . Version 1.0 :";
+    }
+
+    public void startEngine(String path) {
+        try {
+            //genericScriptEngine = factory.getEngineByName("groovy");
+            scriptEngine = new GroovyScriptEngine(path);
+
+            binding = new Binding();
+            shell = new GroovyShell(binding);
+            ClassLoader parent = getClass().getClassLoader();
+            loader = new GroovyClassLoader(parent);
+            logger.log(Level.FINE, "Start Script Engine in" + path);
+
+
+        } catch (IOException ex) {
+        }
+    }
+
+    public boolean check(String text) {
+        try {
+            if (text.equals("")) {
+                return false;
+            }
+            shell.parse(text);
+        } catch (CompilationFailedException ex) {
+            return false;
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isEngineReady() {
+        return (shell == null) ? false : true;
+    }
+}
