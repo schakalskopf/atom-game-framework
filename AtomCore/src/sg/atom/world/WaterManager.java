@@ -4,7 +4,7 @@
  */
 package sg.atom.world;
 
-import sg.atom.core.SoundManager;
+import sg.atom.stage.SoundManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.math.ColorRGBA;
@@ -22,7 +22,7 @@ import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture2D;
 import com.jme3.water.SimpleWaterProcessor;
 import com.jme3.water.WaterFilter;
-import sg.atom.core.StageManager;
+import sg.atom.stage.StageManager;
 import sg.atom.stage.WorldManager;
 
 /**

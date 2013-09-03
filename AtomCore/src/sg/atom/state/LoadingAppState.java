@@ -9,9 +9,9 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sg.atom.core.GameGUIManager;
+import sg.atom.ui.GameGUIManager;
 import sg.atom.core.AtomMain;
-import sg.atom.core.StageManager;
+import sg.atom.stage.StageManager;
 import sg.atom.ui.common.UILoadingScreenController;
 
 /**

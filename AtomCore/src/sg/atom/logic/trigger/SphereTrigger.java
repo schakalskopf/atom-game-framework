@@ -5,7 +5,7 @@
 package sg.atom.logic.trigger;
 
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
-import sg.atom.core.StageManager;
+import sg.atom.stage.StageManager;
 import sg.atom.entity.EntityManager;
 import sg.atom.stage.WorldManager;
 

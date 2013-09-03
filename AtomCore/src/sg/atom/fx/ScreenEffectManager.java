@@ -10,7 +10,7 @@ import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
 import com.jme3.post.filters.DepthOfFieldFilter;
 import com.jme3.renderer.ViewPort;
-import sg.atom.core.StageManager;
+import sg.atom.stage.StageManager;
 import sg.atom.fx.filter.CartoonEdgeProcessor;
 import sg.atom.fx.filter.LUTCCFilter;
 

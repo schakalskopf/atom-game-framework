@@ -7,5 +7,6 @@ package sg.atom.logic.trigger;
 import com.jme3.scene.control.Control;
 
 public interface TriggerControl<T extends Trigger> extends Control {
+
     
 }

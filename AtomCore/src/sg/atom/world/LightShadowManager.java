@@ -16,7 +16,7 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import com.jme3.shadow.PssmShadowRenderer;
 import com.jme3.util.SkyFactory;
-import sg.atom.core.StageManager;
+import sg.atom.stage.StageManager;
 import sg.atom.stage.WorldManager;
 
 /**

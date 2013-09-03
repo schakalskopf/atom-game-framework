@@ -1,5 +1,8 @@
 package sg.atom.core;
 
+import sg.atom.ui.GameGUIManager;
+import sg.atom.stage.SoundManager;
+import sg.atom.stage.StageManager;
 import com.jme3.app.SimpleApplication;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
@@ -97,15 +100,15 @@ public class AtomMain extends SimpleApplication {
 
     public GameStateManager getGameStateManager() {
         return gameStateManager;
+    }    
+    
+    public SoundManager getSoundManager() {
+        return soundManager;
     }
     // =========== SHORT CUT FUNCTION ( for console command) ==============
 
     public void quit() {
         app.stop();
-    }
-
-    SoundManager getSoundManager() {
-        return soundManager;
     }
 
     public void quitGame() {

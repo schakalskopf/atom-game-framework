@@ -16,9 +16,15 @@ public class ExplosionNodeControl extends AbstractControl {
     private ParticleEmitter flame, flash, spark, roundspark, smoketrail, debris,
             shockwave;
     private float maxTime = 5f;
-    boolean detachOnFinish = true;
+    public boolean detachOnFinish = true;
+    public boolean autoExplode = false;
+    public boolean started = false;
+    Node parentNode;
+    ParticleFactory factory;
 
-    public ExplosionNodeControl() {
+    public ExplosionNodeControl(ParticleFactory factory, boolean autoExplode) {
+        this.factory = factory;
+        this.autoExplode = autoExplode;
     }
     /*
      public ExplosionNodeControl(ParticleEmitter flame, ParticleEmitter flash, ParticleEmitter spark, ParticleEmitter roundspark, ParticleEmitter smoketrail, ParticleEmitter debris, ParticleEmitter shockwave) {
@@ -34,9 +40,9 @@ public class ExplosionNodeControl extends AbstractControl {
 
     @Override
     public Control cloneForSpatial(Spatial spatial) {
-        ExplosionNodeControl control = new ExplosionNodeControl();
+        //ExplosionNodeControl control = new ExplosionNodeControl(false);
         //control.findElements(spatial);
-        return control;
+        return this;
     }
 
     void findElements(Node spatial) {
@@ -54,6 +60,12 @@ public class ExplosionNodeControl extends AbstractControl {
         super.setSpatial(spatial);
         if (spatial instanceof Node) {
             findElements((Node) spatial);
+            if (autoExplode) {
+                started = true;
+            }
+            if (!started) {
+                shutEffects();
+            }
         } else {
             throw new RuntimeException("Spatial to add " + this.getClass().getName() + " must be a Node");
 
@@ -62,65 +74,88 @@ public class ExplosionNodeControl extends AbstractControl {
 
     @Override
     protected void controlUpdate(float tpf) {
+        if (started) {
+            time += tpf / speed;
+            if (time > 1f && state == 0) {
+                factory.onEffects(new ParticleEmitter[]{flash, spark, smoketrail, shockwave});
+                /*
+                 if (flash != null) {
+                 flash.emitAllParticles();
+                 }
+                 if (spark != null) {
+                 spark.emitAllParticles();
+                 }
+                 if (smoketrail != null) {
+                 smoketrail.emitAllParticles();
+                 }
+                 if (shockwave != null) {
+                 shockwave.emitAllParticles();
+                 }
+                 */
+                state++;
+            }
+            // emit the other things
+            if (time > 1f + .05f / speed && state == 1) {
+                factory.onEffects(new ParticleEmitter[]{flame, roundspark});
+                /*
+                 if (flame != null) {
+                 flame.emitAllParticles();
+                 }
+                 if (roundspark != null) {
+                 roundspark.emitAllParticles();
+                 }
+                 */
+                state++;
+            }
 
-        time += tpf / speed;
-        if (time > 1f && state == 0) {
-            if (flash != null) {
-                flash.emitAllParticles();
+            // effect finish
+            if (time > maxTime / speed && state == 2) {
+                if (!detachOnFinish) {
+                    // rewind the effect
+                    state = 0;
+                    time = 0;
+                    shutEffects();
+                } else {
+                    spatial.removeFromParent();
+                }
             }
-            if (spark != null) {
-                spark.emitAllParticles();
-            }
-            if (smoketrail != null) {
-                smoketrail.emitAllParticles();
-            }
-            if (shockwave != null) {
-                shockwave.emitAllParticles();
-            }
-            state++;
+        } else {
+            shutEffects();
         }
-        // emit the other things
-        if (time > 1f + .05f / speed && state == 1) {
-            if (flame != null) {
-                flame.emitAllParticles();
-            }
-            if (roundspark != null) {
-                roundspark.emitAllParticles();
-            }
-            state++;
-        }
+    }
 
-        // effect finish
-        if (time > maxTime / speed && state == 2) {
-            if (!detachOnFinish) {
-                // rewind the effect
-                state = 0;
-                time = 0;
-                if (flash != null) {
-                    flash.killAllParticles();
-                }
-                if (spark != null) {
-                    spark.killAllParticles();
-                }
-                if (smoketrail != null) {
-                    smoketrail.killAllParticles();
-                }
-                if (debris != null) {
-                    debris.killAllParticles();
-                }
-                if (flame != null) {
-                    flame.killAllParticles();
-                }
-                if (roundspark != null) {
-                    roundspark.killAllParticles();
-                }
-                if (shockwave != null) {
-                    shockwave.killAllParticles();
-                }
-            } else {
-                spatial.removeFromParent();
-            }
-        }
+    public void shutEffects() {
+        /*
+         if (flash != null) {
+         flash.setEnabled(false);
+         flash.killAllParticles();
+         }
+         if (spark != null) {
+         spark.killAllParticles();
+         spark.setEnabled(false);
+         }
+         if (smoketrail != null) {
+         smoketrail.killAllParticles();
+         smoketrail.setEnabled(false);
+         }
+         if (debris != null) {
+         debris.killAllParticles();
+         debris.setEnabled(false);
+         }
+         if (flame != null) {
+         flame.killAllParticles();
+         flame.setEnabled(false);
+         }
+         if (roundspark != null) {
+         roundspark.killAllParticles();
+         roundspark.setEnabled(false);
+         }
+         if (shockwave != null) {
+         shockwave.killAllParticles();
+         shockwave.setEnabled(false);
+         }
+         */
+        factory.shutEffects(new ParticleEmitter[]{flash, spark, smoketrail, debris, flame, roundspark, shockwave});
     }
 
     public float getMaxTime() {
@@ -129,6 +164,19 @@ public class ExplosionNodeControl extends AbstractControl {
 
     public void setMaxTime(float maxTime) {
         this.maxTime = maxTime;
+    }
+
+    public void setAutoExplode(boolean autoExplode) {
+        this.autoExplode = autoExplode;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
+        if (started) {
+            state = 0;
+            time = 0;
+        } else {
+        }
     }
 
     public void setDetachOnFinish(boolean detachOnFinish) {

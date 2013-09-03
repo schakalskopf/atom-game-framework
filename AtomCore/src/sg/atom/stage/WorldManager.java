@@ -14,8 +14,6 @@ import com.jme3.terrain.geomipmap.TerrainLodControl;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.terrain.geomipmap.lodcalc.DistanceLodCalculator;
 import sg.atom.core.AtomMain;
-import sg.atom.core.SoundManager;
-import sg.atom.core.StageManager;
 import sg.atom.gameplay.GameLevel;
 import sg.atom.gameplay.GameScene;
 import sg.atom.world.DayNightTimeManager;

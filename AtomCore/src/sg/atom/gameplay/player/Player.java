@@ -1,11 +1,11 @@
 package sg.atom.gameplay.player;
 
-import sg.atom.core.StageManager;
+import sg.atom.stage.StageManager;
 import sg.atom.gameplay.GameCharacter;
 
-import sg.atom.stage.GamePlayManager;
+import sg.atom.gameplay.GamePlayManager;
 
-public class Player {
+ public class Player {
 
     private StageManager stageManager;
     private GamePlayManager gamePlayManager;

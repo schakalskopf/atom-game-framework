@@ -7,7 +7,7 @@ package sg.atom.entity;
 import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 import java.util.HashMap;
-import sg.atom.core.StageManager;
+import sg.atom.stage.StageManager;
 
 /**
  *

@@ -14,8 +14,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 
-import sg.atom.core.GameGUIManager;
-import sg.atom.core.StageManager;
+import sg.atom.ui.GameGUIManager;
 import sg.atom.entity.EntityManager;
 import sg.atom.entity.SpatialEntity;
 import sg.atom.entity.SpatialEntityControl;

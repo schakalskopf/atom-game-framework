@@ -7,9 +7,9 @@ import com.jme3.asset.AssetManager;
 import com.jme3.input.InputManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
-import sg.atom.core.GameGUIManager;
+import sg.atom.ui.GameGUIManager;
 import sg.atom.core.AtomMain;
-import sg.atom.core.StageManager;
+import sg.atom.stage.StageManager;
 
 /**
  *

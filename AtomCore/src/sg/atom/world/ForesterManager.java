@@ -26,7 +26,7 @@ import forester.grass.datagrids.MapGrid;
 import forester.image.FormatReader.Channel;
 import forester.trees.TreeLayer;
 import forester.trees.TreeLoader;
-import sg.atom.core.StageManager;
+import sg.atom.stage.StageManager;
 import sg.atom.stage.WorldManager;
 
 /**

@@ -4,6 +4,7 @@
  */
 package sg.atom.gameplay;
 
+import sg.atom.gameplay.controls.AtomCharacterControl;
 import sg.atom.gameplay.actor.Actor;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;

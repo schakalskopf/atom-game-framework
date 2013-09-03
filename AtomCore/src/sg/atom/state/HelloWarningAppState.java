@@ -3,7 +3,7 @@ package sg.atom.state;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import sg.atom.core.GameGUIManager;
+import sg.atom.ui.GameGUIManager;
 import sg.atom.core.AtomMain;
 
 /**

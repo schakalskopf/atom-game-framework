@@ -5,7 +5,7 @@
 package sg.atom.fx;
 
 import com.jme3.asset.AssetManager;
-import sg.atom.core.StageManager;
+import sg.atom.stage.StageManager;
 import sg.atom.fx.particle.ParticleFactory;
 
 /**

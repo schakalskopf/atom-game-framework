@@ -4,7 +4,7 @@
  */
 package sg.atom.entity;
 
-import sg.atom.core.StageManager;
+import sg.atom.stage.StageManager;
 import sg.atom.stage.WorldManager;
 
 /**

@@ -33,8 +33,8 @@ public class ParticleFactory {
         flame.setSelectRandomImage(true);
         flame.setStartColor(new ColorRGBA(1f, 0.4f, 0.05f, (float) (1f / COUNT_FACTOR_F)));
         flame.setEndColor(new ColorRGBA(.4f, .22f, .12f, 0f));
-        flame.setStartSize(4.3f);
-        flame.setEndSize(10f);
+        flame.setStartSize(2f);
+        flame.setEndSize(4f);
         flame.setShape(new EmitterSphereShape(Vector3f.ZERO, 1f));
         flame.setParticlesPerSec(30);
         flame.setGravity(0, 1, 0);
@@ -233,10 +233,33 @@ public class ParticleFactory {
         explosion.attachChild(debris);
         explosion.attachChild(shockwave);
 
-        explosion.addControl(new ExplosionNodeControl());
-
         return explosion;
     }
 
-    
+
+    public void onEffect(ParticleEmitter ef) {
+        if (ef != null) {
+            ef.emitAllParticles();
+            ef.setEnabled(true);
+        }
+    }
+
+    public void onEffects(ParticleEmitter[] efs) {
+        for (ParticleEmitter ef : efs) {
+            onEffect(ef);
+        }
+    }
+
+    public void shutEffects(ParticleEmitter[] efs) {
+        for (ParticleEmitter ef : efs) {
+            shutEffect(ef);
+        }
+    }
+
+    public void shutEffect(ParticleEmitter ef) {
+        if (ef != null) {
+            ef.killAllParticles();
+            ef.setEnabled(false);
+        }
+    }
 }

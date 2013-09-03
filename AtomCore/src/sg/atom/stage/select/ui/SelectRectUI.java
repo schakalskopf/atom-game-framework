@@ -11,7 +11,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.ui.Picture;
-import sg.atom.core.GameGUIManager;
+import sg.atom.ui.GameGUIManager;
 import sg.atom.stage.select.SelectUI;
 
 /**
