@@ -6,7 +6,7 @@ package sg.atom.core.asset;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class AssetTracker {
     

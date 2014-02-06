@@ -12,7 +12,7 @@ import com.jme3.scene.control.Control;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class SpatialSelectControl extends AbstractControl {
 

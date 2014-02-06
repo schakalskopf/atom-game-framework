@@ -9,7 +9,7 @@ import sg.atom.entity.Entity;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public interface SelectListener {
 

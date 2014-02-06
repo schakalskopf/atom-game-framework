@@ -4,24 +4,36 @@
  */
 package sg.atom.core;
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
-import groovy.util.GroovyScriptEngine;
-import groovy.util.ResourceException;
-import groovy.util.ScriptException;
+import com.google.common.collect.Multimap;
+import com.jme3.scene.Spatial;
+import java.util.Properties;
+import javax.script.CompiledScript;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import org.codehaus.groovy.control.CompilerConfiguration;
+import sg.atom.core.lifecycle.IGameCycle;
 import sg.atom.stage.StageManager;
 
 /**
+ * ScriptManager manage script (facade) for GameObjects, Settings with Groovy
+ * (and others).
  *
- * @author hungcuong
+ * Support dynamic/obsevered script binding and loading and watching specific
+ * script folders
+ *
+ * @author atomix
  */
-public class ScriptManager {
+public class ScriptManager implements IGameCycle {
 
+    private ScriptEngineManager factory;
+    private ScriptEngine genericScriptEngine;
     private final StageManager stageManager;
-    public GroovyScriptEngine gse;
-    public Binding binding;
-    public GroovyShell shell;
+    // Scripts folder
+    public static String DEFAULT_SCRIPT_FOLDER = "/Scripts";
+    public String scriptFolder = "src/mygame/script";
+    public String[] scriptRoots = new String[]{scriptFolder};
+    // Management
+    protected Multimap<Spatial, CompiledScript> spatialScriptMap;
 
     public ScriptManager(StageManager stageManager) {
         this.stageManager = stageManager;
@@ -31,34 +43,66 @@ public class ScriptManager {
         // For the script
         initScriptEngine();
         initCineScript();
-
     }
 
     private void initCineScript() {
-        try {
-            // run the Script to Setup Cinematic
-            gse.run("CineScript1.groovy", binding);
-        } catch (ResourceException ex) {
-        } catch (ScriptException ex) {
-        }
+        /*
+         try {
+         // run the Script to Setup Cinematic
+         //gse.run("", binding);
+         } catch (ResourceException ex) {
+         } catch (ScriptException ex) {
+         }
+         */
     }
 
     void initScriptEngine() {
-
         CompilerConfiguration compiler = new CompilerConfiguration();
+        // The Engine
+    }
 
+    void initCommonBinding() {
+    }
+
+    void setBaseClassForScript() {
         //compiler.setScriptBaseClass("jme3test.animation.CinematicScriptBaseClass");
-
-        binding = new Binding();
-
-
+        //binding = new Binding();
         // The shell
         //shell = new GroovyShell(this.getClass().getClassLoader(), binding, compiler);
+    }
 
-        // The Engine
-        String[] roots = new String[]{"src/mygame/script"};
+    @Override
+    public void init() {
+        initScriptEngine();
+    }
 
+    @Override
+    public void load() {
+        loadScriptFiles();
+    }
 
+    @Override
+    public void config(Properties props) {
+    }
 
+    @Override
+    public void update(float tpf) {
+    }
+
+    @Override
+    public void finish() {
+    }
+
+    @Override
+    public LifeCyclePhase getCurrentPhase() {
+        return null;
+    }
+
+    @Override
+    public float getProgressPercent(LifeCyclePhase aPhrase) {
+        return 0;
+    }
+
+    private void loadScriptFiles() {
     }
 }

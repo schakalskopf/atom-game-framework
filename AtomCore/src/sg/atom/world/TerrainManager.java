@@ -12,41 +12,41 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Node;
 import com.jme3.terrain.geomipmap.TerrainLodControl;
-import com.jme3.terrain.geomipmap.TerrainQuad;
-import com.jme3.terrain.geomipmap.lodcalc.DistanceLodCalculator;
 import com.jme3.terrain.heightmap.AbstractHeightMap;
+import com.jme3.terrain.heightmap.HillHeightMap;
 import com.jme3.terrain.heightmap.ImageBasedHeightMap;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 import java.util.ArrayList;
 import java.util.List;
 import sg.atom.stage.WorldManager;
+import sg.atom.world.terrain.GenericTerrain;
+import sg.atom.world.terrain.TerrainQuadAdapter;
 
 /**
+ * TerrainManager, Factory, Wrapper for useful functions for terrain
  *
- * @author cuong.nguyenmanh2
+ * @author atomix
  */
 public class TerrainManager {
 
-    WorldManager worldManager;
-    private AssetManager assetManager;
-    private Node rootNode;
-    private TerrainQuad terrain;
-    Material matRock;
-    Material matTerrain;
-    Material matWire;
-    boolean wireframe = false;
-    boolean triPlanar = false;
-    private float grassScale = 64;
-    private float dirtScale = 16;
-    private float rockScale = 128;
+    protected WorldManager worldManager;
+    protected AssetManager assetManager;
+    protected Node rootNode;
+    protected GenericTerrain terrain;
+    //Material FIXME: Should be more generic!
+    protected Material matTerrain;
+    protected Material matWire;
+    // Display
+    protected boolean wireframe = false;
+    protected boolean triPlanar = false;
+    //Manipulating
     public boolean raiseTerrain = false;
     public boolean lowerTerrain = false;
 
@@ -55,54 +55,68 @@ public class TerrainManager {
         this.rootNode = worldManager.getRootNode();
         this.assetManager = worldManager.getAssetManager();
     }
+    /* Creation */
 
-    public void createSampleTerrain(int patchSize,int totalSize) {
-        // First, we load up our textures and the heightmap texture for the terrain
+    public void createTerrain(Object... params) {
+    }
+
+    public Material createSampleMaterial() {
+        // Scaling
+        float grassScale = 64;
+        float dirtScale = 16;
+        float rockScale = 128;
 
         // TERRAIN TEXTURE material
-        matRock = new Material(assetManager, "Common/MatDefs/Terrain/Terrain.j3md");
-        matRock.setBoolean("useTriPlanarMapping", false);
+        Material matTerrain = new Material(assetManager, "Common/MatDefs/Terrain/Terrain.j3md");
+        matTerrain.setBoolean("useTriPlanarMapping", false);
 
         // ALPHA map (for splat textures)
-        matRock.setTexture("Alpha", assetManager.loadTexture("Textures/Terrain/splat/alphamap.png"));
-
-        // HEIGHTMAP image (for the terrain heightmap)
-        Texture heightMapImage = assetManager.loadTexture("Textures/Terrain/splat/mountains512.png");
+        matTerrain.setTexture("Alpha", assetManager.loadTexture("Textures/Terrain/splat/alphamap.png"));
 
         // GRASS texture
-        Texture grass = assetManager.loadTexture("Textures/Terrain/splat/grass.jpg");
-        grass.setWrap(WrapMode.Repeat);
-        matRock.setTexture("Tex1", grass);
-        matRock.setFloat("Tex1Scale", grassScale);
+        Texture grassTex = assetManager.loadTexture("Textures/Terrain/splat/grass.jpg");
+        grassTex.setWrap(WrapMode.Repeat);
+        matTerrain.setTexture("Tex1", grassTex);
+        matTerrain.setFloat("Tex1Scale", grassScale);
 
         // DIRT texture
-        Texture dirt = assetManager.loadTexture("Textures/Terrain/splat/dirt.jpg");
-        dirt.setWrap(WrapMode.Repeat);
-        matRock.setTexture("Tex2", dirt);
-        matRock.setFloat("Tex2Scale", dirtScale);
+        Texture dirtTex = assetManager.loadTexture("Textures/Terrain/splat/dirt.jpg");
+        dirtTex.setWrap(WrapMode.Repeat);
+        matTerrain.setTexture("Tex2", dirtTex);
+        matTerrain.setFloat("Tex2Scale", dirtScale);
 
         // ROCK texture
-        Texture rock = assetManager.loadTexture("Textures/Terrain/splat/road.jpg");
-        rock.setWrap(WrapMode.Repeat);
-        matRock.setTexture("Tex3", rock);
-        matRock.setFloat("Tex3Scale", rockScale);
+        Texture rockTex = assetManager.loadTexture("Textures/Terrain/splat/road.jpg");
+        rockTex.setWrap(WrapMode.Repeat);
+        matTerrain.setTexture("Tex3", rockTex);
+        matTerrain.setFloat("Tex3Scale", rockScale);
 
-        // WIREFRAME material
-        matWire = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        matWire.getAdditionalRenderState().setWireframe(true);
-        matWire.setColor("Color", ColorRGBA.Green);
+        return matTerrain;
+    }
 
-        // CREATE HEIGHTMAP
+    public AbstractHeightMap createSampleHeightMap(String type) {
         AbstractHeightMap heightmap = null;
         try {
-            //heightmap = new HillHeightMap(1025, 1000, 50, 100, (byte) 3);
-
-            heightmap = new ImageBasedHeightMap(heightMapImage.getImage(), 1f);
-            heightmap.load();
-
+            if (type != null) {
+                heightmap = new HillHeightMap(1025, 1000, 50, 100, (byte) 3);
+            } else {
+                // HEIGHTMAP image (for the terrain heightmap)
+                Texture heightMapImage = assetManager.loadTexture("Textures/Terrain/splat/mountains512.png");
+                // CREATE HEIGHTMAP
+                heightmap = new ImageBasedHeightMap(heightMapImage.getImage(), 1f);
+                heightmap.load();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return heightmap;
+    }
+
+    public void createSampleTerrain(int patchSize, int totalSize) {
+        // First, we load up our textures and the heightmap texture for the terrain
+        this.matTerrain = createSampleMaterial();
+        AbstractHeightMap heightmap = createSampleHeightMap(null);
+        matWire = MaterialManager.getDefaultInstance(assetManager).getWireFrameMat();
 
         /*
          * Here we create the actual terrain. The tiles will be 65x65, and the total size of the
@@ -114,19 +128,17 @@ public class TerrainManager {
          * got really slow. But that is a jump from 2 million to 8 million
          * triangles...
          */
-        terrain = new TerrainQuad("terrain", patchSize, totalSize, heightmap.getHeightMap());
+        terrain = new TerrainQuadAdapter("terrain", patchSize, totalSize, heightmap.getHeightMap());
 
-        terrain.setMaterial(matRock);
+        terrain.setMaterial(matTerrain);
         //terrain.setLocalTranslation(0, -100, 0);
-        terrain.setLocalScale(2f, 1f, 2f);
+        //terrain.setLocalScale(2f, 1f, 2f);
         terrain.setShadowMode(ShadowMode.Receive);
-
-
     }
 
     public void loadTerrain() {
         // Terrain
-        terrain = SceneGraphHelper.findTerrain(worldManager.getLevelNode());
+        terrain = SceneGraphHelper.findGenericTerrain(worldManager.getLevelNode());
         if (terrain == null) {
             throw new RuntimeException("Can not find Terrain in this Level !");
         }
@@ -137,10 +149,11 @@ public class TerrainManager {
 
         // Add new TerrainLodControl
         if (terrain.getControl(TerrainLodControl.class) != null) {
-
-            TerrainLodControl control = new TerrainLodControl(terrain, cam);
-            control.setLodCalculator(new DistanceLodCalculator(65, 2.7f)); // patch size, and a multiplier
-            terrain.addControl(control);
+            /*
+             TerrainLodControl control = new TerrainLodControl(terrain, cam);
+             control.setLodCalculator(new DistanceLodCalculator(65, 2.7f)); // patch size, and a multiplier
+             terrain.addControl(control);
+             */
         }
     }
 
@@ -177,7 +190,7 @@ public class TerrainManager {
         return terrain.getHeight(pos2f);
     }
 
-    public TerrainQuad getTerrain() {
+    public GenericTerrain getTerrain() {
         return terrain;
     }
 

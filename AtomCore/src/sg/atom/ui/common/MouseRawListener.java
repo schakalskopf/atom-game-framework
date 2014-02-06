@@ -14,7 +14,7 @@ import com.jme3.input.event.TouchEvent;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public abstract class MouseRawListener implements RawInputListener {
 

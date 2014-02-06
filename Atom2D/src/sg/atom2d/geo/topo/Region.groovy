@@ -9,7 +9,7 @@ package sg.atom2d.geo.topo
  *
  * @author cuong.nguyenmanh2
  */
-class Region {
+public class Region {
 	
 }
 

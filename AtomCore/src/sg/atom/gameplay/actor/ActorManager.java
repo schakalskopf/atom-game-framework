@@ -5,18 +5,17 @@
 package sg.atom.gameplay.actor;
 
 /**
+ * ActorManager retain a list of Actors and provide a concurent workspace
+ * enviroment.
  *
- * @author hungcuong
+ * FIXME: ServiceManager or ActorManager?
+ *
+ * @author atomix
  */
 public class ActorManager {
 
     private int totalId = -1;
 
-    public void addFriend() {
-    }
-
-    public void addEnemy() {
-    }
     public long getNewGlobalId() {
         return totalId++;
     }

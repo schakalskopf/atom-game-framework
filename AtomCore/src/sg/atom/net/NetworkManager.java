@@ -2,7 +2,7 @@ package sg.atom.net;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 /*
  * NetworkManager . Represent the manager for all Network activites.

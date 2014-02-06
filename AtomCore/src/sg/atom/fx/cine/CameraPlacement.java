@@ -6,7 +6,7 @@ package sg.atom.fx.cine;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class CameraPlacement {
     

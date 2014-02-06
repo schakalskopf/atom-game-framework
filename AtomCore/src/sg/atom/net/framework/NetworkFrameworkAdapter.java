@@ -6,7 +6,7 @@ package sg.atom.net.framework;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class NetworkFrameworkAdapter {
     

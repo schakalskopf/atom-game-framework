@@ -4,15 +4,25 @@
  */
 package sg.atom.gameplay;
 
-import sg.atom.gameplay.actor.Actor;
+import com.jme3.app.Application;
+import sg.atom.core.AbstractManager;
 
 /**
+ * GameAction is a unit of execution for the GameStage level.
  *
- * @author hungcuong
+ * <p>This implementation work upon existed JME3 architecture of GameLoop and
+ * open the possibilites to modern Actor architecture.</p>
+ *
+ * <p>The connection between Actor and Action going to be clarify after doing
+ * better research about Actor framework such as AKKA!</p>
+ *
+ * FIXME: Move GameAction to AKKA
+ *
+ * @author atomix
  */
 public abstract class GameAction {
 
-    public abstract boolean canDo(Actor who);
+    public abstract void init(Application app, AbstractManager... managers);
 
     public abstract void actionStart();
 

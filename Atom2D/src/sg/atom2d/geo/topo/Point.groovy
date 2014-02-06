@@ -6,10 +6,19 @@
 package sg.atom2d.geo.topo
 
 /**
- *
+ * Meta class!
  * @author cuong.nguyenmanh2
  */
-class Point {
-	
+public class Point {
+    def x,y,z
+    public Point (x,y){
+        this.x=x;
+        this.y=y;
+    }
+    public Point(x,y,z){
+        this.x=x;
+        this.y=y;
+        this.z=z;
+    }
 }
 

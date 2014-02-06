@@ -16,7 +16,7 @@ import sg.atom.core.AtomMain;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class MainMenuAppState extends AbstractAppState {
 

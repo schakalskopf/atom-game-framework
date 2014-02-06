@@ -9,7 +9,7 @@ package sg.atom2d.geo.structure.topo
  *
  * @author cuong.nguyenmanh2
  */
-class Line {
+public class Line {
 	
 }
 

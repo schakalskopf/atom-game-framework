@@ -14,7 +14,7 @@ import sg.atom.stage.WorldManager;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class SoundManager {
     
@@ -35,6 +35,9 @@ public class SoundManager {
         this.assetManager = app.getAssetManager();
     }
     
+    public void initSound(){
+        
+    }
     public void setupAudios(){
         
     }

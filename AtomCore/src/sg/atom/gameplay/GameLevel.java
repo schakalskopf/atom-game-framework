@@ -1,18 +1,34 @@
 package sg.atom.gameplay;
 
-import sg.atom.gameplay.score.ScoreInfo;
+import com.jme3.app.Application;
+import com.jme3.asset.AssetManager;
+import sg.atom.stage.GameScene;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.control.Control;
+import java.util.Properties;
+import sg.atom.core.AbstractManager;
+import sg.atom.core.lifecycle.IGameCycle;
+import sg.atom.core.lifecycle.ManagableObject;
 import sg.atom.stage.WorldManager;
 
-public class GameLevel {
+/**
+ * GameLevel (Common Implementation) is a Common pattern seen in Game.
+ *
+ * <p>Each level represent as a challenge/quest associated with a
+ * scenery/enviroment for player to going through. Some game may have only one
+ * level (eg:Chess) so basiclly this implementation support simplest but
+ * expandable novel gameplay</p>
+ *
+ * @author cuong.nguyenmanh2
+ */
+public class GameLevel implements IGameCycle,ManagableObject{
 
     protected GamePlayManager gamePlayManager;
     protected WorldManager worldManager;
     protected Node levelNode;
-    protected RigidBodyControl control;
+    protected RigidBodyControl physicControl;
     protected LevelInfo info;
     protected GameScene currentScene;
     protected Vector3f startPos;
@@ -26,6 +42,7 @@ public class GameLevel {
     }
 
     public void loadLevel() {
+        preLoadLevel();
         if (info.levelModelPath != null && !info.levelModelPath.isEmpty()) {
             levelNode = (Node) worldManager.getAssetManager().loadModel(info.levelModelPath);
             if (levelNode.getChild("startNode") != null) {
@@ -36,11 +53,14 @@ public class GameLevel {
             }
         } else {
             levelNode = new Node("emptyLevelNode");
-            //levelNode = worldManager.createSimpleGridLevel();
         }
+        postLoadLevel();
     }
 
     public void simpleUpdate(float tpf) {
+    }
+
+    public void preLoadLevel() {
     }
 
     public void postLoadLevel() {
@@ -55,7 +75,7 @@ public class GameLevel {
     }
 
     public Control getCollisionControl() {
-        return control;
+        return physicControl;
     }
 
     public GameScene getCurrentScene() {
@@ -68,5 +88,59 @@ public class GameLevel {
 
     public void setStartPos(Vector3f startPos) {
         this.startPos = startPos;
+    }
+
+    public LevelInfo getInfo() {
+        return info;
+    }
+
+    @Override
+    public void init() {
+        
+    }
+
+    @Override
+    public void load() {
+        loadLevel();
+    }
+
+    @Override
+    public void config(Properties props) {
+        
+    }
+
+    @Override
+    public void update(float tpf) {
+        simpleUpdate(tpf);
+    }
+
+    @Override
+    public void finish() {
+        
+    }
+
+    @Override
+    public LifeCyclePhase getCurrentPhase() {
+        return null;
+    }
+
+    @Override
+    public float getProgressPercent(LifeCyclePhase aPhrase) {
+        return 0;
+    }
+
+    @Override
+    public void init(Application app, AbstractManager... managers) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void load(AssetManager assetManager) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void config(Object... params) {
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 }

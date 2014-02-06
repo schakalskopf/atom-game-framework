@@ -3,64 +3,87 @@ package sg.atom.stage;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioRenderer;
 import com.jme3.input.InputManager;
-import com.jme3.input.KeyInput;
-import com.jme3.input.controls.KeyTrigger;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sg.atom.core.AbstractManager;
 import sg.atom.core.AtomMain;
+import sg.atom.core.lifecycle.IGameCycle;
 import sg.atom.ui.GameGUIManager;
-import sg.atom.core.lifecycle.ProcessInfo;
+import sg.atom.core.lifecycle.ProgressInfo;
+import sg.atom.core.timing.TimeProvider;
 import sg.atom.entity.EntityManager;
 import sg.atom.fx.GameEffectManager;
 import sg.atom.fx.ScreenEffectManager;
 import sg.atom.gameplay.GameLevel;
 import sg.atom.gameplay.GamePlayManager;
-import sg.atom.stage.SelectManager;
-import sg.atom.stage.WorldManager;
 
 /**
- * <i>Stage is the place where Actors do the performance.</i><br> StageManager in charge for all aspects of the game
- * <br>(1) Input, action, logic and stragegy of the game<br> (2)Control the camera and cinematic , also manage game
- * data,gameplay and players.<br>
+ * <i>Stage is the place where Actors do the performance.</i><br> StageManager
+ * in charge for all aspects of the game
  *
- * <p>It's a high level manager and doesn't directly do render and display jobs. Of course, it has sub-Manager(s) to
- * help the job done in specific aspects <ul> <li> initStage : prepare all the sub-Manager(s)</li> <li> loadStage : load
- * the World so it's ready to be attached to the display</li> <li> configStage : extract infos from Level and entities
- * and the links between them</li> <li> attachStage : simple Attach things finishStage : finish touch</li> <li>
- * updateStage : update call of AppState and update all sub-Manager</li> <li> destroyStage : destroy and free everything
- * needed</li> </ul></p>
+ * </br>(1) Input, action, logic and stragegy of the game
+ *
+ * </br> (2)Control the camera and cinematic , also manage game data,gameplay
+ * and players.</br>
+ *
+ * <p>It's a high level manager and doesn't directly do render and display jobs.
+ * Of course, it has sub-Manager(s) to help the job done in specific aspects
+ *
+ * <ul> <li> initStage : prepare all the sub-Manager(s)</li>
+ *
+ * <li> loadStage : load the World so it's ready to be attached to the
+ * display</li>
+ *
+ * <li> configStage : extract infos from Level and entities and the links
+ * between them</li>
+ *
+ * <li> attachStage : simple Attach things finishStage : finish touch</li>
+ *
+ * <li> updateStage : update call of AppState and update all sub-Manager</li>
+ *
+ * <li> destroyStage : destroy and free everything needed</li> </ul></p>
  */
-public class StageManager {
+public class StageManager extends AbstractManager implements TimeProvider, IGameCycle {
 
-    // short cut link
+    // Shortcut link to sub-managers
     protected AtomMain app;
     protected AssetManager assetManager;
     protected InputManager inputManager;
     protected WorldManager worldManager;
     protected GameGUIManager gameGUIManager;
     protected RenderManager renderManager;
+    protected GameEffectManager effectManager;
+    protected GamePlayManager gamePlayManager;
+    protected ScreenEffectManager screenEffectManager;
+    protected EntityManager entityManager;
+    protected SelectManager selectManager;
+    // Rendering
     protected Node rootNode;
     protected Node guiNode;
-    protected GameEffectManager effectManager;
     protected ViewPort viewPort;
-    protected ArrayList<GameLevel> gameLevelList = new ArrayList<GameLevel>();
-    protected GameLevel currentLevel;
-    protected GamePlayManager gamePlayManager;
+    // State and timming
     protected boolean initedStatus;
     protected boolean finished;
     protected boolean gamePaused;
     protected boolean resume;
-    protected ScreenEffectManager screenEffectManager;
-    protected EntityManager entityManager;
-    protected ProcessInfo currentProcess = new ProcessInfo("None");
-    protected SelectManager selectManager;
     protected float time = 0;
+    //Monitoring
+    protected ProgressInfo currentProgress = new ProgressInfo("None");
+    //Gameplay
+    protected ArrayList<GameLevel> gameLevelList = new ArrayList<GameLevel>();
+    protected GameLevel currentLevel;
+
+    public StageManager() {
+        //For use in singleton!
+    }
+
     public StageManager(AtomMain app) {
         this.app = app;
         this.rootNode = app.getRootNode();
@@ -73,8 +96,20 @@ public class StageManager {
         this.viewPort = app.getViewPort();
     }
 
-    public ProcessInfo getProcessInfo() {
-        return currentProcess;
+    public void lazyInit(AtomMain app) {
+        this.app = app;
+        this.rootNode = app.getRootNode();
+        this.guiNode = app.getGuiNode();
+        this.assetManager = app.getAssetManager();
+
+        this.inputManager = app.getInputManager();
+        this.gameGUIManager = app.getGameGUIManager();
+        this.renderManager = app.getRenderManager();
+        this.viewPort = app.getViewPort();
+    }
+
+    public ProgressInfo getProgressInfo() {
+        return currentProgress;
     }
     // ======== INIT STAGE =============
 
@@ -98,9 +133,15 @@ public class StageManager {
         worldManager.initWorld(currentLevel);
         selectManager = new SelectManager(this.gameGUIManager, this, getWorldManager());
         selectManager.init();
+        addSubManager(worldManager);
+        addSubManager(gamePlayManager);
+        addSubManager(gameGUIManager);
     }
     // ======== LOAD STAGE=============
 
+    /**
+     * Common implementation of a game Stage loading
+     */
     public void loadSettings() {
     }
 
@@ -110,21 +151,24 @@ public class StageManager {
     public void loadProfile() {
     }
 
+    /**
+     * Common implementation of a game Stage loading with monitoring
+     */
     public void loadStage() {
-        currentProcess.currentProgressName = "Settings";
-        currentProcess.currentProgressPercent = 0.1f;
+        currentProgress.currentProgressName = "Settings";
+        currentProgress.currentProgressPercent = 0.1f;
         loadSettings();
-        currentProcess.currentProgressName = "Data";
-        currentProcess.currentProgressPercent = 0.2f;
+        currentProgress.currentProgressName = "Data";
+        currentProgress.currentProgressPercent = 0.2f;
         loadData();
-        currentProcess.currentProgressName = "Profile";
-        currentProcess.currentProgressPercent = 0.3f;
+        currentProgress.currentProgressName = "Profile";
+        currentProgress.currentProgressPercent = 0.3f;
         loadProfile();
-        currentProcess.currentProgressName = "World";
-        currentProcess.currentProgressPercent = 0.4f;
+        currentProgress.currentProgressName = "World";
+        currentProgress.currentProgressPercent = 0.4f;
         worldManager.loadWorld();
-        currentProcess.currentProgressName = "Gameplay";
-        currentProcess.currentProgressPercent = 0.8f;
+        currentProgress.currentProgressName = "Gameplay";
+        currentProgress.currentProgressPercent = 0.8f;
         gamePlayManager.loadGamePlay();
 
     }
@@ -132,8 +176,6 @@ public class StageManager {
     // ======== CONFIG & SETUP STAGE=============
     void setupKeys() {
     }
-
-
 
     public void configStage() {
         worldManager.configWorld();
@@ -145,14 +187,10 @@ public class StageManager {
         configViewPort();
     }
 
-    void configFlyCam() {
-        //this.app.getFlyByCamera().setMoveSpeed(50f);
-        //inputManager.setCursorVisible(false);
-        //flyCam.setDragToRotate(false);
+    public void configFlyCam() {
     }
 
-    void configViewPort() {
-        //viewPort.setBackgroundColor(ColorRGBA.Blue);
+    public void configViewPort() {
     }
     // ======== ATTACH STAGE=============
 
@@ -197,11 +235,28 @@ public class StageManager {
         gamePlayManager.startLevel(currentLevel);
     }
 
+    // MONITORING
     public boolean isReadyToPlay() {
         return finished;
     }
-    // ======== SETTER & GETTER =============
 
+    public boolean isCompleted(String phase, String actionName) {
+        return finished;
+    }
+
+    public boolean isCompleted(String phaseName) {
+        return finished;
+    }
+
+    public float getProgressPercent(String phaseName) {
+        return 0;
+    }
+
+    public ProgressInfo getCurrentProcess() {
+        return currentProgress;
+    }
+
+    // ======== SETTER & GETTER =============
     public AtomMain getApp() {
         return this.app;
     }
@@ -274,5 +329,40 @@ public class StageManager {
     public float getTime() {
         return time;
     }
-    
+    //===CYCLE============
+
+    @Override
+    public void init() {
+        initStage();
+    }
+
+    @Override
+    public void load() {
+        loadStage();
+    }
+
+    @Override
+    public void config(Properties props) {
+        configStage();
+    }
+
+    @Override
+    public void update(float tpf) {
+        updateStage(tpf);
+    }
+
+    @Override
+    public void finish() {
+        finishStage();
+    }
+
+    @Override
+    public LifeCyclePhase getCurrentPhase() {
+        return null;
+    }
+
+    @Override
+    public float getProgressPercent(LifeCyclePhase aPhrase) {
+        return 0;
+    }
 }

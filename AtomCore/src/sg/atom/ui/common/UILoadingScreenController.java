@@ -15,7 +15,7 @@ import sg.atom.ui.GameGUIManager;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class UILoadingScreenController implements ScreenController {
 

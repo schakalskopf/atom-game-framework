@@ -6,8 +6,8 @@ package sg.atom.world.gen;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
-public class WorldGenerator {
+public interface WorldGenerator {
     
 }

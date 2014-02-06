@@ -5,9 +5,13 @@
 package sg.atom.core.config;
 
 /**
+ * Common implementation
  *
- * @author cuong.nguyenmanh2
+ * @author atomix
  */
-public class SoundSettings {
-    
+public class SoundSettings  extends GameSettings{
+    public float soundVolume;
+    public float musicVolume;
+    public boolean muted;
+    public String quality;
 }

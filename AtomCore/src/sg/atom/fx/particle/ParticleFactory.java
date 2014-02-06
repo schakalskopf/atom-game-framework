@@ -13,16 +13,19 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
+import sg.atom.utils.factory.AtomFactory;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
-public class ParticleFactory {
-
+public class ParticleFactory implements AtomFactory<ParticleEmitter>{
+    private AssetManager assetManager;
+    
+    /* Constants */
     private static final int COUNT_FACTOR = 1;
     private static final float COUNT_FACTOR_F = 1f;
-    private AssetManager assetManager;
+
 
     public ParticleFactory(AssetManager assetManager) {
         this.assetManager = assetManager;
@@ -261,5 +264,20 @@ public class ParticleFactory {
             ef.killAllParticles();
             ef.setEnabled(false);
         }
+    }
+
+    @Override
+    public ParticleEmitter create(Object param) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public ParticleEmitter create(Object... params) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public ParticleEmitter cloneObject(ParticleEmitter orginal) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

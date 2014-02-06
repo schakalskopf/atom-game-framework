@@ -4,10 +4,18 @@
  */
 package sg.atom.gameplay.league;
 
+import java.util.ArrayList;
+import sg.atom.gameplay.player.Player;
+
 /**
+ * A named group of players, ultilty for using player management. Search,filters
+ * etc
  *
- * @author cuong.nguyenmanh2
+ * @author atomix
  */
-public class GameGroup {
-    
+public class GameGroup<T extends Player> {
+
+    public Integer id;
+    public String name;
+    public ArrayList<T> members;
 }

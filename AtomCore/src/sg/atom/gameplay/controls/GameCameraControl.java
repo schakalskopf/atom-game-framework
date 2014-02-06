@@ -6,7 +6,7 @@ package sg.atom.gameplay.controls;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class GameCameraControl {
     

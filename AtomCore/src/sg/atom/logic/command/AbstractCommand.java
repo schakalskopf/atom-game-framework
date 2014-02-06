@@ -10,7 +10,7 @@ import sg.atom.stage.WorldManager;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 /**
  *

@@ -8,21 +8,22 @@ import com.jme3.asset.AssetManager;
 import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.scene.Node;
-
+import java.util.Properties;
 import java.util.logging.Logger;
-import sg.atom.ui.GameGUIManager;
-import sg.atom.gameplay.GameLevel;
-import sg.atom.gameplay.player.Player;
+import sg.atom.core.AbstractManager;
 import sg.atom.core.AtomMain;
+import sg.atom.core.lifecycle.IGameCycle;
+import sg.atom.gameplay.player.Player;
 import sg.atom.stage.StageManager;
 import sg.atom.stage.WorldManager;
+import sg.atom.ui.GameGUIManager;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  * @param GamePlayManager is
  */
-public class GamePlayManager {
+public class GamePlayManager extends AbstractManager implements IGameCycle {
     // the Global var
 
     protected AtomMain app;
@@ -35,7 +36,6 @@ public class GamePlayManager {
     protected StageManager stageManager;
     //        
     // Level --------------------------------------------------
-
     protected GameLevel currentLevel;
     protected Player mainPlayer;
     private static final Logger logger = Logger.getLogger(GamePlayManager.class.getName());
@@ -51,12 +51,27 @@ public class GamePlayManager {
     // + Spawning of enemies
     // Sub-manager
     // Item Manager: Place and manage items and adward
+    protected GamePlayManager() {
+        //For singleton!
+    }
+
     public GamePlayManager(AtomMain app) {
         this.app = app;
         this.assetManager = app.getAssetManager();
         this.inputManager = app.getInputManager();
         this.stageManager = app.getStageManager();
         this.gameGUIManager = app.getGameGUIManager();
+    }
+
+    public void lazyInit(AtomMain app) {
+        this.app = app;
+        this.assetManager = app.getAssetManager();
+        this.inputManager = app.getInputManager();
+        this.stageManager = app.getStageManager();
+        this.gameGUIManager = app.getGameGUIManager();
+    }
+    public void initGamePlay() {
+        initGamePlay(null);
     }
 
     public void initGamePlay(GameLevel level) {
@@ -107,9 +122,11 @@ public class GamePlayManager {
     public WorldManager getWorldManager() {
         return stageManager.getWorldManager();
     }
+
     public StageManager getStageManager() {
         return stageManager;
     }
+
     public GameLevel getCurrentLevel() {
         return currentLevel;
     }
@@ -124,5 +141,34 @@ public class GamePlayManager {
 
     public Player getCurrentPlayer() {
         return mainPlayer;
+    }
+
+    @Override
+    public void init() {
+        initGamePlay();
+    }
+
+    @Override
+    public void load() {
+        loadGamePlay();
+    }
+
+    @Override
+    public void config(Properties props) {
+        configGamePlay();
+    }
+
+    @Override
+    public void finish() {
+    }
+
+    @Override
+    public LifeCyclePhase getCurrentPhase() {
+        return null;
+    }
+
+    @Override
+    public float getProgressPercent(LifeCyclePhase aPhrase) {
+        return 0;
     }
 }

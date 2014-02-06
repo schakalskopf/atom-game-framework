@@ -1,6 +1,6 @@
 package atom.managex.select;
 
-import atom.corex.spatial.SpatialList;
+import atom.corex.scenegraph.spatial.SpatialList;
 import com.jme3.scene.Spatial;
 
 /**

@@ -12,7 +12,7 @@ import sg.atom.stage.SelectManager;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class HoverFunction {
 

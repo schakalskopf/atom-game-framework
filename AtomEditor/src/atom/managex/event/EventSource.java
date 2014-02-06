@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @author Peter Eastman
  */
-
+@Deprecated
 public class EventSource
 {
   protected ArrayList eventLinks;

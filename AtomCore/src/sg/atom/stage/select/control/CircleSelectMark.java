@@ -24,7 +24,7 @@ import sg.atom.stage.select.SpatialSelectControl;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class CircleSelectMark extends SpatialSelectControl {
     

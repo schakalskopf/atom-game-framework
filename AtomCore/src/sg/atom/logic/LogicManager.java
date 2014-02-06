@@ -4,10 +4,25 @@
  */
 package sg.atom.logic;
 
+@Deprecated
 /**
+ * FIXME: Should be AppState and replaced with loose couple version with Guava
+ * predicate and Eventbus
  *
- * @author hungcuong
+ * As Logic Factory : create, compose, validate
+ *
+ * As Logic Manager : manage list As Logic Event Handler : broadcast
+ *
+ * @author atomix
+ *
  */
 public class LogicManager {
-    
+
+    public boolean create() {
+        return true;
+    }
+
+    public boolean compose() {
+        return true;
+    }
 }

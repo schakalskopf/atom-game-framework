@@ -4,10 +4,17 @@
  */
 package sg.atom.gameplay.league;
 
+import java.util.ArrayList;
+import sg.atom.core.AtomMain;
+import sg.atom.gameplay.player.Player;
+
 /**
- *
- * @author cuong.nguyenmanh2
+ * 
+ * @author atomix
  */
-public class GameRoom {
-    
+public class GameRoom<A extends AtomMain, T extends Player> {
+
+    public Integer id;
+    public String name;
+    public ArrayList<T> members;
 }

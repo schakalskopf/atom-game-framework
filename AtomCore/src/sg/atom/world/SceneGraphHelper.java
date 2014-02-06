@@ -4,8 +4,6 @@ package sg.atom.world;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.SceneGraphVisitor;
@@ -14,13 +12,17 @@ import com.jme3.scene.control.Control;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import java.util.Iterator;
 import java.util.List;
+import sg.atom.world.terrain.GenericTerrain;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class SceneGraphHelper {
 
+    private static Control controlResult = null;
+
+    /* Travel recusively*/
     public static Spatial travelUpFindControl(Spatial sp, Class<? extends Control> aClass) {
         if (sp.getControl(aClass) == null) {
             if (sp.getParent() != null) {
@@ -32,12 +34,10 @@ public class SceneGraphHelper {
             return sp;
         }
     }
-    static Control controlResult = null;
 
     public static <T extends Control> T travelDownFindFirstControl(Spatial sp, final Class<T> aClass) {
         controlResult = null;
         sp.breadthFirstTraversal(new SceneGraphVisitor() {
-
             @Override
             public void visit(Spatial spatial) {
                 if (spatial.getControl(aClass) != null) {
@@ -83,7 +83,6 @@ public class SceneGraphHelper {
     public static Spatial findSpatialByName(final String name, Node parent, final boolean useReg) {
 
         parent.breadthFirstTraversal(new SceneGraphVisitor() {
-
             public void visit(Spatial spatial) {
                 if (useReg) {
                     if (spatial.getName().matches(name)) {
@@ -159,6 +158,18 @@ public class SceneGraphHelper {
                 return (TerrainQuad) child;
             } else if (child instanceof Node) {
                 return findTerrain((Node) child);
+            }
+
+        }
+        return null;
+    }
+
+    public static GenericTerrain findGenericTerrain(Node node) {
+        for (Spatial child : node.getChildren()) {
+            if (child instanceof GenericTerrain) {
+                return (GenericTerrain) child;
+            } else if (child instanceof Node) {
+                return findGenericTerrain((Node) child);
             }
 
         }

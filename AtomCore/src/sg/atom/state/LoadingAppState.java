@@ -35,7 +35,8 @@ import sg.atom.ui.common.UILoadingScreenController;
  *
  * <li><b>nextState()</b> can also be overide change to the next State
  *
- * @author cuong.nguyenmanh2
+ * FIXME: Use Guava Monitor instead of loadComplete boolean!
+ * @author atomix
  */
 public class LoadingAppState extends AbstractAppState {
 
@@ -43,12 +44,13 @@ public class LoadingAppState extends AbstractAppState {
     protected GameGUIManager gameGUIManager;
     protected StageManager stageManager;
     UILoadingScreenController guiController;
+    // Manage the concurrency loading via thread. FIXME: Change to multi Task with GPars
     protected boolean threadStarted;
     protected float oldPercent = -1f;
     protected boolean loadComplete = false;
     /* This constructor creates a new executor with a core pool size of 4. */
     protected ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(4);
-//The future that is used to check the execution status:
+    //FIXME: The future that is used to check the execution status. Change to ListenableFuture!
     protected Future loadStageTask = null;
     protected Future updateProgressBarTask = null;
 
@@ -102,7 +104,7 @@ public class LoadingAppState extends AbstractAppState {
     @Override
     public void update(float tpf) {
         super.update(tpf);
-
+        // FIXME: Change to Guava Listenable Future
         if (isEnabled()) {
 
             // If not load yet

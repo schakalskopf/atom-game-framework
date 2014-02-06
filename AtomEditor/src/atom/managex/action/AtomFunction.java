@@ -8,12 +8,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ * Description of an Action. Different from AWT implemenatation!
+ * 
  * @author cuong.nguyenmanh2
  */
 public class AtomFunction {
 
-    LinkedList<AtomAction> actionList = new LinkedList<AtomAction>();
+    LinkedList<AtomEditorAction> actionList = new LinkedList<AtomEditorAction>();
     String name;
     String description;
     String icon;
@@ -34,11 +35,11 @@ public class AtomFunction {
         this.icon = icon;
     }
 
-    public List<AtomAction> getActionList() {
+    public List<AtomEditorAction> getActionList() {
         return actionList;
     }
 
-    public void setActionList(LinkedList<AtomAction> actionList) {
+    public void setActionList(LinkedList<AtomEditorAction> actionList) {
         this.actionList = actionList;
     }
 

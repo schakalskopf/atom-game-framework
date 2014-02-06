@@ -10,7 +10,7 @@ package atom.managex.action;
  */
 public class UndoRedoSystem {
 
-    public void undo(AtomAction action) {
+    public void undo(AtomEditorAction action) {
         //action.getCommand().undo();
     }
 }

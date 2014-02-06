@@ -17,7 +17,7 @@ import java.util.Properties;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class UILoadingBarController implements Controller {
 

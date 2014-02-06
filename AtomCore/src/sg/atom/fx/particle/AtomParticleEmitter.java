@@ -686,7 +686,7 @@ public class AtomParticleEmitter extends AtomParticle {
         if (worldSpace) {
             worldTransform.transformVector(p.position, p.position);
             worldTransform.getRotation().mult(p.velocity, p.velocity);
-            // TODO: Make scale relevant somehow??
+            //TODO:: Make scale relevant somehow??
         }
         if (randomAngle) {
             p.angle = FastMath.nextRandomFloat() * FastMath.TWO_PI;

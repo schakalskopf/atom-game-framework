@@ -2,7 +2,7 @@ package sg.atom.core.event;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class GameEventQueue {
     

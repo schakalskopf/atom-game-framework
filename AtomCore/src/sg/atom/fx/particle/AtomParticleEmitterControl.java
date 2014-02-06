@@ -14,7 +14,7 @@ import java.io.IOException;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class AtomParticleEmitterControl implements Control {
 

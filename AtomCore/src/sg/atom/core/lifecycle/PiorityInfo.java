@@ -6,7 +6,10 @@ package sg.atom.core.lifecycle;
 
 /**
  *
- * @author cuong.nguyenmanh2
+ * @author atomix
  */
 public class PiorityInfo {
+    // Piorty sort by weight!
+    public float piorty = 1.0f;
+    public float weight = 1.0f;
 }

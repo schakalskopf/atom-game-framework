@@ -28,7 +28,7 @@ import sg.atom.ui.common.MouseRawListener;
 import sg.atom.world.SceneGraphHelper;
 
 /**
- * @author cuong.nguyenmanh2
+@author atomix
  */
 /**
  * This class
@@ -122,7 +122,7 @@ public class SelectManager {
     }
 
     public void setupInputListener() {
-        System.out.println(" Select Input setup!");
+        System.out.println("Select Input setup!");
         inputManager.addRawInputListener(new MouseRawListener() {
             @Override
             public void onMouseMotionEvent(MouseMotionEvent evt) {

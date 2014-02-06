@@ -8,7 +8,7 @@ import sg.atom.core.AtomMain;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class HelloWarningAppState extends AbstractAppState {
 

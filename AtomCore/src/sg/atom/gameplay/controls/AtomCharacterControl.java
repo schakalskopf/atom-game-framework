@@ -14,7 +14,7 @@ import com.jme3.scene.control.Control;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public abstract class AtomCharacterControl extends AbstractControl implements ActionListener {
 
@@ -29,8 +29,6 @@ public abstract class AtomCharacterControl extends AbstractControl implements Ac
     @Override
     public void setSpatial(Spatial spatial) {
         super.setSpatial(spatial);
-
-
     }
 
     @Override

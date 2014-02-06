@@ -10,7 +10,7 @@ import sg.atom.gameplay.GameItem;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class ItemManager {
 

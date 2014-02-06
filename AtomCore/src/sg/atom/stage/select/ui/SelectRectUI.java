@@ -16,7 +16,7 @@ import sg.atom.stage.select.SelectUI;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class SelectRectUI extends SelectUI{
 

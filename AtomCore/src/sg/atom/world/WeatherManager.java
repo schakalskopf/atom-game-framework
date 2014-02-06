@@ -6,7 +6,7 @@ package sg.atom.world;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class WeatherManager {
 

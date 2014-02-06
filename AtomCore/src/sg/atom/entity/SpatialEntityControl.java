@@ -13,25 +13,28 @@ import sg.atom.stage.WorldManager;
 
 /**
  *
- * @author cuong.nguyenmanh2
+ * @author atomix
  */
 /**
- * <code>SpatialEntityControl</code> keep the link from the <code>Spatial</code> to the appropriate <code>Entity</code>.</br>
- * It's basiclly the low level control in the Atom architect.
- * It uses Animation and Character control 
- * and should be use by <code>SpatialSelectControl</code>, <code>AIControl</code> etc... 
+ * <code>SpatialEntityControl</code> (Common Implementation) keep the link from
+ * the
+ * <code>Spatial</code> to the appropriate
+ * <code>Entity</code>.</br>
+ *
+ * It's basiclly the low level control in the Atom architecture.
+ *
+ * <p>It uses Animation and Character control and should be use by
+ * <code>SpatialSelectControl</code>,
+ * <code>AIControl</code> etc...
  */
 public class SpatialEntityControl extends AbstractControl {
 
-
-    WorldManager worldManager;
-    private SpatialEntity spatialEntity;
-
+    protected WorldManager worldManager;
+    protected SpatialEntity spatialEntity;
 
     public SpatialEntityControl(WorldManager worldManager, SpatialEntity spatialEntity) {
         this.worldManager = worldManager;
         this.spatialEntity = spatialEntity;
-
     }
 
     @Override

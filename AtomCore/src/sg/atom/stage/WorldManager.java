@@ -2,6 +2,7 @@ package sg.atom.stage;
 
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
+import com.jme3.asset.DesktopAssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
@@ -11,31 +12,42 @@ import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.terrain.geomipmap.TerrainLodControl;
-import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.terrain.geomipmap.lodcalc.DistanceLodCalculator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import sg.atom.core.AbstractManager;
 import sg.atom.core.AtomMain;
+import sg.atom.core.lifecycle.IGameCycle;
 import sg.atom.gameplay.GameLevel;
-import sg.atom.gameplay.GameScene;
 import sg.atom.world.DayNightTimeManager;
 import sg.atom.world.EnviromentManager;
 import sg.atom.world.ForesterManager;
 import sg.atom.world.LightShadowManager;
 import sg.atom.world.MaterialManager;
 import sg.atom.world.SceneGraphHelper;
+import sg.atom.world.SpatialInfo;
 import sg.atom.world.TerrainManager;
 import sg.atom.world.WaterManager;
 import sg.atom.world.WeatherManager;
 import sg.atom.world.WorldSettings;
+import sg.atom.world.lod.DefaultLODManager;
 import sg.atom.world.lod.WorldLODManager;
+import sg.atom.world.terrain.GenericTerrain;
 
 /**
- * Base game entity managing class, stores and loads the entities, used on
- * server and on client. Automatically sends changes via network when running on
- * server, used to apply network data on client and server.
+ * WorldManager Manage Spatial and all scene graph operations.
  *
- * @author normenhansen
+ * Base game entity managing class, stores and loads the entities, used on
+ * server and on client.
+ *
+ * Automatically sends changes via network when running on server, used to apply
+ * network data on client and server.
+ *
  */
-public class WorldManager {
+public class WorldManager extends AbstractManager implements IGameCycle {
 
     protected AtomMain app;
     protected AssetManager assetManager;
@@ -43,11 +55,11 @@ public class WorldManager {
     // GAME LEVEL 
     protected Node worldNode;
     protected GameLevel currentLevel;
-    Node levelNode;
+    protected Node levelNode;
     protected Camera cam;
     //Terrain
-    protected TerrainQuad terrain;
-    RigidBodyControl terrainPhysicsNode;
+    protected GenericTerrain terrain;
+    protected RigidBodyControl terrainPhysicsNode;
     //Physic
     protected BulletAppState bulletAppState;
     protected PhysicsSpace space;
@@ -64,9 +76,24 @@ public class WorldManager {
     protected MaterialManager materialManager;
     protected WorldSettings worldSettings;
     protected TerrainManager terrainManager;
-    protected final Node rootNode;
+    protected Node rootNode;
+    //FIXME: Use Guava cache instead of HashMap
+    protected HashMap<Spatial, SpatialInfo> spatialInfoList;
 
+    protected WorldManager(){
+        //For use in singleton;
+    }
     public WorldManager(AtomMain app, Node worldNode) {
+        this.app = app;
+        this.rootNode = app.getRootNode();
+        this.worldNode = worldNode;
+        this.cam = app.getCamera();
+        this.assetManager = app.getAssetManager();
+        this.stateManager = app.getStateManager();
+        this.stageManager = app.getStageManager();
+    }
+    
+    public void lazyInit(AtomMain app, Node worldNode) {
         this.app = app;
         this.rootNode = app.getRootNode();
         this.worldNode = worldNode;
@@ -119,7 +146,10 @@ public class WorldManager {
         } else {
             this.worldSettings = worldSettings;
         }
+
+        spatialInfoList = new LinkedHashMap<Spatial, SpatialInfo>();
         // Create and Init all the Sub-Manager
+
 
         if (this.worldSettings.useDayLight) {
             lightShadowManager = new LightShadowManager(this, stageManager);
@@ -134,7 +164,7 @@ public class WorldManager {
         if (this.worldSettings.useWeather) {
             weatherManager = new WeatherManager();
         }
-        worldLODManager = new WorldLODManager();
+        worldLODManager = new DefaultLODManager();
         if (this.worldSettings.useForestor) {
             foresterManager = new ForesterManager(this, stageManager);
         }
@@ -162,27 +192,28 @@ public class WorldManager {
      *
      * @param name
      */
-    void initLevel(GameLevel level) {
+    public void initLevel(GameLevel level) {
         currentLevel = level;
     }
 
     // ============= LOAD WORLD ===================
     public void loadWorld() {
-
-        currentProgressName = "Level";
-        currentProgressPercent = 0.1f;
         if (this.worldSettings.useLevel) {
+            currentProgressName = "Level";
+            currentProgressPercent = 0.1f;
             loadLevel(currentLevel);
         }
-        currentProgressName = "Forester";
-        currentProgressPercent = 0.6f;
+
         if (this.worldSettings.useForestor) {
+            currentProgressName = "Forester";
+            currentProgressPercent = 0.6f;
             foresterManager.loadForesterAsset();
         }
 
-        currentProgressName = "Water";
-        currentProgressPercent = 0.8f;
+
         if (this.worldSettings.useWater) {
+            currentProgressName = "Water";
+            currentProgressPercent = 0.8f;
             waterManager.loadWaterAsset();
         }
 
@@ -190,13 +221,11 @@ public class WorldManager {
 
     public void loadLevel(GameLevel level) {
         level.loadLevel();
-        //level.postLoadLevel();
         levelNode = level.getLevelNode();
-
         //currentLevel = level;
     }
 
-    void loadScene(GameScene currentScene) {
+    public void loadScene(GameScene currentScene) {
         //cam = currentScene.currentCamera;
     }
 
@@ -226,16 +255,18 @@ public class WorldManager {
     public void configWorld() {
         if (worldSettings.useTerrainLOD) {
             // Terrain
-            terrain = SceneGraphHelper.findTerrain(levelNode);
+            terrain = SceneGraphHelper.findGenericTerrain(levelNode);
             if (terrain == null) {
                 throw new RuntimeException("Can not find Terrain in this Level !");
             }
+
             // Add new TerrainLodControl
             if (terrain.getControl(TerrainLodControl.class) != null) {
                 TerrainLodControl control = new TerrainLodControl(terrain, stageManager.getCurrentActiveCamera());
                 control.setLodCalculator(new DistanceLodCalculator(32, 1.7f)); // patch size, and a multiplier
                 terrain.addControl(control);
             }
+
         }
 
         if (worldSettings.usePhysics) {
@@ -295,7 +326,7 @@ public class WorldManager {
     }
     // ======== PHYSIC STUFF ===============
 
-    void createPhysic() {
+    public void createPhysic() {
         // Physic
         bulletAppState = new BulletAppState();
         bulletAppState.setThreadingType(BulletAppState.ThreadingType.PARALLEL);
@@ -308,7 +339,7 @@ public class WorldManager {
 
     private void createTerrainPhysic() {
         // Terrain
-        terrain = SceneGraphHelper.findTerrain(levelNode);
+        terrain = SceneGraphHelper.findGenericTerrain(levelNode);
         if (terrain == null) {
             throw new RuntimeException("Can not find Terrain in this Level !");
         }
@@ -317,7 +348,6 @@ public class WorldManager {
             System.out.println(" Create terrain physic!");
             terrainPhysicsNode = new RigidBodyControl(CollisionShapeFactory.createMeshShape(terrain), 0);
             terrain.addControl(terrainPhysicsNode);
-
         }
     }
     // ========= FINISH WORLD =================
@@ -342,38 +372,46 @@ public class WorldManager {
     }
 
     /**
-     * detaches the level and clears the cache
+     * Detaches the level and clears the cache
      */
     public void closeLevel() {
-        //entities.clear();
-        //space.removeAll(worldRoot);
-/*
-         for (Iterator<PlayerData> it = PlayerData.getPlayers().iterator(); it.hasNext();) {
-         PlayerData playerData = it.next();
-         playerData.setData("entity_id", -1l);
-         }
-         if (isServer()) {
-         for (Iterator<PlayerData> it = PlayerData.getAIPlayers().iterator(); it.hasNext();) {
-         PlayerData playerData = it.next();
-         removePlayer(playerData.getId());
-         }
-         }
-         for (Iterator<Long> et = new LinkedList(entities.keySet()).iterator(); et.hasNext();) {
-         Long entry = et.next();
-         syncManager.removeObject(entry);
-         }
-         syncManager.clearObjects();
-         entities.clear();
-         newId = 0;
-         space.removeAll(worldRoot);
-         rootNode.detachChild(worldRoot);
-         ((DesktopAssetManager) assetManager).clearCache();          
-        
-         */
-        //rootNode.detachChild(worldRoot);
-        //((DesktopAssetManager) assetManager).clearCache();
+        rootNode.detachChild(worldNode);
+        ((DesktopAssetManager) assetManager).clearCache();
     }
     // UTIL
+
+    /**
+     * Remove the spatial from parenet but save into a cache with parent's space
+     * info to restore later
+     *
+     * @param sp
+     */
+    public void safeRemove(Spatial sp) {
+        spatialInfoList.put(sp, generateSpatialInfo(sp));
+    }
+
+    /**
+     * Restore the spatial from a cache with parent's space info.
+     *
+     * @param sp
+     */
+    public void safeRestore(Spatial sp) {
+        SpatialInfo si = spatialInfoList.get(sp);
+        if (si != null) {
+            si.parent.attachChild(sp);
+            sp.setLocalTransform(si.trans);
+        } else {
+            Logger.getLogger(WorldManager.class.getName()).log(Level.WARNING, "Cant not find the spatial!");
+        }
+    }
+
+    public SpatialInfo generateSpatialInfo(Spatial sp) {
+        SpatialInfo spatialInfo = new SpatialInfo();
+        spatialInfo.parent = sp.getParent();
+        spatialInfo.self = sp;
+        spatialInfo.trans = sp.getLocalTransform();
+        return spatialInfo;
+    }
 
     /**
      * gets the spatial belonging to a PhysicsCollisionObject
@@ -382,10 +420,10 @@ public class WorldManager {
      * @return
      */
     public Spatial getSpatial(PhysicsCollisionObject object) {
-        Object obj = object.getUserObject();
-        if (obj instanceof Spatial) {
-            Spatial spatial = (Spatial) obj;
-
+        Object userObj = object.getUserObject();
+        if (userObj instanceof Spatial) {
+            Spatial spatial = (Spatial) userObj;
+            return spatial;
         }
         return null;
     }
@@ -469,11 +507,11 @@ public class WorldManager {
         return this.materialManager;
     }
 
-    public TerrainQuad getTerrain() {
+    public GenericTerrain getTerrain() {
         return terrain;
     }
 
-    public void setTerrain(TerrainQuad terrain) {
+    public void setTerrain(GenericTerrain terrain) {
         this.terrain = terrain;
     }
 
@@ -503,5 +541,40 @@ public class WorldManager {
 
     public Node getLevelNode() {
         return levelNode;
+    }
+    //===CYCLE=====
+
+    @Override
+    public void init() {
+        initWorld();
+    }
+
+    @Override
+    public void load() {
+        loadWorld();
+    }
+
+    @Override
+    public void config(Properties props) {
+    }
+
+    @Override
+    public void update(float tpf) {
+        simpleUpdate(tpf);
+    }
+
+    @Override
+    public void finish() {
+        finishWorld();
+    }
+
+    @Override
+    public LifeCyclePhase getCurrentPhase() {
+        return null;
+    }
+
+    @Override
+    public float getProgressPercent(LifeCyclePhase aPhrase) {
+        return 0;
     }
 }

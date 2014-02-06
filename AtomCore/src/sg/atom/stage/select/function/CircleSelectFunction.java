@@ -6,7 +6,7 @@ package sg.atom.stage.select.function;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class CircleSelectFunction {
     

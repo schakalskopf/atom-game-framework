@@ -5,9 +5,9 @@
 package sg.atom.core.config;
 
 /**
+ * Common implementation
  *
- * @author cuong.nguyenmanh2
+ * @author atomix
  */
 public class ConfigLoader {
-    
 }

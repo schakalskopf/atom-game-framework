@@ -4,8 +4,11 @@ package sg.atom2d.geo.panel.tools
 import java.awt.Rectangle;
 import java.awt.Color;
 
-
-class GeoHelper{
+/**
+ * Convert between Box,Tile,Rect,Sprite...
+ * @author cuong.nguyenmanh2
+ */
+public class GeoHelper{
     def random = new Random()
     
     def newRanRect(){
@@ -49,5 +52,9 @@ class GeoHelper{
         } else {
             return false;
         }
+    }
+    
+    def convert(from,toClazz){
+            
     }
 }

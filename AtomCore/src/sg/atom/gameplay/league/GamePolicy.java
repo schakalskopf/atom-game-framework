@@ -4,10 +4,13 @@
  */
 package sg.atom.gameplay.league;
 
+import sg.atom.core.AtomMain;
+import sg.atom.gameplay.player.Player;
+
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
-public class GamePolicy {
+public class GamePolicy<A extends AtomMain, T extends Player> {
     
 }

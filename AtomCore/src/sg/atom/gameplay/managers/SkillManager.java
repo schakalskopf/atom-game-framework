@@ -10,7 +10,7 @@ import sg.atom.gameplay.Skill;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class SkillManager {
 

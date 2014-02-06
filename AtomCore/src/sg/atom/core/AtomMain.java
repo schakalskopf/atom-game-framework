@@ -1,40 +1,57 @@
 package sg.atom.core;
 
-import sg.atom.ui.GameGUIManager;
-import sg.atom.stage.SoundManager;
-import sg.atom.stage.StageManager;
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Guice;
 import com.jme3.app.SimpleApplication;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.system.AppSettings;
+import java.util.Properties;
+import sg.atom.stage.SoundManager;
+import sg.atom.stage.StageManager;
 import sg.atom.state.LoadingAppState;
+import sg.atom.ui.GameGUIManager;
 
 /**
  * @author Atomix
  */
 /**
- * This class is an extended version of <code>SimpleApplication</code> to support more Game-related functions and features for the basic JME3 Application.<br>
- * The examples show the power of this architect, learnt from a lot of others (big to small, successed and failed). <br>
- * The features:<br>
- * <ul>
- * <li>Support has some generic-ports to hook in the under mechanic</li>
+ * This class is an extended version of
+ * <code>SimpleApplication</code> to support more Game-related functions and
+ * features for the basic JME3 Application.
+ *
+ * <br> The examples show the power of this architect, learnt from a lot of
+ * others (big to small, successed and failed).
+ *
+ * <br> The features:<br>
+ *
+ * <ul> <li>Support has some generic-ports to hook in the under mechanic</li>
+ *
  * <li>Support (optional) Entity - Manager mechanic</li>
- * <li>Support (optional) State pattern</li>
- * <li>Support easy-optional Network and Multiplayer</li>
- * </ul>
+ *
+ * <li>Support (optional) State pattern</li> 
+ * 
+ * <li>Support easy-optional Network
+ * and Multiplayer</li> </ul>
  */
 public class AtomMain extends SimpleApplication {
 
-    protected static AtomMain app;
+    //FIXME: Open the usage of Singleton (optional)
+    public static AtomMain defaultInstance = null;
+    //Shortcut
     protected GameGUIManager gameGUIManager;
     protected StageManager stageManager;
     protected GameStateManager gameStateManager;
     protected SoundManager soundManager;
+    // Management and monitoring. Guava&Guice Era!
+    protected Properties properties;
+    protected EventBus eventBus;
+    protected Guice guice;
 
     @Override
     public void simpleInitApp() {
-        renderManager.setAlphaToCoverage(true);
+        //renderManager.setAlphaToCoverage(true);
         initGameStateManager();
         startup();
     }
@@ -47,9 +64,13 @@ public class AtomMain extends SimpleApplication {
     public void initGameStateManager() {
         gameStateManager = new GameStateManager(this);
         gameStateManager.initState();
+        // NOTE: Can also call gameStateManager.init();
     }
 
-    void initQuickStart() {
+    /**
+     * Quick mode is the mode for development phase
+     */
+    public void initQuickStart() {
         inputManager.addMapping("quickStart", new KeyTrigger(KeyInput.KEY_F1));
         inputManager.addListener(quickStartManager, "quickStart");
     }
@@ -60,32 +81,40 @@ public class AtomMain extends SimpleApplication {
             if (name.equals("quickStart")) {
                 if (!quickStart) {
                     quickStart = true;
-                    gameStateManager.enterInGame();
+                    //gameStateManager.enterInGame();
                 }
             }
         }
     };
 
     public void initGUI() {
-        gameGUIManager = new GameGUIManager(this) {};
+        gameGUIManager = new GameGUIManager(this);
         gameGUIManager.initGUI();
     }
 
     public void initStage() {
         stageManager = new StageManager(this);
         stageManager.initStage();
+        // NOTE: Can also call stageManager.init();
     }
 
     public void initSound() {
         this.soundManager = new SoundManager(this);
+        soundManager.initSound();
     }
 
     @Override
     public void simpleUpdate(float tpf) {
-        //TODO: add update code
+        //TODO:: add update code
+        // Empty implementation!
     }
 
+    //============ CONFIGS =======================
+    public void applySettings(Properties props) {
+        // Empty implementation!
+    }
     // =========== GETTER & SETTER ===============
+
     public AppSettings getSettings() {
         return settings;
     }
@@ -100,18 +129,25 @@ public class AtomMain extends SimpleApplication {
 
     public GameStateManager getGameStateManager() {
         return gameStateManager;
-    }    
-    
+    }
+
     public SoundManager getSoundManager() {
         return soundManager;
     }
     // =========== SHORT CUT FUNCTION ( for console command) ==============
 
     public void quit() {
-        app.stop();
+        this.stop();
     }
 
     public void quitGame() {
-        app.stop();
+        this.stop();
+    }
+
+    /**
+     * NOTE: FAKE SINGLETON PATTERN.
+     */
+    public AtomMain getDefaultInstance() {
+        return defaultInstance;
     }
 }

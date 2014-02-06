@@ -5,6 +5,7 @@ import atom.editor.components.MainMenuComponent;
 import atom.editor.components.SceneGraphTreeComponent;
 import atom.editor.components.ToolbarComponent;
 import atom.managex.action.FunctionSystem;
+import com.jme3.app.SimpleApplication;
 import com.jme3.asset.AssetManager;
 import com.jme3.cursors.plugins.JmeCursor;
 import com.jme3.input.FlyByCamera;
@@ -35,7 +36,8 @@ public class EditorGUIManager implements ScreenController {
     private Screen nScreen;
     private AssetManager assetManager;
     private InputManager inputManager;
-    InGameEditor app;
+    InGameEditor editor;
+    SimpleApplication app;
     private FlyByCamera flyCam;
     private FunctionSystem functionSystem;
     private boolean noXML;
@@ -46,8 +48,9 @@ public class EditorGUIManager implements ScreenController {
     private SceneGraphTreeComponent treeComp;
     private ArrayList<ExNiftyComponent> components;
     
-    public EditorGUIManager(InGameEditor app) {
-        this.app = app;
+    public EditorGUIManager(InGameEditor editor) {
+        this.editor = editor;
+        this.app = editor.getApp();
         this.assetManager = app.getAssetManager();
         this.inputManager = app.getInputManager();
         this.flyCam = app.getFlyByCamera();
@@ -56,7 +59,7 @@ public class EditorGUIManager implements ScreenController {
     
     public void startUp(boolean noXML) {
         this.noXML = noXML;
-        functionSystem = app.getFunctionSystem();
+        functionSystem = editor.getFunctionSystem();
         components = new ArrayList<ExNiftyComponent>();
         initCurrors();
         setupNifty();
@@ -230,7 +233,11 @@ public class EditorGUIManager implements ScreenController {
         toolbarComp.setStatusText(functionName);
     }
     
-    public InGameEditor getApp() {
+    public InGameEditor getEditor() {
+        return editor;
+    }
+
+    public SimpleApplication getApp() {
         return app;
     }
     

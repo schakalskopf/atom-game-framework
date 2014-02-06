@@ -13,7 +13,7 @@ import sg.atom.stage.StageManager;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class IngameAppState extends AbstractAppState {
 

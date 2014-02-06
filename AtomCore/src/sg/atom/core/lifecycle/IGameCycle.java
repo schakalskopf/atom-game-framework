@@ -4,34 +4,36 @@
  */
 package sg.atom.core.lifecycle;
 
+import java.util.Properties;
+
 /**
+ * A GameCycle interface for attendant who join a strict routine of
+ * init/load/config/update/finish.
  *
- * @author cuong.nguyenmanh2
+ * Open hook to use Atom's Progress which can ultilize GPar Task or Guava
+ * Service and also JME3's AppState.
+ *
+ * @author atomix
  */
 public interface IGameCycle {
 
     public static enum LifeCyclePhase {
 
-        PhraseInit, PhraseLoad, PhraseConfig, PhraseUpdate, PhraseFinish, PhraseStartGame
+        PhaseInit, PhaseLoad, PhaseConfig, PhaseUpdate, PhaseFinish, PhaseStartGame
     }
 
     public void init();
 
     public void load();
 
-    public void config();
+    public void config(Properties props);
 
     public void update(float tpf);
 
     public void finish();
 
-    public void startGame();
+    // Monitoring
+    public LifeCyclePhase getCurrentPhase();
 
-    public ProcessInfo getCurrentProcess();
-
-    public boolean isProcessWatcher();
-
-    public boolean isFinish(LifeCyclePhase aPhrase);
-
-    public boolean isReady(LifeCyclePhase aPhrase);
+    public float getProgressPercent(LifeCyclePhase aPhrase);
 }

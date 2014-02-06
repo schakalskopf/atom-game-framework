@@ -19,7 +19,7 @@ import sg.atom.stage.select.ui.SelectRectUI;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class BoundSelectCondition extends AbstractSpatialSelectCondition {
 

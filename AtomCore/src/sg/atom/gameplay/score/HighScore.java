@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class HighScore {
     ArrayList<ScoreInfo> highScore;

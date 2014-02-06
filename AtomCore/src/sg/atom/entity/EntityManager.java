@@ -7,48 +7,74 @@ package sg.atom.entity;
 import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Properties;
+import sg.atom.core.lifecycle.IGameCycle;
 import sg.atom.stage.StageManager;
 
 /**
+ * An simple EntityManager implementation which have basic Spatial - Entity
+ * relationship management
  *
- * @author cuong.nguyenmanh2
+ * FIXME: Replace or intergrate with Zay-ES or Artemis
+ *
+ * @author atomix
  */
-public class EntityManager {
+public class EntityManager implements IGameCycle {
+
     protected StageManager stageManager;
     protected EntityFactory entityFactory;
+    // Entity management 
     protected HashMap<Long, Entity> entities = new HashMap<Long, Entity>();
     private long totalEntityId = -1;
+
     public EntityManager(StageManager stageManager) {
         this.stageManager = stageManager;
         this.entityFactory = new EntityFactory(this, stageManager);
     }
 
-
-    void registerEntityType() {
+    /* Manage entities's type as primary lookup methods */
+    public void registerEntityType() {
     }
 
-    void registerEntityTypes() {
+    public void registerEntityTypes() {
     }
 
-    ArrayList<String> getEntityAssets() {
+    public ArrayList<String> getEntityAssets() {
         return new ArrayList<String>();
     }
 
+    public Long getNewEntityId() {
+        totalEntityId++;
+        return new Long(totalEntityId);
+    }
+
     public void addEntity(Entity e) {
-        Long newId = getNewEntityId();
-        e.id = newId;
-        entities.put(newId, e);
+        if (e.id == null) {
+            Long newId = getNewEntityId();
+            e.id = newId;
+        }
+        entities.put(e.id, e);
     }
 
     public void removeEntity(Long id) {
+        entities.remove(id);
     }
 
     public void removeEntity(Entity e) {
+        entities.remove(e.id);
     }
 
+    /**
+     * Should be overiden to determinate the relationship between a spatial and
+     * its associated Entity
+     *
+     * @param selectableSpatial
+     * @return
+     */
     public boolean isEntitySpatial(Spatial selectableSpatial) {
         return true;
     }
+    /* Search and filter over entities */
 
     public ArrayList<SpatialEntity> getAllSpatialEntities() {
         // do filter...
@@ -88,24 +114,16 @@ public class EntityManager {
         return result;
     }
 
-    public Long getNewEntityId() {
-        totalEntityId++;
-        return new Long(totalEntityId);
-    }
-
     public <T extends EntityFactory> T getEntityFactory(Class<T> clazz) {
         return (T) entityFactory;
-    }
-
-    public void init() {
     }
 
     public Entity toEntity(Spatial sp) {
         return null;
     }
 
-    public Spatial getEntity(Spatial spatial) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public Entity getEntityBySpatial(Spatial spatial) {
+        return null;
     }
 
     public Entity getEntityById(long id) {
@@ -114,5 +132,35 @@ public class EntityManager {
 
     public void setEntityById(long id, Entity newEntity) {
         entities.put(id, newEntity);
+    }
+
+    @Override
+    public void init() {
+    }
+
+    @Override
+    public void load() {
+    }
+
+    @Override
+    public void config(Properties props) {
+    }
+
+    @Override
+    public void update(float tpf) {
+    }
+
+    @Override
+    public void finish() {
+    }
+
+    @Override
+    public LifeCyclePhase getCurrentPhase() {
+        return null;
+    }
+
+    @Override
+    public float getProgressPercent(LifeCyclePhase aPhrase) {
+        return 0;
     }
 }

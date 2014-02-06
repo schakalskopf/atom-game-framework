@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class TestHSQLBD {
 

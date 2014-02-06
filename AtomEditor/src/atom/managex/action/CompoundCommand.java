@@ -15,7 +15,7 @@ public class CompoundCommand extends AtomCommand{
     public ArrayList<AtomCommand> getCommands() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
-    public CompoundCommand(AtomAction parent) {
+    public CompoundCommand(AtomEditorAction parent) {
         super(parent);
     }
     

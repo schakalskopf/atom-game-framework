@@ -5,9 +5,11 @@
 package atom.corex.entity;
 
 /**
- *
+ * Going to use Zay-ES
  * @author hungcuong
  */
+
+@Deprecated
 public class Entity {
     String entityName;
     int type;

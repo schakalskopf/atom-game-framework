@@ -21,7 +21,7 @@ import sg.atom.stage.WorldManager;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class LightShadowManager {
 

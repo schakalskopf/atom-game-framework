@@ -4,16 +4,23 @@
  */
 package sg.atom.gameplay;
 
-import sg.atom.gameplay.controls.AtomCharacterControl;
-import sg.atom.gameplay.actor.Actor;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import java.util.LinkedList;
-import sg.atom.gameplay.action.MoveAction;
+import java.util.Properties;
+import sg.atom.gameplay.action.common.MoveAction;
+import sg.atom.gameplay.actor.Actor;
+import sg.atom.gameplay.controls.AtomCharacterControl;
 
 /**
+ * GameCharacter is a "Common" game pattern which a Player represent his/her
+ * self as a Virtual representor, so call "Character" as in RPG
  *
- * @author hungcuong
+ * GameCharacter can be built up from serveral infos and resources. It also get
+ * methods to manipulate (get/set) custom data. A GameCharacter also refered
+ * (link) to its associated GameCharacterControl
+ *
+ * @author atomix
  */
 public class GameCharacter extends Actor {
     // Game character properties
@@ -21,26 +28,15 @@ public class GameCharacter extends Actor {
     private int id;
     private String name;
     private String characterModelPath;
-    // =============================================
-    // Action 
-    // Movement Action
-    public MoveAction moveAction;
-    // Skill Action
+    protected Properties userData;
+    // Common associated data =====================================
     LinkedList<GameAction> requestedAction = new LinkedList<GameAction>();
-    // ===============================================
+    LinkedList<Skill> skills = new LinkedList<Skill>();
+    LinkedList<GameItem> items = new LinkedList<GameItem>();
+    // Character Visualization=====================================
     private Node characterModel;
-    AtomCharacterControl characterControl;
     private Node modelNode;
-
-    public AtomCharacterControl getCharacterControl() {
-        return characterControl;
-    }
-
-    public void initCharacter(Node modelNode, AtomCharacterControl characterControl) {
-        this.modelNode = modelNode;
-        this.characterControl = characterControl;
-        modelNode.addControl(characterControl);
-    }
+    private AtomCharacterControl characterControl;
 
     public GameCharacter(String name) {
         this.name = name;
@@ -55,24 +51,26 @@ public class GameCharacter extends Actor {
         this.name = name;
         this.characterModel = characterModel;
     }
-    /*
-     void updateSkill() {
-     for (GameAction sk : requestedAction) {
-     if (sk instanceof SkillAction) {
-     if (((SkillAction) sk).getSkillName().equals("weapon")) {
-     if (((SkillAction) sk).getSkillProperty().equals("shoot")) {
-     //weapon.fire(true);
-     } else if (((SkillAction) sk).getSkillProperty().equals("zoom")) {
-     //weapon.reload(true);
-     } else if (((SkillAction) sk).getSkillProperty().equals("reload")) {
-     //weapon.zoom(true);
-     }
-     }
-     }
-     }
-     }
-     * 
-     */
+
+    public void initCharacter(Node modelNode, AtomCharacterControl characterControl) {
+        this.modelNode = modelNode;
+        this.characterControl = characterControl;
+        modelNode.addControl(characterControl);
+    }
+
+    @Override
+    public void doAction(GameAction a) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+    // GETTER & SETTER
+
+    public LinkedList<GameItem> getItems() {
+        return items;
+    }
+
+    public LinkedList<Skill> getSkill() {
+        return skills;
+    }
 
     public Spatial getPlayerModel() {
         return modelNode;
@@ -85,17 +83,25 @@ public class GameCharacter extends Actor {
     public void setModelNode(Node modelNode) {
         this.modelNode = modelNode;
     }
-    // GETTER & SETTER
 
+    @Override
     public int getId() {
         return id;
     }
 
-//    public LinkedList<Skill> getSkill(){
-//        
-//    }
-    @Override
-    public void doAction(GameAction a) {
-        //throw new UnsupportedOperationException("Not supported yet.");
+    public String getName() {
+        return name;
+    }
+
+    public String getCharacterModelPath() {
+        return characterModelPath;
+    }
+
+    public AtomCharacterControl getCharacterControl() {
+        return characterControl;
+    }
+
+    public Properties getUserData() {
+        return userData;
     }
 }

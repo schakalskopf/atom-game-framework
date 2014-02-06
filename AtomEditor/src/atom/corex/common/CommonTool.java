@@ -5,9 +5,9 @@
 package atom.corex.common;
 
 import atom.corex.camera.CamUtil;
-import atom.managex.manager.HelperManager;
-import atom.managex.manager.SelectionManager;
-import atom.corex.shape.ShapeUtil;
+import atom.managex.managers.HelperManager;
+import atom.managex.managers.SelectionManager;
+import atom.corex.scenegraph.shape.ShapeUtil;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.AssetManager;
 import com.jme3.input.InputManager;

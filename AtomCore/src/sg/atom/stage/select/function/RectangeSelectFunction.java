@@ -18,7 +18,7 @@ import sg.atom.stage.select.ui.SelectRectUI;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class RectangeSelectFunction extends SelectFunction {
 
@@ -152,7 +152,7 @@ public class RectangeSelectFunction extends SelectFunction {
                         }
                     }
                     // Name it
-                    System.out.println(" Select " + entity.name);
+                    System.out.println(" Select " + entity.getName());
                 }
 
             }

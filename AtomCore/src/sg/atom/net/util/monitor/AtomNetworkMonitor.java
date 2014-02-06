@@ -6,7 +6,7 @@ package sg.atom.net.util.monitor;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class AtomNetworkMonitor {
     

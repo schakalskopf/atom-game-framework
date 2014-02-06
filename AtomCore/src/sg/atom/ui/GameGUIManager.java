@@ -1,7 +1,5 @@
 package sg.atom.ui;
 
-import sg.atom.stage.SoundManager;
-import sg.atom.stage.StageManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.DesktopAssetManager;
 import com.jme3.asset.TextureKey;
@@ -23,29 +21,81 @@ import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import java.util.HashMap;
+import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sg.atom.core.AbstractManager;
 import sg.atom.core.AtomMain;
+import sg.atom.core.lifecycle.IGameCycle;
+import sg.atom.stage.SoundManager;
+import sg.atom.stage.StageManager;
 
 /**
+ * GameGUIManager manage all GUI related stuffs like Screen, Currors, input.
  *
- * @author hungcuong
+ * Manage list of screen's path and its related resource such as images,
+ * sounds...etc. Support automatic screen localization and input for multi
+ * language.
+ *
+ * FIXME: Support better monitoring and events
+ *
+ * FIXME: Support other GUI libs!
+ *
+ * @author atomix
  */
-public abstract class GameGUIManager {
+public class GameGUIManager extends AbstractManager implements IGameCycle {
 
     protected AtomMain app;
-    protected boolean enabled = false;
-    boolean niftyStarted = false;
     protected StageManager stageManager;
-    protected BitmapFont guiFont;
     protected Node guiNode;
     protected InputManager inputManager;
     protected AudioRenderer audioRenderer;
     protected ViewPort guiViewPort;
     protected AssetManager assetManager;
+    // FIXME: Nifty only.
     protected NiftyJmeDisplay niftyDisplay;
     protected Nifty nifty;
+    // State management
+    protected boolean enabled = false;
+    protected boolean niftyStarted = false;
+    // Screen management
     protected HashMap<String, NiftyScreenPath> commonScreens = new HashMap<String, NiftyScreenPath>();
+    //Common stuffs
+    protected BitmapFont guiFont;
+
+    @Override
+    public void init() {
+        initGUI();
+        //load();
+    }
+
+    @Override
+    public void load() {
+        setupCommonScreens();
+    }
+
+    @Override
+    public void config(Properties props) {
+    }
+
+    @Override
+    public void update(float tpf) {
+    }
+
+    @Override
+    public void finish() {
+    }
+
+    @Override
+    public LifeCyclePhase getCurrentPhase() {
+        return null;
+    }
+
+    @Override
+    public float getProgressPercent(LifeCyclePhase aPhrase) {
+        return 0;
+    }
 
     public class NiftyScreenPath {
 
@@ -55,6 +105,10 @@ public abstract class GameGUIManager {
         public NiftyScreenPath(String filePath) {
             this.filePath = filePath;
         }
+    }
+
+    protected GameGUIManager() {
+        // For use in singleton!
     }
 
     public GameGUIManager(AtomMain app) {
@@ -68,25 +122,27 @@ public abstract class GameGUIManager {
         this.stageManager = app.getStageManager();
     }
 
+    public void lazyInit(AtomMain app) {
+        this.app = app;
+        this.guiNode = app.getGuiNode();
+        this.inputManager = app.getInputManager();
+        this.audioRenderer = app.getAudioRenderer();
+        this.guiViewPort = app.getGuiViewPort();
+        this.assetManager = app.getAssetManager();
+        this.stageManager = app.getStageManager();
+    }
+
     public void initGUI() {
         initJMEGUI();
         initNiftyGUI();
         disableLogger();
-        setupCommonScreens();
-        initCursors();
-    }
-
-    private void disableLogger() {
-        Logger.getLogger("de.lessvoid.nifty").setLevel(Level.WARNING);
-        Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.WARNING);
-        Logger.getLogger("NiftyEventBusLog").setLevel(Level.WARNING);
-        Logger.getLogger("NiftyImageManager").setLevel(Level.WARNING);
+        initCustom();
     }
 
     public void setupCommonScreens() {
     }
 
-    public void initCursors() {
+    public void initCustom() {
     }
 
     void initNiftyGUI() {
@@ -98,6 +154,7 @@ public abstract class GameGUIManager {
 
         attachNifty();
     }
+    /* Nifty functions */
 
     public void attachNifty() {
         // attach the nifty display to the gui view port as a processor
@@ -113,14 +170,11 @@ public abstract class GameGUIManager {
             enabled = false;
         }
     }
+    /* JME GUI functions */
 
     void initJMEGUI() {
         inputManager.setCursorVisible(true);
-        initStat();
-        // disable the fly cam
-        //flyCam.setEnabled(true);
-//        flyCam.setDragToRotate(true);
-        //inputManager.setCursorVisible(true);
+        //initStat();
     }
 
     void initStat() {
@@ -131,6 +185,29 @@ public abstract class GameGUIManager {
     }
 
     public void startNifty() {
+    }
+    /* Common task */
+
+    public void disableFlyingCam() {
+        // disable the fly cam
+        //flyCam.setEnabled(false);
+        //flyCam.setDragToRotate(true);
+        inputManager.setCursorVisible(true);
+    }
+
+    private void disableLogger() {
+        Logger.getLogger("de.lessvoid.nifty").setLevel(Level.WARNING);
+        Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.WARNING);
+        Logger.getLogger("NiftyEventBusLog").setLevel(Level.WARNING);
+        Logger.getLogger("NiftyImageManager").setLevel(Level.WARNING);
+    }
+
+    public Set<BitmapFont> getAvailbleFonts() {
+        return null;
+    }
+
+    public Set<String> getAvailbleFontsName() {
+        return null;
     }
 
     protected void initCrossHairs() {
@@ -143,6 +220,24 @@ public abstract class GameGUIManager {
                 settings.getWidth() / 2 - guiFont.getCharSet().getRenderedSize() / 3 * 2,
                 settings.getHeight() / 2 + ch.getLineHeight() / 2, 0);
         guiNode.attachChild(ch);
+    }
+    /* Screen management methods */
+
+    public <T extends ScreenController> T getCurrentScreenController(String screenName, Class<T> clazz) {
+        Screen currentScreen = nifty.getCurrentScreen();
+        if (currentScreen.getScreenId().equals(screenName)) {
+            return (T) currentScreen.getScreenController();
+        } else {
+            return null;
+        }
+    }
+
+    public ScreenController getCurrentScreenController() {
+        return nifty.getCurrentScreen().getScreenController();
+    }
+
+    public <T extends ScreenController> T getCurrentScreenController(Class<T> clazz) {
+        return (T) getCurrentScreenController();
     }
 
     public <T extends Controller> T getQuickUIController(String elementId, Class<T> clazz) {
@@ -212,6 +307,13 @@ public abstract class GameGUIManager {
         }
     }
 
+    /**
+     * Ultity method to create a NiftyImage from a JME3's Texture
+     *
+     * @param tex
+     * @param textureName
+     * @param iR
+     */
     public void setNiftyImage(Texture tex, String textureName, ImageRenderer iR) {
         ((DesktopAssetManager) assetManager).addToCache(new TextureKey(textureName), tex);
         NiftyImage img = nifty.getRenderEngine().createImage(null, textureName, false);
@@ -226,7 +328,7 @@ public abstract class GameGUIManager {
             loadAndGotoScreen(screenName);
         }
     }
-    /*SETTER & GETTER*/
+    /*SETTER & GETTER & Short cuts */
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
@@ -244,10 +346,6 @@ public abstract class GameGUIManager {
         return app;
     }
 
-    public StageManager getStageManager() {
-        return app.getStageManager();
-    }
-
     public AssetManager getAssetManager() {
         return assetManager;
     }
@@ -262,5 +360,9 @@ public abstract class GameGUIManager {
 
     public Nifty getNifty() {
         return nifty;
+    }
+
+    public StageManager getStageManager() {
+        return app.getStageManager();
     }
 }

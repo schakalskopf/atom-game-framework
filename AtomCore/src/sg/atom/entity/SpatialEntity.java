@@ -7,13 +7,16 @@ import java.util.ArrayList;
 import sg.atom.gameplay.GameAction;
 
 /**
+ * A Predefined Entity which assume it has an associated Spatial.
  *
- * @author cuong.nguyenmanh2
+ * SptialEntity also contain a list(empty by default) of its action which is contribute to the gameworld. This is the most "common" kind of Entity available in a "comon" JME3 game
+ *
+ * @author atomix
  */
 public class SpatialEntity extends Entity {
 
-    Spatial spatial;
-    ArrayList<GameAction> actions = new ArrayList<GameAction>();
+    protected Spatial spatial;
+    protected ArrayList<GameAction> actions = new ArrayList<GameAction>();
 
     public SpatialEntity(String name, String type) {
         super(new Long(-1), name, type);
@@ -46,6 +49,7 @@ public class SpatialEntity extends Entity {
 
     public void setSpatial(Spatial model) {
         this.spatial = model;
+
     }
 
     public void addAction(GameAction action) {

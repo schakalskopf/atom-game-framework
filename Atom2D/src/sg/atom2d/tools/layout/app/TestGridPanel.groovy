@@ -8,7 +8,8 @@ import groovy.swing.j2d.*
 import java.awt.Rectangle;
 import java.awt.Color;
 import javax.swing.*
-import sg.atom2d.geo.panel.GridPanel
+
+import sg.atom2d.geo.grid.*
 
 // UI
 gr = new GraphicsRenderer()

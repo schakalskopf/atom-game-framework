@@ -2,8 +2,10 @@ package sg.atom.core.event;
 
 /**
  *
- * @author cuong.nguyenmanh2 For more common case, Trigger provide more methods
- * and attribute.
+ * @author atomix 
+ * 
+ * For more common case, Trigger provide more methods and
+ * attribute.
  */
 public abstract class GameEvent<L> {
 

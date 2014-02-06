@@ -36,7 +36,7 @@ package atom.managex.event;
  * 
  * @author Peter Eastman
  */
-
+@Deprecated
 public abstract class EventProcessor
 {
   /**

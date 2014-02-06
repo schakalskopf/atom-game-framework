@@ -6,7 +6,7 @@ package sg.atom.lifecycle;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class TestTimer {
     

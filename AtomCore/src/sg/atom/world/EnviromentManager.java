@@ -5,8 +5,11 @@
 package sg.atom.world;
 
 /**
- *
- * @author hungcuong
+ * Manager and Wrapper for useful functions for Enviroment.
+ * 
+ * Including Light, Skybox,
+ * 
+ * @author atomix
  */
 public class EnviromentManager {
    

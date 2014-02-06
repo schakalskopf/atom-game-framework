@@ -17,16 +17,16 @@ public class FunctionSystem extends AbstractAppState implements ActionListener {
 
     ArrayList<AtomFunction> functionList = new ArrayList<AtomFunction>();
     String mode;
-    AtomAction currentAction;
-    AtomAction previousAction;
-    AtomAction nextAction;
+    AtomEditorAction currentAction;
+    AtomEditorAction previousAction;
+    AtomEditorAction nextAction;
     private final SimpleApplication app;
 
     public FunctionSystem(SimpleApplication app) {
         this.app = app;
     }
 
-    public AtomAction getNextAction() {
+    public AtomEditorAction getNextAction() {
         return this.nextAction;
     }
 

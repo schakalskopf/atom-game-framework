@@ -6,7 +6,7 @@ package sg.atom.entity;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class TestArtermis {
     

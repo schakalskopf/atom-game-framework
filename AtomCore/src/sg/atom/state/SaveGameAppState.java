@@ -6,7 +6,7 @@ package sg.atom.state;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class SaveGameAppState {
     

@@ -3,6 +3,7 @@ package sg.testbed.game2d.graphics
 import java.awt.*
 import java.awt.image.*
 import javax.imageio.*
+import sg.atom2d.geo.sprite.*
 
 public class GUtil {
     

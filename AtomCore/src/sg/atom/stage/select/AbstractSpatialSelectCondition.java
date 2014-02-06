@@ -11,7 +11,7 @@ import sg.atom.stage.select.ui.SelectRectUI;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public abstract class AbstractSpatialSelectCondition implements SelectCondition {
 

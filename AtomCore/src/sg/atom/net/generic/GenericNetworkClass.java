@@ -6,7 +6,7 @@ package sg.atom.net.generic;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class GenericNetworkClass {
     

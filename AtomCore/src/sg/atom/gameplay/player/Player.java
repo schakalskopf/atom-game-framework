@@ -1,9 +1,8 @@
 package sg.atom.gameplay.player;
 
-import sg.atom.stage.StageManager;
 import sg.atom.gameplay.GameCharacter;
-
 import sg.atom.gameplay.GamePlayManager;
+import sg.atom.stage.StageManager;
 
  public class Player {
 
@@ -23,7 +22,6 @@ import sg.atom.gameplay.GamePlayManager;
 
     public void initPlayer() {
         this.playerMainCharacter = new GameCharacter("Character " + name);
-
     }
 
     public void simpleUpdate(float tpf) {

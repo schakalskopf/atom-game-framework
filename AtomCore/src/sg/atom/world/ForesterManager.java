@@ -31,7 +31,7 @@ import sg.atom.stage.WorldManager;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class ForesterManager {
 
@@ -169,7 +169,7 @@ public class ForesterManager {
         // Using the same densitymap and channel as the grass.
         layer2.setDensityTextureData(0, Channel.Red);
         layer2.setDensityMultiplier(0.5f);
-        // TODO: Big bug !!
+        //TODO:: Big bug !!
 
 
         layer2.setMaxHeight(1.6f);

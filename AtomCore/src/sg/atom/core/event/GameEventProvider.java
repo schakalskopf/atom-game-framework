@@ -6,7 +6,7 @@ package sg.atom.core.event;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class GameEventProvider {
     

@@ -6,8 +6,8 @@ package sg.atom.world.lod;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
-public class WorldLODManager {
+public interface WorldLODManager {
     
 }

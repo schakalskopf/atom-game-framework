@@ -5,12 +5,12 @@
 package sg.atom.fx.cine;
 
 import java.util.ArrayList;
-import sg.atom.fx.anim.AtomTimeLineTrack;
+import sg.atom.fx.timeline.AtomTimeLineTrack;
 
 /**
  *
  * @author CuongNguyen
  */
 public class AtomCinematic {
-    ArrayList<AtomTimeLineTrack> tracks;
+    
 }

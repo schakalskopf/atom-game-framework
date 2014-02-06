@@ -6,23 +6,23 @@
     <target name="-groovy-init-macrodef-javac">
         <macrodef name="javac" uri="http://www.netbeans.org/ns/j2se-project/3">
             <attribute default="${javac.processorpath}" name="processorpath"/>
-            <attribute default="${build.generated.sources.dir}/ap-source-output" name="apgeneratedsrcdir"/>
-            <attribute name="srcdir" default="${src.src.dir}"/>
+            <attribute default="${build.generated.sources.dir}/ap-source-output" name="apgeneratedsrc.dir"/>
+            <attribute name="src.dir" default="${src.dir}"/>
             <attribute name="destdir" default="${build.classes.dir}"/>
             <attribute name="classpath" default="${javac.classpath}"/>
             <attribute name="includes" default="${includes}"/>
             <attribute name="excludes" default="${excludes}"/>
             <attribute name="debug" default="${javac.debug}"/>
             <attribute name="sourcepath" default="${empty.dir}"/>
-            <attribute name="gensrcdir" default="${empty.dir}"/>
+            <attribute name="gensrc.dir" default="${empty.dir}"/>
             <element name="customize" optional="true"/>
             <sequential>
                 <taskdef name="groovyc" classpath="${javac.classpath}" classname="org.codehaus.groovy.ant.Groovyc"/>
                 <property name="empty.dir" location="${build.dir}/empty"/>
                 <mkdir dir="${empty.dir}"/>
-                <groovyc srcdir="@{srcdir}" sourcepath="@{sourcepath}" destdir="@{destdir}" encoding="${source.encoding}" includes="@{includes}" excludes="@{excludes}" includeAntRuntime="false" fork="true">
+                <groovyc srcdir="@{src.dir}" sourcepath="@{sourcepath}" destdir="@{destdir}" encoding="${source.encoding}" includes="@{includes}" excludes="@{excludes}">
                     <src>
-                        <dirset dir="@{gensrcdir}" erroronmissingdir="false">
+                        <dirset dir="@{gensrc.dir}" erroronmissingdir="false">
                             <include name="*"/>
                         </dirset>
                     </src>
@@ -37,11 +37,11 @@
             </sequential>
         </macrodef>
         <macrodef name="depend" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute name="srcdir" default="${src.src.dir}"/>
+            <attribute name="src.dir" default="${src.dir}"/>
             <attribute name="destdir" default="${build.classes.dir}"/>
             <attribute name="classpath" default="${javac.classpath}"/>
             <sequential>
-                <depend srcdir="@{srcdir}" destdir="@{destdir}" cache="${build.dir}/depcache" includes="${includes}" excludes="${excludes}">
+                <depend src.dir="@{src.dir}" destdir="@{destdir}" cache="${build.dir}/depcache" includes="${includes}" excludes="${excludes}">
                     <classpath>
                         <path path="@{classpath}"/>
                     </classpath>

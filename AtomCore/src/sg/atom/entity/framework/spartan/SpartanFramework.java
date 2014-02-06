@@ -6,7 +6,7 @@ package sg.atom.entity.framework.spartan;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class SpartanFramework {
     // use Spartan FrameWork

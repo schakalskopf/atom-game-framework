@@ -8,7 +8,7 @@ import sg.atom.gameplay.player.Player;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class ScoreInfo {
 

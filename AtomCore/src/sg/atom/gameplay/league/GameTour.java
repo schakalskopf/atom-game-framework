@@ -4,10 +4,13 @@
  */
 package sg.atom.gameplay.league;
 
+import sg.atom.core.AtomMain;
+import sg.atom.gameplay.player.Player;
+
 /**
+ * Utility for schedule matchs in a league
  *
- * @author cuong.nguyenmanh2
+ * @author atomix
  */
-public class GameTour {
-    
+public class GameTour<A extends AtomMain, T extends Player> {
 }

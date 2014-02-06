@@ -6,7 +6,7 @@ package sg.atom.world.pvs;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class PVSCell {
     

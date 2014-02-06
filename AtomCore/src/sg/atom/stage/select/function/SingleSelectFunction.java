@@ -14,7 +14,7 @@ import sg.atom.stage.select.SelectFunction;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class SingleSelectFunction extends SelectFunction {
 

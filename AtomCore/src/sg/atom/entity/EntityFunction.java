@@ -4,11 +4,20 @@
  */
 package sg.atom.entity;
 
+import sg.atom.entity.general.AbstractEntityFunction;
+
 /**
+ * Facade and Description (Common implementation) about the functioning of an
+ * Entity, can be shared by multi Entities.
  *
- * @author hungcuong
+ * <p>It share the same abstract level with Component. You can look at it as
+ * "Lightweight System" with single Aspect embed inside of Entity.</p>
+ *
+ *
+ * @author atomix
  */
-public class EntityFunction {
+public class EntityFunction implements AbstractEntityFunction {
+    // Basic properties. FIXME: Remove them!
     int id;
     String name;
     String title;
@@ -18,7 +27,6 @@ public class EntityFunction {
         this.name = name;
         this.title = title;
         this.info = info;
-
     }
 
     public String getName() {
@@ -48,6 +56,4 @@ public class EntityFunction {
     public int getId() {
         return id;
     }
-    
-    
 }

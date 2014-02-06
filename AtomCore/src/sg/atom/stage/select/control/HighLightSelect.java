@@ -14,7 +14,7 @@ import sg.atom.world.MaterialManager;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public class HighLightSelect  extends SpatialSelectControl {
 

@@ -6,7 +6,7 @@ package sg.atom.core;
  */
 public class Globals {
 
-    public static final String VERSION = "MoonGame v0.1";
+    public static final String VERSION = "v0.1";
 //    public static final String DEFAULT_SERVER = "192.168.1.24";
     public static final String DEFAULT_SERVER = "127.0.0.1";
 //    public static final String DEFAULT_SERVER = "jmonkeyengine.com";

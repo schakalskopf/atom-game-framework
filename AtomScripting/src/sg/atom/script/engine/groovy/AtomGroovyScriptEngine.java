@@ -7,9 +7,6 @@ import groovy.util.GroovyScriptEngine;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import org.codehaus.groovy.control.CompilationFailedException;
 
 /**
  *

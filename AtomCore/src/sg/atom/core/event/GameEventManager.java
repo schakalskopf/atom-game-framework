@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 /**
  * GameEventManager. <p>This class is a general Game event manager, which take
@@ -26,6 +26,7 @@ import java.util.ArrayList;
  * <p> More over the GameEventManager can also be change it behaviors and
  * activites ex:muted and adapt to up-date-per-frame alike mechanisms if needed.
  */
+@Deprecated
 public class GameEventManager {
 
     ArrayList<GameEvent> queue;

@@ -4,6 +4,7 @@
  */
 package atom.editor;
 
+import com.jme3.app.SimpleApplication;
 import com.jme3.asset.AssetManager;
 import com.jme3.light.PointLight;
 import com.jme3.material.Material;
@@ -24,14 +25,17 @@ import com.jme3.shadow.PssmShadowRenderer;
  * @author cuong.nguyenmanh2
  */
 public class EditorSceneHelper {
-    
+    SimpleApplication app;
     private Node rootNode;
     private AssetManager assetManager;
     private ViewPort viewPort;
     private Node gizmo = new Node("Gizmo");
     Node toolNode = new Node("ToolNode");
+    private final InGameEditor editor;
 
-    public EditorSceneHelper(InGameEditor app) {
+    public EditorSceneHelper(InGameEditor editor) {
+        this.editor = editor;
+        this.app = editor.getApp();
         this.rootNode = app.getRootNode();
         this.assetManager = app.getAssetManager();
         this.viewPort = app.getViewPort();

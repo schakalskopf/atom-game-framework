@@ -6,7 +6,7 @@ package sg.atom.net.util;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class NetworkCache {
     

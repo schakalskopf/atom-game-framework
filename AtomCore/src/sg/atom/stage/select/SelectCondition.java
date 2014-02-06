@@ -4,7 +4,7 @@ import com.jme3.scene.Spatial;
 
 /**
  *
- * @author hungcuong
+ * @author atomix
  */
 public interface SelectCondition {
 

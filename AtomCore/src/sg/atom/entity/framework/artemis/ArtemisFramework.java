@@ -6,7 +6,7 @@ package sg.atom.entity.framework.artemis;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class ArtemisFramework {
     

@@ -6,7 +6,7 @@ package sg.atom.core.config;
 
 /**
  *
- * @author cuong.nguyenmanh2
+@author atomix
  */
 public class GroovySetting {
     
