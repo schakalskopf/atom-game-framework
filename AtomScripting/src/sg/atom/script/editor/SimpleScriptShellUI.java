@@ -12,12 +12,12 @@ import org.codehaus.groovy.control.CompilationFailedException;
  */
 public class SimpleScriptShellUI {
 
-    private ScriptEngineManager factory;
-    private ScriptEngine genericScriptEngine;
-    private String headerLine;
-    LinkedList<ScriptString> codeLines = new LinkedList<ScriptString>();
-    LinkedList<ScriptString> resultLines = new LinkedList<ScriptString>();
-    private ScriptEngine shell;
+    protected ScriptEngineManager factory;
+    protected ScriptEngine genericScriptEngine;
+    protected String headerLine;
+    protected LinkedList<ScriptString> codeLines = new LinkedList<ScriptString>();
+    protected LinkedList<ScriptString> resultLines = new LinkedList<ScriptString>();
+    protected ScriptEngine shell;
 
     public SimpleScriptShellUI(ScriptEngine shell) {
         this.shell = shell;

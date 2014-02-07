@@ -32,7 +32,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
-import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter.ParticleValue;
+import sg.atom2d.game2d.graphics.fx.particle.values.ParticleValue;
 
 public class EditorPanel extends JPanel {
 

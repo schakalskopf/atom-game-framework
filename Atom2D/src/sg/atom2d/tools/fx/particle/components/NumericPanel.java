@@ -26,7 +26,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter.NumericValue;
+import sg.atom2d.game2d.graphics.fx.particle.values.NumericValue;
 
 public class NumericPanel extends EditorPanel {
 	private final NumericValue value;

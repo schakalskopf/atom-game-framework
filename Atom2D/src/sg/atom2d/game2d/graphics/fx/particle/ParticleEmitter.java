@@ -13,10 +13,14 @@
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
  * the License.
- *****************************************************************************
+ * ****************************************************************************
  */
 package sg.atom2d.game2d.graphics.fx.particle;
 
+import sg.atom2d.game2d.graphics.fx.particle.values.ScaledNumericValue;
+import sg.atom2d.game2d.graphics.fx.particle.values.SpawnShapeValue;
+import sg.atom2d.game2d.graphics.fx.particle.values.GradientColorValue;
+import sg.atom2d.game2d.graphics.fx.particle.values.RangedNumericValue;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
@@ -24,6 +28,8 @@ import java.io.Writer;
 import com.badlogic.gdx.graphics.GL10;
 import com.jme3.texture.Texture;
 import sg.atom.utils.math.MathUtils;
+import sg.atom2d.game2d.graphics.texture.Sprite;
+import sg.atom2d.game2d.graphics.texture.SpriteBatch;
 
 // BOZO - Javadoc.
 // BOZO - Add a duplicate emitter button.
@@ -36,6 +42,7 @@ public class ParticleEmitter {
     static private final int UPDATE_WIND = 1 << 4;
     static private final int UPDATE_GRAVITY = 1 << 5;
     static private final int UPDATE_TINT = 1 << 6;
+    
     private RangedNumericValue delayValue = new RangedNumericValue();
     private ScaledNumericValue lifeOffsetValue = new ScaledNumericValue();
     private RangedNumericValue durationValue = new RangedNumericValue();
@@ -54,6 +61,7 @@ public class ParticleEmitter {
     private ScaledNumericValue spawnWidthValue = new ScaledNumericValue();
     private ScaledNumericValue spawnHeightValue = new ScaledNumericValue();
     private SpawnShapeValue spawnShapeValue = new SpawnShapeValue();
+    
     private float accumulator;
     private Sprite sprite;
     private Particle[] particles;
@@ -984,7 +992,7 @@ public class ParticleEmitter {
         }
     }
 
-    static String readString(BufferedReader reader, String name) throws IOException {
+    public static String readString(BufferedReader reader, String name) throws IOException {
         String line = reader.readLine();
         if (line == null) {
             throw new IOException("Missing value: " + name);
@@ -992,458 +1000,16 @@ public class ParticleEmitter {
         return line.substring(line.indexOf(":") + 1).trim();
     }
 
-    static boolean readBoolean(BufferedReader reader, String name) throws IOException {
+    public static boolean readBoolean(BufferedReader reader, String name) throws IOException {
         return Boolean.parseBoolean(readString(reader, name));
     }
 
-    static int readInt(BufferedReader reader, String name) throws IOException {
+    public static int readInt(BufferedReader reader, String name) throws IOException {
         return Integer.parseInt(readString(reader, name));
     }
 
-    static float readFloat(BufferedReader reader, String name) throws IOException {
+    public static float readFloat(BufferedReader reader, String name) throws IOException {
         return Float.parseFloat(readString(reader, name));
-    }
-
-    public static class Particle extends Sprite {
-
-        protected int life, currentLife;
-        protected float scale, scaleDiff;
-        protected float rotation, rotationDiff;
-        protected float velocity, velocityDiff;
-        protected float angle, angleDiff;
-        protected float angleCos, angleSin;
-        protected float transparency, transparencyDiff;
-        protected float wind, windDiff;
-        protected float gravity, gravityDiff;
-        protected float[] tint;
-
-        public Particle(Sprite sprite) {
-            super(sprite);
-        }
-    }
-
-    static public class ParticleValue {
-
-        boolean active;
-        boolean alwaysActive;
-
-        public void setAlwaysActive(boolean alwaysActive) {
-            this.alwaysActive = alwaysActive;
-        }
-
-        public boolean isAlwaysActive() {
-            return alwaysActive;
-        }
-
-        public boolean isActive() {
-            return alwaysActive || active;
-        }
-
-        public void setActive(boolean active) {
-            this.active = active;
-        }
-
-        public void save(Writer output) throws IOException {
-            if (!alwaysActive) {
-                output.write("active: " + active + "\n");
-            } else {
-                active = true;
-            }
-        }
-
-        public void load(BufferedReader reader) throws IOException {
-            if (!alwaysActive) {
-                active = readBoolean(reader, "active");
-            } else {
-                active = true;
-            }
-        }
-
-        public void load(ParticleValue value) {
-            active = value.active;
-            alwaysActive = value.alwaysActive;
-        }
-    }
-
-    static public class NumericValue extends ParticleValue {
-
-        private float value;
-
-        public float getValue() {
-            return value;
-        }
-
-        public void setValue(float value) {
-            this.value = value;
-        }
-
-        public void save(Writer output) throws IOException {
-            super.save(output);
-            if (!active) {
-                return;
-            }
-            output.write("value: " + value + "\n");
-        }
-
-        public void load(BufferedReader reader) throws IOException {
-            super.load(reader);
-            if (!active) {
-                return;
-            }
-            value = readFloat(reader, "value");
-        }
-
-        public void load(NumericValue value) {
-            super.load(value);
-            this.value = value.value;
-        }
-    }
-
-    static public class RangedNumericValue extends ParticleValue {
-
-        private float lowMin, lowMax;
-
-        public float newLowValue() {
-            return lowMin + (lowMax - lowMin) * MathUtils.random();
-        }
-
-        public void setLow(float value) {
-            lowMin = value;
-            lowMax = value;
-        }
-
-        public void setLow(float min, float max) {
-            lowMin = min;
-            lowMax = max;
-        }
-
-        public float getLowMin() {
-            return lowMin;
-        }
-
-        public void setLowMin(float lowMin) {
-            this.lowMin = lowMin;
-        }
-
-        public float getLowMax() {
-            return lowMax;
-        }
-
-        public void setLowMax(float lowMax) {
-            this.lowMax = lowMax;
-        }
-
-        public void save(Writer output) throws IOException {
-            super.save(output);
-            if (!active) {
-                return;
-            }
-            output.write("lowMin: " + lowMin + "\n");
-            output.write("lowMax: " + lowMax + "\n");
-        }
-
-        public void load(BufferedReader reader) throws IOException {
-            super.load(reader);
-            if (!active) {
-                return;
-            }
-            lowMin = readFloat(reader, "lowMin");
-            lowMax = readFloat(reader, "lowMax");
-        }
-
-        public void load(RangedNumericValue value) {
-            super.load(value);
-            lowMax = value.lowMax;
-            lowMin = value.lowMin;
-        }
-    }
-
-    static public class ScaledNumericValue extends RangedNumericValue {
-
-        private float[] scaling = {1};
-        float[] timeline = {0};
-        private float highMin, highMax;
-        private boolean relative;
-
-        public float newHighValue() {
-            return highMin + (highMax - highMin) * MathUtils.random();
-        }
-
-        public void setHigh(float value) {
-            highMin = value;
-            highMax = value;
-        }
-
-        public void setHigh(float min, float max) {
-            highMin = min;
-            highMax = max;
-        }
-
-        public float getHighMin() {
-            return highMin;
-        }
-
-        public void setHighMin(float highMin) {
-            this.highMin = highMin;
-        }
-
-        public float getHighMax() {
-            return highMax;
-        }
-
-        public void setHighMax(float highMax) {
-            this.highMax = highMax;
-        }
-
-        public float[] getScaling() {
-            return scaling;
-        }
-
-        public void setScaling(float[] values) {
-            this.scaling = values;
-        }
-
-        public float[] getTimeline() {
-            return timeline;
-        }
-
-        public void setTimeline(float[] timeline) {
-            this.timeline = timeline;
-        }
-
-        public boolean isRelative() {
-            return relative;
-        }
-
-        public void setRelative(boolean relative) {
-            this.relative = relative;
-        }
-
-        public float getScale(float percent) {
-            int endIndex = -1;
-            float[] timeline = this.timeline;
-            int n = timeline.length;
-            for (int i = 1; i < n; i++) {
-                float t = timeline[i];
-                if (t > percent) {
-                    endIndex = i;
-                    break;
-                }
-            }
-            if (endIndex == -1) {
-                return scaling[n - 1];
-            }
-            float[] scaling = this.scaling;
-            int startIndex = endIndex - 1;
-            float startValue = scaling[startIndex];
-            float startTime = timeline[startIndex];
-            return startValue + (scaling[endIndex] - startValue) * ((percent - startTime) / (timeline[endIndex] - startTime));
-        }
-
-        public void save(Writer output) throws IOException {
-            super.save(output);
-            if (!active) {
-                return;
-            }
-            output.write("highMin: " + highMin + "\n");
-            output.write("highMax: " + highMax + "\n");
-            output.write("relative: " + relative + "\n");
-            output.write("scalingCount: " + scaling.length + "\n");
-            for (int i = 0; i < scaling.length; i++) {
-                output.write("scaling" + i + ": " + scaling[i] + "\n");
-            }
-            output.write("timelineCount: " + timeline.length + "\n");
-            for (int i = 0; i < timeline.length; i++) {
-                output.write("timeline" + i + ": " + timeline[i] + "\n");
-            }
-        }
-
-        public void load(BufferedReader reader) throws IOException {
-            super.load(reader);
-            if (!active) {
-                return;
-            }
-            highMin = readFloat(reader, "highMin");
-            highMax = readFloat(reader, "highMax");
-            relative = readBoolean(reader, "relative");
-            scaling = new float[readInt(reader, "scalingCount")];
-            for (int i = 0; i < scaling.length; i++) {
-                scaling[i] = readFloat(reader, "scaling" + i);
-            }
-            timeline = new float[readInt(reader, "timelineCount")];
-            for (int i = 0; i < timeline.length; i++) {
-                timeline[i] = readFloat(reader, "timeline" + i);
-            }
-        }
-
-        public void load(ScaledNumericValue value) {
-            super.load(value);
-            highMax = value.highMax;
-            highMin = value.highMin;
-            scaling = new float[value.scaling.length];
-            System.arraycopy(value.scaling, 0, scaling, 0, scaling.length);
-            timeline = new float[value.timeline.length];
-            System.arraycopy(value.timeline, 0, timeline, 0, timeline.length);
-            relative = value.relative;
-        }
-    }
-
-    static public class GradientColorValue extends ParticleValue {
-
-        static private float[] temp = new float[4];
-        private float[] colors = {1, 1, 1};
-        float[] timeline = {0};
-
-        public GradientColorValue() {
-            alwaysActive = true;
-        }
-
-        public float[] getTimeline() {
-            return timeline;
-        }
-
-        public void setTimeline(float[] timeline) {
-            this.timeline = timeline;
-        }
-
-        public float[] getColors() {
-            return colors;
-        }
-
-        public void setColors(float[] colors) {
-            this.colors = colors;
-        }
-
-        public float[] getColor(float percent) {
-            int startIndex = 0, endIndex = -1;
-            float[] timeline = this.timeline;
-            int n = timeline.length;
-            for (int i = 1; i < n; i++) {
-                float t = timeline[i];
-                if (t > percent) {
-                    endIndex = i;
-                    break;
-                }
-                startIndex = i;
-            }
-            float startTime = timeline[startIndex];
-            startIndex *= 3;
-            float r1 = colors[startIndex];
-            float g1 = colors[startIndex + 1];
-            float b1 = colors[startIndex + 2];
-            if (endIndex == -1) {
-                temp[0] = r1;
-                temp[1] = g1;
-                temp[2] = b1;
-                return temp;
-            }
-            float factor = (percent - startTime) / (timeline[endIndex] - startTime);
-            endIndex *= 3;
-            temp[0] = r1 + (colors[endIndex] - r1) * factor;
-            temp[1] = g1 + (colors[endIndex + 1] - g1) * factor;
-            temp[2] = b1 + (colors[endIndex + 2] - b1) * factor;
-            return temp;
-        }
-
-        public void save(Writer output) throws IOException {
-            super.save(output);
-            if (!active) {
-                return;
-            }
-            output.write("colorsCount: " + colors.length + "\n");
-            for (int i = 0; i < colors.length; i++) {
-                output.write("colors" + i + ": " + colors[i] + "\n");
-            }
-            output.write("timelineCount: " + timeline.length + "\n");
-            for (int i = 0; i < timeline.length; i++) {
-                output.write("timeline" + i + ": " + timeline[i] + "\n");
-            }
-        }
-
-        public void load(BufferedReader reader) throws IOException {
-            super.load(reader);
-            if (!active) {
-                return;
-            }
-            colors = new float[readInt(reader, "colorsCount")];
-            for (int i = 0; i < colors.length; i++) {
-                colors[i] = readFloat(reader, "colors" + i);
-            }
-            timeline = new float[readInt(reader, "timelineCount")];
-            for (int i = 0; i < timeline.length; i++) {
-                timeline[i] = readFloat(reader, "timeline" + i);
-            }
-        }
-
-        public void load(GradientColorValue value) {
-            super.load(value);
-            colors = new float[value.colors.length];
-            System.arraycopy(value.colors, 0, colors, 0, colors.length);
-            timeline = new float[value.timeline.length];
-            System.arraycopy(value.timeline, 0, timeline, 0, timeline.length);
-        }
-    }
-
-    static public class SpawnShapeValue extends ParticleValue {
-
-        SpawnShape shape = SpawnShape.point;
-        boolean edges;
-        SpawnEllipseSide side = SpawnEllipseSide.both;
-
-        public SpawnShape getShape() {
-            return shape;
-        }
-
-        public void setShape(SpawnShape shape) {
-            this.shape = shape;
-        }
-
-        public boolean isEdges() {
-            return edges;
-        }
-
-        public void setEdges(boolean edges) {
-            this.edges = edges;
-        }
-
-        public SpawnEllipseSide getSide() {
-            return side;
-        }
-
-        public void setSide(SpawnEllipseSide side) {
-            this.side = side;
-        }
-
-        public void save(Writer output) throws IOException {
-            super.save(output);
-            if (!active) {
-                return;
-            }
-            output.write("shape: " + shape + "\n");
-            if (shape == SpawnShape.ellipse) {
-                output.write("edges: " + edges + "\n");
-                output.write("side: " + side + "\n");
-            }
-        }
-
-        public void load(BufferedReader reader) throws IOException {
-            super.load(reader);
-            if (!active) {
-                return;
-            }
-            shape = SpawnShape.valueOf(readString(reader, "shape"));
-            if (shape == SpawnShape.ellipse) {
-                edges = readBoolean(reader, "edges");
-                side = SpawnEllipseSide.valueOf(readString(reader, "side"));
-            }
-        }
-
-        public void load(SpawnShapeValue value) {
-            super.load(value);
-            shape = value.shape;
-            edges = value.edges;
-            side = value.side;
-        }
     }
 
     static public enum SpawnShape {

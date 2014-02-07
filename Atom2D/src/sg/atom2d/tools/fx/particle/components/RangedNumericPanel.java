@@ -28,7 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter.RangedNumericValue;
+import sg.atom2d.game2d.graphics.fx.particle.values.RangedNumericValue;
 
 public class RangedNumericPanel extends EditorPanel {
 	private final RangedNumericValue value;

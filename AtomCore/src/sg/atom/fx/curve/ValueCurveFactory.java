@@ -4,13 +4,13 @@
  */
 package sg.atom.fx.curve;
 
-import sg.atom.utils.factory.AtomFactory;
+import sg.atom.utils.factory.IAtomFactory;
 
 /**
  *
  * @author cuong.nguyenmanh2
  */
-public class ValueCurveFactory implements AtomFactory<ValueCurve<Float>> {
+public class ValueCurveFactory implements IAtomFactory<ValueCurve<Float>> {
 
     @Override
     public ValueCurve<Float> create(Object param) {

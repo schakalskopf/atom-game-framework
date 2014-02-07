@@ -4,13 +4,13 @@
  */
 package sg.atom.fx;
 
-import sg.atom.utils.factory.AtomFactory;
+import sg.atom.utils.factory.IAtomFactory;
 
 /**
  * AtomEffectFactory. Factory for Effect
  * @author cuong.nguyenmanh2
  */
-public class AtomEffectFactory implements AtomFactory<AtomEffect> {
+public class AtomEffectFactory implements IAtomFactory<AtomEffect> {
 
     @Override
     public AtomEffect create(Object param) {

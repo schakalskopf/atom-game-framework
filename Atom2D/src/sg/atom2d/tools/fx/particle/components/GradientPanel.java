@@ -36,7 +36,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter.GradientColorValue;
+import sg.atom2d.game2d.graphics.fx.particle.values.GradientColorValue;
 
 public class GradientPanel extends EditorPanel {
 	private final GradientColorValue value;

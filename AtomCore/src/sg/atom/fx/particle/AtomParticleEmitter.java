@@ -26,8 +26,11 @@ import java.io.IOException;
 /**
  * <code>AtomParticleEmitter</code> is a expand version of oginial JME3
  * {@link ParticleEmitter} with more fancy features: Use the orginal Emitter as
- * its particle Use curve value <p> Particle emitters can be used to simulate
- * various kinds of phenomena, such as fire, smoke, explosions and much more.
+ * its particle Use curve value
+ *
+ * <p> Particle emitters can be used to simulate various kinds of phenomena,
+ * such as fire, smoke, explosions and much more.
+ *
  * <p> AtomParticleEmitter have many properties which are used to control the
  * simulation. The interpretation of these properties depends on the
  * {@link ParticleInfluencer} that has been assigned to the emitter via

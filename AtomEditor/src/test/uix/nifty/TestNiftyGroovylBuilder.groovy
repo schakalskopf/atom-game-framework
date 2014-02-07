@@ -6,8 +6,8 @@ import com.jme3.asset.AssetManager
 import com.jme3.app.SimpleApplication
 import com.jme3.niftygui.NiftyJmeDisplay
 import de.lessvoid.nifty.Nifty
-import atom.uix.nifty.builder.NiftyGroovyBuilder
-import atom.uix.nifty.controller.ClosureScreenController
+import sg.atom.uix.nifty.builder.NiftyGroovyBuilder
+import sg.atom.uix.nifty.controller.ClosureScreenController
 
 SimpleApplication app = new SimpleApplication(){
     

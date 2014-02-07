@@ -6,7 +6,7 @@ package sg.atom.entity;
 
 import sg.atom.stage.StageManager;
 import sg.atom.stage.WorldManager;
-import sg.atom.utils.factory.AtomFactory;
+import sg.atom.utils.factory.IAtomFactory;
 
 /**
  * EntityFactory to procedure Entity. (CommonImplementation) Consider as
@@ -14,7 +14,7 @@ import sg.atom.utils.factory.AtomFactory;
  *
  * @author atomix
  */
-public class EntityFactory implements AtomFactory<Entity> {
+public class EntityFactory implements IAtomFactory<Entity> {
 
     protected EntityManager entityManager;
     protected StageManager stageManager;

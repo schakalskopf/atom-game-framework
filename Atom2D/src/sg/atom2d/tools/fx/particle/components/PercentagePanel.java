@@ -28,7 +28,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter.ScaledNumericValue;
+import sg.atom2d.game2d.graphics.fx.particle.values.ScaledNumericValue;
 
 public class PercentagePanel extends EditorPanel {
 

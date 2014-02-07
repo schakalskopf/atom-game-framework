@@ -31,7 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter.ScaledNumericValue;
+import sg.atom2d.game2d.graphics.fx.particle.values.ScaledNumericValue;
 
 public class ScaledNumericPanel extends EditorPanel {
 	final ScaledNumericValue value;

@@ -32,7 +32,7 @@ import javax.swing.JPanel;
 
 import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter.SpawnEllipseSide;
 import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter.SpawnShape;
-import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter.SpawnShapeValue;
+import sg.atom2d.game2d.graphics.fx.particle.values.SpawnShapeValue;
 
 public class SpawnPanel extends EditorPanel {
 

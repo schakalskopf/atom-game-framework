@@ -13,13 +13,13 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
-import sg.atom.utils.factory.AtomFactory;
+import sg.atom.utils.factory.IAtomFactory;
 
 /**
  *
 @author atomix
  */
-public class ParticleFactory implements AtomFactory<ParticleEmitter>{
+public class ParticleFactory implements IAtomFactory<ParticleEmitter>{
     private AssetManager assetManager;
     
     /* Constants */
