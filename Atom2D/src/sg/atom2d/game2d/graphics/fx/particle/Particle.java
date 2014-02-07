@@ -4,10 +4,12 @@
  */
 package sg.atom2d.game2d.graphics.fx.particle;
 
+import com.jme3.texture.Texture;
 import sg.atom2d.game2d.graphics.texture.Sprite;
 
 /**
- *
+ * 2D particle.
+ * 
  * @author cuong.nguyenmanh2
  */
 public class Particle extends Sprite {
@@ -24,6 +26,7 @@ public class Particle extends Sprite {
     protected float[] tint;
 
     public Particle(Sprite sprite) {
-        super(sprite);
+        //super(sprite);
     }
+
 }

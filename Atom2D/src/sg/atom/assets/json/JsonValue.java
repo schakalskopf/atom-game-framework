@@ -1,7 +1,8 @@
 package sg.atom.assets.json;
 
-import com.sun.xml.internal.ws.encoding.soap.SerializationException;
+
 import sg.atom.assets.json.JsonWriter.OutputType;
+import sg.atom.core.asset.SerializationException;
 
 /**
  * Container for a JSON object, array, string, double, long, boolean, or null.

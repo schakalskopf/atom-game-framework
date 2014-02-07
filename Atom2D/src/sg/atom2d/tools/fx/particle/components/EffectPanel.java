@@ -96,9 +96,13 @@ public class EffectPanel extends JPanel {
         emitter.setImagePath("particle.png");
 
         Array<ParticleEmitter> emitters = editor.effect.getEmitters();
+        /*
+         float viewportHeight = editor.worldCamera.getViewPortBottom() - editor.worldCamera.getViewPortTop();
+         float viewportWidth = editor.worldCamera.getFrustumRight() - editor.worldCamera.getFrustumLeft();
+         */
+        float viewportWidth = 600 * 0.1f;
+        float viewportHeight = 400 * 0.1f;
 
-        float viewportHeight = editor.worldCamera.getViewPortBottom() - editor.worldCamera.getViewPortTop();
-        float viewportWidth = editor.worldCamera.getFrustumRight() - editor.worldCamera.getFrustumLeft();
         if (emitters.size == 0) {
             emitter.setPosition(viewportWidth / 2, viewportHeight / 2);
         } else {
@@ -143,7 +147,8 @@ public class EffectPanel extends JPanel {
         lastDir = dir;
         ParticleEffect effect = new ParticleEffect();
         try {
-            effect.loadEmitters(Gdx.files.absolute(new File(dir, file).getAbsolutePath()));
+            //FIXME: Use AssetManager instead.
+            //effect.loadEmitters(Gdx.files.absolute(new File(dir, file).getAbsolutePath()));
             editor.effect = effect;
             emitterTableModel.getDataVector().removeAllElements();
             editor.particleData.clear();

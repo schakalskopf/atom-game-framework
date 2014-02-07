@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package sg.atom2d.geo.panel.app
+package sg.atom2d.tools.layout.app
 
 def name='cuong.nguyenmanh2'
 

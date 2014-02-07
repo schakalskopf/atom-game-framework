@@ -81,7 +81,7 @@ public class ParticleEditor extends JFrame {
     public ParticleEditor() {
         super("Particle Editor");
         particleRenderer = new ParticleRenderer();
-        lwjglCanvas = particleRenderer.getCanvas();
+        lwjglCanvas = particleRenderer.createAndStartCanvas(600, 400);
 
         addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent event) {
@@ -96,6 +96,20 @@ public class ParticleEditor extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
+        
+        create();
+    }
+
+    public void create() {
+        pixelsPerMeter = new NumericValue();
+        pixelsPerMeter.setValue(1.0f);
+        pixelsPerMeter.setAlwaysActive(true);
+
+        zoomLevel = new NumericValue();
+        zoomLevel.setValue(1.0f);
+        zoomLevel.setAlwaysActive(true);
+
+        effectPanel.newEmitter("Untitled", true);
     }
 
     public void reloadRows() {
@@ -136,6 +150,7 @@ public class ParticleEditor extends JFrame {
                 addRow(new GradientPanel(emitter.getTint(), "Tint", ""));
                 addRow(new PercentagePanel(emitter.getTransparency(), "Life", "Transparency", ""));
                 addRow(new OptionsPanel(ParticleEditor.this, "Options", ""));
+                
                 for (Component component : rowsPanel.getComponents()) {
                     if (component instanceof EditorPanel) {
                         ((EditorPanel) component).update(ParticleEditor.this);

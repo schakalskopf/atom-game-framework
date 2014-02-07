@@ -14,8 +14,8 @@ import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
  * @author cuong.nguyenmanh2
  */
 public class ParticleValue {
-    boolean active;
-    boolean alwaysActive;
+    public boolean active;
+    public boolean alwaysActive;
 
     public void setAlwaysActive(boolean alwaysActive) {
         this.alwaysActive = alwaysActive;

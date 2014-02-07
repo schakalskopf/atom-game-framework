@@ -7,10 +7,10 @@ import org.jdesktop.swingx.JXPanel;
 import geo.panel.app.*
 
 
-class LayoutCreatorComponent extends JXPanel{
+public class LayoutCreatorComponent extends JXPanel{
     def layoutEditorPanel = null
     
-    LayoutCreatorComponent(app){
+    public LayoutCreatorComponent(app){
         super()
         setLayout(new BL())
         add(app.swing.panel{

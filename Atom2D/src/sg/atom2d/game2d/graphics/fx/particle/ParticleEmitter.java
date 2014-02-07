@@ -25,14 +25,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
 
-import com.badlogic.gdx.graphics.GL10;
 import com.jme3.texture.Texture;
 import sg.atom.utils.math.MathUtils;
 import sg.atom2d.game2d.graphics.texture.Sprite;
 import sg.atom2d.game2d.graphics.texture.SpriteBatch;
 
-// BOZO - Javadoc.
-// BOZO - Add a duplicate emitter button.
+// TODO - Javadoc.
+// TODO - Add a duplicate emitter button.
 public class ParticleEmitter {
 
     static private final int UPDATE_SCALE = 1 << 0;
@@ -42,7 +41,6 @@ public class ParticleEmitter {
     static private final int UPDATE_WIND = 1 << 4;
     static private final int UPDATE_GRAVITY = 1 << 5;
     static private final int UPDATE_TINT = 1 << 6;
-    
     private RangedNumericValue delayValue = new RangedNumericValue();
     private ScaledNumericValue lifeOffsetValue = new ScaledNumericValue();
     private RangedNumericValue durationValue = new RangedNumericValue();
@@ -61,7 +59,6 @@ public class ParticleEmitter {
     private ScaledNumericValue spawnWidthValue = new ScaledNumericValue();
     private ScaledNumericValue spawnHeightValue = new ScaledNumericValue();
     private SpawnShapeValue spawnShapeValue = new SpawnShapeValue();
-    
     private float accumulator;
     private Sprite sprite;
     private Particle[] particles;
@@ -237,24 +234,26 @@ public class ParticleEmitter {
     }
 
     public void draw(SpriteBatch spriteBatch) {
-        if (additive) {
-            spriteBatch.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE);
-        }
+        /*
+         if (additive) {
+         spriteBatch.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE);
+         }
 
-        Particle[] particles = this.particles;
-        boolean[] active = this.active;
-        int activeCount = this.activeCount;
+         Particle[] particles = this.particles;
+         boolean[] active = this.active;
+         int activeCount = this.activeCount;
 
-        for (int i = 0, n = active.length; i < n; i++) {
-            if (active[i]) {
-                particles[i].draw(spriteBatch);
-            }
-        }
-        this.activeCount = activeCount;
+         for (int i = 0, n = active.length; i < n; i++) {
+         if (active[i]) {
+         particles[i].draw(spriteBatch);
+         }
+         }
+         this.activeCount = activeCount;
 
-        if (additive) {
-            spriteBatch.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-        }
+         if (additive) {
+         spriteBatch.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+         }
+         */
     }
 
     /**
@@ -270,30 +269,32 @@ public class ParticleEmitter {
         int deltaMillis = (int) accumulator;
         accumulator -= deltaMillis;
 
-        if (additive) {
-            spriteBatch.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE);
-        }
+        /*
+         if (additive) {
+         spriteBatch.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE);
+         }
 
-        Particle[] particles = this.particles;
-        boolean[] active = this.active;
-        int activeCount = this.activeCount;
-        for (int i = 0, n = active.length; i < n; i++) {
-            if (active[i]) {
-                Particle particle = particles[i];
-                if (updateParticle(particle, delta, deltaMillis)) {
-                    particle.draw(spriteBatch);
-                } else {
-                    active[i] = false;
-                    activeCount--;
-                }
-            }
-        }
-        this.activeCount = activeCount;
+         Particle[] particles = this.particles;
+         boolean[] active = this.active;
+         int activeCount = this.activeCount;
+         for (int i = 0, n = active.length; i < n; i++) {
+         if (active[i]) {
+         Particle particle = particles[i];
+         if (updateParticle(particle, delta, deltaMillis)) {
+         particle.draw(spriteBatch);
+         } else {
+         active[i] = false;
+         activeCount--;
+         }
+         }
+         }
+         
+         this.activeCount = activeCount;
 
-        if (additive) {
-            spriteBatch.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-        }
-
+         if (additive) {
+         spriteBatch.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+         }
+         */
         if (delayTimer < delay) {
             delayTimer += deltaMillis;
             return;

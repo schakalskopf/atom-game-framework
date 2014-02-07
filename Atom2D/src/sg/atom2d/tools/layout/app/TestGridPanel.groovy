@@ -1,4 +1,4 @@
-package sg.atom2d.geo.panel.app
+package sg.atom2d.tools.layout.app
 
 import groovy.swing.SwingBuilder
 import groovy.swing.j2d.GraphicsBuilder

@@ -16,8 +16,8 @@ import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
  */
 public class GradientColorValue extends ParticleValue {
     private static float[] temp = new float[4];
-    float[] colors = {1, 1, 1};
-    float[] timeline = {0};
+    public float[] colors = {1, 1, 1};
+    public float[] timeline = {0};
 
     public GradientColorValue() {
         alwaysActive = true;

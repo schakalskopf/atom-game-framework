@@ -1,4 +1,4 @@
-package sg.atom2d.geo.panel.app
+package sg.atom2d.tools.layout.app
 
 import groovy.swing.SwingBuilder
 import groovy.swing.SwingXBuilder
@@ -25,11 +25,9 @@ import org.jdesktop.swingx.MultiSplitLayout.Node;
 import org.jdesktop.swingx.MultiSplitLayout.Split;
 import org.jdesktop.swingx.treetable.*;
 
-
-import codegen.*
-import editor.curves.ui.*
+import sg.atom.editor.curves.ui.*
 import net.boplicity.xmleditor.*;
-
+import sg.atom2d.tools.layout.components.*
 
 swing = new SwingXBuilder()
 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

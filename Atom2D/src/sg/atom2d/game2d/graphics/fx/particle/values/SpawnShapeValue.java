@@ -14,9 +14,9 @@ import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
  * @author cuong.nguyenmanh2
  */
 public class SpawnShapeValue extends ParticleValue {
-    ParticleEmitter.SpawnShape shape = ParticleEmitter.SpawnShape.point;
-    boolean edges;
-    ParticleEmitter.SpawnEllipseSide side = ParticleEmitter.SpawnEllipseSide.both;
+    public ParticleEmitter.SpawnShape shape = ParticleEmitter.SpawnShape.point;
+    public boolean edges;
+    public ParticleEmitter.SpawnEllipseSide side = ParticleEmitter.SpawnEllipseSide.both;
 
     public ParticleEmitter.SpawnShape getShape() {
         return shape;

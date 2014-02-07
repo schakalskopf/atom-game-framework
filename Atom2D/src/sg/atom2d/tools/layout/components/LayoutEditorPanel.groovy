@@ -9,7 +9,7 @@ import javax.swing.*
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-class LayoutEditorPanel extends JPanel{
+public class LayoutEditorPanel extends JPanel{
 
 
     // UI
