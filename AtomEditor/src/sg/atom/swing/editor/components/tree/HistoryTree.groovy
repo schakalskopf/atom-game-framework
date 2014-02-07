@@ -1,13 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package sg.atom.managex.functions.transform;
+package atom.swing.editor.components.tree
 
 /**
  *
- * @author hungcuong
+ * @author cuong.nguyenmanh2
  */
-public class MoveAction {
+class HistoryTree {
+	public HistoryTree(){
+            
+        }
+        
     
 }
+

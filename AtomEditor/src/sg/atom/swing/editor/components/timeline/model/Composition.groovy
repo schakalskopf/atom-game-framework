@@ -1,13 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package sg.atom.managex.managers.entity;
+package atom.swing.editor.components.timeline.model
 
-/**
- *
- * @author hungcuong
- */
-public class EntityDisplayManager {
+class Composition {
     
+    def trackChangeListener = []
+    def trackDetailChangeListner=[]
+    
+    def tracks=[]
 }

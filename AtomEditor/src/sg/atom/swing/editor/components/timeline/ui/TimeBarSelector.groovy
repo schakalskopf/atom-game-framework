@@ -1,5 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-pac
+package atom.swing.editor.components.timeline.ui
+
+def name='cuong.nguyenmanh2'
+
+println "Hello $name!"

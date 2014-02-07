@@ -1,50 +1,56 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package sg.atom.managex.helpers;
+package atom.swing.editor.ui.curves.ui
 
-import sg.atom.corex.scenegraph.spatial.HelperSpatial;
-import sg.atom.corex.scenegraph.spatial.SpatialList;
-import sg.atom.corex.common.CommonTool;
-import sg.atom.managex.managers.HelperManager;
-import sg.atom.corex.scenegraph.shape.ArrowShape;
-import sg.atom.corex.scenegraph.shape.BoxShape;
-import sg.atom.corex.scenegraph.shape.CylinderShape;
-import sg.atom.corex.scenegraph.shape.Shape;
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
-import sg.atom.corex.scenegraph.shape.SphereShape;
-import com.jme3.input.controls.ActionListener;
-import com.jme3.input.controls.AnalogListener;
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
-import com.jme3.renderer.RenderManager;
-import com.jme3.renderer.ViewPort;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
-import com.jme3.scene.control.Control;
+import groovy.swing.j2d.*
+import java.awt.*;
+import com.jme3.math.*
+import atom.swing.editor.ui.curves.model.*
+class CurvesUI{
 
-/**
- *
- * @author hungcuong
- */
-public class GizmoHelper extends AbstractHelper implements ActionListener, AnalogListener {
+    // UI
+    def gb = new GraphicsBuilder()
+    def getDrawGrid(){
+        return gb.group{
+            vieww= 800
+            viewh= 640
+            playPos = 100
+            rect(x:0,y:0,width:vieww,height:viewh,fill:'darkGray')
+            // horizontal grid line
+            def gh = 0
+            while(gh<viewh){
+                gh+=40
+                line(x1:0,y1:gh,x2:vieww,y2:gh,borderColor: 'gray',borderWidth:1)
+            }
+            // vertical grid line
+            def gw = 0
+            while(gw<vieww){
+                gw+=100
+                line(x1:gw,y1:0,,x2:gw,y2:viewh,borderColor: 'gray',borderWidth:1)
+            }
+        
+            line(id:"playCue",y1:0,x1:playPos,y2:vieww,x2:playPos,borderColor: 'red',borderWidth:2)
+            group(new Channel().getDrawCurves(gb,null))
+            group(new Channel().getDrawCurves(gb,"red"))
+            group(new Channel().getDrawCurves(gb,"blue"))
+            group(new Channel().getDrawCurves(gb,"yellow"))
+            group(getDrawTrack())
+        }
+    }
+    def getDrawScroolBar(){
+    
+    }
 
-    // Tool level
-    private CommonTool commonTool;
-    private ShapeUtil shapeUtil;
-    private HelperManager helperManager;
-    private Camera cam;
-    private boolean camFix;
-    // SubTool Level
-    private Node gizmo;
-    private Shape scaleAllShape;
-    private Shape scaleXY_WireShape;
-    private Shape ScaleYZ_WireShape;
-    private Shape scaleZX_WireShape;
-    private Shape arrowZShape;
-    private Shape arrowXShape;
-    private Shape arrowYShape;
-    private Sh
+    def getDrawTimeRuler(){
+    
+    }
+
+    def getDrawTrack(){
+        return gb.group(){
+            //rect( x: 10, y: 10, width: 290, height: 80, arcWidth: 20, arcHeight: 20 )
+            //circle( cx: 90, cy: 80, radius: 50, borderColor: 'darkRed', fill: 'red' )
+            //polygon(points: [175, 38, 229, 69, 229, 131, 175, 162, 121, 131, 121, 69])
+        }
+    }
+
+}
+
+

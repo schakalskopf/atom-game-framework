@@ -29,6 +29,8 @@ import com.jme3.texture.Texture;
 import jme3tools.optimize.TextureAtlas;
 import sg.atom.core.asset.FileHandle;
 import sg.atom.utils.collection.Array;
+import sg.atom2d.game2d.graphics.texture.Sprite;
+import sg.atom2d.game2d.graphics.texture.SpriteBatch;
 
 /**
  * See <a

@@ -1,13 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package sg.atom.managex.managers.spatial;
+package atom.swing.editor.components.timeline.model
 
-/**
- *
- * @author hungcuong
- */
-public class SpatialDisplayManager {
-    
+public class Track{
+    public String name
+    public boolean visible
+    public String type
+    public List<KeyFrame> keyframes=[]
+    public List<TimeBar> timeBars=[]
+    def color
 }

@@ -1,13 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package sg.atom.managex.managers.spatial;
+package atom.swing.editor.components.timeline.ui
 
-/**
- *
- * @author hungcuong
- */
-public class SpatialLayerManager {
+class Mark{
+    String name;
+    float time;
     
 }

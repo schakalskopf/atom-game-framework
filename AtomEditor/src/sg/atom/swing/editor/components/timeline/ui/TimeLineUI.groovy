@@ -1,47 +1,44 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package sg.atom.managex.managers;
+package atom.swing.editor.components.timeline.ui
 
-import sg.atom.corex.scenegraph.spatial.SpatialList;
-import sg.atom.corex.common.CommonTool;
-import sg.atom.managex.helpers.AbstractHelper;
-import sg.atom.managex.helpers.GizmoHelper;
-import sg.atom.managex.helpers.GridHelper;
-import sg.atom.managex.helpers.MarkHelper;
-import sg.atom.managex.helpers.ShapeOperationHelper;
-import sg.atom.managex.helpers.WorkingHelper;
-import com.jme3.collision.CollisionResult;
-import com.jme3.collision.CollisionResults;
-import com.jme3.input.MouseInput;
-import com.jme3.input.controls.MouseAxisTrigger;
-import com.jme3.renderer.RenderManager;
-import com.jme3.renderer.ViewPort;
-import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
-import com.jme3.scene.control.AbstractControl;
-import java.util.LinkedList;
-import java.util.List;
+import groovy.swing.SwingXBuilder
+import groovy.swing.SwingBuilder
+import javax.swing.*
+import java.awt.*
 
-/**
- *
- * @author hungcuong
- */
-public class HelperManager extends AbstractControl {
+import org.jdesktop.swingx.JXMultiSplitPane;
+import org.jdesktop.swingx.MultiSplitLayout;
+import org.jdesktop.swingx.MultiSplitLayout.Divider;
+import org.jdesktop.swingx.MultiSplitLayout.Leaf;
+import org.jdesktop.swingx.MultiSplitLayout.Node;
+import org.jdesktop.swingx.MultiSplitLayout.Split;
+
+def swing = new SwingXBuilder()
+def frame = swing.frame(title:'Frame', defaultCloseOperation:JFrame.EXIT_ON_CLOSE, pack:true, show:true, size:[800,600]) {
     
+    String layoutDef ="(ROW left middle right)";
+    MultiSplitLayout.Node modelRoot = MultiSplitLayout.parseModel(layoutDef);
+
+    JXMultiSplitPane multiSplitPane1 = new JXMultiSplitPane();
+    multiSplitPane1.getMultiSplitLayout().setModel(modelRoot);
     
-    public Node helperNode, targetNode;
+    /*
+    def children =[ 
+    new Leaf("left"),
+    new Divider(), 
+    new Leaf("right")];
+    Split modelRoot = new Split();
+    modelRoot.setChildren(children);
+
+    JXMultiSplitPane multiSplitPane1 = new JXMultiSplitPane();
+    multiSplitPane1.getMultiSplitLayout().setModel(modelRoot);
+     */
+    multiSplitPane(multiSplitPane1){
+        
+        button(text:"Left Button", constraints:"left")
+        button(text:"Right Button", constraints:"right")
+        button(text:"Center Button", constraints:"middle")
+    }
     
-    public String nowAction;
-    
-    private CommonTool commonTool;
-    
-    // THE HELPER
-    private WorkingHelper workingHelper;
-    private GizmoHelper gizmoHelper; 
-    private MarkHelper markHelper;
-    private ShapeOperationHelper shapeHelper;
-    private GridHelper gridHelper;
-    
-    private List<AbstractHelper> helperList = new LinkedList<Abs
+
+}
+
