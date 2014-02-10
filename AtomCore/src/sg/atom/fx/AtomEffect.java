@@ -5,8 +5,6 @@
 package sg.atom.fx;
 
 import com.jme3.scene.Spatial;
-import java.util.Properties;
-import sg.atom.core.AbstractManager;
 import sg.atom.core.lifecycle.ManagableObject;
 
 /**
@@ -32,21 +30,10 @@ import sg.atom.core.lifecycle.ManagableObject;
 public interface AtomEffect extends ManagableObject{
     public int getIndex();
     
-    public Properties getProperties();
-    
-    public void setProperty(String propName,Object value);
-    
-    public Object getProperty(String value);
-    
-    public <T> T getProperty(Class<T> clazz,String value);
-    
     public void active(Spatial target);
 
-    public void update(float tpf);
+    //public void update(float tpf);
 
     public void deactive();
-    
-
-    
     
 }

@@ -17,7 +17,6 @@
  */
 package sg.atom.core.asset;
 
-import com.jme3.system.Annotations.Internal;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;

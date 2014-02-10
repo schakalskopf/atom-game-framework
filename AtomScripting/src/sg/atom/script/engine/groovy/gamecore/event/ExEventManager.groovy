@@ -1,6 +1,5 @@
-package rts.core.event
+package sg.atom.script.engine.groovy.gamecore.event
 
-import rts.gameplay.actions.RTSAction
 /**
  *
  * @author cuong.nguyenmanh2
@@ -38,7 +37,7 @@ class ExEventManager {
                 a()
             } else if (a instanceof String){
                 shell.evaluate(a)
-            } else if (a instanceof RTSAction){
+            } else if (a instanceof GroovyObject){
                 a.doAction()
             }
         }

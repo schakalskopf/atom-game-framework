@@ -10,8 +10,7 @@ import java.util.*;
  * For the era before Guava
  *
  * @author Peter Eastman
- */
-@Deprecated
+ */ @Deprecated
 public class EventLinkRecord {
 
     private Class eventClass;

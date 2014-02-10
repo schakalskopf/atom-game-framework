@@ -4,12 +4,15 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Random;
 
+@Deprecated
 /**
  * Utility and fast math functions.
  *
  * <p> Thanks to Riven on JavaGaming.org for the basis of
  * sin/cos/atan2/floor/ceil.
- *
+ * 
+ * Use guava Math instead!
+ * 
  * @author Nathan Sweet
  */
 public class MathUtils {

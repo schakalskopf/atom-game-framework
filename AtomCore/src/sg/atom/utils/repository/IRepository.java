@@ -8,9 +8,9 @@ import java.util.Collection;
 import sg.atom.utils.factory.IAtomFactory;
 
 /**
- *
+ * Before Javolution Contest
  * @author CuongNguyen
- */
+ */ @Deprecated
 public interface IRepository<K, V> {
     
     public IAtomFactory getFactory(Class clazz);

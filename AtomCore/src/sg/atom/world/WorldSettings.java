@@ -12,6 +12,7 @@ public class WorldSettings {
 
     public WorldSettings() {
     }
+    
     public boolean useLevel = true;
     public boolean useForestor = false;
     public boolean useWater = false;

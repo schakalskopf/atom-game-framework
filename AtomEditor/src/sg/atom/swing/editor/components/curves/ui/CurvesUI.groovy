@@ -1,9 +1,9 @@
-package atom.swing.editor.ui.curves.ui
+package sg.atom.swing.editor.ui.curves.ui
 
 import groovy.swing.j2d.*
 import java.awt.*;
 import com.jme3.math.*
-import atom.swing.editor.ui.curves.model.*
+import sg.atom.swing.editor.ui.curves.model.*
 class CurvesUI{
 
     // UI

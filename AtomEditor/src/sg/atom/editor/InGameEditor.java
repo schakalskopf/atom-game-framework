@@ -5,7 +5,7 @@
 package sg.atom.editor;
 
 import sg.atom.managex.api.function.AtomFunction;
-import sg.atom.managex.api.action.FunctionSystem;
+import sg.atom.managex.api.function.FunctionSystem;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;

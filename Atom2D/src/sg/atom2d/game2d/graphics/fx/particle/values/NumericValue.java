@@ -7,6 +7,7 @@ package sg.atom2d.game2d.graphics.fx.particle.values;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
+import sg.atom.utils.CommonParser;
 import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
 import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
 
@@ -14,7 +15,7 @@ import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
  *
  * @author cuong.nguyenmanh2
  */
-public class NumericValue extends ParticleValue {
+public class NumericValue extends EditableValue {
     float value;
 
     public float getValue() {
@@ -38,7 +39,7 @@ public class NumericValue extends ParticleValue {
         if (!active) {
             return;
         }
-        value = ParticleEmitter.readFloat(reader, "value");
+        value = CommonParser.readFloat(reader, "value");
     }
 
     public void load(NumericValue value) {

@@ -4,7 +4,7 @@ import sg.atom.editor.components.ExNiftyComponent;
 import sg.atom.editor.components.MainMenuComponent;
 import sg.atom.editor.components.SceneGraphTreeComponent;
 import sg.atom.editor.components.ToolbarComponent;
-import sg.atom.managex.api.action.FunctionSystem;
+import sg.atom.managex.api.function.FunctionSystem;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.AssetManager;
 import com.jme3.cursors.plugins.JmeCursor;

@@ -5,8 +5,8 @@
 package sg.atom.corex.common;
 
 import sg.atom.corex.camera.CamUtil;
-import sg.atom.managex.managers.HelperManager;
-import sg.atom.managex.managers.SelectionManager;
+import sg.atom.editor.managers.HelperManager;
+import sg.atom.editor.managers.SelectionManager;
 import sg.atom.corex.scenegraph.shape.ShapeUtil;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.AssetManager;
@@ -16,13 +16,20 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Node;
 
 /**
+ * CommonTool is the singleton reference beside of Global in an editing
+ * enviroment.
  *
+ * It's the bootstrap module to run the whole application.
+ * 
+ * 
  * @author hungcuong
  */
 public class CommonTool {
 
     private static CommonTool singletonObject;
-    /** A private Constructor prevents any other class from instantiating. */
+    /**
+     * A private Constructor prevents any other class from instantiating.
+     */
     // Engine Level
     private SimpleApplication app;
     private AssetManager assetManager;
@@ -35,11 +42,10 @@ public class CommonTool {
     private CamUtil camUtil;
     private Camera currentCam;
     private ShapeUtil shapeUtil;
-    
     // ___
     private SelectionManager selectionManager;
     private HelperManager helperManager;
-    
+
     private CommonTool(SimpleApplication app) {
 
         // Low Level

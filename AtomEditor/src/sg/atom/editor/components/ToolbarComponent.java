@@ -7,7 +7,7 @@ package sg.atom.editor.components;
 import sg.atom.editor.EditorGUIManager;
 import sg.atom.editor.controls.button.ExButtonBuilder;
 import sg.atom.managex.api.function.AtomFunction;
-import sg.atom.managex.api.action.FunctionSystem;
+import sg.atom.managex.api.function.FunctionSystem;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.builder.ElementBuilder;
 import de.lessvoid.nifty.builder.HoverEffectBuilder;

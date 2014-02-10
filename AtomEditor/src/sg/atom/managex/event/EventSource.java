@@ -10,8 +10,7 @@ import java.util.*;
  * EventSource is the superclass of Widget, and the vast majority of EventSources are Widgets.
  *
  * @author Peter Eastman
- */
-@Deprecated
+ */ @Deprecated
 public class EventSource
 {
   protected ArrayList eventLinks;

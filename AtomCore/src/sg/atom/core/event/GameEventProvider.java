@@ -4,10 +4,13 @@
  */
 package sg.atom.core.event;
 
+@Deprecated
 /**
- *
+ * To impose that this s an event producer/provider for the system.
+ * Should be removed when use EventBus
+ * 
  * @author atomix
  */
-public class GameEventProvider {
+public interface GameEventProvider {
     
 }

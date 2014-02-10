@@ -2,10 +2,8 @@ package sg.atom.core.event;
 
 import java.util.ArrayList;
 
-/**
- *
-@author atomix
- */
+@Deprecated
+
 /**
  * GameEventManager. <p>This class is a general Game event manager, which take
  * care of event managing and direct the event dispatching when needed. It also
@@ -25,8 +23,9 @@ import java.util.ArrayList;
  *
  * <p> More over the GameEventManager can also be change it behaviors and
  * activites ex:muted and adapt to up-date-per-frame alike mechanisms if needed.
+ * 
+ * @author atomix
  */
-@Deprecated
 public class GameEventManager {
 
     ArrayList<GameEvent> queue;

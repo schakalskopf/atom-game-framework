@@ -1,4 +1,4 @@
-package atom.swing.editor.components.timeline.ui
+package sg.atom.swing.editor.components.timeline.ui
 
 import groovy.swing.SwingBuilder
 import java.awt.BorderLayout as BL
@@ -7,7 +7,7 @@ import javax.swing.*
 import com.jme3.math.*
 import groovy.swing.j2d.*
 
-import atom.swing.editor.components.timeline.model.*
+import sg.atom.swing.editor.components.timeline.model.*
 
 def jFrame;
 random = new Random()

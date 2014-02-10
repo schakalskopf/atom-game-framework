@@ -32,13 +32,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
-import sg.atom2d.game2d.graphics.fx.particle.values.ParticleValue;
+import sg.atom2d.game2d.graphics.fx.particle.values.EditableValue;
 
 public class EditorPanel extends JPanel {
 
     private final String name;
     private final String description;
-    private final ParticleValue value;
+    private final EditableValue value;
     private JPanel titlePanel;
     JToggleButton activeButton;
     private JPanel contentPanel;
@@ -47,7 +47,7 @@ public class EditorPanel extends JPanel {
     private boolean hasAdvanced;
     JLabel descriptionLabel;
 
-    public EditorPanel(ParticleValue value, String name, String description) {
+    public EditorPanel(EditableValue value, String name, String description) {
         this.name = name;
         this.value = value;
         this.description = description;

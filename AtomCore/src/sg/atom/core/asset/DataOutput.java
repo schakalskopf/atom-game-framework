@@ -21,9 +21,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+@Deprecated
 /**
  * Extends {@link DataOutputStream} with additional convenience methods.
  *
+ * * Use Google ByteArray instead
  * @author Nathan Sweet
  */
 public class DataOutput extends DataOutputStream {

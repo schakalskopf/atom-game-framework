@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package rts.core.event
+package sg.atom.script.engine.groovy.gamecore.event
 
 /**
  *

@@ -1,4 +1,4 @@
-package atom.swing.editor.components.timeline.model
+package sg.atom.swing.editor.components.timeline.model
 
 class TimeBar{
     String name

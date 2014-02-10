@@ -108,7 +108,7 @@ def getRow={list, point->
 def createToolbar(def builder){
     toolbar = builder.toolBar(rollover:true, constraints:BorderLayout.NORTH,floatable :true) {
         
-        button( text:"New",icon:createIcon("ToolbarIcons/24/New.png"))
+        button( text:"New",icon:createIcon("icons/icons/ToolbarIcons/24/New.png"))
         button( text:"Open")
         button( text:"Save")
         separator(orientation:SwingConstants.VERTICAL)
@@ -134,14 +134,14 @@ swing.edt{
         borderLayout()
         toolBar(rollover:true, constraints:BorderLayout.NORTH,floatable :true) {
         
-            button( toolTipText:"New",icon:createIcon("ToolbarIcons/24/New.png"))
-            button( toolTipText:"Open",icon:createIcon("ToolbarIcons/24/Open.png"))
-            button( toolTipText:"Save",icon:createIcon("ToolbarIcons/24/Save.png"))
+            button( toolTipText:"New",icon:createIcon("icons/icons/ToolbarIcons/24/New.png"))
+            button( toolTipText:"Open",icon:createIcon("icons/icons/ToolbarIcons/24/Open.png"))
+            button( toolTipText:"Save",icon:createIcon("icons/icons/ToolbarIcons/24/Save.png"))
             separator(orientation:SwingConstants.VERTICAL)
-            button( toolTipText:"Copy",icon:createIcon("ToolbarIcons/24/Copy.png"))
-            button( toolTipText:"Cut",icon:createIcon("ToolbarIcons/24/Cut.png"))
-            button( toolTipText:"Paste",icon:createIcon("ToolbarIcons/24/Paste.png"))
-            button( toolTipText:"Delete",icon:createIcon("ToolbarIcons/24/Delete.png"))
+            button( toolTipText:"Copy",icon:createIcon("icons/icons/ToolbarIcons/24/Copy.png"))
+            button( toolTipText:"Cut",icon:createIcon("icons/icons/ToolbarIcons/24/Cut.png"))
+            button( toolTipText:"Paste",icon:createIcon("icons/icons/ToolbarIcons/24/Paste.png"))
+            button( toolTipText:"Delete",icon:createIcon("icons/icons/ToolbarIcons/24/Delete.png"))
             separator(orientation:SwingConstants.VERTICAL)
         }
         
@@ -288,4 +288,4 @@ swing.edt{
     
 }
 
-layoutEditorPanel.reloadImage("D:/JGE/MY GAMES/CityGen/src/images/facade3.jpg")
+//layoutEditorPanel.reloadImage("D:/JGE/MY GAMES/CityGen/src/images/facade3.jpg")

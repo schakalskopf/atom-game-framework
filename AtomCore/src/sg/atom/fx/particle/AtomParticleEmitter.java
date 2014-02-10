@@ -42,11 +42,13 @@ import java.io.IOException;
 public class AtomParticleEmitter extends AtomParticle {
 
     private boolean enabled = true;
+    // Influences
     private static final EmitterShape DEFAULT_SHAPE = new EmitterPointShape(Vector3f.ZERO);
     private static final ParticleInfluencer DEFAULT_INFLUENCER = new DefaultParticleInfluencer();
     private AtomParticleEmitterControl control;
     private EmitterShape shape = DEFAULT_SHAPE;
     private ParticleInfluencer particleInfluencer = DEFAULT_INFLUENCER;
+    // Children
     private Particle[] particles;
     private int firstUnUsed;
     private int lastUsed;

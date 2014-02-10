@@ -1,8 +1,9 @@
 package sg.atom.core.event;
 
+@Deprecated
 /**
- *
-@author atomix
+ * Convenient LIFO Queue which support queuing event and its relation state.
+ * @author atomix
  */
 public class GameEventQueue {
     

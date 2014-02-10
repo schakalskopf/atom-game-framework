@@ -1,4 +1,4 @@
-package atom.swing.editor.ui.curves.model
+package sg.atom.swing.editor.ui.curves.model
 
 import groovy.swing.SwingBuilder
 import groovy.swing.j2d.*

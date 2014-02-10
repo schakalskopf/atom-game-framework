@@ -35,8 +35,7 @@ package sg.atom.managex.event;
  * take an argument of type <code>Object</code> rather than a more specific event type.
  * 
  * @author Peter Eastman
- */
-@Deprecated
+ */ @Deprecated
 public abstract class EventProcessor
 {
   /**

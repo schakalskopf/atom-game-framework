@@ -7,13 +7,14 @@ package sg.atom2d.game2d.graphics.fx.particle.values;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
+import sg.atom.utils.CommonParser;
 import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
 
 /**
  *
  * @author cuong.nguyenmanh2
  */
-public class SpawnShapeValue extends ParticleValue {
+public class SpawnShapeValue extends EditableValue {
     public ParticleEmitter.SpawnShape shape = ParticleEmitter.SpawnShape.point;
     public boolean edges;
     public ParticleEmitter.SpawnEllipseSide side = ParticleEmitter.SpawnEllipseSide.both;
@@ -59,10 +60,10 @@ public class SpawnShapeValue extends ParticleValue {
         if (!active) {
             return;
         }
-        shape = ParticleEmitter.SpawnShape.valueOf(ParticleEmitter.readString(reader, "shape"));
+        shape = ParticleEmitter.SpawnShape.valueOf(CommonParser.readString(reader, "shape"));
         if (shape == ParticleEmitter.SpawnShape.ellipse) {
-            edges = ParticleEmitter.readBoolean(reader, "edges");
-            side = ParticleEmitter.SpawnEllipseSide.valueOf(ParticleEmitter.readString(reader, "side"));
+            edges = CommonParser.readBoolean(reader, "edges");
+            side = ParticleEmitter.SpawnEllipseSide.valueOf(CommonParser.readString(reader, "side"));
         }
     }
 

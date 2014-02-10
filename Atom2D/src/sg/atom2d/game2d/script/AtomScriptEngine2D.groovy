@@ -2,7 +2,7 @@ package sg.testbed.game2d
 
 import groovy.lang.Binding;
 import groovy.util.GroovyScriptEngine;
-import sg.testbed.game2d.graphics.*
+import sg.atom2d.game2d.graphics.swing.*
 
 public class AtomScriptEngine2D{
     String[] roots = [ "src/groovy/script","src/script/groovy/play2d","src/script/groovy/play3d" ];

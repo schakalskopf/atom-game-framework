@@ -1,5 +1,6 @@
 package sg.atom.core.event;
 
+@Deprecated
 /**
  *
 @author atomix

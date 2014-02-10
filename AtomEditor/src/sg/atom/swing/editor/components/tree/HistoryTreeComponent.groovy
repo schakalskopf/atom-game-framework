@@ -1,4 +1,4 @@
-package atom.swing.editor.components.tree
+package sg.atom.swing.editor.components.tree
 
 import javax.swing.JPanel
 import java.awt.BorderLayout

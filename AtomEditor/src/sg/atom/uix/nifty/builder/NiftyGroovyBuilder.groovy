@@ -1,174 +1,157 @@
-package sg.atom.swing.tools;
+package sg.atom.uix.nifty.builder;
 
-import com.jme3.app.SimpleApplication;
-import com.jme3.light.PointLight;
-import com.jme3.light.DirectionalLight;
-import com.jme3.material.MatParam;
-import com.jme3.material.MatParamTexture;
-import com.jme3.material.Material;
-import com.jme3.math.Vector3f;
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.FastMath;
-import com.jme3.scene.Spatial;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.Mesh;
-import com.jme3.scene.Node;
-import com.jme3.scene.VertexBuffer;
-import com.jme3.scene.mesh.IndexShortBuffer;
-import com.jme3.scene.shape.Sphere;
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import java.awt.image.BufferedImage;
-import java.nio.FloatBuffer;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
-import jme3tools.converters.ImageToAwt;
+import org.codehaus.groovy.runtime.InvokerHelper;
 
-public class UVMaker extends SimpleApplication {
+import groovy.lang.Closure;
+import groovy.lang.MissingMethodException;
+import groovy.util.BuilderSupport;
+import com.jme3.asset.AssetManager;
+import de.lessvoid.nifty.builder.*;
+import de.lessvoid.nifty.screen.*;
+import de.lessvoid.nifty.elements.*;
+import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.controls.dynamic.*;
+import de.lessvoid.nifty.controls.button.builder.ButtonBuilder
+/**
+ * A helper class for creating Nifty childrenSpatials using GroovyMarkup
+ * 
+ */
+public class NiftyGroovyBuilder extends BuilderSupport{
 
-    float angle1;
-    float angle2;
-    PointLight pl;
-    PointLight p2;
-    Spatial lightMdl;
-    Spatial lightMd2;
-
-    public static void main(String[] args) {
-        UVMaker app = new UVMaker();
-        app.start();
+    //private Logger log = Logger.getLogger(getClass().getName());
+    //private Map factories = new HashMap();
+    //private Object constraints;
+    //private Map passThroughNodes = new HashMap();
+    private AssetManager assetManager;
+    private Nifty nifty;
+    
+    public NiftyGroovyBuilder(AssetManager assetManager,Nifty nifty) {
+        this.assetManager = assetManager;
+        this.nifty = nifty;
+        registerBuilders();
     }
-    private JFrame frame1;
-    private JLabel label1;
-    private Mesh mesh;
-    private Geometry geo1;
-    private DrawUVPanel panel2;
-    private HashMap<String, BufferedImage> textureList = new HashMap<String, BufferedImage>(4);
-    private JComboBox textureJList;
+    
+    protected void setParent(Object parent, Object child){
+        // Pass through
+        if (child instanceof Map){
+            parent.invokeMethod(child.methodName,child.args)
+        }
+        // Component
+        if (parent==null){
+            println("0 level ");  
+        
+        } else if (parent instanceof ScreenBuilder){
+            println("1 level "+parent+" " + child);  
+            if (child instanceof LayerBuilder){
+                parent.layer(child);
+            }
+        } else if (parent instanceof LayerBuilder){
+            //println("2 level "+parent+" " + child);  
+            if (child instanceof String){
+                parent."$child"()
+            } else if (child instanceof PanelBuilder){
+                parent.panel(child);
+            }
+        } else if (parent instanceof PanelBuilder){
+            //println("3 level "+parent+" " + child);  
+            if (child instanceof String){
+                parent."$child"()
+            } else if (child instanceof TextBuilder){
+                parent.text(child);
+            } else if (child instanceof ControlBuilder){
+                parent.control(child);
+            }
+        } 
+    }
+    protected Object createNode(Object name){
+        //println("CN 1"+name);
+        switch (name){
+        case "screen":
 
-    public void simpleInitApp() {
-//        PointLight pl = new PointLight();
-//        pl.setPosition(new Vector3f(10, 10, -10));
-//        rootNode.addLight(pl);
-        flyCam.setMoveSpeed(10f);
+            break;
+        case "layer":
 
-        // sunset light
-        DirectionalLight dl = new DirectionalLight();
-        dl.setDirection(new Vector3f(-0.1f, -0.7f, 1).normalizeLocal());
-        dl.setColor(new ColorRGBA(1f, 1f, 1f, 1.0f));
-        rootNode.addLight(dl);
-
-
-        lightMdl = new Geometry("Light", new Sphere(10, 10, 0.1f));
-        lightMdl.setMaterial((Material) assetManager.loadAsset("Common/Materials/RedColor.j3m"));
-        rootNode.attachChild(lightMdl);
-
-        lightMd2 = new Geometry("Light", new Sphere(10, 10, 0.1f));
-        lightMd2.setMaterial((Material) assetManager.loadAsset("Common/Materials/WhiteColor.j3m"));
-        rootNode.attachChild(lightMd2);
-
-
-        pl = new PointLight();
-        pl.setColor(new ColorRGBA(1, 0.9f, 0.9f, 0));
-        pl.setPosition(new Vector3f(0f, 0f, 4f));
-        rootNode.addLight(pl);
-
-        p2 = new PointLight();
-        p2.setColor(new ColorRGBA(0.9f, 1, 0.9f, 0));
-        p2.setPosition(new Vector3f(0f, 0f, 3f));
-        rootNode.addLight(p2);
-
-
-        // create the geometry and attach it
-        Spatial elephant = (Spatial) assetManager.loadModel("Models/Elephant/Elephant.mesh.xml");
-        geo1 = (Geometry) ((Node) elephant).getChild(0);
-        mesh = geo1.getMesh();
-        float scale = 0.05f;
-        elephant.scale(scale, scale, scale);
-        rootNode.attachChild(elephant);
-
-        createFrame();
-
+            break;
+        default:
+            return name;
+        }
+    }
+    protected Object createNode(Object name, Object value){
+        //println("CN 2"+name+" " + value);  
+        /*
+        switch (name){
+        case "screen":
+        return new ScreenBuilder(value);
+        break;
+        case "layer":
+        return new LayerBuilder(value);
+        break;
+        case "panel":
+        return new PanelBuilder(value);
+        break;
+        case "text":
+        case "font":
+        case"width":
+        case"height":
+        println "call 2 "+name+" "+value
+        return [methodName: name,args:value];
+        break;
+        case "control":
+        return new ControlBuilder(value);
+        break;
+        }
+         */
+        return [methodName: name,args:value];
     }
 
-    void createFrame() {
-        frame1 = new JFrame("Texture");
-        //frame1.setLayout(new MigLayout());
+    protected Object createNode(Object name, Map attributes){
+        //println("CN 22"+name+" " + attributes);  
+        switch (name){
+        case "screen":
+            return new ScreenBuilder(attributes.id);
+            break;
+        case "layer":
+            return new LayerBuilder(attributes.id);
+            break;
+        case "panel":
+            return new PanelBuilder(attributes.id);
+            break;
+        case "text":
+            return new TextBuilder(attributes.id);
+            break;
+        case "control":
+            return new ControlBuilder(attributes.id,attributes.name);
+            break;
+        case "button":
+            return new ButtonBuilder(attributes.id);
+            break;
+        }
+    }
+    protected Object createNode(Object name, Map attributes, Object value){
+        //println("CN 3"+name+" " + attributes);  
+      
+    }
+    
+    protected void nodeCompleted(Object parent, Object node) {
 
-        JMenuBar menuBar = new JMenuBar();
-        frame1.setJMenuBar(menuBar);
-
-        JMenu menuFile = new JMenu("File");
-        menuBar.add(menuFile);
-
-        JToolBar toolBar = new JToolBar("Who is me");
-        frame1.getContentPane().setLayout(new BorderLayout());
-        frame1.add(toolBar, BorderLayout.NORTH);
-
-
-        Material mat = geo1.getMaterial();
-        LinkedList<MatParam> matList = new LinkedList<MatParam>(mat.getParams());
-        for (MatParam matParam : matList) {
-            if (matParam.getVarType().isTextureType()) {
-                com.jme3.texture.Image image = ((MatParamTexture) matParam).getTextureValue().getImage();
-                String textureType = ((MatParamTexture) matParam).getName();
-                String textureName = ((MatParamTexture) matParam).getName();
-                //bgImg=ImageToAwt.convert(image, false, false, 0);
-                System.out.println("Texture_" + textureName);
-                textureList.put("Texture_" + textureName, ImageToAwt.convert(image, false, false, 0));
-
+        if (node instanceof ScreenBuilder){
+            println("Add a screen : "+parent+" " + node);  
+            def aScreen =node.build(nifty);
+            //println aScreen.id();
+            
+        } else if (parent instanceof ScreenBuilder){
+            if (node instanceof LayerBuilder){
+                /*
+                println("Add a screen : "+parent+" " + node);  
+                node.build(nifty);
+                 */
             }
         }
-        textureJList = new JComboBox(textureList.keySet().toArray());
-        toolBar.add(new JLabel(" Select Texture "));
-        toolBar.add(textureJList);
+    }
+    
+    public void start(screenName){
+        nifty.gotoScreen(screenName);
+    }
+}
 
 
-
-        JPanel panel1 = new JPanel();
-        panel2 = new DrawUVPanel(geo1, textureList);
-        panel2.initListener();
-        textureJList.addActionListener(panel2);
-        textureJList.addItemListener(panel2);
-
-        label1 = new JLabel("It's very funny !");
-        panel1.add(label1);
-        JButton btn1024 = new JButton("1024");
-        JButton btn512 = new JButton("512");
-        JButton btn256 = new JButton("256");
-        panel1.add(btn1024);
-        panel1.add(btn512);
-        panel1.add(btn256);
-        getInfo();
-
-        frame1.getContentPane().add(panel1, BorderLayout.SOUTH);
-        frame1.setSize(512 + 30, 512 + 100);
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setWheelScrollingEnabled(true);
-        //panel2.setPreferredSize(new Dimension(512, 512));
-        scrollPane.getVi

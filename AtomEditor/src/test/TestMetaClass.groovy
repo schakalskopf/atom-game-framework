@@ -1,6 +1,6 @@
 package test
 
-import atom.uix.nifty.controller.ClosureScreenController
+import sg.atom.uix.nifty.controller.ClosureScreenController
 /**
  *
  * @author CuongNguyen

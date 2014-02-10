@@ -8,15 +8,15 @@ import com.jme3.font.BitmapFont;
 import com.jme3.input.controls.InputListener;
 import java.io.File;
 import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
-import sg.atom2d.game2d.graphics.texture.Sprite;
-import sg.atom2d.game2d.graphics.texture.SpriteBatch;
-import sg.atom2d.tools.SwingSimple3DApp;
+import sg.atom2d.game2d.graphics.jme3.texture.Sprite;
+import sg.atom2d.game2d.graphics.jme3.texture.SpriteBatch;
+import sg.atom2d.swing.SwingSimple2DApp;
 
 /**
  *
  * @author cuong.nguyenmanh2
  */
-public class ParticleRenderer extends SwingSimple3DApp implements InputListener {
+public class ParticleRenderer extends SwingSimple2DApp implements InputListener {
 
     
     private float maxActiveTimer;

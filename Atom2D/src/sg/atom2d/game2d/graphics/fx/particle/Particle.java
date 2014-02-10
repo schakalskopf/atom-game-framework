@@ -5,7 +5,7 @@
 package sg.atom2d.game2d.graphics.fx.particle;
 
 import com.jme3.texture.Texture;
-import sg.atom2d.game2d.graphics.texture.Sprite;
+import sg.atom2d.game2d.graphics.jme3.texture.Sprite;
 
 /**
  * 2D particle.

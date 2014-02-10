@@ -26,9 +26,10 @@ import java.io.IOException;
 import java.io.Writer;
 
 import com.jme3.texture.Texture;
+import sg.atom.utils.CommonParser;
 import sg.atom.utils.math.MathUtils;
-import sg.atom2d.game2d.graphics.texture.Sprite;
-import sg.atom2d.game2d.graphics.texture.SpriteBatch;
+import sg.atom2d.game2d.graphics.jme3.texture.Sprite;
+import sg.atom2d.game2d.graphics.jme3.texture.SpriteBatch;
 
 // TODO - Javadoc.
 // TODO - Add a duplicate emitter button.
@@ -41,6 +42,8 @@ public class ParticleEmitter {
     static private final int UPDATE_WIND = 1 << 4;
     static private final int UPDATE_GRAVITY = 1 << 5;
     static private final int UPDATE_TINT = 1 << 6;
+    
+    // The property drivers
     private RangedNumericValue delayValue = new RangedNumericValue();
     private ScaledNumericValue lifeOffsetValue = new ScaledNumericValue();
     private RangedNumericValue durationValue = new RangedNumericValue();
@@ -59,6 +62,8 @@ public class ParticleEmitter {
     private ScaledNumericValue spawnWidthValue = new ScaledNumericValue();
     private ScaledNumericValue spawnHeightValue = new ScaledNumericValue();
     private SpawnShapeValue spawnShapeValue = new SpawnShapeValue();
+    
+    // The real properties
     private float accumulator;
     private Sprite sprite;
     private Particle[] particles;
@@ -939,14 +944,14 @@ public class ParticleEmitter {
 
     public void load(BufferedReader reader) throws IOException {
         try {
-            name = readString(reader, "name");
+            name = CommonParser.readString(reader, "name");
             reader.readLine();
             delayValue.load(reader);
             reader.readLine();
             durationValue.load(reader);
             reader.readLine();
-            setMinParticleCount(readInt(reader, "minParticleCount"));
-            setMaxParticleCount(readInt(reader, "maxParticleCount"));
+            setMinParticleCount(CommonParser.readInt(reader, "minParticleCount"));
+            setMaxParticleCount(CommonParser.readInt(reader, "maxParticleCount"));
             reader.readLine();
             emissionValue.load(reader);
             reader.readLine();
@@ -980,11 +985,11 @@ public class ParticleEmitter {
             reader.readLine();
             transparencyValue.load(reader);
             reader.readLine();
-            attached = readBoolean(reader, "attached");
-            continuous = readBoolean(reader, "continuous");
-            aligned = readBoolean(reader, "aligned");
-            additive = readBoolean(reader, "additive");
-            behind = readBoolean(reader, "behind");
+            attached = CommonParser.readBoolean(reader, "attached");
+            continuous = CommonParser.readBoolean(reader, "continuous");
+            aligned = CommonParser.readBoolean(reader, "aligned");
+            additive = CommonParser.readBoolean(reader, "additive");
+            behind = CommonParser.readBoolean(reader, "behind");
         } catch (RuntimeException ex) {
             if (name == null) {
                 throw ex;
@@ -993,25 +998,6 @@ public class ParticleEmitter {
         }
     }
 
-    public static String readString(BufferedReader reader, String name) throws IOException {
-        String line = reader.readLine();
-        if (line == null) {
-            throw new IOException("Missing value: " + name);
-        }
-        return line.substring(line.indexOf(":") + 1).trim();
-    }
-
-    public static boolean readBoolean(BufferedReader reader, String name) throws IOException {
-        return Boolean.parseBoolean(readString(reader, name));
-    }
-
-    public static int readInt(BufferedReader reader, String name) throws IOException {
-        return Integer.parseInt(readString(reader, name));
-    }
-
-    public static float readFloat(BufferedReader reader, String name) throws IOException {
-        return Float.parseFloat(readString(reader, name));
-    }
 
     static public enum SpawnShape {
 

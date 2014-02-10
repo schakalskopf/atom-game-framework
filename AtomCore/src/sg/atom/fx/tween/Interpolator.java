@@ -6,5 +6,5 @@ package sg.atom.fx.tween;
  */
 public interface Interpolator<V> {
 
-    public V interpolate(V a, V b);
+    public V interpolate(double fraction);//, V...values);
 }

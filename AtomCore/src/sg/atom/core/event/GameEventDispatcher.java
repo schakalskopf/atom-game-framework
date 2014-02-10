@@ -3,6 +3,7 @@ package sg.atom.core.event;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@Deprecated
 /**
  *
  * @author atomix

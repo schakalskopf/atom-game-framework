@@ -7,6 +7,7 @@ package sg.atom2d.game2d.graphics.fx.particle.values;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
+import sg.atom.utils.CommonParser;
 import sg.atom.utils.math.MathUtils;
 import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
 
@@ -119,16 +120,16 @@ public class ScaledNumericValue extends RangedNumericValue {
         if (!active) {
             return;
         }
-        highMin = ParticleEmitter.readFloat(reader, "highMin");
-        highMax = ParticleEmitter.readFloat(reader, "highMax");
-        relative = ParticleEmitter.readBoolean(reader, "relative");
-        scaling = new float[ParticleEmitter.readInt(reader, "scalingCount")];
+        highMin = CommonParser.readFloat(reader, "highMin");
+        highMax = CommonParser.readFloat(reader, "highMax");
+        relative = CommonParser.readBoolean(reader, "relative");
+        scaling = new float[CommonParser.readInt(reader, "scalingCount")];
         for (int i = 0; i < scaling.length; i++) {
-            scaling[i] = ParticleEmitter.readFloat(reader, "scaling" + i);
+            scaling[i] = CommonParser.readFloat(reader, "scaling" + i);
         }
-        timeline = new float[ParticleEmitter.readInt(reader, "timelineCount")];
+        timeline = new float[CommonParser.readInt(reader, "timelineCount")];
         for (int i = 0; i < timeline.length; i++) {
-            timeline[i] = ParticleEmitter.readFloat(reader, "timeline" + i);
+            timeline[i] = CommonParser.readFloat(reader, "timeline" + i);
         }
     }
 

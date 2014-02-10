@@ -1,4 +1,4 @@
-package atom.swing.editor.components
+package sg.atom.swing.editor.components
 
 import groovy.swing.j2d.GraphicsBuilder
 import groovy.swing.j2d.GraphicsPanel

@@ -30,9 +30,9 @@ import com.jme3.texture.Texture;
 import jme3tools.optimize.TextureAtlas;
 import sg.atom.core.asset.FileHandle;
 import sg.atom.utils.collection.Array;
-import sg.atom2d.game2d.graphics.texture.Sprite;
-import sg.atom2d.game2d.graphics.texture.SpriteBatch;
-import sg.atom2d.tools.SwingSimple3DApp;
+import sg.atom2d.game2d.graphics.jme3.texture.Sprite;
+import sg.atom2d.game2d.graphics.jme3.texture.SpriteBatch;
+import sg.atom2d.swing.SwingSimple2DApp;
 
 /**
  * See <a
@@ -46,13 +46,13 @@ public class ParticleEffect {// implements Disposable {
     private AssetManager assetManager;
     
     public ParticleEffect() {
-        assetManager = SwingSimple3DApp.getInstance().getAssetManager();
+        assetManager = SwingSimple2DApp.getInstance().getAssetManager();
         emitters = new Array(8);
         
     }
     
     public ParticleEffect(ParticleEffect effect) {
-        assetManager = SwingSimple3DApp.getInstance().getAssetManager();
+        assetManager = SwingSimple2DApp.getInstance().getAssetManager();
         emitters = new Array(true, effect.emitters.size);
         for (int i = 0, n = effect.emitters.size; i < n; i++) {
             emitters.add(new ParticleEmitter(effect.emitters.get(i)));

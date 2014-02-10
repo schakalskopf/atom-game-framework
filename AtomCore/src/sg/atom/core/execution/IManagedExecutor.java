@@ -7,8 +7,9 @@ package sg.atom.core.execution;
 import java.util.Collection;
 import java.util.concurrent.Executor;
 
+@Deprecated
 /**
- *
+ * Managed executor.
  * @author atomix
  */
 public interface IManagedExecutor extends Executor {

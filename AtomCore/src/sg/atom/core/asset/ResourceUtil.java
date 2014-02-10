@@ -22,8 +22,17 @@ import org.slf4j.LoggerFactory;
 import sg.atom.core.asset.Files.FileTypeFilters;
 import sg.atom.utils.StringUtil;
 
-public class ResourceUtil {
 
+/**
+ * ResourceUtil is collection of common utilities for file system and class
+ * path, in which not envolve AssetManager.
+ * 
+ * 
+ * Use Guava 's Resources instead
+ * @author cuong.nguyenmanh2
+ */ @Deprecated
+public class ResourceUtil {
+    
     private static final Logger log = LoggerFactory.getLogger(ResourceUtil.class);
     public static HashMap<URL, WeakReference<Image>> awtImageMap = new HashMap<URL, WeakReference<Image>>();
     private static String[] currentClasspath;

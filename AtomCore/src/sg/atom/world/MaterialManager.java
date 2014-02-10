@@ -115,6 +115,10 @@ public class MaterialManager {
         return null;
     }
 
+    public MaterialDef compileMaterialDef(String definitionScript){
+        return null;
+    }
+    
     public List<MaterialDef> listMaterialDef(Node scene) {
         return null;
     }

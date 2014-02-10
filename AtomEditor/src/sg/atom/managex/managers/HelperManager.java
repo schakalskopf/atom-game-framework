@@ -2,16 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sg.atom.managex.managers;
+package sg.atom.editor.managers;
 
 import sg.atom.corex.scenegraph.spatial.SpatialList;
 import sg.atom.corex.common.CommonTool;
-import sg.atom.managex.helpers.AbstractHelper;
-import sg.atom.managex.helpers.GizmoHelper;
-import sg.atom.managex.helpers.GridHelper;
-import sg.atom.managex.helpers.MarkHelper;
-import sg.atom.managex.helpers.ShapeOperationHelper;
-import sg.atom.managex.helpers.WorkingHelper;
+import sg.atom.editor.helpers.AbstractHelper;
+import sg.atom.editor.helpers.GizmoHelper;
+import sg.atom.editor.helpers.GridHelper;
+import sg.atom.editor.helpers.MarkHelper;
+import sg.atom.editor.helpers.ShapeOperationHelper;
+import sg.atom.editor.helpers.WorkingHelper;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
 import com.jme3.input.MouseInput;

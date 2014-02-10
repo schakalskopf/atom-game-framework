@@ -7,14 +7,13 @@ package sg.atom2d.game2d.graphics.fx.particle.values;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
-import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
-import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
+import sg.atom.utils.CommonParser;
 
 /**
  *
  * @author cuong.nguyenmanh2
  */
-public class GradientColorValue extends ParticleValue {
+public class GradientColorValue extends EditableValue {
     private static float[] temp = new float[4];
     public float[] colors = {1, 1, 1};
     public float[] timeline = {0};
@@ -91,13 +90,13 @@ public class GradientColorValue extends ParticleValue {
         if (!active) {
             return;
         }
-        colors = new float[ParticleEmitter.readInt(reader, "colorsCount")];
+        colors = new float[CommonParser.readInt(reader, "colorsCount")];
         for (int i = 0; i < colors.length; i++) {
-            colors[i] = ParticleEmitter.readFloat(reader, "colors" + i);
+            colors[i] = CommonParser.readFloat(reader, "colors" + i);
         }
-        timeline = new float[ParticleEmitter.readInt(reader, "timelineCount")];
+        timeline = new float[CommonParser.readInt(reader, "timelineCount")];
         for (int i = 0; i < timeline.length; i++) {
-            timeline[i] = ParticleEmitter.readFloat(reader, "timeline" + i);
+            timeline[i] = CommonParser.readFloat(reader, "timeline" + i);
         }
     }
 

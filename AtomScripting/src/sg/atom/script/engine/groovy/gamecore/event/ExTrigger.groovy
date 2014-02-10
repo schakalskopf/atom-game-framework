@@ -1,4 +1,4 @@
-package rts.core.event
+package sg.atom.script.engine.groovy.gamecore.event
 
 /**
  *

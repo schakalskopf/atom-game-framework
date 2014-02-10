@@ -1,4 +1,4 @@
-package atom.swing.editor.components
+package sg.atom.swing.editor.components
 
 import java.awt.BorderLayout as BL;
 import java.awt.*

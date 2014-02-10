@@ -1,4 +1,4 @@
-package atom.swing.editor.components.timeline.ui
+package sg.atom.swing.editor.components.timeline.ui
 
 import groovy.swing.SwingXBuilder
 import groovy.swing.SwingBuilder

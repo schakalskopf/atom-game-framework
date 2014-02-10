@@ -14,8 +14,10 @@ import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.scene.Spatial;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Properties;
 import sg.atom.core.AbstractManager;
+import sg.atom.core.bean.EditableBean;
 
 /**
  * The simplest form of effect which it onestep only!
@@ -25,33 +27,33 @@ import sg.atom.core.AbstractManager;
  *
  * @author cuong.nguyenmanh2
  */
-public class SingleStepEffect implements AtomEffect, Cloneable, Comparable<SingleStepEffect>,CinematicEvent {
-    
+public abstract class SingleStepEffect implements AtomEffect, EditableBean, Serializable, Cloneable, Comparable<SingleStepEffect>, CinematicEvent {
+
     @Override
     public int getIndex() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public Properties getProperties() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void active(Spatial target) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void update(float tpf) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void deactive() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public int compareTo(SingleStepEffect o) {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -191,5 +193,4 @@ public class SingleStepEffect implements AtomEffect, Cloneable, Comparable<Singl
     public void config(Object... params) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
 }
