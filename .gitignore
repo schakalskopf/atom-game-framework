@@ -1,4 +1,7 @@
 *.dll
+*.zip
+*.rar
+*.7z
 
 /Atom2D/nbproject/private/
 /AtomCore/nbproject/private/
@@ -14,3 +17,5 @@
 /Atom2D/dist/
 /AtomScripting/build/
 /AtomScripting/dist/
+/Atom2DEditor/nbproject/private/
+

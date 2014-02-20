@@ -184,7 +184,7 @@ public class PrototypeSwingEditor{
                     //panel(constraints:BL.CENTER,new PreviewPanel(),preferredSize:[120,120])
                     panel(constraints:BL.SOUTH){
                         gridLayout(cols:2,rows:5)
-                
+                        /*
                         (1..5).each{
                             label(text:"Properties"+it)
                             if (it%2==0){
@@ -193,7 +193,9 @@ public class PrototypeSwingEditor{
                                 slider(preferredSize:[120,20])
                             }
                         }
+                        */
                     }
+                    
                 }
             }
         }

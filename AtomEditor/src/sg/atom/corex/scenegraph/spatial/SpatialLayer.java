@@ -8,7 +8,8 @@ import sg.atom.managex.api.select.Selectable;
 import com.jme3.scene.Spatial;
 
 /**
- *
+ * A Layer is the way to organized entities into non-overlapping group.
+ * 
  * @author hungcuong
  */
 public class SpatialLayer implements Selectable {

@@ -8,7 +8,7 @@ import sg.atom.managex.api.select.Selectable;
 import com.jme3.scene.Spatial;
 
 /**
- *
+ * An atribite named group of Spatial. Use spatialList underlied.
  * @author hungcuong
  */
 public class SpatialGroup implements Selectable {

@@ -13,6 +13,7 @@ public abstract class AtomEditorAction {
 
         ACTION_INITED, ACTION_STARTED, ACTION_CONTINUE, ACTION_PAUSE, ACTION_FINISHED
     }
+    
     String actionName;
     String objectName;
     String targetName;

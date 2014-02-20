@@ -4,7 +4,8 @@ import sg.atom.corex.scenegraph.spatial.SpatialList;
 import com.jme3.scene.Spatial;
 
 /**
- *
+ * Selectable is an interface of Spatial, which indicate the albility of that Spatial can be seen under the search of select function of the Editor.
+ * 
  * @author hungcuong
  */
 public interface Selectable {

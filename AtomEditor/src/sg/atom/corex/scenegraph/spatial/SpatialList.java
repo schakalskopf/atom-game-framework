@@ -10,7 +10,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ * SpatialList is a List of SpatialInfo to make grouping of SpatialInfo much more easy.
+ * 
+ * It also support List,Stack,Set functions.
+ * 
  * @author hungcuong
  */
 public class SpatialList implements Selectable {

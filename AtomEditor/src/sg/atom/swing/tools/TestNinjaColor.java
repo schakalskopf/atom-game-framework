@@ -1,5 +1,6 @@
 package sg.atom.swing.tools;
 
+import sg.atom.swing.tools.anim.HelloAnimationManager;
 import sg.atom.corex.animation.AnimationView;
 import sg.atom.corex.material.color.ColorUtil;
 import sg.atom.corex.common.CommonTool;

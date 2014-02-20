@@ -121,4 +121,6 @@ public class CamUtil implements ActionListener {
     public void setFlyByCam(boolean value) {
         flyCam.setDragToRotate(value);
     }
+    
+    
 }

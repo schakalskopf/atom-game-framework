@@ -11,7 +11,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
 import jme3tools.optimize.TextureAtlas;
-import sg.atom2d.swing.SwingSimple2DApp;
+import sg.atom2d.game2d.graphics.jme3.Simple2DApplication;
 
 /**
  * A bridge from LibGDX to JME3 context.
@@ -34,7 +34,7 @@ public class Sprite {
     }
 
     public Sprite(Texture loadTexture) {
-        assetManager = SwingSimple2DApp.getInstance().getAssetManager();
+        assetManager = Simple2DApplication.getInstance().getAssetManager();
         //Texture s_spritesheet = assetManager.loadTexture(imageLocation);
         s_spritesheet = loadTexture;
         this.s_frames = 1;

@@ -7,9 +7,12 @@ import javax.imageio.*
 public class Sprite{
     String name;
     int width = 10;
+    
     int height = 10;
+    
     int rows = 5;
     int cols = 5;
+    
     BufferedImage[] sprites 
     int index=0;
     

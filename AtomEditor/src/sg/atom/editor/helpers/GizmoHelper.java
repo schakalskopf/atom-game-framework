@@ -40,10 +40,12 @@ public class GizmoHelper extends AbstractHelper implements ActionListener, Analo
     private boolean camFix;
     // SubTool Level
     private Node gizmo;
+    
     private Shape scaleAllShape;
     private Shape scaleXY_WireShape;
     private Shape ScaleYZ_WireShape;
     private Shape scaleZX_WireShape;
+    
     private Shape arrowZShape;
     private Shape arrowXShape;
     private Shape arrowYShape;

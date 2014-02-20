@@ -35,11 +35,13 @@ public class LayoutEditorPanel extends JPanel{
         gb.backgroundTexture.image = currentImg
         //println(currentImg.width+" "+currentImg.height)
     }
+    
     def loadImageFromClasspath(classpath){
         URL url = getClass().getClassLoader().getResource(classpath);
         println(classpath+" "+url)
         return loadImageFromFile(url)
     }
+    
     def loadImageFromFile(){
         return null
     }

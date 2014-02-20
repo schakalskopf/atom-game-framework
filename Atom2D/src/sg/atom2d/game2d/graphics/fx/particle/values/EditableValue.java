@@ -7,14 +7,13 @@ package sg.atom2d.game2d.graphics.fx.particle.values;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
-import sg.atom.corex.binding.IEditableValue;
 import sg.atom.utils.CommonParser;
 
 /**
  *
  * @author cuong.nguyenmanh2
  */
-public class EditableValue implements IEditableValue{
+public class EditableValue{// implements IEditableValue{
     public boolean active;
     public boolean alwaysActive;
 

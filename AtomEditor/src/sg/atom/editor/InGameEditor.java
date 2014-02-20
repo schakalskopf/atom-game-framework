@@ -89,6 +89,7 @@ public class InGameEditor extends AbstractAppState {
         inGameEditor.setApp(app);
 
         AppSettings cfg = new AppSettings(true);
+        
         cfg.setResolution(1024, 768);
         System.out.println("mnuFile".matches("mnu.*"));
 
