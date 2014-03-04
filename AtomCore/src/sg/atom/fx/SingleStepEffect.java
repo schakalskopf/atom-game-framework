@@ -20,10 +20,9 @@ import sg.atom.core.AbstractManager;
 import sg.atom.core.bean.EditableBean;
 
 /**
- * The simplest form of effect which it onestep only!
- *
- * This implementation rework to propose some abstract part and integrate with
- * existed JME3 Cinematic and Animation architecture
+ * The simplest form of effect which it onestep only! This implementation rework
+ * to propose some abstract part and integrate with existed JME3 Cinematic and
+ * Animation architecture
  *
  * @author cuong.nguyenmanh2
  */

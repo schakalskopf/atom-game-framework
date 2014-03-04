@@ -27,6 +27,4 @@ public abstract class GameAction {
     public abstract void actionStart();
 
     public abstract void actionEnd();
-
-    public abstract void performAction();
 }

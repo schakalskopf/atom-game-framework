@@ -1,7 +1,10 @@
 *.dll
+
+# Compression files
 *.zip
 *.rar
 *.7z
+*.bz2
 
 /Atom2D/nbproject/private/
 /AtomCore/nbproject/private/
@@ -19,3 +22,13 @@
 /AtomScripting/dist/
 /Atom2DEditor/nbproject/private/
 
+/Atom2DEditor/build/
+/Atom2DEditor/dist/
+
+#Images file
+*.png
+*.gif
+*.jpg
+*.psd
+
+# Tiled files

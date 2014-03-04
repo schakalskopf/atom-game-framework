@@ -8,6 +8,7 @@ package sg.atom.core.timing;
  * A Proxy singleton helper who provide System, JME Context , Application, and
  * GameStage time.
  *
+ * Use Guava stop watch underneath.
  * @author atomix
  */
 public class GameTimer implements TimeProvider {

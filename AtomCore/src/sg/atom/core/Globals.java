@@ -7,10 +7,10 @@ package sg.atom.core;
  * It contains the main registry and global context lookup to looking for
  * property, contanst, services and other singleton if any.
  *
- * @author normenhansen
+ * @author normenhansen, atomix
  */
 public class Globals {
-
+/*
     public static final String VERSION = "v0.1";
 //    public static final String DEFAULT_SERVER = "192.168.1.24";
     public static final String DEFAULT_SERVER = "127.0.0.1";
@@ -27,5 +27,6 @@ public class Globals {
     public static final boolean PHYSICS_THREADED = true;
     public static final boolean PHYSICS_DEBUG = false;
     public static final int DEFAULT_PORT_TCP = 6143;
-    public static final int DEFAULT_PORT_UDP = 6143;
+    public static final int DEFAULT_PORT_UDP = 6143; 
+    */
 }

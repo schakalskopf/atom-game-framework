@@ -29,7 +29,6 @@ public class RunnableGameAction extends GameAction {
         endAction.run();
     }
 
-    @Override
     public void performAction() {
         updateAction.run();
     }

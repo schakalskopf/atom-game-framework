@@ -25,9 +25,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import sg.atom.core.asset.FileHandle;
+import sg.atom.utils.io.FileHandle;
 import sg.atom.utils.collection.Array;
-import sg.atom.core.asset.SerializationException;
+import sg.atom.utils.io.SerializationException;
 import sg.atom.assets.json.JsonValue.ValueType;
 
 /**

@@ -5,7 +5,7 @@
 package sg.atom.core.config;
 
 /**
- * Common implementation
+ * Common implementation.
  *
  * @author atomix
  */

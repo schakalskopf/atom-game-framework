@@ -14,5 +14,6 @@ public interface IPreload {
 	 * @param progress 진행상태를 알려줄 progress bar
 	 */
 	public void setProgress(IProgress progress);
+        
 	public String getName();
 }

@@ -38,7 +38,6 @@ public class GameLevel implements IGameCycle,ManagableObject{
         this.worldManager = worldManager;
         this.info = new LevelInfo(name, 1, 10, path);
         //this.currentScene = new GameScene(this, gamePlay.getCamera());
-
     }
 
     public void loadLevel() {

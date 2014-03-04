@@ -10,7 +10,7 @@ import com.jme3.scene.Node;
  *
  * @author CuongNguyen
  */
-public class SelectUI  extends Node {
+public class SelectUI extends Node {
 
     public SelectUI(String name) {
         super(name);

@@ -9,10 +9,6 @@ import sg.atom.logic.conditions.Conditional;
 import sg.atom.logic.trigger.Trigger;
 
 /**
- *
- * @author atomix
- */
-/**
  * Should be AppState and Replaced with loose couple version with Guava
  * predicate and Eventbus
  * <ul>
@@ -22,6 +18,8 @@ import sg.atom.logic.trigger.Trigger;
  *
  * <li>As Trigger Event Handler : broadcast</li>
  * </ul>
+ * 
+ * @author atomix
  */
 public class TriggerManager {
 

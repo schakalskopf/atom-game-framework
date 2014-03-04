@@ -9,9 +9,16 @@ import sg.atom.stage.WorldManager;
 import sg.atom.utils.factory.IAtomFactory;
 
 /**
- * EntityFactory to procedure Entity. (CommonImplementation) Consider as
+ * EntityFactory to procedure Entity. 
+ * 
+ * (CommonImplementation) Consider as
  * Suggestion to use the Factory pattern along with EntitySystem.
+ * <ul>
+ * <li>It has a Cache implementation of original entities beside of one in AssetManager.</li>
+ * 
+ * <li>Also support dependency injection to create Entity.</li>
  *
+ * </ul>
  * @author atomix
  */
 public class EntityFactory implements IAtomFactory<Entity> {

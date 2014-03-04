@@ -77,7 +77,8 @@ public class WorldManager extends AbstractManager implements IGameCycle {
     protected WorldSettings worldSettings;
     protected TerrainManager terrainManager;
     protected Node rootNode;
-    //FIXME: Use Guava cache instead of HashMap
+    
+    //FIXME: Use Guava Cache instead of HashMap
     protected HashMap<Spatial, SpatialInfo> spatialInfoList;
 
     protected WorldManager(){
@@ -346,7 +347,7 @@ public class WorldManager extends AbstractManager implements IGameCycle {
         if (terrain.getControl(RigidBodyControl.class) == null) {
             // Remove the other one
             System.out.println(" Create terrain physic!");
-            terrainPhysicsNode = new RigidBodyControl(CollisionShapeFactory.createMeshShape(terrain), 0);
+            terrainPhysicsNode = new RigidBodyControl(CollisionShapeFactory.createMeshShape(terrain.getGeometricData()), 0);
             terrain.addControl(terrainPhysicsNode);
         }
     }

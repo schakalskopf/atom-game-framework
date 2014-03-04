@@ -4,23 +4,33 @@
  */
 package sg.atom.managex.api.data;
 
+import sg.atom.core.config.IConfigurable;
 import sg.atom.corex.asset.DataStructure;
 
 /**
  *
  * @author cuong.nguyenmanh2
  */
-public interface IDataEditor<T extends DataStructure> {
+public interface IDataEditor<T extends DataStructure> extends IConfigurable {
 
     public void load(T data);
 
     public void edit(T data, Object... action);
 
-    public DataStructure getData();
+    public void interact(Object... action);
+    
+    public T getDataStructure();
+
+    public AbstractEditableData<T> getEditableData();
 
     public void releaseData(T data);
 
+    public void validate();
+
+    public void update(float time);
+
+    public void load();
+
     //public String getDescription();
-    
     //public String get
 }

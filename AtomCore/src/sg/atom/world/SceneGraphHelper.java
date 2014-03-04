@@ -13,8 +13,28 @@ import com.jme3.terrain.geomipmap.TerrainQuad;
 import java.util.Iterator;
 import java.util.List;
 import sg.atom.world.terrain.GenericTerrain;
+import sg.atom.world.terrain.TerrainQuadAdapter;
 
 /**
+ * SceneGraphHelper provide various functions in the scenegraph and spatial
+ * related in corporated with Spatials. SceneGraphHelper consier a scenegraph is
+ * just like a repository of data or "a big fat tree model" for slurping and
+ * searching around.
+ *
+ * <b>Features</b>
+ *
+ * <ul> <li>It provide various ways to do query (scan) in the scenegraph: by spanning
+ * type (no condition), By name, by path, by type, by hash, by a path query, a
+ * graph query.</li>
+ * 
+ * <li>It provide high performance way : index/ compress/ partition that scenegraph.</li>
+ * 
+ * <li>It provide custom functions/ obversation/ hook/ data in any spatial. So, monitors and events are possible!</li>
+ * 
+ * <li>It provide specific Lock/ transactional/ authority aware functions over
+ * any spatial.</li>
+ * 
+ * </ul>
  *
  * @author atomix
  */
@@ -168,6 +188,8 @@ public class SceneGraphHelper {
         for (Spatial child : node.getChildren()) {
             if (child instanceof GenericTerrain) {
                 return (GenericTerrain) child;
+            } else if (child instanceof TerrainQuad) {
+                return new TerrainQuadAdapter((TerrainQuad) child);
             } else if (child instanceof Node) {
                 return findGenericTerrain((Node) child);
             }

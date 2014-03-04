@@ -9,7 +9,9 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 /**
- * Serializable info of Spatial, Wraper for some scenegraph functions
+ * Serializable info of Spatial, Wraper for some scenegraph functions.
+ * 
+ * <ul></ul>
  * @author atomix
  */
 public class SpatialInfo {

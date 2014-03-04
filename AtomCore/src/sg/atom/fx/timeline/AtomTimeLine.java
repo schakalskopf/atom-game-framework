@@ -16,15 +16,16 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * A List support play/pause/stop the progress and composing tracks.
+ * An object support play/pause/stop the progress and composing tracks and all other TimingTargets.
  *
  * <p>Support producing/exporting the compatible JME's cinematic TimeLine and
  * Animation.</p>
  *
  * @author cuong.nguyenmanh2
  */
-public class AtomTimeLine implements Savable, List<AtomTimeLineTrack>{
+public class AtomTimeLine implements Savable, List<AtomTimeLineTrack> {
 
+    float startTime, endTime;
     ArrayList<AtomTimeLineTrack> tracks;
 
     @Override
@@ -36,10 +37,10 @@ public class AtomTimeLine implements Savable, List<AtomTimeLineTrack>{
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    public TimeLine toCinematicTimeLine(){
+
+    public TimeLine toCinematicTimeLine() {
         return null;
-        
+
     }
 
     @Override

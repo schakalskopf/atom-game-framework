@@ -15,6 +15,8 @@ public class Sprite{
     
     BufferedImage[] sprites 
     int index=0;
+        
+    boolean debug
     
     public Sprite(String name,int width,int height,int cols,int rows) {
         this.name = name
@@ -24,8 +26,7 @@ public class Sprite{
         this.cols = cols;
         sprites = new BufferedImage[rows * cols];
     }
-    
-    boolean debug
+
     
     def next(){
         if (index < rows * cols -1){

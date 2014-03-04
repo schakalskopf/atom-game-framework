@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sg.atom.core.asset.ResourceUtil;
+import sg.atom.utils.ResourceUtil;
 
 /**
  * Pool이라고 하지만, 개체를 넣고 빼는 재사용은 아니다. 동일한 style, size의 font는 공유된다.

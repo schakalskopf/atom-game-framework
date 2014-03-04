@@ -16,16 +16,19 @@ import com.jme3.scene.Node;
 import sg.atom.utils.factory.IAtomFactory;
 
 /**
+ * ParticleFactory generate ParticleEmitter for normal JME's Particle.
  *
-@author atomix
+ * <p>Also can generate a similar AtomParticle by calling its couterpart from
+ * AtomParticleFactory.</p>
+ *
+ * @author atomix
  */
-public class ParticleFactory implements IAtomFactory<ParticleEmitter>{
+public class ParticleFactory implements IAtomFactory<ParticleEmitter> {
+
     private AssetManager assetManager;
-    
     /* Constants */
     private static final int COUNT_FACTOR = 1;
     private static final float COUNT_FACTOR_F = 1f;
-
 
     public ParticleFactory(AssetManager assetManager) {
         this.assetManager = assetManager;
@@ -238,7 +241,6 @@ public class ParticleFactory implements IAtomFactory<ParticleEmitter>{
 
         return explosion;
     }
-
 
     public void onEffect(ParticleEmitter ef) {
         if (ef != null) {

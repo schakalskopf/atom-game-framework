@@ -8,41 +8,38 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 
 /**
+ * Proxy for Spatial.
  *
  * @author hungcuong
  */
 public class SpatialPresentor {
-    
+
     public static final int NORMAL = 0;
     public static final int BOX = 1;
     public static final int VERTEX = 2;
     public static final int BILLBOARD = 3;
-    
     int type;
     private int currentDisplayType;
     Vector3f localTranslate;
-    
     private Spatial orginalSpatial;
-    
-    public SpatialPresentor(Spatial spatial,int type) {
+
+    public SpatialPresentor(Spatial spatial, int type) {
         this.type = type;
         this.localTranslate = new Vector3f(Vector3f.ZERO);
-        this.orginalSpatial=spatial;
+        this.orginalSpatial = spatial;
         this.currentDisplayType = 0;
     }
-    
-    public Spatial getCurrentSpatial(){
-        switch (currentDisplayType){
+
+    public Spatial getCurrentSpatial() {
+        switch (currentDisplayType) {
             case NORMAL:
                 return this.getOrginalSpatial();
-   
+
         }
         return null;
     }
-    
 
-    
-    public void initPresentor(){
+    public void initPresentor() {
         createBox();
         createBillboard();
         createPoint();
@@ -87,5 +84,4 @@ public class SpatialPresentor {
     public void setOrginalSpatial(Spatial orginalSpatial) {
         this.orginalSpatial = orginalSpatial;
     }
-    
 }

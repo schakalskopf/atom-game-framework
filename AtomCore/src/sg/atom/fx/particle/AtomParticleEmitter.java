@@ -26,7 +26,9 @@ import java.io.IOException;
 /**
  * <code>AtomParticleEmitter</code> is a expand version of oginial JME3
  * {@link ParticleEmitter} with more fancy features: Use the orginal Emitter as
- * its particle Use curve value
+ * its particle, Use curve value. <b>Note:</b> AtomParticleEmitter is a handy
+ * implementation of AtomParticleGenerator. to let the AtomParticleEmitter work
+ * in JME's context and vise versa.
  *
  * <p> Particle emitters can be used to simulate various kinds of phenomena,
  * such as fire, smoke, explosions and much more.
@@ -39,13 +41,13 @@ import java.io.IOException;
  *
  * @author atomix
  */
-public class AtomParticleEmitter extends AtomParticle {
+public class AtomParticleEmitter extends AtomParticle implements AtomParticleGenerator {
 
     private boolean enabled = true;
     // Influences
     private static final EmitterShape DEFAULT_SHAPE = new EmitterPointShape(Vector3f.ZERO);
     private static final ParticleInfluencer DEFAULT_INFLUENCER = new DefaultParticleInfluencer();
-    private AtomParticleEmitterControl control;
+    private AtomParticleControl control;
     private EmitterShape shape = DEFAULT_SHAPE;
     private ParticleInfluencer particleInfluencer = DEFAULT_INFLUENCER;
     // Children
@@ -96,7 +98,7 @@ public class AtomParticleEmitter extends AtomParticle {
         clone.controls.remove(control);
 
         // put correct control
-        clone.controls.add(new AtomParticleEmitterControl(clone));
+        clone.controls.add(new AtomParticleControl(clone));
 
         // Reinitialize particle mesh
 
@@ -121,7 +123,7 @@ public class AtomParticleEmitter extends AtomParticle {
         shape = shape.deepClone();
         particleInfluencer = particleInfluencer.clone();
 
-        control = new AtomParticleEmitterControl(this);
+        control = new AtomParticleControl(this);
         controls.add(control);
 
         this.setNumParticles(numParticles);
@@ -986,7 +988,7 @@ public class AtomParticleEmitter extends AtomParticle {
                 if (obj instanceof AtomParticleEmitter) {
                     controls.remove(i);
                     // now add the proper one in
-                    controls.add(new AtomParticleEmitterControl(this));
+                    controls.add(new AtomParticleControl(this));
                     break;
                 }
             }
@@ -999,7 +1001,7 @@ public class AtomParticleEmitter extends AtomParticle {
         } else {
             // since the parentEmitter is not loaded, it must be 
             // loaded separately
-            control = getControl(AtomParticleEmitterControl.class);
+            control = getControl(AtomParticleControl.class);
             control.parentEmitter = this;
 
         }

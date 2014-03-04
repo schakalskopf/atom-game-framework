@@ -84,11 +84,6 @@ public class SkillAction extends ExternalAction {
     }
 
     @Override
-    public void performAction() {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public float canAffect(Object obj) {
         //throw new UnsupportedOperationException("Not supported yet.");
         return 0;

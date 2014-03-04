@@ -10,6 +10,9 @@ import sg.atom.core.timing.TimeProvider;
 
 /**
  * A simple delayed detachment system.
+ * 
+ * 
+ * 
  * @author cuong.nguyenmanh2
  */
 public class SpatialExpires {

@@ -8,9 +8,14 @@ import com.jme3.math.Vector2f;
 import java.util.ArrayList;
 
 /**
- * A template of tiles which can perform lookup like a lookup table, width index
+ * A template of tiles which can perform lookup like a lookup table, with index
  * and range.
  *
+ * A TileSheet is a "common" data structure to store "orginal" Tile. Custom
+ * TileSheet can extends this class to provide more functions.
+ *
+ * FIXME: Intergrate with Repository pattern.
+ * 
  * @author cuong.nguyenmanh2
  */
 public class TileSheet {

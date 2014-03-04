@@ -19,15 +19,15 @@ import sg.atom.entity.general.AbstractEntity;
  * its associated Component.</p>
  *
  * <p>This implementation only Support minimal management by:
- * id,name,type,group,status. With entities's type as primary lookup method.
+ * id,name,type,group,status. With entities's type ( a String) as primary lookup method.
  * Already enough for common usecases. </p>
  *
- * <p>This implementation have no contract about the enviroment of Entities. To
- * be managed as Actor in a Actor framework for high concurent performance, or
- * Entity in a context/enviroment such as World in Artemis; possible extends
- * this class!</p>
+ * <p>This implementation have no contract about the enviroment of Entities,
+ * also the purity of the Entity. To be managed as Actor in a Actor framework
+ * for high concurent performance, or Entity in a context/enviroment such as
+ * World in Artemis; possible extends this class!</p>
  *
- * <p>Note that Atom Entity replicate Object orientted programming and involve
+ * <p>Note that Atom Entity replicate Object oriented programming and involve
  * Data oriented programming at the same time. Also check Aspect programming and
  * reactive functional programming!</p>
  *
@@ -40,7 +40,6 @@ import sg.atom.entity.general.AbstractEntity;
 public class Entity implements AbstractEntity {
 
     public Long id;
-    
     // Basic properties. FIXME: Remove them!
     protected String entityName;
     protected String entityType;
@@ -54,7 +53,6 @@ public class Entity implements AbstractEntity {
         this.entityType = type;
         /*
          this.isActived = true;
-         this.isVisible = true;
          */
     }
 
@@ -76,6 +74,10 @@ public class Entity implements AbstractEntity {
     }
 
     @Override
+    public Object getIdentify() {
+        return getId();
+    }
+    
     public Long getId() {
         return id;
     }
@@ -83,8 +85,8 @@ public class Entity implements AbstractEntity {
     public String getType() {
         return entityType;
     }
-    /*Components and Functions */
 
+    /*Components and Functions */
     public Object getComponent(Object type) {
         return null;
     }
@@ -102,8 +104,14 @@ public class Entity implements AbstractEntity {
     public void set(AbstractComponent c) {
     }
 
+    /**
+     * Provide "read only" view of its internal component.
+     * @return 
+     */
     @Override
     public AbstractComponent[] getComponents() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    
 }

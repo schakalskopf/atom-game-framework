@@ -13,30 +13,31 @@ import com.jme3.post.filters.DepthOfFieldFilter;
 import com.jme3.renderer.ViewPort;
 import java.util.ArrayList;
 import sg.atom.stage.StageManager;
-import sg.atom.fx.filter.CartoonEdgeProcessor;
-import sg.atom.fx.filter.LUTCCFilter;
+import sg.atom.fx.filters.CartoonEdgeProcessor;
+import sg.atom.fx.filters.LUTCCFilter;
 
 /**
- * Manager and Factory for all Screen effects
+ * Manager and Factory for all Screen effects.
+ *
+ * Can wrap normal screen effects filters and processor into an AtomEffect to
+ * use in timeline and cinematic.
+ *
  * @author atomix
  */
 public class ScreenEffectManager implements ActionListener {
 
     protected AssetManager assetManager;
     protected StageManager stageManager;
-    
     protected FilterPostProcessor fpp;
     protected ViewPort viewPort;
-
     //FIXME: Replace this with a generic list!
     protected LUTCCFilter lut;
     protected BloomFilter bloom;
-    
     //FIXME: Automatic Managing!!
     private boolean activeBloom;
     boolean activeLUT = true;
     ArrayList<Filter> filterList;
-    
+
     public ScreenEffectManager(StageManager stageManager) {
         this.assetManager = stageManager.getApp().getAssetManager();
         this.stageManager = stageManager;
@@ -77,7 +78,7 @@ public class ScreenEffectManager implements ActionListener {
         //viewPort.addProcessor(fpp);
     }
 
-    public void setupKeys(){
+    public void setupKeys() {
         //
     }
 
@@ -109,8 +110,8 @@ public class ScreenEffectManager implements ActionListener {
         }
     }
     /* Advanced stuffs */
-    public Filter bakeFilter(String shaderPath){
+
+    public Filter bakeFilter(String shaderPath) {
         return null;
     }
-    
 }

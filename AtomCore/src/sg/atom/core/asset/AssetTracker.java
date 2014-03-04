@@ -5,9 +5,11 @@
 package sg.atom.core.asset;
 
 /**
- *
-@author atomix
- */
+ * Asset traker only work on file asset which link via FileAssetLocator.
+ * 
+ * <p> Now use Common FileMonitor instead.
+ * @author atomix
+ */ @Deprecated
 public class AssetTracker {
     
 }

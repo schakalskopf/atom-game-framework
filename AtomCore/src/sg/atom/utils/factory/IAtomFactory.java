@@ -8,10 +8,10 @@ package sg.atom.utils.factory;
  * This class is the migration to maximize usage of the Factory pattern in the
  * Atom framework.
  *
- * Note that this solution belonged to the era before Dependency injection.
+ * Note that this solution belonged to the era "before" Dependency injection.
  *
  * @author cuong.nguyenmanh2
- */
+ */ @Deprecated
 public interface IAtomFactory<T> {
 
     public T create(Object param);

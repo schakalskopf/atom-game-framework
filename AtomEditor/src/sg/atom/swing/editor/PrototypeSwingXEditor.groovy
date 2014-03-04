@@ -143,13 +143,7 @@ class PrototypeSwingXEditor{
         swing.toolBar(constraints:BL.NORTH){
             toggleButton("Select",toolTipText:"Select",icon:createIcon("icons/ToolbarIcons/24/Select.png"))
             toggleButton("AddNode",toolTipText:"AddNode",icon:createIcon("icons/ToolbarIcons/24/AddNode.png"),actionPerformed:{
-                    /*
-                    if (graphTest.isAddingNodeMode()){
-                    graphTest.setAddingNodeMode(false);
-                    } else {
-                    graphTest.setAddingNodeMode(true);
-                    }
-                     */
+
                 });
             
             separator(orientation:SwingConstants.VERTICAL)

@@ -2,7 +2,7 @@ package sg.atom.assets.json;
 
 
 import sg.atom.assets.json.JsonWriter.OutputType;
-import sg.atom.core.asset.SerializationException;
+import sg.atom.utils.io.SerializationException;
 
 /**
  * Container for a JSON object, array, string, double, long, boolean, or null.

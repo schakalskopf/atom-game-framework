@@ -4,29 +4,75 @@
  */
 package sg.atom.entity;
 
+import com.google.common.base.Function;
 import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 import sg.atom.core.lifecycle.IGameCycle;
+import sg.atom.entity.general.AbstractComponent;
+import sg.atom.entity.general.AbstractEntity;
+import sg.atom.entity.general.EntityRepository;
 import sg.atom.stage.StageManager;
 
 /**
  * An simple EntityManager implementation which have basic Spatial - Entity
- * relationship management
+ * relationship management.
  *
- * FIXME: Replace or intergrate with Zay-ES or Artemis
+ * <ul>
+ *
+ * <li>It has a Cache implementation of original entities beside of one in
+ * AssetManager.</li>
+ *
+ * <li> Also support dependency injection to create Entity.</li>
+ *
+ * <li> It hashed its managed entities with regular "good" hash method to manage
+ * indexing.</li>
+ *
+ * <li> provides Functions like
+ * set/get/insert/remove/swap/replace/lookup/search/scanning/distributing/inheritance
+ * inspecting over its managed entities. <b>aka. 1 step ref or direct
+ * modification</b></li>
+ *
+ * <li> Provide services over its managed entities. <b>aka. 2 steps
+ * refs</b></li>
+ *
+ * <li> Provide reflection, references/ versioned tricks and other functions
+ * over lookup result of Components. <b>aka. 3 steps refs</b></li>
+ *
+ * <li> open gates to manage also components of Entities (like other ES
+ * implementation). In the moment of speech, other ES implementation "usually"
+ * manage a "isolated view" of available components. Its meant to be using
+ * "Class level of atomicity" in Java language!</li>
+ *
+ * <li> Most important, It open gates to managed actor framework and the
+ * transactional memory model.</li> </ul>
+ *
+ * <p><b>NOTE:</b> Overview, the system works like this: <ul>
+ *
+ * <li>A waving of access (can be asynchoronous as in concurrent processing...)
+ * to Entities lead to a waving of lookup (non-access) to their associated
+ * Component(s).</li>
+ *
+ * <li>The reference allow direct modification or transactional
+ * modification.</li>
+ *
+ * <li></li> </p> FIXME: Replace or intergrate with Zay-ES or Artemis.
  *
  * @author atomix
  */
-public class EntityManager implements IGameCycle {
+@Deprecated
+public class EntityManager implements IGameCycle, EntityRepository {
 
     protected StageManager stageManager;
     protected EntityFactory entityFactory;
     // Entity management 
     protected HashMap<Long, Entity> entities = new HashMap<Long, Entity>();
     private long totalEntityId = -1;
-
+    // Lookup
+    protected Function<AbstractEntity,AbstractComponent> lookupFunction = null;
+    // Services
+    
     public EntityManager(StageManager stageManager) {
         this.stageManager = stageManager;
         this.entityFactory = new EntityFactory(this, stageManager);

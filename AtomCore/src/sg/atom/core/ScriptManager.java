@@ -10,7 +10,6 @@ import java.util.Properties;
 import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import org.codehaus.groovy.control.CompilerConfiguration;
 import sg.atom.core.lifecycle.IGameCycle;
 import sg.atom.stage.StageManager;
 
@@ -57,7 +56,7 @@ public class ScriptManager implements IGameCycle {
     }
 
     void initScriptEngine() {
-        CompilerConfiguration compiler = new CompilerConfiguration();
+        //CompilerConfiguration compiler = new CompilerConfiguration();
         // The Engine
     }
 

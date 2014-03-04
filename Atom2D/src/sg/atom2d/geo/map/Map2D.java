@@ -4,10 +4,13 @@
  */
 package sg.atom2d.geo.map;
 
+import java.util.List;
+
 /**
  * Contains layers of GridMap.
+ * 
  * @author cuong.nguyenmanh2
  */
 public interface Map2D {
-    
+    public List<GridMap> getLayers();
 }

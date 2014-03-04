@@ -64,7 +64,7 @@ public class GameStateManager implements IGameCycle{   // short cut link
     public void setStartupState(AppState state) {
         this.startUpState = state;
     }
-    /* Simple implementation of "common" game routines handler! */
+    /* FIXME: Remove. Simple implementation of "common" game routines handler! */
 /*
     public void enterGameMenu() {
         AppState needDetachState = stateManager.getState(HelloWarningAppState.class);

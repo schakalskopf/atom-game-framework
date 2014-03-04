@@ -17,7 +17,45 @@ import com.jme3.scene.Spatial;
 import java.util.Queue;
 
 /**
- * Represents a single particle in a {@link ParticleEmitter}.
+ * Represents a single particle in the whole particle system. In this level of
+ * abstract AtomParticle is just a Spatial, which no garantee what is its
+ * representor ̣mean no graphics sides. So for short: It's just a moving point!
+ * No more no less.
+ *
+ * <p>What make AtomParticle fancy is: It can be used in much more wide range of
+ * application compare to JME3's original which only low level implementation.
+ * At the momment of speech, I also aware of few others imlementation of
+ * contributors but no one have this level of abstract and flexibility,
+ * features.</p>
+ *
+ * <b>Features:</b>
+ *
+ * <ul>
+ *
+ * <li>Particle can just be a point. Particle can also "be" a force for
+ * simmulation! </li>
+ *
+ * <li>Particle can also have children(optional). Forces, constrainst or
+ * influencers affect and direct the parent motion and those children also. A
+ * rapid bit-base tree or list used to index and loop through them if need.
+ * </li>
+ *
+ * <li>Compressed form: AtomParticle save internal "hash" type of its self and
+ * children to save memory. Allow milions of particles on screen. AtomParticle
+ * can also be translated into different format: Most common usage is to
+ * generate a similiar JME's Particle which have a same attributes and
+ * structure. So each AtomParticle decomposed into a node with one or some
+ * ParticleEmitter. AtomParticleControl manage AtomParticle and also can take
+ * care of the generated structure.</li>
+ *
+ * <li> Gabage free, memory cleaning helper: Construction of indexing data
+ * structure is "off" by default, and can be actived again anytime the parent
+ * particle still actives. If it no longer actived (mean be swept away by GC)
+ * the system still track down them automaticly! </li>
+ *
+ * <li>Particle can be edited/tracked/debug. Events are spread by EventBus.</li>
+ *
+ * <li>Particle motion can be very complex. </li> </ul>
  *
  * @author atomix
  */

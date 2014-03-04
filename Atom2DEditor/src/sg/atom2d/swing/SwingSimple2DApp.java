@@ -1,21 +1,13 @@
 package sg.atom2d.swing;
 
-import com.jme3.app.SimpleApplication;
-import com.jme3.asset.plugins.FileLocator;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Sphere;
-import com.jme3.system.AppSettings;
-import com.jme3.system.JmeCanvasContext;
-import com.jme3.texture.Texture;
-import java.awt.Canvas;
-import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sg.atom.fx.particle.ParticleFactory;
 import sg.atom.swing.SwingSimple3DApp;
 import sg.atom.world.WorldTestHelper;
 
@@ -54,23 +46,6 @@ public class SwingSimple2DApp extends SwingSimple3DApp {
         Logger.getLogger("com.jme3").setLevel(Level.WARNING);
     }
 
-    public Canvas createAndStartCanvas(int width, int height) {
-        AppSettings settings = new AppSettings(true);
-        settings.setWidth(width);
-        settings.setHeight(height);
-
-        setPauseOnLostFocus(false);
-        setSettings(settings);
-        createCanvas();
-        startCanvas(true);
-
-        JmeCanvasContext context = (JmeCanvasContext) getContext();
-        Canvas canvas = context.getCanvas();
-        canvas.setSize(settings.getWidth(), settings.getHeight());
-
-        return canvas;
-    }
-
     protected void createMark(Vector3f loc) {
         Sphere sphere = new Sphere(8, 8, 0.2f);
         Geometry mark = new Geometry("BOOM!", sphere);
@@ -84,14 +59,13 @@ public class SwingSimple2DApp extends SwingSimple3DApp {
     @Override
     public void simpleInitApp() {
         flyCam.setMoveSpeed(40f);
-
         //Create tesint enviroment
         WorldTestHelper worldHelper = new WorldTestHelper(rootNode, assetManager);
-        //worldHelper.createLight();
         worldHelper.createGrid(40, 40);
+        //worldHelper.createLight();
         //worldHelper.createFlatGround();
         //worldHelper.createSkyBox();
-        createParticle();
+        //createParticle();
         initInput();
     }
 
@@ -105,7 +79,7 @@ public class SwingSimple2DApp extends SwingSimple3DApp {
 
         viewPort.setBackgroundColor(ColorRGBA.DarkGray);
     }
-
+/*
     public void createParticle() {
         ParticleFactory pf = new ParticleFactory(assetManager);
         currentParticle = pf.createFlame();
@@ -132,4 +106,5 @@ public class SwingSimple2DApp extends SwingSimple3DApp {
 
         }
     }
+    */ 
 }

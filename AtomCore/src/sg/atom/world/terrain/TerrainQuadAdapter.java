@@ -8,6 +8,7 @@ import com.jme3.material.Material;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
+import com.jme3.scene.control.Control;
 import com.jme3.terrain.ProgressMonitor;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import java.util.List;
@@ -20,6 +21,10 @@ import java.util.List;
 public class TerrainQuadAdapter extends GenericTerrain<TerrainQuad> {
 
     public TerrainQuad terrainQuad;
+
+    public TerrainQuadAdapter(TerrainQuad terrainQuad) {
+        this.terrainQuad = terrainQuad;
+    }
 
     //FIXME: Add all the constructor
     public TerrainQuadAdapter(String name, int patchSize, int totalSize, float[] heightMap) {
@@ -147,4 +152,11 @@ public class TerrainQuadAdapter extends GenericTerrain<TerrainQuad> {
     public int getTerrainSize() {
         return terrainQuad.getTerrainSize();
     }
+
+    @Override
+    public <T extends Control> T getControl(Class<T> controlType) {
+        return terrainQuad.getControl(controlType);
+    }
+    
+    
 }

@@ -1,4 +1,4 @@
-package sg.testbed.game2d.graphics.swing
+package sg.atom2d.game2d.graphics.swing
 
 import java.awt.*
 import java.awt.image.*

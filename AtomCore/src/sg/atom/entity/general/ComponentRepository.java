@@ -15,7 +15,18 @@ package sg.atom.entity.general;
  * sequential/concurent enviroment. The extra futher works belong to
  * implementation! </p>
  *
- * Read: http://hub.jmonkeyengine.org/forum/topic/entity-system-topic-united/
+ * <p>ComponentRepository try to procedure a "managed view", a fullfilled view
+ * of available component to the outside interesters/obsversers. See:
+ * ConsistentView.
+ *
+ * Sensitive infomation may be hidden away without notification to the outsider.
+ * This contract is very important to fix the common mistake of other component
+ * repository which exposed all the inside components.
+ *
+ * Naturally it's a Collection in term of Java language.</p>
+ *
+ * <p>Read:
+ * http://hub.jmonkeyengine.org/forum/topic/entity-system-topic-united/</p>
  *
  * @author cuong.nguyenmanh2
  */

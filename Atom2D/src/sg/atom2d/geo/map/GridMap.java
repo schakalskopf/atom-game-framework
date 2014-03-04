@@ -12,10 +12,19 @@ import java.util.HashMap;
 import java.util.Properties;
 
 /**
- * A Generic Grid map with each Cell is an object with utils.
+ * A Generic Grid map with each Cell is an object with utils. A GridMap is a
+ * discrete field of T value with integer coordinate. It's a data structure to
+ * store objects whom coordinate aligned in a grid. Consider a GridMap of T can
+ * act like a 2Dimensional Array of T for example if the GridMap 's dense.
  *
- * It backed with an array of Cell object or a Guava Table if it's spare. So
- * there are two available constructors for those purpose.
+ * <p>Under the curtain, it backed with a 2d array of Cell object if it's dense
+ * or a Guava Table if it's spare. So there are two available constructors for
+ * those purpose.</p>
+ *
+ * <p>A GridMap can generate a RTree or QuadTree upon its stored data. </p>
+ *
+ * <p>Ten common "walk" function avaiable:<ul><li></li></ul> A custom external "walk" function can
+ * be specified to run upon its stored data if need.</p>
  *
  * @author cuong.nguyenmanh2
  */

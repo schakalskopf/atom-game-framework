@@ -19,8 +19,12 @@ import sg.atom.stage.StageManager;
         this.gamePlayManager = stageManager.getGamePlayManager();
         this.name = name;
     }
-
+    /**
+     * Need to be replaced in real-game implementation!
+     */
     public void initPlayer() {
+        this.playerAvatar = new PlayerAvatar();
+        this.playerProfile = new PlayerProfile();
         this.playerMainCharacter = new GameCharacter("Character " + name);
     }
 

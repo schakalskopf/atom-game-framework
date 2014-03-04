@@ -19,9 +19,34 @@ import sg.atom.stage.WorldManager;
 import sg.atom.ui.GameGUIManager;
 
 /**
+ * GamePlayManager is the manager to manage all gameplay aspects.
+ *
+ * <p>It's the manager that make a game follow a genre, which make input, point
+ * of view, action, enviroment and mood ..., right for the game-genre and plot.
+ * It has some overlap functions with StageManager but it care more about the
+ * score, the winning, the mood... and StageManager don't even know about them.
+ *
+ * It also knows everything about the players and items,triggers , NPC, skill and
+ * everythings affect the game play.</p>
+ *
+ * This implementation has some assumptions: <ul>
+ *
+ * <li>At least one main player in the local system. Wrong with a stand-alone
+ * server.</li>
+ *
+ * <li>The game is Level base.</li>
+ *
+ * <li></li> </ul>
+ *
+ * <p>The main job of GamePlayManager is taking care of: <ul>
+ *
+ * <li>Main character of the player position</li>
+ *
+ * <li>Spawning of enemies</li> </ul> Sub-managers:
+ *
+ * Item Manager: Place and manage items and adward
  *
  * @author atomix
- * @param GamePlayManager is
  */
 public class GamePlayManager extends AbstractManager implements IGameCycle {
     // the Global var
@@ -40,17 +65,6 @@ public class GamePlayManager extends AbstractManager implements IGameCycle {
     protected Player mainPlayer;
     private static final Logger logger = Logger.getLogger(GamePlayManager.class.getName());
 
-    // GAME PLAY MANAGER
-    // It's the manager that make a game follow a genre
-    // which make input, point of view, action, enviroment and mood ... 
-    // right for the game-genre and plot
-    // It know every about the player and items,triggers , NPC, skill
-    // The things that affect the game play
-    // The main job of GamePlayManager is taking care of:
-    // + Main character of the player position
-    // + Spawning of enemies
-    // Sub-manager
-    // Item Manager: Place and manage items and adward
     protected GamePlayManager() {
         //For singleton!
     }
@@ -70,6 +84,7 @@ public class GamePlayManager extends AbstractManager implements IGameCycle {
         this.stageManager = app.getStageManager();
         this.gameGUIManager = app.getGameGUIManager();
     }
+
     public void initGamePlay() {
         initGamePlay(null);
     }

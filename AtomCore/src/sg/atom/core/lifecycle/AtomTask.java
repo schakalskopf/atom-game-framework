@@ -6,6 +6,8 @@ package sg.atom.core.lifecycle;
 
 /**
  * Hierachy named task ultilities.
+ * 
+ * Expanded version of JME3's AppTask!
  *
  * Embed in a load balance and advance execution/concurency enviroment.
  *

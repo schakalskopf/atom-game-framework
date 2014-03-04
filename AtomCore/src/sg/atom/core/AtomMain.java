@@ -1,13 +1,17 @@
 package sg.atom.core;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.util.concurrent.ExecutionList;
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.jme3.app.SimpleApplication;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.system.AppSettings;
+import java.io.InputStream;
 import java.util.Properties;
+import sg.atom.core.timing.GameTimer;
 import sg.atom.stage.SoundManager;
 import sg.atom.stage.StageManager;
 import sg.atom.state.LoadingAppState;
@@ -30,24 +34,36 @@ import sg.atom.ui.GameGUIManager;
  *
  * <li>Support (optional) Entity - Manager mechanic</li>
  *
- * <li>Support (optional) State pattern</li> 
- * 
- * <li>Support easy-optional Network
- * and Multiplayer</li> </ul>
+ * <li>Support (optional) State pattern</li>
+ *
+ * <li>Support easy-optional Network and Multiplayer</li> </ul>
+ *
+ *
  */
 public class AtomMain extends SimpleApplication {
 
-    //FIXME: Open the usage of Singleton (optional)
+    //FIXME: Open the usage of "classical" Singleton (optional). Should use non-block negative Singleton or Guice to instantiate this instead!
+    @Inject
     public static AtomMain defaultInstance = null;
     //Shortcut
+    @Inject
     protected GameGUIManager gameGUIManager;
+    @Inject
     protected StageManager stageManager;
+    @Inject
     protected GameStateManager gameStateManager;
+    @Inject
     protected SoundManager soundManager;
-    // Management and monitoring. Guava&Guice Era!
+    // Management and monitoring. 
+    protected GameTimer internalGameTimer;
     protected Properties properties;
+    // Guava&Guice Era!
     protected EventBus eventBus;
     protected Guice guice;
+    /**
+     * ExecutionList. Tend to replace the app.queue which is a poor implementation of concurrent.
+     */
+    protected ExecutionList executionList;
 
     @Override
     public void simpleInitApp() {
@@ -58,7 +74,9 @@ public class AtomMain extends SimpleApplication {
 
     public void startup() {
         gameStateManager.setStartupState(LoadingAppState.class);
-        gameStateManager.startUp();
+        gameStateManager.startUp();    
+        eventBus = new EventBus("Atom framework EventBus");
+        
     }
 
     public void initGameStateManager() {
@@ -112,6 +130,12 @@ public class AtomMain extends SimpleApplication {
     //============ CONFIGS =======================
     public void applySettings(Properties props) {
         // Empty implementation!
+    }
+
+    public void applySettings(Object rawSetting) {
+    }
+
+    public void applySettings(InputStream externalStream) {
     }
     // =========== GETTER & SETTER ===============
 

@@ -14,11 +14,11 @@ import sg.atom.gameplay.controls.AtomCharacterControl;
 
 /**
  * GameCharacter is a "Common" game pattern which a Player represent his/her
- * self as a Virtual representor, so call "Character" as in RPG
+ * self as a Virtual representor, so call "Character" as in RPG.
  *
- * GameCharacter can be built up from serveral infos and resources. It also get
+ * <p>GameCharacter can be built up from serveral infos and resources. It also get
  * methods to manipulate (get/set) custom data. A GameCharacter also refered
- * (link) to its associated GameCharacterControl
+ * (link) to its associated GameCharacterControl</p>
  *
  * @author atomix
  */

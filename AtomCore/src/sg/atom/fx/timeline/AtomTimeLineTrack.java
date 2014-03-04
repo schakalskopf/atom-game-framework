@@ -23,7 +23,7 @@ import java.util.Properties;
  *
  * @author CuongNguyen
  */
-public class AtomTimeLineTrack  implements Savable{
+public class AtomTimeLineTrack implements Savable{
     
     protected PlayState playStatus;
     protected LoopMode loopType;

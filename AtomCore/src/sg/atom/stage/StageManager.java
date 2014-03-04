@@ -77,6 +77,7 @@ public class StageManager extends AbstractManager implements TimeProvider, IGame
     //Monitoring
     protected ProgressInfo currentProgress = new ProgressInfo("None");
     //Gameplay
+    //FIXME: Replace ArrayList with cache or repsitory implementation!
     protected ArrayList<GameLevel> gameLevelList = new ArrayList<GameLevel>();
     protected GameLevel currentLevel;
 

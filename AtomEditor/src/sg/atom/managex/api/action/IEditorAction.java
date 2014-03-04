@@ -5,7 +5,10 @@
 package sg.atom.managex.api.action;
 
 /**
- *
+ * Action in an Editor.
+ * 
+ * Support chain of resposibility pattern.
+ * 
  * @author cuong.nguyenmanh2
  */
 public interface IEditorAction {

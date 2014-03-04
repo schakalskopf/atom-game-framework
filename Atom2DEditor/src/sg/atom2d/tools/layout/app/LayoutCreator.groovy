@@ -287,5 +287,3 @@ swing.edt{
     }
     
 }
-
-//layoutEditorPanel.reloadImage("D:/JGE/MY GAMES/CityGen/src/images/facade3.jpg")

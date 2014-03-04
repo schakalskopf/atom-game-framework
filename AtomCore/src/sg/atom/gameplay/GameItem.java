@@ -9,7 +9,7 @@ import sg.atom.gameplay.actor.Actor;
  * of Component Entity Framework.
  *
  * <p>In abstract level, it represent a single soft link (reference) to another
- * object in the same context (meaning space). In this implementation, GameItem
+ * object in the same context. In this implementation, GameItem
  * indicate a soft link from an Actor to an Entity(since Actor is not an Entity
  * by default!).</p>
  *

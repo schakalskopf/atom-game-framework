@@ -23,7 +23,7 @@ import sg.atom.utils.monitor.Progress;
  *
  * @author mulova
  *
- */
+ */ @Deprecated
 public final class Preloader implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(Preloader.class);

@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sg.atom.core.asset.EncodingType;
+import sg.atom.utils.io.EncodingType;
 import sg.atom.utils.pool.StringBuilderPool;
 
 public class StringUtil {

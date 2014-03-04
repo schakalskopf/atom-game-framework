@@ -34,14 +34,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import sg.atom.core.asset.FileHandle;
+import sg.atom.utils.io.FileHandle;
 import sg.atom.utils.collection.Array;
 import sg.atom.utils.collection.ArrayMap;
 import sg.atom.utils.collection.ObjectMap;
 import sg.atom.utils.collection.ObjectMap.Entry;
 import sg.atom.utils.collection.ObjectMap.Values;
 import sg.atom.utils.collection.OrderedMap;
-import sg.atom.core.asset.SerializationException;
+import sg.atom.utils.io.SerializationException;
 import sg.atom.assets.json.JsonWriter.OutputType;
 
 /**

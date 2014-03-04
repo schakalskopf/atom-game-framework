@@ -9,14 +9,19 @@ import com.jme3.export.JmeImporter;
 import com.jme3.export.Savable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.Properties;
+import org.apache.commons.configuration.AbstractConfiguration;
+import org.apache.commons.configuration.AbstractFileConfiguration;
+import org.apache.commons.configuration.ConfigurationException;
 
 /**
- * Common implementation
+ * Common implementation.
  *
  * @author atomix
  */
-public class GameSettings implements Cloneable, Savable {
+public class GameSettings implements Cloneable, Savable, AtomConfiguration {
 
     public void load(Properties props) {
     }
@@ -30,5 +35,25 @@ public class GameSettings implements Cloneable, Savable {
 
     @Override
     public void read(JmeImporter im) throws IOException {
+    }
+
+    @Override
+    public AbstractConfiguration getConfiguration() throws ConfigurationException {
+        return new AbstractFileConfiguration("") {
+            @Override
+            public void load(Reader in) throws ConfigurationException {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void save(Writer out) throws ConfigurationException {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        };
+    }
+
+    @Override
+    public void apply() {
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 }

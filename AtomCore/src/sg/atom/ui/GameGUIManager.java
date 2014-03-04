@@ -17,6 +17,8 @@ import de.lessvoid.nifty.controls.Controller;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ElementRenderer;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
+import de.lessvoid.nifty.elements.render.TextRenderer;
+import de.lessvoid.nifty.loaderv2.types.RegisterEffectType;
 import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
@@ -72,6 +74,8 @@ public class GameGUIManager extends AbstractManager implements IGameCycle {
 
     @Override
     public void load() {
+        setupCommonStyles();
+        setupCommonEffects();
         setupCommonScreens();
     }
 
@@ -137,6 +141,16 @@ public class GameGUIManager extends AbstractManager implements IGameCycle {
         initNiftyGUI();
         disableLogger();
         initCustom();
+    }
+
+    public void setupCommonEffects() {
+        nifty.registerEffect(new RegisterEffectType("imageOverlayPulsateBlend", "sg.atom.ui.common.effects.ImageOverlayPulsateBlend"));
+        nifty.registerEffect(new RegisterEffectType("motionAxis", "sg.atom.ui.common.effects.MotionAxis"));
+    }
+
+    public void setupCommonStyles() {
+        
+
     }
 
     public void setupCommonScreens() {
@@ -306,9 +320,10 @@ public class GameGUIManager extends AbstractManager implements IGameCycle {
             path.loaded = true;
         }
     }
+    // ===Ultilites that Nifty should have!============================================
 
     /**
-     * Ultity method to create a NiftyImage from a JME3's Texture
+     * Ultility method to create a NiftyImage from a JME3's Texture
      *
      * @param tex
      * @param textureName
@@ -320,6 +335,26 @@ public class GameGUIManager extends AbstractManager implements IGameCycle {
         iR.setImage(img);
     }
 
+    /**
+     * Ultility to safety setText in Nifty Elements
+     */
+    public static void setText(Element el, String text) {
+        el.getRenderer(TextRenderer.class).setText(text);
+    }
+
+    public void setText(String elId, String text) {
+        nifty.getCurrentScreen().findElementByName(elId).getRenderer(TextRenderer.class).setText(text);
+    }
+
+    public static void setImage(Element el, NiftyImage image) {
+        el.getRenderer(ImageRenderer.class).setImage(image);
+    }
+
+    /**
+     * Ultility to safety navigate through screens
+     *
+     * @param screenName
+     */
     public void goToScreen(String screenName) {
         if (nifty.getScreen(screenName) != null) {
             nifty.gotoScreen(screenName);
