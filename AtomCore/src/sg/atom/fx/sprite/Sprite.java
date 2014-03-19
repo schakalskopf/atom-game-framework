@@ -4,6 +4,7 @@
  */
 package sg.atom.fx.sprite;
 
+import com.google.common.base.Converter;
 import com.google.common.base.Function;
 import com.jme3.math.Transform;
 import com.jme3.math.Vector2f;
@@ -11,7 +12,10 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
+import sg.atom.utils.proxy.IPresenter;
 
 /**
  * Sprite is a flexible graphics model can be used in a wide range of games and
@@ -53,7 +57,7 @@ import java.util.ArrayList;
  *
  * @author CuongNguyen
  */
-public class Sprite {
+public class Sprite implements IPresenter<Spatial> {
     // Four float positional attributes for common usecases
 
     public float x, y, width, height;
@@ -89,19 +93,33 @@ public class Sprite {
         return null;
     }
 
-    public Object as(Function<Sprite, Object> convertor) {
-        return null;
+    @Override
+    public Object as(Function<Spatial, Object> convertor) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public Object as(Class clazz) {
-        return null;
-    }
-    
-    public Sprite from(Function<Object,Sprite > convertor) {
-        return null;
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Sprite from(Object clazz) {
-        return null;
+    @Override
+    public Spatial from(Converter<Object, Spatial> convertor) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Spatial from(Object object) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Proxy asProxy() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Spatial mix(Spatial... objects) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -458,7 +458,7 @@ public class Array<T> implements Iterable<T> {
      * This method is not thread safe (uses {@link Sort#instance()}).
      */
     public void sort() {
-        Sort.instance().sort(items, 0, size);
+        Sorts.instance().sort(items, 0, size);
     }
 
     /**
@@ -466,7 +466,7 @@ public class Array<T> implements Iterable<T> {
      * {@link Sort#instance()}).
      */
     public void sort(Comparator<T> comparator) {
-        Sort.instance().sort(items, comparator, 0, size);
+        Sorts.instance().sort(items, comparator, 0, size);
     }
 
     /**

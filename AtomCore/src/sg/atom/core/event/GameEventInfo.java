@@ -1,10 +1,8 @@
 package sg.atom.core.event;
 
-@Deprecated
 /**
- *
-@author atomix
- */
+ * 
+ * @author atomix
+ */@Deprecated
 public abstract class GameEventInfo {
-
 }

@@ -11,6 +11,7 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.system.AppSettings;
 import java.io.InputStream;
 import java.util.Properties;
+import sg.atom.core.lifecycle.IGameCycle;
 import sg.atom.core.timing.GameTimer;
 import sg.atom.stage.SoundManager;
 import sg.atom.stage.StageManager;
@@ -18,29 +19,59 @@ import sg.atom.state.LoadingAppState;
 import sg.atom.ui.GameGUIManager;
 
 /**
- * @author Atomix
- */
-/**
- * This class is an extended version of
+ * AtomMain is an extended version of
  * <code>SimpleApplication</code> to support more Game-related functions and
- * features for the basic JME3 Application.
+ * features for the basic JME3 Application. This is the central of Atom
+ * framework.
  *
- * <br> The examples show the power of this architect, learnt from a lot of
+ * <p> The examples show the power of this architect, learnt from a lot of
  * others (big to small, successed and failed).
  *
- * <br> The features:<br>
+ * <p> The re-work features: A few differencies has to be distinguish between
+ * AtomMain and the normal SimpleApplicaion: <ul>
  *
- * <ul> <li>Support has some generic-ports to hook in the under mechanic</li>
+ * <li>It's not only rely on AppTask, to enable more complex concurent
+ * algorimth.</li>
+ *
+ * <li>Its not just rely on ContextListener timing; Its also attend in another
+ * cycle; Its also can ignore completely the underlying game timer with
+ * Monitoring magic.</li>
+ *
+ * <li>Its accepts other Renderers, has another StateManager, AssetManager
+ * specification.</li>
+ *
+ * <li>Its accepts various kind of input in event style.</li> </ul>
+ *
+ * <p> The unique features:
+ *
+ * <ul><li>Support generic-ports to hook in the underlying mechanics</li>
+ *
+ * <li>Stage and Actor paradigm, inspired by Cinematograpy, in which modern
+ * video games rely on. Actor also refered as Agent/ManagedEntity and Stage as
+ * Enviroment/Context/Domain in other implementation and papers.</li>
  *
  * <li>Support (optional) Entity - Manager mechanic</li>
  *
  * <li>Support (optional) State pattern</li>
  *
- * <li>Support easy-optional Network and Multiplayer</li> </ul>
+ * <li>Support easy-optional Network and Multiplayer</li>
+ *
+ * <li>Support monitoring and testing</li></ul>
  *
  *
+ *
+ * <p>Design decision:<ul> <li>Use Guava and Guice heavily!</li>
+ *
+ * <li>Maximizing usage of design pattern! [But not eliminate creativity]</li>
+ * </ul></p>
+ *
+ * <p><b>Note:</b>To get deeper into low level, use AtomPlatform instead. It is
+ * an Application which redefined the tasks, the states and the game cycles of
+ * JME3 context! </p>
+ *
+ * @author Atomix
  */
-public class AtomMain extends SimpleApplication {
+public class AtomMain extends SimpleApplication implements IGameCycle {
 
     //FIXME: Open the usage of "classical" Singleton (optional). Should use non-block negative Singleton or Guice to instantiate this instead!
     @Inject
@@ -61,26 +92,43 @@ public class AtomMain extends SimpleApplication {
     protected EventBus eventBus;
     protected Guice guice;
     /**
-     * ExecutionList. Tend to replace the app.queue which is a poor implementation of concurrent.
+     * ExecutionList. Tend to replace the app.queue which is a poor
+     * implementation of concurrent.
      */
     protected ExecutionList executionList;
 
+    /**
+     * Enable "classical" simple singleton!
+     */
+    protected AtomMain() {
+    }
+
+    public AtomMain(GameGUIManager gameGUIManager, StageManager stageManager, GameStateManager gameStateManager, SoundManager soundManager, GameTimer internalGameTimer, Properties properties) {
+        this.gameGUIManager = gameGUIManager;
+        this.stageManager = stageManager;
+        this.gameStateManager = gameStateManager;
+        this.soundManager = soundManager;
+        this.internalGameTimer = internalGameTimer;
+        this.properties = properties;
+    }
+
     @Override
     public void simpleInitApp() {
-        //renderManager.setAlphaToCoverage(true);
         initGameStateManager();
         startup();
     }
 
     public void startup() {
         gameStateManager.setStartupState(LoadingAppState.class);
-        gameStateManager.startUp();    
+        gameStateManager.startUp();
         eventBus = new EventBus("Atom framework EventBus");
-        
+        config(properties);
     }
 
     public void initGameStateManager() {
-        gameStateManager = new GameStateManager(this);
+        if (gameStateManager == null) {
+            gameStateManager = new GameStateManager(this);
+        }
         gameStateManager.initState();
         // NOTE: Can also call gameStateManager.init();
     }
@@ -89,7 +137,7 @@ public class AtomMain extends SimpleApplication {
      * Quick mode is the mode for development phase
      */
     public void initQuickStart() {
-        inputManager.addMapping("quickStart", new KeyTrigger(KeyInput.KEY_F1));
+        inputManager.addMapping("quickStart", new KeyTrigger(KeyInput.KEY_F12));
         inputManager.addListener(quickStartManager, "quickStart");
     }
     private ActionListener quickStartManager = new ActionListener() {
@@ -106,12 +154,16 @@ public class AtomMain extends SimpleApplication {
     };
 
     public void initGUI() {
-        gameGUIManager = new GameGUIManager(this);
+        if (gameGUIManager == null) {
+            gameGUIManager = new GameGUIManager(this);
+        }
         gameGUIManager.initGUI();
     }
 
     public void initStage() {
-        stageManager = new StageManager(this);
+        if (stageManager == null) {
+            stageManager = new StageManager(this);
+        }
         stageManager.initStage();
         // NOTE: Can also call stageManager.init();
     }
@@ -173,5 +225,40 @@ public class AtomMain extends SimpleApplication {
      */
     public AtomMain getDefaultInstance() {
         return defaultInstance;
+    }
+
+    @Override
+    public void init() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void load() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void config(Properties props) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void update(float tpf) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void finish() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public LifeCyclePhase getCurrentPhase() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public float getProgressPercent(LifeCyclePhase aPhrase) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

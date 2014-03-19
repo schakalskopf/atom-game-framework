@@ -6,6 +6,7 @@ package sg.atom.logic.trigger.spatial;
 
 import sg.atom.logic.trigger.ConditionalTrigger;
 import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
 import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 import sg.atom.logic.trigger.TriggerListener;
@@ -13,12 +14,12 @@ import sg.atom.stage.WorldManager;
 
 /**
  * SpatialTrigger is the default implementation of trigger which related to
- * Spatial
+ * Spatial.
  *
- * By the default implentation use traditional event broadcasting methods via
+ * <p>By the default implentation use traditional event broadcasting methods via
  * Listener (Observers pattern).
  *
- * <br> From version 1.0, the EventBus methods is supported.
+ * <p> From version 1.0, the EventBus methods is supported.
  *
  * @author cuong.nguyenmanh2
  */
@@ -28,6 +29,7 @@ public abstract class SpatialTrigger extends ConditionalTrigger {
     protected WorldManager worldManager;
     protected Spatial spatial;
     // EVENT HANDLE
+    @Inject
     EventBus eventBus;
     ArrayList<TriggerListener> listeners = new ArrayList<TriggerListener>();
     boolean useEventBus = true;

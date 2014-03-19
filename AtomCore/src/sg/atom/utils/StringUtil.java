@@ -21,6 +21,12 @@ import org.slf4j.LoggerFactory;
 import sg.atom.utils.io.EncodingType;
 import sg.atom.utils.pool.StringBuilderPool;
 
+/**
+ * Replace with google Strings or Apache StringUtil.
+ *
+ * @author cuong.nguyenmanh2
+ */
+@Deprecated
 public class StringUtil {
 
     private static final Logger log = LoggerFactory.getLogger(StringUtil.class);
@@ -867,7 +873,7 @@ public class StringUtil {
 
     /**
      * @param command
-     * @return null string이거나 숫자가 없을 경우 length 0 인 배열을 반환한다.
+     * @return .
      */
     public static int[] parseIntegers(final String text) {
         if (text == null) {
@@ -890,7 +896,7 @@ public class StringUtil {
     }
 
     /**
-     * substring이 단어인지 여부를 판단한다.
+     * substring match.
      *
      * @param string
      * @param index
@@ -922,7 +928,7 @@ public class StringUtil {
     }
 
     /**
-     * 해당 단어를 포함하고 있는지를 판단한다.
+     * Whole, case sensitive word search.
      *
      * @param string
      * @param word
@@ -944,22 +950,22 @@ public class StringUtil {
     public static boolean isEmpty(String str) {
         return str == null || str.length() == 0;
     }
-/*
-    public static void addNamer(IName namer) {
-        namers.add(namer);
-    }
+    /*
+     public static void addNamer(IName namer) {
+     namers.add(namer);
+     }
 
-    public static String toString(Object obj) {
-        if (obj == null) {
-            return null;
-        }
-        for (IName n : namers) {
-            String name = n.getName(obj);
-            if (name != null) {
-                return name;
-            }
-        }
-        return obj.toString();
-    }
-    */ 
+     public static String toString(Object obj) {
+     if (obj == null) {
+     return null;
+     }
+     for (IName n : namers) {
+     String name = n.getName(obj);
+     if (name != null) {
+     return name;
+     }
+     }
+     return obj.toString();
+     }
+     */
 }

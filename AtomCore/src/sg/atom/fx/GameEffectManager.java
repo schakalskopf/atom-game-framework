@@ -71,8 +71,8 @@ public class GameEffectManager extends AbstractManager implements TimeProvider{
     }
 
     @Override
-    public float getTime() {
-        return stageManager.getTime();
+    public float getTimeInSeconds() {
+        return stageManager.getTimeInSeconds();
     }
 
     @Override

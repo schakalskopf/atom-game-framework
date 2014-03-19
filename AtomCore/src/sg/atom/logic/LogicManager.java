@@ -7,11 +7,11 @@ package sg.atom.logic;
 @Deprecated
 /**
  * FIXME: Should be AppState and replaced with loose couple version with Guava
- * predicate and Eventbus
+ * predicate and Eventbus.
  *
- * As Logic Factory : create, compose, validate
+ * <p>As Logic Factory : create, compose, validate
  *
- * As Logic Manager : manage list As Logic Event Handler : broadcast
+ * <p>As Logic Manager : manage list As Logic Event Handler : broadcast
  *
  * @author atomix
  *

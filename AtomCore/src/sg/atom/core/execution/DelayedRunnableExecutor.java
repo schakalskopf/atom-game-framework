@@ -4,9 +4,9 @@
  */
 package sg.atom.core.execution;
 
-import groovy.lang.Closure;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.TimerTask;
 import java.util.concurrent.Executor;
 
 /**
@@ -15,7 +15,7 @@ import java.util.concurrent.Executor;
  */
 public class DelayedRunnableExecutor implements Executor {
 
-    private ArrayList<DelayedRunnableAction> actionQueue = new ArrayList<DelayedRunnableAction>(5);
+    protected ArrayList<DelayedRunnableAction> actionQueue = new ArrayList<DelayedRunnableAction>(5);
     public static int DEFAULT_QUEUE_ENTRIES = 4;
 
     public DelayedRunnableExecutor() {
@@ -28,21 +28,7 @@ public class DelayedRunnableExecutor implements Executor {
 
     @Override
     public void execute(Runnable command) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    class DelayedRunnableAction {
-
-        float delayTime;
-        Runnable start;
-        Runnable end;
-        Object callee;
-
-        public DelayedRunnableAction(float delayTime, Runnable start, Runnable end) {
-            this.delayTime = delayTime;
-            this.start = start;
-            this.end = end;
-        }
+        command.run();
     }
 
     public void callAction(DelayedRunnableAction action) {
@@ -55,12 +41,15 @@ public class DelayedRunnableExecutor implements Executor {
 
     }
 
-    public void delayAction(float delayTime, Closure start, Closure end) {
+    public void delayAction(float delayTime, Runnable start, Runnable end) {
         queueAction(delayTime, start, end);
     }
 
-    public void queueAction(float delayTime, Closure start, Closure end) {
+    public void queueAction(float delayTime, Runnable start, Runnable end) {
         actionQueue.add(new DelayedRunnableAction(delayTime, start, end));
+    }
+
+    public void queueTask(float delayTime, TimerTask task) {
     }
 
     public void updateActionQueue(float tpf) {

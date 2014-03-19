@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import sg.atom.core.timing.TimeProvider;
 
 /**
  * An object support play/pause/stop the progress and composing tracks and all other TimingTargets.
@@ -23,7 +24,7 @@ import java.util.ListIterator;
  *
  * @author cuong.nguyenmanh2
  */
-public class AtomTimeLine implements Savable, List<AtomTimeLineTrack> {
+public class AtomTimeLine implements Savable, List<AtomTimeLineTrack>,TimeProvider {
 
     float startTime, endTime;
     ArrayList<AtomTimeLineTrack> tracks;
@@ -155,6 +156,11 @@ public class AtomTimeLine implements Savable, List<AtomTimeLineTrack> {
 
     @Override
     public List<AtomTimeLineTrack> subList(int fromIndex, int toIndex) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public float getTimeInSeconds() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

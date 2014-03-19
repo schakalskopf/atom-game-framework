@@ -7,6 +7,10 @@ import java.util.Random;
 
 /**
  * Utility and fast math functions.
+ * 
+ * <p>Merged with MathUtils. 
+ * 
+ * <p>FIXME: Replace with Common's Math
  * @author atomix
  */
 public class AtomFastMath {

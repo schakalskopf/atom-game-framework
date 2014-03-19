@@ -4,13 +4,24 @@
  */
 package sg.atom.gameplay.action.common;
 
-import sg.atom.gameplay.action.InternalAction;
+import sg.atom.algorimth.optimization.Optimizable;
+import sg.atom.core.annotations.Atom;
 import sg.atom.gameplay.action.InternalAction;
 
 /**
+ * Directional and transform action.
+ *
+ * <p>This action affect directly to the scenegraph. This predecated class is
+ * example of how Internal action real work. It's also marked as Atom,
+ * Optimizable by default.
+ *
+ * <p>Used for test spatial transformation and behaviours, such as AI steering
+ * of Actor(agent) ... etc
  *
  * @author atomix
  */
+@Atom
+@Optimizable
 public class MoveAction extends InternalAction {
     // Movement
 

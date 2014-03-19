@@ -15,7 +15,9 @@ import com.jme3.renderer.Camera;
 import com.jme3.system.AppSettings;
 
 /**
- * InGameEditor is an AppState dedicated to all in-game editing purpose
+ * InGameEditor is an AppState dedicated to all in-game editing purpose.
+ * 
+ * 
  * @author cuong.nguyenmanh2
  */
 public class InGameEditor extends AbstractAppState {
@@ -86,6 +88,7 @@ public class InGameEditor extends AbstractAppState {
                 inGameEditor.simpleInitApp();
             }
         };
+        
         inGameEditor.setApp(app);
 
         AppSettings cfg = new AppSettings(true);

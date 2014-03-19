@@ -18,10 +18,33 @@ import java.util.logging.Logger;
 import sg.atom.fx.particle.ParticleFactory;
 import sg.atom.world.WorldTestHelper;
 
+/**
+ * A simple swing application in which is simplier than AtomMain.
+ *
+ * <p>It's have less features than AtomMain use for testing and editing purpose
+ * only. It well-crafted to be embeded in Swing enviroment, comparable to
+ * SceneApplication embed in JME3' SDK under Netbean platform. It just depend in
+ * generic helpers of Atom framework excepts GameState, StageManager and
+ * GameGUIManager. To enable those 3, for ex: to embed your run-time game in
+ * Swing enviroment but not use AtomMain directly, you should use an proxy
+ * AtomMain, return via static method getAtomMain(). The mechanism is similar to
+ * how SceneApplication and FakeApplication interact. Compare to
+ * SceneApplication, this class is kind of the inbetween, it's a
+ * SimpleApplication which use predefined render tasks and appstates, but not
+ * related to Netbean.For numberous of different purposes and goals, I've
+ * decided to made this one instead of using SceneApplication directly!</p>
+ *
+ * <p>It also support Guava, Guice and all other extensions that AtomMain
+ * support.</p>
+ *
+ * <p></p>
+ *
+ * @author cuong.nguyenmanh2
+ */
 public class SwingSimple3DApp extends SimpleApplication {
-    
+
     private ParticleEmitter currentParticle;
-    
+
     public static void main(String[] args) {
         SwingSimple3DApp app = new SwingSimple3DApp();
         app.setShowSettings(false);
@@ -65,7 +88,7 @@ public class SwingSimple3DApp extends SimpleApplication {
         WorldTestHelper worldHelper = new WorldTestHelper(rootNode, assetManager);
         worldHelper.createLight();
         worldHelper.createGrid(40, 40);
-        worldHelper.createFlatGround();
+        worldHelper.createFlatGround(80);
         worldHelper.createSkyBox();
         createParticle();
         initInput();

@@ -23,17 +23,18 @@ import sg.atom.utils.io.ExtFileFilter;
 import sg.atom.utils.Files.FileTypeFilters;
 import sg.atom.utils.StringUtil;
 
-
 /**
  * ResourceUtil is collection of common utilities for file system and class
  * path, in which not envolve AssetManager.
- * 
- * 
- * Use Guava 's Resources instead
+ *
+ *
+ * Use Guava 's Resources instead.
+ *
  * @author cuong.nguyenmanh2
- */ @Deprecated
+ */
+@Deprecated
 public class ResourceUtil {
-    
+
     private static final Logger log = LoggerFactory.getLogger(ResourceUtil.class);
     public static HashMap<URL, WeakReference<Image>> awtImageMap = new HashMap<URL, WeakReference<Image>>();
     private static String[] currentClasspath;
@@ -151,7 +152,7 @@ public class ResourceUtil {
         WeakReference<Image> image = awtImageMap.get(url);
         if (image == null || image.get() == null) {
             final ImageIcon icon = new ImageIcon(url);
-            log.debug("Loading AWT image: ", url.getPath());
+            log.error("Loading AWT image: ", url.getPath());
             image = new WeakReference<Image>(icon.getImage());
             awtImageMap.put(url, image);
         }

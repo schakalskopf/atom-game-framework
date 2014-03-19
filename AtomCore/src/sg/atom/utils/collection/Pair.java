@@ -1,6 +1,12 @@
 package sg.atom.utils.collection;
 
+/**
+ * Generic pair.
+ *
+ * @author cuong.nguyenmanh2
+ */
 public class Pair<A, B> {
+
     private A first;
     private B second;
 
@@ -18,24 +24,22 @@ public class Pair<A, B> {
     }
 
     @SuppressWarnings("unchecked")
-	public boolean equals(Object other) {
+    public boolean equals(Object other) {
         if (other instanceof Pair) {
-                Pair otherPair = (Pair) other;
-                return 
-                ((  this.first == otherPair.first ||
-                        ( this.first != null && otherPair.first != null &&
-                          this.first.equals(otherPair.first))) &&
-                 (      this.second == otherPair.second ||
-                        ( this.second != null && otherPair.second != null &&
-                          this.second.equals(otherPair.second))) );
+            Pair otherPair = (Pair) other;
+            return ((this.first == otherPair.first
+                    || (this.first != null && otherPair.first != null
+                    && this.first.equals(otherPair.first)))
+                    && (this.second == otherPair.second
+                    || (this.second != null && otherPair.second != null
+                    && this.second.equals(otherPair.second))));
         }
 
         return false;
     }
 
-    public String toString()
-    { 
-           return "(" + first.toString() + ", " + second.toString() + ")"; 
+    public String toString() {
+        return "(" + first.toString() + ", " + second.toString() + ")";
     }
 
     public A getFirst() {
@@ -54,4 +58,3 @@ public class Pair<A, B> {
         this.second = second;
     }
 }
-

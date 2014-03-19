@@ -13,17 +13,14 @@ import java.util.concurrent.Executor;
  *
  * @author cuong.nguyenmanh2
  */
-public class DelayedClosureExecutor implements Executor {
-
-    private ArrayList<DelayedAction> actionQueue;
-    public static int DEFAULT_QUEUE_ENTRIES = 4;
+public class DelayedClosureExecutor extends DelayedRunnableExecutor {
 
     public DelayedClosureExecutor() {
-        actionQueue = new ArrayList<DelayedAction>(DEFAULT_QUEUE_ENTRIES);
+        super();
     }
 
     public DelayedClosureExecutor(int entries) {
-        this.actionQueue = new ArrayList<DelayedAction>(entries);
+        super(entries);
     }
 
     @Override
@@ -31,35 +28,21 @@ public class DelayedClosureExecutor implements Executor {
         //throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    class DelayedAction {
-
-        float delayTime;
-        Closure start;
-        Closure end;
-        Object callee;
-
-        public DelayedAction(float delayTime, Closure start, Closure end, Object callee) {
-            this.delayTime = delayTime;
-            this.start = start;
-            this.end = end;
-            this.callee = callee;
-        }
-    }
-
-    public void callAction(DelayedAction action) {
+    @Override
+    public void callAction(DelayedRunnableAction action) {
         if (action.callee != null) {
             if (action.start != null) {
-                action.start.call(action.callee);
+                ((Closure) action.start).call(action.callee);
             }
             if (action.end != null) {
-                action.end.call(action.callee);
+                ((Closure) action.end).call(action.callee);
             }
         } else {
             if (action.start != null) {
-                action.start.call();
+                ((Closure) action.start).call();
             }
             if (action.end != null) {
-                action.end.call();
+                ((Closure) action.end).call();
             }
         }
     }
@@ -74,18 +57,6 @@ public class DelayedClosureExecutor implements Executor {
     }
 
     public void queueAction(float delayTime, Closure start, Closure end, Object callee) {
-        actionQueue.add(new DelayedAction(delayTime, start, end, callee));
-    }
-
-    public void updateActionQueue(float tpf) {
-        Iterator<DelayedAction> iterator = actionQueue.iterator();
-        while (iterator.hasNext()) {
-            DelayedAction act = iterator.next();
-            act.delayTime -= tpf;
-            if (act.delayTime <= 0) {
-                callAction(act);
-                iterator.remove();
-            }
-        }
+        actionQueue.add(new DelayedRunnableAction(delayTime, start, end, callee));
     }
 }

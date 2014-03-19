@@ -6,9 +6,6 @@ package sg.atom.fx.tween;
  */
 public class TranformHelper {
 
-    void align() {
-    }
-
     void tweenPos() {
     }
 

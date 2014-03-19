@@ -7,7 +7,8 @@ package sg.atom.fx;
 import sg.atom.utils.factory.IAtomFactory;
 
 /**
- * AtomEffectFactory. Factory for Effect
+ * AtomEffectFactory. Factory for Effect.
+ * 
  * @author cuong.nguyenmanh2
  */
 public class AtomEffectFactory implements IAtomFactory<AtomEffect> {

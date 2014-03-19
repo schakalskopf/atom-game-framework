@@ -1,5 +1,6 @@
 package sg.atom2d.test.tile;
 
+import sg.atom2d.geo.tile.tiled.TiledLoader3D;
 import com.jme3.app.SimpleApplication;
 import com.jme3.renderer.RenderManager;
 import com.jme3.system.AppSettings;

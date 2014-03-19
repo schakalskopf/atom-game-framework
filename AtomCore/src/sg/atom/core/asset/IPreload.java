@@ -1,19 +1,21 @@
 package sg.atom.core.asset;
 
 import java.io.IOException;
-import sg.atom.utils.monitor.IProgress;
-
+import sg.atom.core.monitor.IProgress;
 
 public interface IPreload {
-	/**
-	 * preload를 시작한다.
-	 * @throws IOException
-	 */
-	public void preload() throws IOException;
-	/**
-	 * @param progress 진행상태를 알려줄 progress bar
-	 */
-	public void setProgress(IProgress progress);
-        
-	public String getName();
+
+    /**
+     * preload asset.
+     *
+     * @throws IOException
+     */
+    public void preload() throws IOException;
+
+    /**
+     * @param progress to handle progress bar for monitoring.
+     */
+    public void setProgress(IProgress progress);
+
+    public String getName();
 }

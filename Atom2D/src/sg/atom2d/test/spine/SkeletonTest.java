@@ -42,7 +42,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.TextureAtlasData;
-import com.badlogic.gdx.utils.Array;
+import sg.atom.utils.collection.Array;
 
 public class SkeletonTest extends ApplicationAdapter {
 	PolygonSpriteBatch batch;

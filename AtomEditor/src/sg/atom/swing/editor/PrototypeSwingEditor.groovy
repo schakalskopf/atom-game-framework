@@ -6,22 +6,90 @@ import javax.swing.*
 import groovy.swing.j2d.*
 import groovy.swing.SwingBuilder
 
+/*
+import ca.odell.glazedlists.*;
+import ca.odell.glazedlists.swing.*;
+import ca.odell.glazedlists.matchers.*;
+ */
 /**
- *Prototype for a trigger editor
+ * Prototype for a swing editor. This is the base class only use Swing and GroovySwingBuilder.
+ * 
+ * By prototype, it's not (by any mean) try to replace a full-fledged swing framework. But a handy ultilities. For an full application framework, try Griffon, OpenSwing or Netbean Platform.
+ * 
+ * <p>This Editor use API provided by AtomEditor framework! So File, Anotations, bean API along with Spatial supposed to work normally here! Guava and Guice, GlazedList are your friends.</p>
+ * 
+ * <p><b>Config</b>Customization and configs are loaded via GroovyConfig and CommonConfig.</p>
+ * 
+ * <p><b>Layout</b>It has some predefined placements with layout to put/ inject your own components and actions.</p>
+ * 
+ * <p><b>Event</b>It also manage event with Guava eventbus beside of normal Swing event machnism.</p>
+ * 
+ * <p><b>Thread & Task</b>It wrap and queue sensitive non-swing operation, such as JME3 SceneGraph operation. Also support a simple flow to gpars task. Actions with simple undo/redo are also supported.</p>
+ * 
+ * <p><b>Customization</b>To custom and expand this class we can use normal Java & swing mechanism: extends or addComponent, also Groovy SwingBuilder.register new sub-builder. Support dependency injection for better testing. </p>
+ * 
+ * <p><ul>Supported components and their layouts:
+ * <li>MainView [Dnd]</li>
+ * <li>MiniView </li>
+ * <li>Pallete [Dnd]</li>
+ * <li>Menu</li>
+ * <li>PopupMenu</li>
+ * <li>Toolbar, UserToolbar</li>
+ * <li>Search</li>
+ * <li>Properties</li>
+ * <li>Monitor, Log, Result (common called Output)</li>
+ * <li>Navigator</li>
+ * <li>Project, DetailedStructure (common refered as Master-Detail metaphor)</li>
+ * <li>Data with tree,list and table.</li>
+ * </ul>
+ * <b>Components and Modules</b> can be configs before load via simple module descriptions or anytime with complex AtomEditor plugin mechanism!
+ * </p>
  */
 public class PrototypeSwingEditor{
 
-    def Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     def swing = new SwingBuilder();
     def app3d
+    /*
+     * A simple predefined, named style for the swing application, this will affect the initial layout, Swing's UI of all components. Components customization still work normally as Swing do.
+     */ 
+    def globalLayoutStyle 
+    def modules, modulesDescription
     
-    def actions
+    def actions = [:]
+    def menuActions = [:]
+    
     // UIs
     def toolbar,menubar,userToolbar
     def mainPanel,palletePanel,projectPanel,propertyPanel
     def searchBox
     
+    // LookAndFeels
+    def setupLAF(){
+        
+    }
+        
+    def createNimRODLAF(){
+        /*
+        NimRODTheme nt = new NimRODTheme();
+        nt.setPrimary1( new Color(255,255,255));
+        //nt.setPrimary2( new Color(20,20,20));
+        //nt.setPrimary3( new Color(30,30,30));
+        nt.setPrimary( new Color(0,150,250))
+        nt.setBlack( new Color(255,255,250))
+        nt.setWhite( Color.lightGray)
+        nt.setSecondary( Color.gray)
+ 
+        NimRODLookAndFeel NimRODLF = new NimRODLookAndFeel();
+        NimRODLF.setCurrentTheme( nt);
+
+        //lookAndFeel("com.nilo.plaf.nimrod.NimRODLookAndFeel")
+        return NimRODLF;
+         */
+    }
+    // Icon and images
     def createIcon(String path){
+        //FIXME: Load icon from different kind of sources also.
         def icon = null
         try {
             icon = swing.imageIcon(resource:"../../../../images/"+path, class:PrototypeSwingEditor.class)
@@ -30,8 +98,9 @@ public class PrototypeSwingEditor{
         }
         return icon
     }
-    
+    // Menu ==============================================
     def createMenu(swing){
+        
         swing.menuBar() {
             menu(text: "File", mnemonic: 'F') {
                 menuItem(text: "Open", mnemonic: 'L', actionPerformed: { })
@@ -59,7 +128,56 @@ public class PrototypeSwingEditor{
             }
         }
     }
+    // Popup =============================================
+    def createPopupMenu(def builder){
+        /*
+        popupMenu = builder.popupMenu {
+        //menuItem(text: "Help", mnemonic: 'R', actionPerformed: { })
+        //menuItem(text: "About iChat", mnemonic: 'R', actionPerformed: { })
+            
+        }
+         */
+   
+        def popupMenu = new JPopupMenu();
+        popupMenu.add(jmi1= new JMenuItem("Add"));
+        popupMenu.add(new JPopupMenu.Separator());
+        popupMenu.add(jmi2 = new JMenuItem("Clear"));
 
+        return popupMenu
+    }
+    // Data ===========================================
+    def createDataComponent(){
+        swing.table {
+            data = [[first:'qwer', last:'asdf'],
+                [first:'zxcv', last:'tyui'],
+                [first:'ghjk', last:'bnm']]
+            tableModel( list : data,constraints:BL.CENTER ) {
+                propertyColumn(header:'First Name', propertyName:'first')
+                propertyColumn(header:'last Name', propertyName:'last')
+            }
+        }
+    }
+    // Properties =============================================
+    def createPropertyComponent(){
+        swing.panel(){
+            (1..5).each{
+                label(text:"Properties"+it)
+                if (it%2==0){
+                    textField(text:"Node")
+                } else {
+                    slider(preferredSize:[120,20])
+                }
+            }
+        }
+         
+    }
+    def inspectProperties(properties) { 
+        //effect = app.currentParticle;
+        properties.each { prop, val ->
+            println prop;
+        }
+    }
+    // TOOLBAR =============================================
     def createToolbar(swing){
         swing.toolBar(constraints:BL.NORTH){
         
@@ -96,8 +214,101 @@ public class PrototypeSwingEditor{
             button("Disconnect",toolTipText:"Disconnect",icon:createIcon("icons/ToolbarIcons/24/Disconnect.png"))
         }
     }
+    //Monitors
+    def createLogComponent(){
+        textArea(text:"Log")
+        /*
+        textPane(text:"""
+        <html>
+        <body>
+        </body>
+        </html>
+        """)
+         */
+    }
+    def createResultComponent(){
+        
+    }
+    def createMonitorComponent(){
 
+    }
+    def createStatusComponent(){
+        swing.panel(constraints:BL.SOUTH){
+            label(text:"Ready")
+            separator(orientation:SwingConstants.VERTICAL)
+            label(text:"ms")
+            label(text:"ms")
+            label(text:"File")
+            
+        }
+    }
+    def createProgressComponent(){
+
+    }
+    // Search ========================================
+    def createSearchComponent(){
+        
+    }
+    // Navigator =====================================
+    // 
+    //
+    def createNavigatorComponent(){
+        /*
+        panel(constraints:BL.CENTER,new GraphZoomScrollPane(vv)){
+        borderLayout()
+        panel(constraints:BL.CENTER,vv)
+        }
+         */
+    }
+    // Pallete =========================================
+    def createPalette(){
+        swing{
+            borderLayout()
+            button(constraints:BL.NORTH,text:"Add")
+            scrollPane (constraints:BL.CENTER){
+                panel(constraints:BL.CENTER){
+                    gridLayout(cols:1,rows:5)
+                    (1..5).each{
+                        button(text:"Node"+it)
+                    }
+                }  
+            }
+        }
+    }
+    // Structure =======================================
+    def createProjectComponent(){ // GlobalStructure
+        swing.scrollPane (constraints:BL.CENTER){
+            tree() 
+        }  
+    }
+    def createDetailStructureComponent(){
+        swing.scrollPane (constraints:BL.CENTER){
+            tree() 
+        }
     
+    }
+    // MainView ========================================
+    def createMainComponent(){
+        //widget(graphTest.getView())
+        //widget()
+        swing {
+            borderLayout()
+            scrollPane(constraints:BL.CENTER){
+
+            }
+        }
+    }
+    def createMiniViewComponent(){
+        swing.panel(){
+            button(constraints:BL.NORTH,text:"Preview")
+
+            panel(constraints:BL.SOUTH){
+                gridLayout(cols:2,rows:5)
+            }
+        }
+        //panel(constraints:BL.CENTER,new PreviewPanel(),preferredSize:[120,120])
+    }
+    //CREATE FRAME UI =============================================
     def createUI(title){
         swing.edt {
             jFrame = frame( title: title, size: screenSize,
@@ -110,17 +321,8 @@ public class PrototypeSwingEditor{
                 createToolbar(swing)
         
                 mainPanel=panel(constraints:BL.CENTER,id:"gp"){
-                    borderLayout()
-                    scrollPane(constraints:BL.CENTER){
-                        //widget(graphTest.getView())
-                        //widget()
-                    }
-                    /*
-                    panel(constraints:BL.CENTER,new GraphZoomScrollPane(vv)){
-                    borderLayout()
-                    panel(constraints:BL.CENTER,vv)
-                    }
-                     */
+
+
                 }
                 panel(constraints:BL.WEST){
                     panel(constraints:"up"){
@@ -129,33 +331,18 @@ public class PrototypeSwingEditor{
                             borderLayout()
                             label(text:"Navigator",constraints:BL.NORTH)
 
-                    
                         }
                         tabbedPane(constraints:BL.CENTER){
                             panel(title:"Project"){
                                 borderLayout()
-                                scrollPane (constraints:BL.CENTER){
-                                    tree() 
-                                }  
+
                             }
                             panel(title:"Palette"){
-   
-                                borderLayout()
-                                button(constraints:BL.NORTH,text:"Add")
-                                scrollPane (constraints:BL.CENTER){
-                                    panel(constraints:BL.CENTER){
-                                        gridLayout(cols:1,rows:5)
-                                        (1..5).each{
-                                            button(text:"Node"+it)
-                                        }
-                                    }  
-                                }
+
                             }
                             panel(title:"Structure"){
                                 borderLayout()
-                                scrollPane (constraints:BL.CENTER){
-                                    tree() 
-                                }
+
                             }
                         }
                 
@@ -166,39 +353,33 @@ public class PrototypeSwingEditor{
                     borderLayout()
                     tabbedPane(){
                         scrollPane (title:"Result"){
-                            textPane(text:"""
-<html>
-    <body>
-    </body>
-</html>
-""")
+                            createResultComponent()
                         }
                         scrollPane (title:"Log"){
-                            textArea(text:"Log")
+                            createLogComponent()
                         }
                     }
                 }
                 panel(constraints:BL.EAST){
                     borderLayout()
-                    button(constraints:BL.NORTH,text:"Preview")
-                    //panel(constraints:BL.CENTER,new PreviewPanel(),preferredSize:[120,120])
-                    panel(constraints:BL.SOUTH){
-                        gridLayout(cols:2,rows:5)
-                        /*
-                        (1..5).each{
-                            label(text:"Properties"+it)
-                            if (it%2==0){
-                                textField(text:"Node")
-                            } else {
-                                slider(preferredSize:[120,20])
-                            }
-                        }
-                        */
-                    }
+                    
                     
                 }
             }
         }
+    }
+    // MVC =============================================
+    // Actions  -------------
+    
+    // Data  -------------
+    
+    // View -------------
+    // List 
+    def getRow={list, point->                    
+        return list.locationToIndex(point);
+    }
+    // Tables 
+    def addRow(){
     }
 }
 

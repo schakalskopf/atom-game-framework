@@ -16,7 +16,7 @@ import java.util.Properties;
 /**
  * ExNiftyComponent is a ControlBuilder and ScreenController and Controller at the same time.
  * 
- * It's shared the same concept with TopComponent in Netbean platform enviroment.
+ * <p>It's shared the same concept with TopComponent in Netbean platform enviroment.
  * 
  * @author cuong.nguyenmanh2
  */

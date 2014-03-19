@@ -16,12 +16,9 @@ import java.util.LinkedList;
 import sg.atom.stage.WorldManager;
 
 /**
+ * Handles the command queue of a Actor with SpatialEntity.
  *
-@author atomix
- */
-/**
- * Handles the command queue of an AI entity.
- * @author normenhansen
+ * @author atomix
  */
 public class CommandControl implements Control {
 
@@ -29,18 +26,18 @@ public class CommandControl implements Control {
     protected boolean enabled = true;
     protected LinkedList<Command> commands = new LinkedList<Command>();
     protected Command defaultCommand;
-    protected long playerId;
+    protected long actorId;
     protected long entityId;
     protected WorldManager world;
 
     public CommandControl(WorldManager world, long playerId, long entityId) {
         this.world = world;
-        this.playerId = playerId;
+        this.actorId = playerId;
         this.entityId = entityId;
     }
 
     public Command initializeCommand(Command command) {
-        return command.initialize(world, playerId, entityId, spatial);
+        return command.initialize(world, actorId, entityId, spatial);
     }
 
     public void addCommand(Command command) {
@@ -75,7 +72,7 @@ public class CommandControl implements Control {
         for (Iterator<Command> it = commands.iterator(); it.hasNext();) {
             Command command = it.next();
             //do command and remove if returned true, else stop processing
-            Command.State commandState = command.doCommand(tpf);
+            Command.CommandProcessingState commandState = command.doCommand(tpf);
             switch (commandState) {
                 case Finished:
                     command.setRunning(false);

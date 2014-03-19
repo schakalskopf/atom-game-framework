@@ -5,6 +5,7 @@
 package sg.atom2d.geo.tile;
 
 import java.util.Collection;
+import sg.atom.utils.collection.Pair;
 
 /**
  * An abstract tile rewrite rule (generative, transform, production) affect in
@@ -18,14 +19,14 @@ import java.util.Collection;
  *
  * <p>A TilingRule often ask a tilingsytem for the nessesary info in it work,
  * for ex: the neighbour of a tile or an area.</p>
- * 
+ *
  * FIXME: Replace with Guava convertor.
  *
  * @author cuong.nguyenmanh2
  */
-public interface TilingRule<T extends Tile> {
+public interface TilingRule<T extends Tilable> {
 
-    public void applySimple(Object input);
+    public void apply(Object location, Object input);
 
-    public void apply(Collection<T> inputs);
+    public void apply(Object location, Collection<T> inputs);
 }

@@ -4,6 +4,7 @@
  */
 package sg.atom.world;
 
+import sg.atom.world.spatial.SceneGraphHelper;
 import com.jme3.asset.AssetManager;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -26,15 +27,17 @@ import com.jme3.texture.Texture.WrapMode;
 import java.util.ArrayList;
 import java.util.List;
 import sg.atom.stage.WorldManager;
+import sg.atom.utils.factory.IAtomFactory;
+import sg.atom.world.terrain.FlatTerrain;
 import sg.atom.world.terrain.GenericTerrain;
 import sg.atom.world.terrain.TerrainQuadAdapter;
 
 /**
- * TerrainManager, Factory, Wrapper for useful functions for terrain
+ * TerrainManager, Factory, Wrapper for useful functions for terrain.
  *
  * @author atomix
  */
-public class TerrainManager {
+public class TerrainManager implements IAtomFactory<GenericTerrain> {
 
     protected WorldManager worldManager;
     protected AssetManager assetManager;
@@ -110,6 +113,10 @@ public class TerrainManager {
             e.printStackTrace();
         }
         return heightmap;
+    }
+
+    public void createFlatTerrain(int size) {
+        terrain = new FlatTerrain(size, worldManager);
     }
 
     public void createSampleTerrain(int patchSize, int totalSize) {
@@ -271,5 +278,24 @@ public class TerrainManager {
             val = 0;
         }
         return heightFactor * val;
+    }
+
+    @Override
+    public GenericTerrain create(Object param) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public GenericTerrain create(Object... params) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public GenericTerrain cloneObject(GenericTerrain orginal) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setTerrain(GenericTerrain terrain) {
+        this.terrain = terrain;
     }
 }

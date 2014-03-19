@@ -42,7 +42,9 @@ import sg.atom.ui.GameGUIManager;
  *
  * <li>Main character of the player position</li>
  *
- * <li>Spawning of enemies</li> </ul> Sub-managers:
+ * <li>Spawning of enemies</li> </ul> 
+ * 
+ * Sub-managers:
  *
  * Item Manager: Place and manage items and adward
  *

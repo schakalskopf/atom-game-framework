@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import sg.atom.gameplay.player.Player;
 
 /**
- * A named group of players, who play in a league. 
+ * A named group of players, who play in a league.
  *
  * @author atomix
  */

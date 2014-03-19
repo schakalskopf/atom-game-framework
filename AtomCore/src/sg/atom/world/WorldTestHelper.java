@@ -38,13 +38,14 @@ public class WorldTestHelper {
     public Node rootNode;
     public Node gizmo = new Node("gizmo");
     public Geometry ground;
+    public Geometry gridGeo;
     //
     //Lights
     //Materials
-    protected  Material matBullet;
-    protected  Material unshadedMat;
-    protected  Material lightMat;
-    protected  Material matGroundL;
+    public Material matBullet;
+    public Material unshadedMat;
+    public Material lightMat;
+    public Material matGround;
 
     public WorldTestHelper(WorldManager worldManager) {
         this.rootNode = worldManager.getWorldNode();
@@ -60,19 +61,17 @@ public class WorldTestHelper {
         return MaterialManager.getDefaultInstance(assetManager).getColoredMat(color);
     }
 
-    public void createTerrain(){
-        
+    public void createTerrain() {
+        //FIXME: Use generic terrain.
     }
-    public void createFlatGround() {
-        Box b = new Box(new Vector3f(0, -1, 550), 1000, 0.01f, 1000);
-        b.scaleTextureCoordinates(new Vector2f(40, 40));
-        ground = new Geometry("soil", b);
-        matGroundL = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
-        Texture grass = assetManager.loadTexture("Textures/Terrain/splat/grass.jpg");
-        grass.setWrap(Texture.WrapMode.Repeat);
-        matGroundL.setTexture("DiffuseMap", grass);
 
-        ground.setMaterial(matGroundL);
+    public void createFlatGround(int size) {
+        Box b = new Box(new Vector3f(0, -0.1f, size / 2), size, 0.01f, size);
+        b.scaleTextureCoordinates(new Vector2f(40, 40));
+        ground = new Geometry("Ground", b);
+        matGround = getMatGround();
+
+        ground.setMaterial(matGround);
         ground.setShadowMode(ShadowMode.Receive);
         rootNode.attachChild(ground);
     }
@@ -105,13 +104,9 @@ public class WorldTestHelper {
     }
 
     public Geometry createRedBox() {
-        /**
-         * create a red box straight above the blue one at (1,3,1)
-         */
         Box box2 = new Box(new Vector3f(1, 3, 1), 1, 1, 1);
         Geometry red = new Geometry("Box", box2);
-        Material mat2 = new Material(assetManager,
-                "Common/MatDefs/Misc/Unshaded.j3md");
+        Material mat2 = getUnshadedMat();
         mat2.setColor("Color", ColorRGBA.Red);
         red.setMaterial(mat2);
         return red;
@@ -145,9 +140,9 @@ public class WorldTestHelper {
         Material mat = getColoredMat(ColorRGBA.DarkGray).clone();
 
         Grid grid = new Grid(gw - 1, gh - 1, 1);
-        Geometry gridGeo = new Geometry("Grid", grid);
+        gridGeo = new Geometry("Grid", grid);
         gridGeo.setMaterial(mat);
-        gridGeo.setLocalTranslation(-gw / 2, -0.5f, -gh / 2);
+        gridGeo.setLocalTranslation(-gw / 2, 0.1f, -gh / 2);
         rootNode.attachChild(gridGeo);
     }
 
@@ -183,10 +178,32 @@ public class WorldTestHelper {
 
         rootNode.attachChild(sky);
     }
-    
-    public void createTestWorld(){
+
+    public void createTestWorld() {
         createGizmo();
         createGrid(10, 10);
         createLight();
+    }
+
+    public Material getMatGround() {
+        if (matGround == null) {
+            matGround = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
+            Texture grass = assetManager.loadTexture("Textures/Terrain/splat/grass.jpg");
+            grass.setWrap(Texture.WrapMode.Repeat);
+            matGround.setTexture("DiffuseMap", grass);
+        }
+        return matGround;
+    }
+
+    public Material getLightMat() {
+        return lightMat;
+    }
+
+    public Material getUnshadedMat() {
+        if (unshadedMat == null) {
+            unshadedMat = new Material(assetManager,
+                    "Common/MatDefs/Misc/Unshaded.j3md");
+        }
+        return unshadedMat;
     }
 }

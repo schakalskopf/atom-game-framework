@@ -1,5 +1,6 @@
 package sg.atom.stage;
 
+import com.jme3.app.AppTask;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioRenderer;
 import com.jme3.input.InputManager;
@@ -8,30 +9,36 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
+import groovyx.gpars.actor.Actor;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sg.atom.core.AbstractManager;
 import sg.atom.core.AtomMain;
+import sg.atom.core.lifecycle.AtomTask;
 import sg.atom.core.lifecycle.IGameCycle;
 import sg.atom.ui.GameGUIManager;
-import sg.atom.core.lifecycle.ProgressInfo;
+import sg.atom.core.monitor.ProgressInfo;
 import sg.atom.core.timing.TimeProvider;
 import sg.atom.entity.EntityManager;
 import sg.atom.fx.GameEffectManager;
 import sg.atom.fx.ScreenEffectManager;
+import sg.atom.gameplay.GameCharacter;
 import sg.atom.gameplay.GameLevel;
 import sg.atom.gameplay.GamePlayManager;
+import sg.atom.gameplay.player.Player;
+import sg.atom.stage.actor.AtomActor;
 
 /**
  * <i>Stage is the place where Actors do the performance.</i><br> StageManager
- * in charge for all aspects of the game
+ * in charge for all aspects of the game.
  *
- * </br>(1) Input, action, logic and stragegy of the game
+ * <ul><li>(1) Input, action, logic and performance of the actors.
  *
- * </br> (2)Control the camera and cinematic , also manage game data,gameplay
- * and players.</br>
+ * <li>(2)Control the camera and cinematic , also manage game data,gameplay and
+ * players.</ul>
  *
  * <p>It's a high level manager and doesn't directly do render and display jobs.
  * Of course, it has sub-Manager(s) to help the job done in specific aspects
@@ -52,6 +59,7 @@ import sg.atom.gameplay.GamePlayManager;
  */
 public class StageManager extends AbstractManager implements TimeProvider, IGameCycle {
 
+    protected static final Logger logger = Logger.getLogger(StageManager.class.getName());
     // Shortcut link to sub-managers
     protected AtomMain app;
     protected AssetManager assetManager;
@@ -80,6 +88,7 @@ public class StageManager extends AbstractManager implements TimeProvider, IGame
     //FIXME: Replace ArrayList with cache or repsitory implementation!
     protected ArrayList<GameLevel> gameLevelList = new ArrayList<GameLevel>();
     protected GameLevel currentLevel;
+    protected ConcurrentSkipListSet<AtomActor> actorList = new ConcurrentSkipListSet<AtomActor>();
 
     public StageManager() {
         //For use in singleton!
@@ -109,11 +118,7 @@ public class StageManager extends AbstractManager implements TimeProvider, IGame
         this.viewPort = app.getViewPort();
     }
 
-    public ProgressInfo getProgressInfo() {
-        return currentProgress;
-    }
     // ======== INIT STAGE =============
-
     public void initStage() {
         // INIT SUB-MANAGERs
         this.effectManager = new GameEffectManager(this);
@@ -156,6 +161,10 @@ public class StageManager extends AbstractManager implements TimeProvider, IGame
      * Common implementation of a game Stage loading with monitoring
      */
     public void loadStage() {
+        commonLoadStage();
+    }
+
+    private void commonLoadStage() {
         currentProgress.currentProgressName = "Settings";
         currentProgress.currentProgressPercent = 0.1f;
         loadSettings();
@@ -171,10 +180,9 @@ public class StageManager extends AbstractManager implements TimeProvider, IGame
         currentProgress.currentProgressName = "Gameplay";
         currentProgress.currentProgressPercent = 0.8f;
         gamePlayManager.loadGamePlay();
-
     }
-
     // ======== CONFIG & SETUP STAGE=============
+
     void setupKeys() {
     }
 
@@ -200,6 +208,29 @@ public class StageManager extends AbstractManager implements TimeProvider, IGame
         worldManager.attachWorld();
     }
 
+    public void attachCharacter(GameCharacter character) {
+        if (character.getModelNode() != null) {
+            worldManager.attachSpatial(character.getModelNode());
+        }
+    }
+
+    public void spawnPlayer(Player player) {
+        spawnActor(player.getPlayerMainCharacter());
+    }
+
+    public void spawnActor(AtomActor actor) {
+        actorList.add(actor);
+
+    }
+
+    public void spawnCharacter(GameCharacter character) {
+        spawnActor(character);
+        attachCharacter(character);
+    }
+
+    public void spawn(Object object) {
+    }
+
     // ======== UPDATE STAGE=============
     public void updateStage(float tpf) {
         // Game paused then stop update the logic!
@@ -213,10 +244,16 @@ public class StageManager extends AbstractManager implements TimeProvider, IGame
     public void updateStageCustom(float tpf) {
         gamePlayManager.update(tpf);
     }
+
+    public void pauseGame() {
+    }
+
+    public void stopGame() {
+    }
     // ======== FINISH STAGE=============
 
     public void finishStage() {
-
+        Logger.getLogger(StageManager.class.getName()).log(Level.INFO, "Atom: Finish stage!");
         worldManager.finishWorld();
         //screenEffectManager.setupFilter();
         //setupScreenEffectKeys();
@@ -229,14 +266,27 @@ public class StageManager extends AbstractManager implements TimeProvider, IGame
         gamePlayManager.configGamePlay();
     }
 
+    /**
+     * Final call for stage ready! This is very common in cinematography.
+     *
+     */
     public void doReadyToPlay() {
         if (!finished) {
             finishStage();
         }
+        //FIXME: Immediately trigger goInGame.
+        //goInGame();
+        //FIXME: 
+    }
+
+    public void goInGame() {
         gamePlayManager.startLevel(currentLevel);
     }
 
-    // MONITORING
+    public void goOutGame() {
+    }
+    // MONITORING===================================================
+
     public boolean isReadyToPlay() {
         return finished;
     }
@@ -253,11 +303,51 @@ public class StageManager extends AbstractManager implements TimeProvider, IGame
         return 0;
     }
 
-    public ProgressInfo getCurrentProcess() {
+    public ProgressInfo getProgressInfo() {
         return currentProgress;
     }
+    //Worker and Task managing ===================================
 
+    /**
+     * Different task assigning compare to the global Task of AtomMain.
+     *
+     * @param task
+     * @param worker
+     */
+    public void submitTask(AtomTask task, Actor worker) {
+    }
+
+    public void updateTaskes(float tpf) {
+    }
+
+    public void getAssignedTaskes(Actor worker) {
+    }
+
+    public void startWorker(AtomActor actor) {
+    }
+
+    public void startWorker(AtomActor actor, AppTask<AtomActor> task) {
+    }
+
+    public void startWorker(AtomActor actor, ProgressInfo continousTask) {
+    }
+
+    public void startWorker(AtomActor actor, Runnable simpleTask) {
+    }
+
+    public void endWorker(AtomActor actor) {
+    }
+
+    public void watch(Object view) {
+    }
+
+    public void notifyAll(Object event) {
+    }
+
+    public void lookup(Class clazz) {
+    }
     // ======== SETTER & GETTER =============
+
     public AtomMain getApp() {
         return this.app;
     }
@@ -327,7 +417,7 @@ public class StageManager extends AbstractManager implements TimeProvider, IGame
         return gameGUIManager;
     }
 
-    public float getTime() {
+    public float getTimeInSeconds() {
         return time;
     }
     //===CYCLE============

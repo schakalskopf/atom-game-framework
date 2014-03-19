@@ -7,7 +7,7 @@ package sg.atom.core;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import sg.atom.core.lifecycle.PiorityInfo;
+import sg.atom.core.monitor.PiorityInfo;
 import sg.atom.core.lifecycle.IGameCycle;
 
 /**

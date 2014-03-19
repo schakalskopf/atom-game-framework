@@ -17,9 +17,15 @@ import sg.atom.stage.WorldManager;
 /**
  * MaterialManager.
  *
- * Manager and Wrapper for useful functions for Material. including Material
+ * <p>Manager and Wrapper for useful functions for Material. including Material
  * clone, conversion, Color, Light attributes (Shiny,diffuse,...) and low level
  * effects.
+ *
+ * <p>Convert various Material format to JME pipeline
+ *
+ * <p>Manipulate Material quality, blending.
+ * 
+ * <p>Ready for different Material scheme.
  *
  * @author atomix
  */
@@ -115,10 +121,10 @@ public class MaterialManager {
         return null;
     }
 
-    public MaterialDef compileMaterialDef(String definitionScript){
+    public MaterialDef compileMaterialDef(String definitionScript) {
         return null;
     }
-    
+
     public List<MaterialDef> listMaterialDef(Node scene) {
         return null;
     }

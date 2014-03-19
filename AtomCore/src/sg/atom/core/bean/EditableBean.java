@@ -8,7 +8,8 @@ import java.util.Properties;
 
 @Deprecated
 /**
- * Replaced with BeanUtils
+ * Replaced with BeanUtils.
+ * 
  * @author cuong.nguyenmanh2
  */
 public interface EditableBean {

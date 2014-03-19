@@ -11,6 +11,7 @@ package sg.atom2d.geo.topo
  */
 public class Point {
     def x,y,z
+    
     public Point (x,y){
         this.x=x;
         this.y=y;

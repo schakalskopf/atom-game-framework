@@ -16,7 +16,6 @@ import com.jme3.scene.Spatial;
  */
 public class SpatialInfo implements Selectable {
 
-    
     private SpatialPresentor presentor;
     private SpatialInfo parentInfo;
     private int type;
@@ -25,28 +24,7 @@ public class SpatialInfo implements Selectable {
     public SpatialInfo(Spatial spatial, SpatialInfo parentInfo) {
 
         this.parentInfo = parentInfo;
-            
-        if (CommonTool.getDefault(null).getHelperManager().isHelperNode(spatial)) {
-            // Is a Helper Node
-            //throw new IllegalArgumentException("The spatial is a Helper Node !");
-            this.type = 2;    
-        } else {
-            // Is a Real Node         
-                      
-            if (spatial instanceof Node) {
-                this.type = 0;
-                for (Spatial sp : ((Node) spatial).getChildren()) {
-                    SpatialInfo child = new SpatialInfo(sp, this);
-                    children.add(child);
-                }
-            } else {
-                this.type = 1;
-            }
-            
-            
-        }
-        
-        this.presentor = new SpatialPresentor(spatial,this.type);
+        constructSpatialInfoTree(spatial);
     }
 
     /**
@@ -82,7 +60,7 @@ public class SpatialInfo implements Selectable {
     }
 
     public SpatialList getSelectList() {
-        SpatialList tempList=new SpatialList();
+        SpatialList tempList = new SpatialList();
         tempList.add(this);
         return tempList;
     }
@@ -99,22 +77,47 @@ public class SpatialInfo implements Selectable {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    private void constructSpatialInfoTree(Spatial spatial) {
+
+        if (CommonTool.getDefault(null).getHelperManager().isHelperNode(spatial)) {
+            // Is a Helper Node
+            //throw new IllegalArgumentException("The spatial is a Helper Node !");
+            this.type = 2;
+        } else {
+            // Is a Real Node         
+
+            if (spatial instanceof Node) {
+                this.type = 0;
+                for (Spatial sp : ((Node) spatial).getChildren()) {
+                    SpatialInfo child = new SpatialInfo(sp, this);
+                    children.add(child);
+                }
+            } else {
+                this.type = 1;
+            }
+
+
+        }
+
+        this.presentor = new SpatialPresentor(spatial, this.type);
+    }
+
     /**
-     * <code>SpatialDisplayInfo</code> : is the display info of a spatial in 
-     * Editor Level such as : <br>
-     * show/hide, color, displayType
+     * <code>SpatialDisplayInfo</code> : is the display info of a spatial in
+     * Editor Level such as : <br> show/hide, color, displayType
      */
     class SpatialDisplayInfo {
 
         /**
-         * <code>show</code> : Set the spatial to be visible or invisible in the Editor Level
+         * <code>show</code> : Set the spatial to be visible or invisible in the
+         * Editor Level
          */
         boolean show;
         /**
-         * <code>displayType</code> : Set the display type for the {@link: Spatial} in the editor<br>
-         * 0 : normal ( like the default shape in the engine ) <br>
-         * 1 : simple ( mesh -> box ; particle -> dot ) <br>
-         * 3 : optimize ( display as "-- LOD level" ) 
+         * <code>displayType</code> : Set the display type for the
+         * {@link: Spatial} in the editor<br> 0 : normal ( like the default
+         * shape in the engine ) <br> 1 : simple ( mesh -> box ; particle -> dot
+         * ) <br> 3 : optimize ( display as "-- LOD level" )
          */
         int displayType;
         ColorRGBA displayColor;

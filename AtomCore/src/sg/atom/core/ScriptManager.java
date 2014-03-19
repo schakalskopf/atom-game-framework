@@ -7,6 +7,7 @@ package sg.atom.core;
 import com.google.common.collect.Multimap;
 import com.jme3.scene.Spatial;
 import java.util.Properties;
+import java.util.logging.Logger;
 import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -23,7 +24,7 @@ import sg.atom.stage.StageManager;
  * @author atomix
  */
 public class ScriptManager implements IGameCycle {
-
+    protected static final Logger logger = Logger.getLogger(ScriptManager.class.getName());
     private ScriptEngineManager factory;
     private ScriptEngine genericScriptEngine;
     private final StageManager stageManager;

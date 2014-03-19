@@ -70,9 +70,10 @@ public class EntityManager implements IGameCycle, EntityRepository {
     protected HashMap<Long, Entity> entities = new HashMap<Long, Entity>();
     private long totalEntityId = -1;
     // Lookup
-    protected Function<AbstractEntity,AbstractComponent> lookupFunction = null;
+    protected Function<AbstractEntity, AbstractComponent> lookupFunction = null;
     // Services
-    
+    public static long NONE_ID = -1;
+
     public EntityManager(StageManager stageManager) {
         this.stageManager = stageManager;
         this.entityFactory = new EntityFactory(this, stageManager);
@@ -95,7 +96,7 @@ public class EntityManager implements IGameCycle, EntityRepository {
     }
 
     public void addEntity(Entity e) {
-        if (e.id == null) {
+        if (e.id == null || e.id == NONE_ID) {
             Long newId = getNewEntityId();
             e.id = newId;
         }
@@ -137,7 +138,9 @@ public class EntityManager implements IGameCycle, EntityRepository {
     public ArrayList<SpatialEntity> getAllSpatialEntitiesByGroup(String groupName) {
         // do filter...
         ArrayList<SpatialEntity> result = new ArrayList<SpatialEntity>();
+
         for (Entity entity : entities.values()) {
+            System.out.println(" ByGroup " + entity.id);
             if (entity instanceof SpatialEntity) {
                 if (entity.getGroup().equals(groupName)) {
                     result.add((SpatialEntity) entity);

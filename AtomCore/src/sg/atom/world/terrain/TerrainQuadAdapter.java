@@ -23,11 +23,13 @@ public class TerrainQuadAdapter extends GenericTerrain<TerrainQuad> {
     public TerrainQuad terrainQuad;
 
     public TerrainQuadAdapter(TerrainQuad terrainQuad) {
+        super("TerrainQuad");
         this.terrainQuad = terrainQuad;
     }
 
     //FIXME: Add all the constructor
     public TerrainQuadAdapter(String name, int patchSize, int totalSize, float[] heightMap) {
+        super("TerrainQuad");
         terrainQuad = new TerrainQuad(name, patchSize, totalSize, heightMap);
     }
 

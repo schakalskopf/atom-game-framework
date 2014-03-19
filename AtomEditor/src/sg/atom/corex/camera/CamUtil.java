@@ -13,7 +13,10 @@ import com.jme3.math.FastMath;
 import com.jme3.renderer.Camera;
 
 /**
- *
+ * CamUtil is the wraper for various camera functions.
+ * 
+ * <p>It direct FlyByCamera.
+ * 
  * @author hungcuong
  */
 public class CamUtil implements ActionListener {
@@ -77,22 +80,13 @@ public class CamUtil implements ActionListener {
     public void setCamFOV(float angle) {
         // derive fovY value
         float h = cam.getFrustumTop();
-
-
         float w = cam.getFrustumRight();
-
-
         float aspect = w / h;
-
-
-
         float near = cam.getFrustumNear();
-
-
         float fovY = angle; //* FastMath.DEG_TO_RAD;
         /*
-        float fovY = FastMath.atan(h / near)
-        / (FastMath.DEG_TO_RAD * .5f);
+         float fovY = FastMath.atan(h / near)
+         / (FastMath.DEG_TO_RAD * .5f);
          */
         //fovY += value * 0.1f;
 
@@ -121,6 +115,4 @@ public class CamUtil implements ActionListener {
     public void setFlyByCam(boolean value) {
         flyCam.setDragToRotate(value);
     }
-    
-    
 }

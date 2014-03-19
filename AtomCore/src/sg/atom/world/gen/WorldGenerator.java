@@ -5,9 +5,12 @@
 package sg.atom.world.gen;
 
 /**
+ * WorldGenerator is the interface for who interest in intercept World's load
+ * and insert generative content.
  *
-@author atomix
+ * <p>Main hook for CityGen.
+ *
+ * @author atomix
  */
 public interface WorldGenerator {
-    
 }

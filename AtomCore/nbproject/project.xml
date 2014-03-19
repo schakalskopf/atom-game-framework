@@ -13,7 +13,7 @@
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
             <name>Atom</name>
             <source-roots>
-                <root id="src.dir" name="Sources"/>
+                <root id="src.dir"/>
             </source-roots>
             <test-roots>
                 <root id="test.test.dir"/>

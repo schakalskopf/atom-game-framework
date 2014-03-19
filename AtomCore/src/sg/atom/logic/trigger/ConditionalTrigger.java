@@ -5,15 +5,15 @@
 package sg.atom.logic.trigger;
 
 import com.google.common.base.Predicate;
-import sg.atom.logic.conditions.Conditional;
-import sg.atom.logic.trigger.Trigger;
 
 /**
  * This is the common implementation of Trigger which is used a lot in Game.
+ * 
+ * 
  *
  * @author cuong.nguyenmanh2
  */
-public abstract class ConditionalTrigger implements Trigger, Conditional {
+public abstract class ConditionalTrigger implements Trigger, Predicate<Object> {
     //TODO:: Change to use Predicate<Trigger> instead of Atom's Condition and Boolean.
 
     public Predicate<Trigger> activeConditionPredicate;
@@ -23,7 +23,7 @@ public abstract class ConditionalTrigger implements Trigger, Conditional {
     protected boolean selfExecuted = true;
 
     @Override
-    public boolean check() {
+    public boolean apply(Object input) {
         this.enable = enableConditionPredicate.apply(this);
         if (this.enable) {
             this.active = activeConditionPredicate.apply(this);

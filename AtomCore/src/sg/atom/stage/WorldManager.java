@@ -1,5 +1,6 @@
 package sg.atom.stage;
 
+import com.google.inject.Inject;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.DesktopAssetManager;
@@ -27,31 +28,44 @@ import sg.atom.world.EnviromentManager;
 import sg.atom.world.ForesterManager;
 import sg.atom.world.LightShadowManager;
 import sg.atom.world.MaterialManager;
-import sg.atom.world.SceneGraphHelper;
-import sg.atom.world.SpatialInfo;
 import sg.atom.world.TerrainManager;
 import sg.atom.world.WaterManager;
 import sg.atom.world.WeatherManager;
 import sg.atom.world.WorldSettings;
+import sg.atom.world.gen.WorldGenerator;
 import sg.atom.world.lod.DefaultLODManager;
 import sg.atom.world.lod.WorldLODManager;
+import sg.atom.world.spatial.SceneGraphHelper;
+import sg.atom.world.spatial.SpatialInfo;
 import sg.atom.world.terrain.GenericTerrain;
+import sg.atom.world.visibility.DefaultWorldVisibilityManager;
+import sg.atom.world.visibility.WorldVisibilityManager;
 
 /**
  * WorldManager Manage Spatial and all scene graph operations.
  *
- * Base game entity managing class, stores and loads the entities, used on
- * server and on client.
+ * <p>Base game entity->spatial managing class, stores and loads the entities,
+ * used on server and on client.
  *
  * Automatically sends changes via network when running on server, used to apply
  * network data on client and server.
  *
+ * <p>Different Cache/Pools mechanism beside of AssetManager.
+ *
+ * <p>Utitlities to handle threadsafe Spatial mapping for one-two steps indirect
+ * access.
+ *
+ * <p>Work together with SpawningManager, SoundManager, SelectManager based in
+ * GameScene and GameLevel.
+ *
  */
 public class WorldManager extends AbstractManager implements IGameCycle {
 
+    protected static final Logger logger = Logger.getLogger(WorldManager.class.getName());
     protected AtomMain app;
     protected AssetManager assetManager;
     protected StageManager stageManager;
+    protected Node rootNode;
     // GAME LEVEL 
     protected Node worldNode;
     protected GameLevel currentLevel;
@@ -71,19 +85,24 @@ public class WorldManager extends AbstractManager implements IGameCycle {
     protected EnviromentManager enviromentManager;
     protected WeatherManager weatherManager;
     protected WorldLODManager worldLODManager;
+    protected WorldVisibilityManager worldVisibilityManager;
     protected AppStateManager stateManager;
     protected ForesterManager foresterManager;
     protected MaterialManager materialManager;
-    protected WorldSettings worldSettings;
     protected TerrainManager terrainManager;
-    protected Node rootNode;
-    
+    @Inject
+    protected WorldSettings worldSettings;
+    // Generator - use in generative content games.
+    @Inject
+    protected WorldGenerator worldGenerator;
+    // Spatial Managing 
     //FIXME: Use Guava Cache instead of HashMap
     protected HashMap<Spatial, SpatialInfo> spatialInfoList;
 
-    protected WorldManager(){
+    protected WorldManager() {
         //For use in singleton;
     }
+
     public WorldManager(AtomMain app, Node worldNode) {
         this.app = app;
         this.rootNode = app.getRootNode();
@@ -93,7 +112,7 @@ public class WorldManager extends AbstractManager implements IGameCycle {
         this.stateManager = app.getStateManager();
         this.stageManager = app.getStageManager();
     }
-    
+
     public void lazyInit(AtomMain app, Node worldNode) {
         this.app = app;
         this.rootNode = app.getRootNode();
@@ -165,7 +184,11 @@ public class WorldManager extends AbstractManager implements IGameCycle {
         if (this.worldSettings.useWeather) {
             weatherManager = new WeatherManager();
         }
+
+        //FIXME:
         worldLODManager = new DefaultLODManager();
+        worldVisibilityManager = new DefaultWorldVisibilityManager();
+
         if (this.worldSettings.useForestor) {
             foresterManager = new ForesterManager(this, stageManager);
         }
@@ -324,6 +347,23 @@ public class WorldManager extends AbstractManager implements IGameCycle {
             lightShadowManager.attachLights();
         }
 
+    }
+
+    /**
+     * Ultilities to attach Spatials.
+     *
+     * @param modelNode
+     */
+    public void attachSpatial(Node modelNode) {
+        if (getLevelNode()!=null){
+            getLevelNode().attachChild(modelNode);
+        } else {
+            getWorldNode().attachChild(modelNode);
+        }
+    }
+    
+    public void attachSpatialDelayed(Node modelNode,float time){
+        
     }
     // ======== PHYSIC STUFF ===============
 

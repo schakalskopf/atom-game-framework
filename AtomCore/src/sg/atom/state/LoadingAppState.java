@@ -17,10 +17,10 @@ import sg.atom.ui.common.UILoadingScreenController;
 /**
  * <code>LoadingAppState</code> is the common State that load the game assets
  * and do some config jobs parallel with the orginal thread. This implementation
- * demonstrate the architecture of the Atom framework with Phase. It's also
- * extendable and easy for your mechanic hook in. <br>
+ * demonstrate the architecture of the Atom framework with Phase, beside of
+ * State. It's also extendable and easy for your mechanic hook in.
  *
- * Basicly the State run through below phases overide when needed: <ul> *
+ * <p>Basicly the State run through below phases overide when needed: <ul>
  * <li><b>loadPhase()</b> Init the components</li>
  *
  * <li><b>loadPhase()</b> Load all the assets</li>
@@ -33,9 +33,13 @@ import sg.atom.ui.common.UILoadingScreenController;
  * <li><b>watchTask()</b> can also be overide to include the progress watch or
  * something
  *
- * <li><b>nextState()</b> can also be overide change to the next State
+ * <li><b>nextState()</b> can also be overide change to the next State. This can
+ * be unset if this State are running underlying, parallel with other state.
  *
- * FIXME: Use Guava Monitor instead of loadComplete boolean!
+ * <p>FIXME: Use Guava Monitor instead.
+ *
+ * <p>FIXME: Replace loadComplete boolean, retyNum with Atomic* classes!
+ *
  * @author atomix
  */
 public class LoadingAppState extends AbstractAppState {
@@ -53,6 +57,7 @@ public class LoadingAppState extends AbstractAppState {
     //FIXME: The future that is used to check the execution status. Change to ListenableFuture!
     protected Future loadStageTask = null;
     protected Future updateProgressBarTask = null;
+    public static int retryNum = 0;
 
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
@@ -127,13 +132,13 @@ public class LoadingAppState extends AbstractAppState {
                                 Logger.getLogger(this.getClass().getName()).log(Level.INFO, " Load all succesfully !");
                             }
                         } catch (InterruptedException ex) {
-                            String msg = "Interupted! Something bad happen: ";//+ ex.getMessage();
-                            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, msg, ex);
+                            //String msg = "Interupted! Something bad happen: ";//+ ex.getMessage();
+                            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "The loading state is interupted! Something bad happen! Retry (1) is made... Please wait!", ex);
                             //updateProgressBar(true, msg);
 
                         } catch (ExecutionException ex) {
-                            String msg = "Something bad happen !";// + ex.getMessage();
-                            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Something bad happen !", ex);
+                            //String msg = "Something bad happen !";// + ex.getMessage();
+                            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "ExecutionException happen! Retry (1) is made", ex);
                             //updateProgressBar(true, msg);
                         } finally {
                             //updateProgressBarTask.cancel(false);

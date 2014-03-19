@@ -9,11 +9,18 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import sg.atom.ui.GameGUIManager;
 import sg.atom.core.AtomMain;
+import sg.atom.core.GameStateManager;
 import sg.atom.stage.StageManager;
 
 /**
+ * IngameAppState is a common game state.
  *
- * @author atomix
+ * <p>This implementation support in,out,pause,frezze game. Normally "Ingame"
+ * state can be very complex and heavy, that's why monitoring are support
+ * natively.Other state which also want to be inspected and monitored can
+ * registered to GameStateManager or decored with monitoring annotations.
+ *
+ * @author atomix.
  */
 public class IngameAppState extends AbstractAppState {
 
@@ -21,23 +28,24 @@ public class IngameAppState extends AbstractAppState {
     private Node rootNode;
     private AssetManager assetManager;
     private AppStateManager stateManager;
+    private GameStateManager gameStateManager;
     private InputManager inputManager;
     private ViewPort viewPort;
     private GameGUIManager gameGUIManager;
     private StageManager stageManager;
+    private String inGameScreenName;
+    public static String defaultInGameScreenName = "ingameScreen";
 
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
         this.app = (AtomMain) app; // can cast Application to something more specific
 
-
         this.rootNode = this.app.getRootNode();
         this.assetManager = this.app.getAssetManager();
         this.stateManager = this.app.getStateManager();
         this.inputManager = this.app.getInputManager();
         this.viewPort = this.app.getViewPort();
-
 
         if (this.app.getStageManager() == null) {
             this.app.initGUI();
@@ -56,8 +64,10 @@ public class IngameAppState extends AbstractAppState {
         // Pause and unpause
         super.setEnabled(enabled);
         if (enabled) {
-
-            gameGUIManager.loadAndGotoScreen("ingameScreen");
+            if (inGameScreenName != null) {
+                inGameScreenName = defaultInGameScreenName;
+            }
+            gameGUIManager.loadAndGotoScreen(inGameScreenName);
 
         } else {
         }
@@ -71,5 +81,31 @@ public class IngameAppState extends AbstractAppState {
         } else {
             stageManager.updateStage(tpf);
         }
+    }
+
+    public void goInGame() {
+        //FIXME: call resolve dependencies
+        /*
+         AppState needDetachState = stateManager.getState(LoadingAppState.class);
+         if (needDetachState != null) {
+         stateManager.detach(needDetachState);
+         }
+         stateManager.attach(new IngameAppState());
+         */
+    }
+
+    public void goOutGame() {
+    }
+
+    public void pauseGame() {
+    }
+
+    public void frezzeGame() {
+    }
+
+    public void debugGame() {
+    }
+
+    public void enableInGameMonitoring() {
     }
 }

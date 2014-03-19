@@ -11,7 +11,10 @@ import java.util.Set;
 import sg.atom.core.timing.Regulator;
 
 /**
- * A Simple in thread executor
+ * A Simple in thread executor.
+ *
+ * <p>For complex executor use ThreadPoolExecutor or
+ * ScheduledThreadPoolExecutor.
  *
  * @author cuong.nguyenmanh2
  */
@@ -39,5 +42,4 @@ public class InThreadRegulatorExecutor extends RegularExecutor {
             }
         }
     }
-
 }

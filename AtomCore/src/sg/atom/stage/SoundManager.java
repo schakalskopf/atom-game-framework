@@ -9,28 +9,33 @@ import com.jme3.audio.AudioNode;
 import com.jme3.audio.AudioRenderer;
 import com.jme3.audio.LowPassFilter;
 import java.util.HashMap;
+import java.util.logging.Logger;
 import sg.atom.core.AtomMain;
 import sg.atom.stage.WorldManager;
 
 /**
  * A better SoundManager which envolve in Cycle. which:
  *
- * <ul> <li>have its Cache/Pools beside of AssetManager.</li>
+ * <ul> <li>have its own Repository for Sound. Different Cache/Pools mechanism
+ * beside of AssetManager.</li>
  *
- * <li>have global values and mapping to invidual sound</li>
+ * <li>have global values and mapping to invidual sound. Categorize manage sound
+ * with tags.</li>
  *
  * <li>have a way to config accoring to the system</li>
  *
- * <li>intergrated deeply with the EnviromentManager </li> </ul>
+ * <li>intergrated deeply with the EnviromentManager. </li> </ul>
  *
  * @author atomix
  */
 public class SoundManager {
-
+    protected static final Logger logger = Logger.getLogger(SoundManager.class.getName());
     AudioRenderer audioRenderer;
     AssetManager assetManager;
     WorldManager worldManager;
     StageManager stageManager;
+    
+    
     AudioNode waves;
     HashMap<String, LowPassFilter> filters = new HashMap<String, LowPassFilter>(10);
     LowPassFilter underWaterAudioFilter = new LowPassFilter(0.5f, 0.1f);

@@ -4,6 +4,7 @@ import java.awt.*
 import java.awt.image.*
 import javax.imageio.*
 import sg.atom2d.geo.sprite.*
+import sg.atom2d.game2d.graphics.swing.sprite.Sprite
 
 public class GUtil {
     

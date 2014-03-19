@@ -32,7 +32,7 @@ public class SpatialEntity extends Entity {
     protected ArrayList<GameAction> actions = new ArrayList<GameAction>();
 
     public SpatialEntity(String name, String type) {
-        super(new Long(-1), name, type);
+        super(EntityManager.NONE_ID, name, type);
     }
 
     public SpatialEntity(Long id, String name, String type) {
@@ -48,7 +48,7 @@ public class SpatialEntity extends Entity {
     }
 
     public SpatialEntity(String name, String type, Spatial spatial) {
-        this(new Long(-1), name, type, spatial);
+        this(EntityManager.NONE_ID, name, type, spatial);
     }
 
     public SpatialEntity(Long id, String name, String type, Spatial spatial) {

@@ -22,6 +22,7 @@ import sg.atom.utils.factory.IAtomFactory;
  * usage of Guava and Guice to implement an "in-memory" mini database. It have
  * pools, gates, caches and suitable for concurrent access.</p>
  *
+ * 
  * @author CuongNguyen
  */
 @Deprecated

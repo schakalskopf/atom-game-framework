@@ -30,8 +30,8 @@ package com.esotericsoftware.spine;
 
 import com.esotericsoftware.spine.Animation.EventTimeline;
 
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.StringBuilder;
+import sg.atom.utils.collection.Array;
+import sg.atom.utils.collection.StringBuilder;
 
 import java.util.Arrays;
 

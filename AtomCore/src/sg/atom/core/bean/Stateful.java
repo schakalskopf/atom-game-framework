@@ -11,5 +11,5 @@ package sg.atom.core.bean;
  *
  * @author cuong.nguyenmanh2
  */
-public interface Stateful {
+public @interface Stateful {
 }

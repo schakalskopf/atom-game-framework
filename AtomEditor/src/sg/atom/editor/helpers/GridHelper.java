@@ -118,4 +118,8 @@ public class GridHelper extends AbstractHelper {
     public SpatialList getSelectableList() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    public void snapToGrid(){
+        
+    }
 }

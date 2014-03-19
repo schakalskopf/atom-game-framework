@@ -6,8 +6,9 @@ package sg.atom.gameplay.action.skill;
 
 import com.jme3.app.Application;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import sg.atom.core.AbstractManager;
-import sg.atom.gameplay.actor.Actor;
+import sg.atom.stage.actor.AtomActor;
 import sg.atom.gameplay.GameCharacter;
 import sg.atom.gameplay.Skill;
 import sg.atom.gameplay.action.ExternalAction;
@@ -55,7 +56,7 @@ public class SkillAction extends ExternalAction {
         this.skillProperty = skillProperty;
     }
 
-    public boolean canDo(Actor who) {
+    public boolean canDo(AtomActor who) {
         if (who instanceof GameCharacter) {
             return true;
         } else {
@@ -87,5 +88,10 @@ public class SkillAction extends ExternalAction {
     public float canAffect(Object obj) {
         //throw new UnsupportedOperationException("Not supported yet.");
         return 0;
+    }
+
+    @Override
+    public AtomicInteger getIndex() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

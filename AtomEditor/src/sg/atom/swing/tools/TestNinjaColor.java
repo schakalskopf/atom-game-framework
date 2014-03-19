@@ -1,6 +1,6 @@
 package sg.atom.swing.tools;
 
-import sg.atom.swing.tools.anim.HelloAnimationManager;
+import sg.atom.editor.components.AnimationManager;
 import sg.atom.corex.animation.AnimationView;
 import sg.atom.corex.material.color.ColorUtil;
 import sg.atom.corex.common.CommonTool;
@@ -50,7 +50,7 @@ public class TestNinjaColor extends SimpleApplication {
     float currentTime = 0;
     float currentSpeed = 1;
     int playState = 0;
-    private HelloAnimationManager aniManager;
+    private AnimationManager aniManager;
 
     public static void main(String[] args) {
         TestNinjaColor app = new TestNinjaColor();
@@ -104,7 +104,7 @@ public class TestNinjaColor extends SimpleApplication {
 
     public void initPlayerAnimation() {
 
-        aniManager = new HelloAnimationManager();
+        aniManager = new AnimationManager();
 
         /** Create a controller and channels. */
         control = player.getControl(AnimControl.class);

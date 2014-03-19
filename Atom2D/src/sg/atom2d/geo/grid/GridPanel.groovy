@@ -87,20 +87,20 @@ public class GridPanel{
                 def color=randomColor();
                 /*
                 if (isBorderBox(pBox,box)){
-                    color = randomColor()
+                color = randomColor()
                 } else {
-                    color = Color.BLACK;
+                color = Color.BLACK;
                 }
-                */
+                 */
                 rect( x: box.x, y:  box.y, width:  box.width, height:  box.height, borderColor: 'darkRed', borderWidth: 2, fill: color )
             }
             /*
             list.each(){ box->
-                rect( x: box.x, y:  box.y, width:  box.width, height:  box.height, borderColor: 'darkGray', borderWidth: 1){
-                    colorPaint( color('gray').derive(alpha:0.5) )
-                }
+            rect( x: box.x, y:  box.y, width:  box.width, height:  box.height, borderColor: 'darkGray', borderWidth: 1){
+            colorPaint( color('gray').derive(alpha:0.5) )
             }
-            */
+            }
+             */
         }
         return drawBoxes
     }

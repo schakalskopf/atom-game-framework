@@ -7,13 +7,18 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sg.atom.utils.monitor.IProgress;
-import sg.atom.utils.monitor.NullProgress;
-import sg.atom.utils.monitor.Progress;
+import sg.atom.core.monitor.IProgress;
+import sg.atom.core.monitor.NullProgress;
+import sg.atom.core.monitor.AtomicProgress;
 
 /**
- * 등록된 IPreload들을 차례대로 수행한다. start(long) 호출시에는 background loading을 수행하고, join해야
- * 한다.
+ * Multi-thread preloader load asset in paralel. The preloader can depend in
+ * other preloader, the tree is called recusively. In the loading progress it
+ * handle progresses automaticly. After finish it offer a Runnable callback.
+ *
+ * <p>Usage:
+ *
+ * <p>
  * <code>
  * add(IPreload);
  * start();
@@ -21,9 +26,13 @@ import sg.atom.utils.monitor.Progress;
  * join();
  * </code>
  *
- * @author mulova
+ * <p>FIXME: This implementation is pretty raw. Should be replace with Cache and
+ * Executor.
  *
- */ @Deprecated
+ * @author mulova, atomix
+ *
+ */
+@Deprecated
 public final class Preloader implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(Preloader.class);
@@ -32,6 +41,7 @@ public final class Preloader implements Runnable {
     //IErrorHandler errorHandler;
     IPreload current;
     float currentContribution;
+    //FIXME: Replace with a real Pool!
     final ArrayList<IPreload> pool;
     final ArrayList<Float> progressContribution;
     long yieldTime;
@@ -84,7 +94,7 @@ public final class Preloader implements Runnable {
     }
 
     /**
-     * @param pre 이전에 마무리 되어야 하는 preloader
+     * @param pre extenal depended preloader
      */
     public void addPrerequisite(Preloader pre) {
         this.prerequisites.add(pre);
@@ -99,7 +109,7 @@ public final class Preloader implements Runnable {
                 this.thread.join();
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
     /*
@@ -116,8 +126,8 @@ public final class Preloader implements Runnable {
         }
         if (current != null) {
             current.setProgress(progress);
-            if (progress instanceof Progress) {
-                ((Progress) progress).setEnd(currentContribution);
+            if (progress instanceof AtomicProgress) {
+                ((AtomicProgress) progress).setEnd(currentContribution);
             }
         }
     }

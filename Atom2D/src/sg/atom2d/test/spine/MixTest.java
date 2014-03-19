@@ -34,7 +34,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.utils.Array;
+import sg.atom.utils.collection.Array;
 
 public class MixTest extends ApplicationAdapter {
 	SpriteBatch batch;

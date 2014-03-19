@@ -13,19 +13,21 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
-import sg.atom.ui.GameGUIManager;
+
 import sg.atom.entity.EntityManager;
 import sg.atom.entity.SpatialEntity;
 import sg.atom.entity.SpatialEntityControl;
+import sg.atom.stage.input.AtomRawInputManager;
 import sg.atom.stage.select.EntitySelectCondition;
 import sg.atom.stage.select.HoverFunction;
 import sg.atom.stage.select.SelectFunction;
 import sg.atom.stage.select.SelectListener;
 import sg.atom.stage.select.SpatialSelectControl;
 import sg.atom.stage.select.condition.EmptyEntitySelectCondition;
-import sg.atom.ui.input.MouseRawListener;
-import sg.atom.world.SceneGraphHelper;
+import sg.atom.ui.GameGUIManager;
+import sg.atom.world.spatial.SceneGraphHelper;
 
 /**
 @author atomix
@@ -64,13 +66,13 @@ import sg.atom.world.SceneGraphHelper;
  * arcording to the current Function:<br> <ul><li>SingleSelect</li></ul>
  */
 public class SelectManager {
-
+    protected static final Logger logger = Logger.getLogger(SelectManager.class.getName());
     public static enum SelectOperationType {
 
         Normal, Add, Substract, Union
     }
-    SelectOperationType selectOperationType = SelectOperationType.Normal;
-    AssetManager assetManager;
+    protected SelectOperationType selectOperationType = SelectOperationType.Normal;
+    protected AssetManager assetManager;
     protected StageManager stageManager;
     protected InputManager inputManager;
     protected WorldManager worldManager;
@@ -79,8 +81,8 @@ public class SelectManager {
     /**
      * the current selection of the game
      */
-    ArrayList< SpatialEntity> currentSelection;
-    ArrayList<SelectListener> listeners = new ArrayList<SelectListener>();
+    protected ArrayList< SpatialEntity> currentSelection;
+    protected ArrayList<SelectListener> listeners = new ArrayList<SelectListener>();
     protected boolean trackHover = false;
     private EntitySelectCondition entitySelectCondition;
     private SelectFunction currentSelectFunction;
@@ -123,7 +125,7 @@ public class SelectManager {
 
     public void setupInputListener() {
         System.out.println("Select Input setup!");
-        inputManager.addRawInputListener(new MouseRawListener() {
+        inputManager.addRawInputListener(new AtomRawInputManager() {
             @Override
             public void onMouseMotionEvent(MouseMotionEvent evt) {
                 mouseMove(evt);

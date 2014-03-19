@@ -8,8 +8,9 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import java.util.LinkedList;
 import java.util.Properties;
+import sg.atom.entity.Entity;
 import sg.atom.gameplay.action.common.MoveAction;
-import sg.atom.gameplay.actor.Actor;
+import sg.atom.stage.actor.AtomActor;
 import sg.atom.gameplay.controls.AtomCharacterControl;
 
 /**
@@ -22,7 +23,7 @@ import sg.atom.gameplay.controls.AtomCharacterControl;
  *
  * @author atomix
  */
-public class GameCharacter extends Actor {
+public class GameCharacter extends AtomActor {
     // Game character properties
 
     private int id;
@@ -30,9 +31,10 @@ public class GameCharacter extends Actor {
     private String characterModelPath;
     protected Properties userData;
     // Common associated data =====================================
-    LinkedList<GameAction> requestedAction = new LinkedList<GameAction>();
-    LinkedList<Skill> skills = new LinkedList<Skill>();
-    LinkedList<GameItem> items = new LinkedList<GameItem>();
+    protected Entity characterEntity;
+    protected LinkedList<GameAction> actionList = new LinkedList<GameAction>();
+    protected LinkedList<Skill> skills = new LinkedList<Skill>();
+    protected LinkedList<GameItem> items = new LinkedList<GameItem>();
     // Character Visualization=====================================
     private Node characterModel;
     private Node modelNode;
@@ -68,14 +70,6 @@ public class GameCharacter extends Actor {
         return items;
     }
 
-    public LinkedList<Skill> getSkill() {
-        return skills;
-    }
-
-    public Spatial getPlayerModel() {
-        return modelNode;
-    }
-
     public Node getModelNode() {
         return modelNode;
     }
@@ -104,4 +98,22 @@ public class GameCharacter extends Actor {
     public Properties getUserData() {
         return userData;
     }
+
+    public Entity getCharacterEntity() {
+        return characterEntity;
+    }
+
+    public Node getCharacterModel() {
+        return characterModel;
+    }
+
+    public LinkedList<GameAction> getActionList() {
+        return actionList;
+    }
+
+    public LinkedList<Skill> getSkills() {
+        return skills;
+    }
+
+    
 }

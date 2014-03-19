@@ -2,10 +2,7 @@ package sg.atom.editor.components;
 
 import sg.atom.editor.EditorGUIManager;
 import de.lessvoid.nifty.Nifty;
-import de.lessvoid.nifty.builder.ElementBuilder;
-import de.lessvoid.nifty.builder.PanelBuilder;
 import de.lessvoid.nifty.elements.Element;
-import de.lessvoid.nifty.input.NiftyInputEvent;
 import de.lessvoid.nifty.screen.Screen;
 
 /**

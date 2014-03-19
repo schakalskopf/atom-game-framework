@@ -24,7 +24,7 @@ public class DockableComponent extends ExNiftyComponent {
     private InputManager inputManager;
 
     public DockableComponent(EditorGUIManager guiManager) {
-        super("dockablePanel",guiManager);
+        super("dockablePanel", guiManager);
     }
 
     void setupInput() {

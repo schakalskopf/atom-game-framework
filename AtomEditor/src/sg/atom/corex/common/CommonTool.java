@@ -6,7 +6,7 @@ package sg.atom.corex.common;
 
 import sg.atom.corex.camera.CamUtil;
 import sg.atom.editor.managers.HelperManager;
-import sg.atom.editor.managers.SelectionManager;
+import sg.atom.editor.managers.EditorSelectionManager;
 import sg.atom.corex.scenegraph.shape.ShapeUtil;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.AssetManager;
@@ -19,7 +19,7 @@ import com.jme3.scene.Node;
  * CommonTool is the singleton reference beside of Global in an editing
  * enviroment.
  *
- * It's the bootstrap module to run the whole application.
+ * <p>It's the bootstrap module to run the whole application.
  * 
  * 
  * @author hungcuong
@@ -43,7 +43,7 @@ public class CommonTool {
     private Camera currentCam;
     private ShapeUtil shapeUtil;
     // ___
-    private SelectionManager selectionManager;
+    private EditorSelectionManager selectionManager;
     private HelperManager helperManager;
 
     private CommonTool(SimpleApplication app) {
@@ -62,7 +62,7 @@ public class CommonTool {
         // Tool Level
 
         this.camUtil = new CamUtil(getCurrentCam(), app.getFlyByCamera(), getInputManager());
-        this.selectionManager = new SelectionManager();
+        this.selectionManager = new EditorSelectionManager();
         this.helperManager = new HelperManager();
     }
 
@@ -211,14 +211,14 @@ public class CommonTool {
     /**
      * @return the selectionManager
      */
-    public SelectionManager getSelectionManager() {
+    public EditorSelectionManager getSelectionManager() {
         return selectionManager;
     }
 
     /**
      * @param selectionManager the selectionManager to set
      */
-    public void setSelectionManager(SelectionManager selectionManager) {
+    public void setSelectionManager(EditorSelectionManager selectionManager) {
         this.selectionManager = selectionManager;
     }
 

@@ -21,12 +21,12 @@ import net.boplicity.xmleditor.*;
 import java.awt.datatransfer.*
 import java.awt.dnd.*
 
-import sg.atom.swing.editor.dnd.*
+import sg.atom.swing.editor.dnd.FileDropListener
 
 swing = new SwingXBuilder()
 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//layoutEditorPanel = null
 viewPanel = null
+dragHereLabel = null
 
 def createMenuBar(def builder){
     
@@ -101,15 +101,16 @@ def createIcon(String path){
     }
     return icon
 }
-    
+/*    
 def fileExt = {file->file.name.lastIndexOf('.').with {it != -1 ? file.name.substring(it+1) : file.name}}
-
-fileDropListener = new FileDropListener(){
-    def eachAcceptedFile(f){
+*/
+FileDropListener fileDropListener = new FileDropListener(){
+    public void eachAcceptedFile(File f){
         println f.name;
+        changeImage(f)
     }
     
-    def eachDeniedFile(f){
+    public void eachDeniedFile(File f){
         println "Not supported"+ f.name;
     }
 };
@@ -289,5 +290,8 @@ swing.edt{
     
 }
 
+def changeImage(f){
+    dragHereLabel.icon = swing.imageIcon(file:f)
+}
     
     

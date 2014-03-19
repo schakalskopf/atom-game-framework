@@ -4,9 +4,13 @@
  */
 package sg.atom.fx.sprite;
 
+import com.google.common.base.Converter;
+import com.google.common.base.Function;
 import com.jme3.asset.AssetKey;
 import com.jme3.math.Vector2f;
+import java.lang.reflect.Proxy;
 import sg.atom.fx.anim.IAnimationState;
+import sg.atom.utils.proxy.IPresenter;
 
 /**
  * SpriteImage is a representor of Sprite with its animation in a specific of
@@ -37,7 +41,7 @@ import sg.atom.fx.anim.IAnimationState;
  *
  * @author CuongNguyen
  */
-public class SpriteImage implements IAnimationState<Sprite> {
+public class SpriteImage implements IAnimationState<Sprite>, IPresenter<Sprite> {
 
     // The image path in SpriteSheet or in directory.
     public String imagePath;
@@ -45,8 +49,38 @@ public class SpriteImage implements IAnimationState<Sprite> {
     // UV inside of a SpriteSheet. It can be similar to the sprite UV if the sprite only has one SpriteImage.
     public Vector2f uvTopLeft;
     public Vector2f uvSize;
-
+    
     public AssetKey locate() {
         return new AssetKey();
+    }
+    
+    @Override
+    public Object as(Function<Sprite, Object> convertor) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
+    public Object as(Class clazz) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
+    public Sprite from(Converter<Object, Sprite> convertor) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
+    public Sprite from(Object object) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
+    public Proxy asProxy() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Sprite mix(Sprite... objects) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

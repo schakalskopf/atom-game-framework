@@ -9,8 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Description of an Action. Different from AWT implemenatation!
- * 
+ * Description of an Action. Different from AWT implemenatation! The same with
+ * Netbean Action framework.
+ *
  * @author cuong.nguyenmanh2
  */
 public class AtomFunction {

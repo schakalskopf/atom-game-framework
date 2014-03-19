@@ -3,6 +3,7 @@ package sg.atom2d.geo.grid
 class GridElement{
     float x,y;
     float height,width;
+    
     int index;
     int type;
     int textureType;

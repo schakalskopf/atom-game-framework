@@ -2,11 +2,9 @@ package sg.atom.core.event;
 
 @Deprecated
 /**
+ * For more common case, Trigger provide more methods and attributes.
  *
- * @author atomix 
- * 
- * For more common case, Trigger provide more methods and
- * attribute.
+ * @author atomix
  */
 public abstract class GameEvent<L> {
 

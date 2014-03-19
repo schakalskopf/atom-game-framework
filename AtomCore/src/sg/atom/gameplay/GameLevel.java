@@ -21,9 +21,19 @@ import sg.atom.stage.WorldManager;
  * level (eg:Chess) so basiclly this implementation support simplest but
  * expandable novel gameplay</p>
  *
+ * <p> Level data can be embed in the levelNode or expose directly via internal
+ * datas. This implementation assume that level have some kind of Data to expose
+ * and some of them are private. So apply a Map interface over GameLevel is over
+ * enginering. Instead, GameLevel support a method to get data out of it but not
+ * generic.
+ *
+ * <p>Is the central of references for Stage, World, Sound, Select, Spawning and
+ * their sub managers, but mostly recomended to access via Stage,World at the
+ * moment.
+ *
  * @author cuong.nguyenmanh2
  */
-public class GameLevel implements IGameCycle,ManagableObject{
+public class GameLevel implements IGameCycle, ManagableObject {
 
     protected GamePlayManager gamePlayManager;
     protected WorldManager worldManager;
@@ -31,6 +41,7 @@ public class GameLevel implements IGameCycle,ManagableObject{
     protected RigidBodyControl physicControl;
     protected LevelInfo info;
     protected GameScene currentScene;
+    // Positonal, decorations and additional datas for the GameLevel
     protected Vector3f startPos;
 
     public GameLevel(GamePlayManager gamePlay, WorldManager worldManager, String name, String path) {
@@ -93,9 +104,12 @@ public class GameLevel implements IGameCycle,ManagableObject{
         return info;
     }
 
+    public Object getData(Object key) {
+        return null;
+    }
+
     @Override
     public void init() {
-        
     }
 
     @Override
@@ -105,7 +119,6 @@ public class GameLevel implements IGameCycle,ManagableObject{
 
     @Override
     public void config(Properties props) {
-        
     }
 
     @Override
@@ -115,7 +128,6 @@ public class GameLevel implements IGameCycle,ManagableObject{
 
     @Override
     public void finish() {
-        
     }
 
     @Override

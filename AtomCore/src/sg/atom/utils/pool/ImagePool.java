@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sg.atom.utils.monitor.MemoryTracer;
+import sg.atom.core.monitor.MemoryTracer;
 
 /**
  * get(int width, int height)�� ���´�. TextureGraphics������ ����Ѵ�. ���� �����

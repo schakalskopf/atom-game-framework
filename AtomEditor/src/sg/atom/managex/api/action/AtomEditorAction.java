@@ -5,11 +5,11 @@ package sg.atom.managex.api.action;
  *
  * @author hungcuong
  */
-public abstract class AtomEditorAction {
+public abstract class AtomEditorAction implements Runnable{
 
     public abstract boolean isCancelTrigger(String name);
 
-    enum ActionStatus {
+    public static enum ActionStatus {
 
         ACTION_INITED, ACTION_STARTED, ACTION_CONTINUE, ACTION_PAUSE, ACTION_FINISHED
     }
@@ -33,9 +33,9 @@ public abstract class AtomEditorAction {
         actionFinish();
     }
 
-    public AtomCommand actionFinish() {
+    public AtomEditorCommand actionFinish() {
         this.status = ActionStatus.ACTION_FINISHED;
-        return new AtomCommand(this);
+        return new AtomEditorCommand(this);
     }
 
     public abstract void actionPerformed(String name);

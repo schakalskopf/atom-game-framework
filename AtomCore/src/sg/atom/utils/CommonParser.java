@@ -8,9 +8,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- *
+ * FIXME: Replace with BaseDecoder.
+ * 
  * @author CuongNguyen
- */
+ */ @Deprecated
 public class CommonParser {
 
     public static String readString(BufferedReader reader, String name) throws IOException {

@@ -1,5 +1,7 @@
 package sg.atom.ui;
 
+import com.google.inject.Inject;
+import com.jme3.app.Application;
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.DesktopAssetManager;
 import com.jme3.asset.TextureKey;
@@ -23,6 +25,7 @@ import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
@@ -32,13 +35,48 @@ import sg.atom.core.AtomMain;
 import sg.atom.core.lifecycle.IGameCycle;
 import sg.atom.stage.SoundManager;
 import sg.atom.stage.StageManager;
+import sg.atom.ui.common.ScreenAction;
 
 /**
- * GameGUIManager manage all GUI related stuffs like Screen, Currors, input.
+ * GameGUIManager manage all GUI related stuffs like Screen, Currors, GUI Input.
  *
- * Manage list of screen's path and its related resource such as images,
- * sounds...etc. Support automatic screen localization and input for multi
- * language.
+ * <p><b>Note:</b>Underlying, OpenGL GUI is not much different (with other types
+ * of data) with Spatial as their are also 3D objects. The different caused by
+ * the implementation of the GUI system in JME3 mixed between native and
+ * external (service). For ex: NiftyGUI vs TonegodGUI and Lemur... This is the
+ * bridge between them.
+ *
+ * <p><b>General: Presumes of simplest version of any GUI out there:</b> <ul>
+ *
+ * <li>GUI behaviors should be "formal" that mean user input are translated to a
+ * "formal system" to be understand by GUI and the reaction is also
+ * "expectable".
+ *
+ * <li>GUI appreances begged to be be colorful and attrative for game
+ * enviroments. That's why a generic cacade style system exits.
+ *
+ * <li>GUI interaction under a global mode/state/screen. That's it, they only
+ * take meaningful interaction of visible-pioritized component at a specific
+ * time.</ul>
+ *
+ * <p><b>Features:</b>
+ *
+ * <p>Integrate with Stage, GameState, Gameplay systems. It's driven by Stage
+ * and GameState mostly. Gameplay access it via Stage or Singlton.
+ *
+ * <p>Manage list of screen's path and its related resource such as images,
+ * sounds...etc. Enable creating, loading, removing GUI resource properly.
+ *
+ * <p>Support automatic screen localization and input for multi language. Handle
+ * own events. Enable bean binding and mapping
+ *
+ * <p>Support cache other than AssetManager
+ *
+ * <p>Support effects, translate between 2D->3D, automatic transistion between
+ * screens.
+ *
+ * <p>NEW: Intercept screen/controller interaction and transistion of underlying
+ * GUI library (for debug for ex).
  *
  * FIXME: Support better monitoring and events
  *
@@ -48,6 +86,7 @@ import sg.atom.stage.StageManager;
  */
 public class GameGUIManager extends AbstractManager implements IGameCycle {
 
+    protected static final Logger logger = Logger.getLogger(GameGUIManager.class.getName());
     protected AtomMain app;
     protected StageManager stageManager;
     protected Node guiNode;
@@ -55,51 +94,26 @@ public class GameGUIManager extends AbstractManager implements IGameCycle {
     protected AudioRenderer audioRenderer;
     protected ViewPort guiViewPort;
     protected AssetManager assetManager;
+    @Inject
+    protected Object guiSystemInstance;
     // FIXME: Nifty only.
     protected NiftyJmeDisplay niftyDisplay;
     protected Nifty nifty;
-    // State management
-    protected boolean enabled = false;
     protected boolean niftyStarted = false;
+    // State management & monitoring
+    protected boolean intercepted = true;
+    protected boolean enabled = false;
+    protected boolean guiStarted = false;
+    protected boolean nullSafe = true;
+    public String currentMode;
+    protected Set<String> modes = new HashSet<String>();
+    protected boolean debugMode = false;
     // Screen management
+    //FIXME: Replace with Concurent map.
     protected HashMap<String, NiftyScreenPath> commonScreens = new HashMap<String, NiftyScreenPath>();
+    //private HashMap<String, JmeCursor> cursors = new HashMap<String, JmeCursor>();
     //Common stuffs
     protected BitmapFont guiFont;
-
-    @Override
-    public void init() {
-        initGUI();
-        //load();
-    }
-
-    @Override
-    public void load() {
-        setupCommonStyles();
-        setupCommonEffects();
-        setupCommonScreens();
-    }
-
-    @Override
-    public void config(Properties props) {
-    }
-
-    @Override
-    public void update(float tpf) {
-    }
-
-    @Override
-    public void finish() {
-    }
-
-    @Override
-    public LifeCyclePhase getCurrentPhase() {
-        return null;
-    }
-
-    @Override
-    public float getProgressPercent(LifeCyclePhase aPhrase) {
-        return 0;
-    }
 
     public class NiftyScreenPath {
 
@@ -136,11 +150,52 @@ public class GameGUIManager extends AbstractManager implements IGameCycle {
         this.stageManager = app.getStageManager();
     }
 
+    @Override
+    public void init() {
+        initGUI();
+    }
+
+    @Override
+    public void load() {
+        setupCommonStyles();
+        setupCommonEffects();
+        setupCommonScreens();
+    }
+
+    @Override
+    public void config(Properties props) {
+    }
+
+    @Override
+    public void update(float tpf) {
+        //Update the action queue.
+    }
+
+    @Override
+    public void finish() {
+    }
+
+    @Override
+    public LifeCyclePhase getCurrentPhase() {
+        return null;
+    }
+
+    @Override
+    public float getProgressPercent(LifeCyclePhase aPhrase) {
+        return 0;
+    }
+
     public void initGUI() {
         initJMEGUI();
         initNiftyGUI();
         disableLogger();
         initCustom();
+    }
+
+    public void initTonegodGUI() {
+    }
+
+    public void initLemurGUI() {
     }
 
     public void setupCommonEffects() {
@@ -149,8 +204,6 @@ public class GameGUIManager extends AbstractManager implements IGameCycle {
     }
 
     public void setupCommonStyles() {
-        
-
     }
 
     public void setupCommonScreens() {
@@ -235,6 +288,14 @@ public class GameGUIManager extends AbstractManager implements IGameCycle {
                 settings.getHeight() / 2 + ch.getLineHeight() / 2, 0);
         guiNode.attachChild(ch);
     }
+
+    public void enqueueActionWithScreenController(Class<? extends ScreenController> aClass, ScreenAction screenAction) {
+        // wait until valid.
+    }
+
+    public void enqueueAction(ScreenAction screenAction) {
+        // just remove from list.
+    }
     /* Screen management methods */
 
     public <T extends ScreenController> T getCurrentScreenController(String screenName, Class<T> clazz) {
@@ -258,6 +319,46 @@ public class GameGUIManager extends AbstractManager implements IGameCycle {
         return nifty.getCurrentScreen().findControl(elementId, clazz);
     }
 
+    /**
+     * Null Safe Controller getter.
+     *
+     * @param <T>
+     * @param clazz
+     * @param path
+     * @return
+     */
+    public <T extends Controller> T getController(Class<T> clazz, String path) {
+        String[] array = path.split("/");
+
+        if (array.length < 2) {
+            throw (new IllegalArgumentException(" This path is wrong : " + path));
+        }
+        Element thisElement = getElementByPath(path);
+        T result = null;
+
+        result = thisElement.getControl(clazz);
+        if (result != null) {
+            return result;
+        } else {
+            if (nullSafe) {
+                throw new IllegalArgumentException("Can not find Controller in element" + path);
+            } else {
+                return null;
+            }
+        }
+
+
+    }
+
+    /**
+     * Null Safe Renderer getter.
+     *
+     * @param <T>
+     * @param aClass
+     * @param path
+     * @return
+     * @throws IllegalArgumentException
+     */
     public <T extends ElementRenderer> T getRenderer(Class<T> aClass, String path)
             throws IllegalArgumentException {
         String[] array = path.split("/");
@@ -265,17 +366,20 @@ public class GameGUIManager extends AbstractManager implements IGameCycle {
         if (array.length < 2) {
             throw (new IllegalArgumentException(" This path is wrong : " + path));
         }
-        Element thisElement, parent;
-        Screen thisScene = nifty.getScreen(array[0]);
-        thisElement = thisScene.findElementByName(array[1]);
+        Element thisElement = getElementByPath(path);
+        T result = null;
 
-        for (int i = 1; i < array.length; i++) {
-            String thisName = array[i];
-            parent = thisElement;
-            thisElement = parent.findElementByName(thisName);
-
+        result = thisElement.getRenderer(aClass);
+        if (result != null) {
+            return result;
+        } else {
+            if (nullSafe) {
+                throw new IllegalArgumentException("Can not find Renderer in element" + path);
+            } else {
+                return null;
+            }
         }
-        return thisElement.getRenderer(aClass);
+
     }
 
     public Element getElementByPath(String path)
@@ -351,11 +455,15 @@ public class GameGUIManager extends AbstractManager implements IGameCycle {
     }
 
     /**
-     * Ultility to safety navigate through screens
+     * Ultility to safety navigate through screens.
+     *
+     * It can be intercept for tesing purpose.
      *
      * @param screenName
      */
     public void goToScreen(String screenName) {
+        //FIXME: Intercept goto
+
         if (nifty.getScreen(screenName) != null) {
             nifty.gotoScreen(screenName);
             Logger.getLogger(GameGUIManager.class.getName()).log(Level.INFO, "Go to {0}", screenName);
@@ -395,6 +503,10 @@ public class GameGUIManager extends AbstractManager implements IGameCycle {
 
     public Nifty getNifty() {
         return nifty;
+    }
+
+    public Object getGuiSystemInstance() {
+        return guiSystemInstance;
     }
 
     public StageManager getStageManager() {

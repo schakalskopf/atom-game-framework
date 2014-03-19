@@ -10,6 +10,13 @@ import java.util.Properties;
 import sg.atom.core.AbstractManager;
 
 /**
+ * Beside of Entity, the second citizen of the framework.
+ *
+ * <p>This is the simplest form of Agent in Actor framework. This is the bridge
+ * for Atom Object to be built, config and run exactly like one.
+ *
+ * <p>ManagableObject is Bean an also can be marked with Atom annotation to
+ * retrieve most efficient performance.
  *
  * @author CuongNguyen
  */
@@ -20,7 +27,7 @@ public interface ManagableObject {
     public void load(AssetManager assetManager);
 
     public void config(Properties props);
-    
+
     public void config(Object... params);
 
     public void update(float tpf);

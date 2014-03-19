@@ -11,11 +11,16 @@ import com.jme3.terrain.ProgressMonitor;
 import com.jme3.terrain.Terrain;
 
 /**
- * To replace the JME3's Terrain interface which is not really useful!
+ * Terrain with asscociated Data. To replace the JME3's Terrain interface which
+ * is not really useful!
  *
  * @author cuong.nguyenmanh2
  */
 public abstract class GenericTerrain<T extends Node> extends Node implements Terrain {
+
+    public GenericTerrain(String name) {
+        super(name);
+    }
 
     public static enum TerrainMeshType {
 

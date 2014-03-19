@@ -4,43 +4,38 @@
  */
 package sg.atom.logic.command;
 
-import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import sg.atom.stage.WorldManager;
 
 /**
+ * Basic interface for Commands pattern as in Gof Chain of Resposibility.
  *
-@author atomix
- */
-/**
- * Basic interface for AI commands
- * @author normenhansen
+ * @author atomix
  */
 public interface Command {
-    enum State{
+
+    public static enum CommandProcessingState {
+
         Finished,
         Continuing,
-        Blocking,
-    }
+        Blocking,}
+    /*
+     public static enum TargetResult {
 
-    enum TargetResult{
-        Deny,
-        Accept,
-        DenyFriendly,
-        DenyEnemy,
-        AcceptEnemy,
-        AcceptFriendly
-    }
+     Deny,
+     Accept,
+     DenyFriendly,
+     DenyEnemy,
+     AcceptEnemy,
+     AcceptFriendly
+     }
+     */
 
     public String getName();
 
-    public State doCommand(float tpf);
+    public CommandProcessingState doCommand(float tpf);
 
     public Command initialize(WorldManager world, long playerId, long entityId, Spatial spat);
-
-    public TargetResult setTargetEntity(Spatial spat);
-
-    public TargetResult setTargetLocation(Vector3f location);
 
     public int getPriority();
 
@@ -52,4 +47,3 @@ public interface Command {
 
     public void cancel();
 }
-

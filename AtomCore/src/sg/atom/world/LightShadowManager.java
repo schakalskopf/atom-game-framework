@@ -20,6 +20,9 @@ import sg.atom.stage.StageManager;
 import sg.atom.stage.WorldManager;
 
 /**
+ * <p>Manager and Wrapper for useful functions for sg.atom.utils.space.
+ *
+ * <p>Ready for different light scheme.
  *
  * @author atomix
  */
@@ -29,7 +32,7 @@ public class LightShadowManager {
     AssetManager assetManager;
     StageManager stageManager;
     private Node rootNode;
-    // The main lights of the screen
+    // The main sg.atom.utils.space of the screen
     DirectionalLight sun;
     DirectionalLight dl;
     PointLight light;

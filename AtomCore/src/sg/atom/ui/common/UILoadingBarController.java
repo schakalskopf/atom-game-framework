@@ -26,7 +26,6 @@ public class UILoadingBarController implements Controller {
     private Element progressBarElement;
     private float frameCount = 0;
     private boolean load = false;
-
     private boolean binded = false;
 
     public void setProgress(final float progress, String loadingText) {

@@ -5,9 +5,10 @@ package sg.atom2d.assets.tiled;
  * Provides encoding of raw bytes to base64-encoded characters, and decoding of
  * base64 characters to raw bytes.
  *
+ * FIXME: Use common Base64 or Guava Base64
  * @author Kevin Kelley (kelley@ruralnet.net)
  * @version 1.3
- */
+ */ @Deprecated
 public class Base64 {
 
     /**

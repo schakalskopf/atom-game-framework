@@ -5,20 +5,26 @@ import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 import java.util.Iterator;
 import sg.atom.core.timing.RegularTiming;
-import sg.atom.logic.conditions.Conditional;
+import sg.atom.logic.conditions.Condition;
 import sg.atom.logic.trigger.Trigger;
 
 /**
- * Should be AppState and Replaced with loose couple version with Guava
- * predicate and Eventbus
- * <ul>
- * <li>As Trigger Factory : create, compose, validate</li>
+ * TriggerManager manage its trigger and handle their event and actions. It
+ * cooporated strongly with StageManager. Consider this is an extension for
+ * InputManager and all its Trigger.
+ *
+ * <p>FIXME: Should be AppState and Replaced with loose couple version with
+ * Guava predicate and Eventbus. <ul> <li>As Trigger Factory : create, compose,
+ * validate</li>
+ *
+ * <p>Sequence of Trigger called pattern are recoginized by pattern matching, a
+ * decision tree can be built and maintained upon Trigger conditions. Rete can
+ * be used to implement a small scale Rule system.
  *
  * <li>As Trigger Manager : manage list</li>
  *
- * <li>As Trigger Event Handler : broadcast</li>
- * </ul>
- * 
+ * <li>As Trigger Event Handler : broadcast</li> </ul>
+ *
  * @author atomix
  */
 public class TriggerManager {
@@ -45,8 +51,8 @@ public class TriggerManager {
                 if (t instanceof RegularTiming) {
                     ((RegularTiming) t).update(tpf);
                 }
-                if (t instanceof Conditional) {
-                    ((Conditional) t).check();
+                if (t instanceof Condition) {
+                    ((Condition) t).apply(null);
                 } else {
                     //FIXME: Remind this trigger everytime. Should only use with System trigger only!
                     t.actived();

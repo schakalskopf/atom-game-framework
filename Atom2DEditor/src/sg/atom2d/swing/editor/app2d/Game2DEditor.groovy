@@ -10,12 +10,7 @@ import groovy.swing.SwingBuilder
 import groovy.swing.SwingXBuilder
 import groovy.swing.j2d.*
 
-import com.nilo.plaf.nimrod.*
 import groovy.util.FactoryBuilderSupport
-
-import ca.odell.glazedlists.*;
-import ca.odell.glazedlists.swing.*;
-import ca.odell.glazedlists.matchers.*;
 
 import org.jdesktop.swingx.JXMultiSplitPane;
 import org.jdesktop.swingx.MultiSplitLayout;
@@ -29,13 +24,19 @@ import org.jdesktop.swingx.treetable.*;
 import groovy.swing.j2d.GraphicsBuilder
 import groovy.swing.j2d.GraphicsPanel
 
-import net.boplicity.xmleditor.*;
+/*
+import com.nilo.plaf.nimrod.*
 
+import ca.odell.glazedlists.*;
+import ca.odell.glazedlists.swing.*;
+import ca.odell.glazedlists.matchers.*;
+
+import net.boplicity.xmleditor.*;
 import sg.atom.swing.tools.*
 import sg.atom.swing.editor.components.*
 import sg.atom.swing.editor.components.tree.*
 import sg.atom.swing.editor.components.curves.ui.*
-
+*/
 import sg.atom.swing.editor.*
 import sg.atom2d.swing.*
 
