@@ -21,5 +21,5 @@ package sg.atom.structure.state;
  *
  * @author cuong.nguyenmanh2
  */
-public interface IObjectiveStateManager {
+public interface IObjectiveStateManager<T> {
 }

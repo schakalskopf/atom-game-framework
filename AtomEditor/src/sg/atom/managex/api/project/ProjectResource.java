@@ -7,7 +7,8 @@ package sg.atom.managex.api.project;
 import com.jme3.asset.AssetKey;
 
 /**
- *
+ * Extension of Asset. Same as DataObject.
+ * 
  * @author cuong.nguyenmanh2
  */
 public class ProjectResource {

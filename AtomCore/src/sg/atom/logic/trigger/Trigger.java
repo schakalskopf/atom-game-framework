@@ -8,9 +8,10 @@ import sg.atom.core.bean.Behavioral;
  * Observer, Stragegy, Template.
  *
  * <p>Trigger is a simple "2 states basis" action. It works as "on-off" and
- * cause something happen.
+ * cause something happen. Trigger is a dynamic Rule. By default Trigger is
+ * Behavioral of GameAction:
  *
- * <p>By default Trigger is Behavioral of GameAction: <ul>
+ * <ul>
  *
  * <li>Decorator: Trigger can also be decorated to GameAction with Guice or
  * created normally. </ul>

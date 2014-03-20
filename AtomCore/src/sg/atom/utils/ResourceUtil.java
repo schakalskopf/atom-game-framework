@@ -27,7 +27,6 @@ import sg.atom.utils.StringUtil;
  * ResourceUtil is collection of common utilities for file system and class
  * path, in which not envolve AssetManager.
  *
- *
  * Use Guava 's Resources instead.
  *
  * @author cuong.nguyenmanh2
@@ -446,7 +445,7 @@ public class ResourceUtil {
         return StringUtil.concatPath(base, relativePath);
     }
 
-    public static void AddClasspath(URL url) {
+    public static void addClasspath(URL url) {
         ClassLoader parentClassLoader = Thread.currentThread().getContextClassLoader();
         URLClassLoader childClassLoader = new URLClassLoader(new URL[]{url}, parentClassLoader);
         Thread.currentThread().setContextClassLoader(childClassLoader);

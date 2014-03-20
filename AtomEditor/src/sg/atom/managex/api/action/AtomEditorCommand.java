@@ -13,7 +13,7 @@ package sg.atom.managex.api.action;
  *
  * @author cuong.nguyenmanh2
  */
-public class AtomEditorCommand {
+public abstract class AtomEditorCommand {
 
     private final AtomEditorAction parent;
 

@@ -4,6 +4,7 @@
  */
 package sg.atom.core;
 
+import com.jme3.app.state.AppState;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -60,5 +61,10 @@ public abstract class AbstractManager implements IGameCycle {
 
     public PiorityInfo getPiority(Class<? extends AbstractManager> aClass) {
         return getSubManager(aClass).getPiority();
+    }
+
+    @Deprecated
+    public AppState automaticAppStateHook() {
+        return GameStateManager.wrap(this);
     }
 }

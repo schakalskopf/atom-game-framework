@@ -15,12 +15,14 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import java.util.Properties;
+import sg.atom.core.AbstractManager;
 
 /**
- *
+ * S
  * @author hungcuong
  */
-public class EditorSelectionManager {
+public class EditorSelectionManager extends AbstractManager{
 
     private CommonTool commonTool;
     private Node shootables;
@@ -46,15 +48,15 @@ public class EditorSelectionManager {
 
 
         listHelper = gizmoHelper.getShootableList();
-/*
-        for (int i = 0; i < listGeo.size(); i++) {
-            shootables.attachChild(commonTool.getRootNode().getChild(listGeo[i]));
-        }
-        for (int i = 0; i < listHelper.size(); i++) {
-            System.out.println(listHelper[i]);
-            shootables.attachChild(gizmoHelper.getSubNode().getChild(listHelper[i]));
-        }
-*/
+        /*
+         for (int i = 0; i < listGeo.size(); i++) {
+         shootables.attachChild(commonTool.getRootNode().getChild(listGeo[i]));
+         }
+         for (int i = 0; i < listHelper.size(); i++) {
+         System.out.println(listHelper[i]);
+         shootables.attachChild(gizmoHelper.getSubNode().getChild(listHelper[i]));
+         }
+         */
 
     }
 
@@ -248,5 +250,33 @@ public class EditorSelectionManager {
 
     private int inList(String name, SpatialList listHelper) {
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public void init() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void load() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void config(Properties props) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void update(float tpf) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void finish() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public LifeCyclePhase getCurrentPhase() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public float getProgressPercent(LifeCyclePhase aPhrase) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

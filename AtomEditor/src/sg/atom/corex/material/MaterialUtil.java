@@ -9,9 +9,13 @@ import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 
 /**
+ * Util that help Editing material problem, register its self to CommonTool.
+ *
+ * Use Atom MaterialManager instead.
  *
  * @author hungcuong
  */
+@Deprecated
 public class MaterialUtil {
 
     CommonTool commonTool;
@@ -20,11 +24,11 @@ public class MaterialUtil {
         this.commonTool = CommonTool.getDefault(null);
     }
 
-    Material getHighlightMaterial() {
+    public Material getHighlightMaterial() {
         return new Material();
     }
 
-    Material getHighlightMaterial(Material oldMat) {
+    public Material getHighlightMaterial(Material oldMat) {
         return new Material();
     }
 

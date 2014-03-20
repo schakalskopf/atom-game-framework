@@ -20,8 +20,8 @@ public class GQuery {
     // FIXME : Try singleton in Groovy, BAD!
     private GQuery(Screen screen){
         this.screen = screen
-        //defaultInstance= this
     }
+    
     public static GQuery _(Screen screen){
         return getDefault(screen);
     }

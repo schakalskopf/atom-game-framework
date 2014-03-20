@@ -9,8 +9,10 @@ import sg.atom.managex.api.select.Selectable;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import sg.atom.editor.managers.HelperManager;
 
 /**
+ * Wraper for Spatial. same idea with SpatialEntity.
  *
  * @author hungcuong
  */
@@ -79,7 +81,7 @@ public class SpatialInfo implements Selectable {
 
     private void constructSpatialInfoTree(Spatial spatial) {
 
-        if (CommonTool.getDefault(null).getHelperManager().isHelperNode(spatial)) {
+        if (CommonTool.getDefault(null).getRegistered(HelperManager.class).isHelperNode(spatial)) {
             // Is a Helper Node
             //throw new IllegalArgumentException("The spatial is a Helper Node !");
             this.type = 2;

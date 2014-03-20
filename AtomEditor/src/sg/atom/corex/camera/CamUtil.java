@@ -11,12 +11,14 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.FastMath;
 import com.jme3.renderer.Camera;
+import com.jme3.scene.Spatial;
+import sg.atom.corex.scenegraph.spatial.SpatialInfo;
 
 /**
  * CamUtil is the wraper for various camera functions.
- * 
+ *
  * <p>It direct FlyByCamera.
- * 
+ *
  * @author hungcuong
  */
 public class CamUtil implements ActionListener {
@@ -114,5 +116,11 @@ public class CamUtil implements ActionListener {
 
     public void setFlyByCam(boolean value) {
         flyCam.setDragToRotate(value);
+    }
+
+    public void zoomExtends(Spatial spatial) {
+    }
+
+    public void zoomExtends(SpatialInfo spatialInfo) {
     }
 }

@@ -19,19 +19,23 @@ import sg.atom.structure.state.IObjectiveStateManager;
  * GameStateManager is a warper for various game state function. State is one
  * important and common paradigm which use in Game programming. In JME3, State
  * are also one of the main pattern use here and there. The normal AppStates are
- * managed by the StateManager and rolled by regular update cycle of
+ * managed by the StateManager and "rolled" by regular update cycle of
  * Application.
  *
  * <p>GameStateManager can be consider helper for StateManager which provide
  * further managements for State; to trigger approriate GameEvent while the
  * State changing; Mode to State mapping... Beside of that,( thank to the fine
  * abstraction of AppState) one can possible update the AppState concurrently
- * outside of logic cycle of normal Application.
- *
- * <p>Note that this GameStateManager provide "non synchonized" States
- * management but incompatible with the old AppStateManager. Once you decide to
- * use GameStateManager 100%, you should save all your AppState into
- * GameStateManager repository!</p>
+ * outside of logic cycle of normal Application. <b>Note</b> that this
+ * GameStateManager provide "non synchonized" States management but incompatible
+ * with the old AppStateManager. Once you decide to use GameStateManager 100%,
+ * you should save all your AppState into GameStateManager repository! My most
+ * personal disapoint in StateManager is not just the "synchonize" routines but
+ * the final link to Application which forced Application type, and some other
+ * final, which StateManager can not be extended. The GameStateManager try to
+ * fill this gap without breaking the contract with underlying JME3 official
+ * codes... In my personal repository, i reimplemented StateManager to unite the
+ * two!</p>
  *
  * <p>Embed a FunctionSystem which is a Conccurent-Hierachical-
  * FiniteStateMachine. So it can be configed for state changing dynamicly.</p>
@@ -44,7 +48,9 @@ import sg.atom.structure.state.IObjectiveStateManager;
  *
  * <p>State can be consider unit (Module) of an self contain execution system.
  * That's why this Manager also help State to be injected, or dynamic load from
- * class loaders.
+ * class loaders. State can be consider as an Identifcation, or Key in a Map.
+ * This StateManager also support a high concurrent map (repository) for
+ * associated object of State.
  *
  * <p>State "can" has dependencies in others, they can also have imcompatible
  * with exits enabled states in the repository or cycle have to be resolve with
@@ -58,8 +64,9 @@ import sg.atom.structure.state.IObjectiveStateManager;
  *
  * @author atomix
  */
-public class GameStateManager implements IGameCycle, IObjectiveStateManager {   // short cut link
+public class GameStateManager implements IGameCycle, IObjectiveStateManager<AppState> {
 
+// short cut link
     protected AtomMain app;
     protected AppStateManager stateManager;
     protected static final Logger logger = Logger.getLogger(GameStateManager.class.getName());
@@ -161,6 +168,16 @@ public class GameStateManager implements IGameCycle, IObjectiveStateManager {   
     public void quitGame() {
         //stateManager.getState()
         app.quit();
+    }
+
+    /**
+     * Wrap the AbstractManager with automatic generated AppState.
+     *
+     * @param abstractManager
+     */
+    public static AppState wrap(AbstractManager abstractManager) {
+        //throw new UnsupportedOperationException("Not yet implemented");
+        return null;
     }
 
     // State Management methods

@@ -13,17 +13,19 @@ import sg.atom.utils.factory.IAtomFactory;
  * <p>It contains the main registry and global context lookup to looking for
  * property, constant, services and other singleton if any.
  *
- * <p>By default it will have a strong link to all firstclass level of JME:
+ * <p>By default it will have a "strong" link to all first-class level of JME:
  * InputManager, AssetManager, StateManager, RenderManager.. ; and Atom:
  * AtomMain, Guice, EventBus StageManager, GameStateManager, WorldManager,
  * GUIManager, SoundManager...
  *
- * <p>Smart interpreter, mediator used to create, search something from some
- * known pattern.
- *
  * <p>In charge for global localization (beside of GUI).
  *
- * <p>Based in Apache Common Discorvery.
+ * <p>Smart interpreter, mediator used to create, search "something" from some
+ * known pattern (Based in Apache Common Discorvery). The main application is to
+ * search class in scope of the JVM. Note that this class performance is not
+ * efficient to use in real-time. Say you try to query class structure every
+ * frame. You should find your service and save the link. Or do the opposite by
+ * inject the service with configuration.
  *
  * @author normenhansen, atomix
  */

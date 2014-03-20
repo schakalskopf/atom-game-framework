@@ -10,8 +10,12 @@ import java.util.Properties;
  * A GameCycle interface for attendant who join a strict routine of
  * init/load/config/update/finish.
  *
- * Open hook to use Atom's Progress which can ultilize GPar Task or Guava
- * Service and also JME3's AppState.
+ * <p>GameCycle is a concept of Game programming.
+ *
+ * <p>Open hook to use Atom's Progress which can ultilize GPar Task or Guava
+ * Service and also JME3's AppState. Compare to AppState, this interface are wel
+ * defined for higher level, and they can also used together.
+ * http://hub.jmonkeyengine.org/wiki/doku.php/jme3:advanced:application_states
  *
  * @author atomix
  */

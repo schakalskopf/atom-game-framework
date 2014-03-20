@@ -19,7 +19,7 @@ import sg.atom.fx.particle.ParticleFactory;
 import sg.atom.world.WorldTestHelper;
 
 /**
- * A simple swing application in which is simplier than AtomMain.
+ * A simple swing application, in which is simplier than AtomMain.
  *
  * <p>It's have less features than AtomMain use for testing and editing purpose
  * only. It well-crafted to be embeded in Swing enviroment, comparable to
@@ -31,8 +31,8 @@ import sg.atom.world.WorldTestHelper;
  * how SceneApplication and FakeApplication interact. Compare to
  * SceneApplication, this class is kind of the inbetween, it's a
  * SimpleApplication which use predefined render tasks and appstates, but not
- * related to Netbean.For numberous of different purposes and goals, I've
- * decided to made this one instead of using SceneApplication directly!</p>
+ * related to Netbean. For numberous of different purposes, designs and goals,
+ * I've decided to made this one instead of using SceneApplication directly!</p>
  *
  * <p>It also support Guava, Guice and all other extensions that AtomMain
  * support.</p>

@@ -30,7 +30,6 @@ import sg.atom.world.LightShadowManager;
 import sg.atom.world.MaterialManager;
 import sg.atom.world.TerrainManager;
 import sg.atom.world.WaterManager;
-import sg.atom.world.WeatherManager;
 import sg.atom.world.WorldSettings;
 import sg.atom.world.gen.WorldGenerator;
 import sg.atom.world.lod.DefaultLODManager;
@@ -77,13 +76,12 @@ public class WorldManager extends AbstractManager implements IGameCycle {
     //Physic
     protected BulletAppState bulletAppState;
     protected PhysicsSpace space;
-    // The sub managers
+    //FIXME: The sub managers
     protected LightShadowManager lightShadowManager;
     protected SoundManager soundManager;
     protected DayNightTimeManager dayNightTimeManager;
     protected WaterManager waterManager;
     protected EnviromentManager enviromentManager;
-    protected WeatherManager weatherManager;
     protected WorldLODManager worldLODManager;
     protected WorldVisibilityManager worldVisibilityManager;
     protected AppStateManager stateManager;
@@ -181,9 +179,9 @@ public class WorldManager extends AbstractManager implements IGameCycle {
         if (this.worldSettings.useEnviroment) {
             enviromentManager = new EnviromentManager();
         }
-        if (this.worldSettings.useWeather) {
-            weatherManager = new WeatherManager();
-        }
+//        if (this.worldSettings.useWeather) {
+//            weatherManager = new WeatherManager();
+//        }
 
         //FIXME:
         worldLODManager = new DefaultLODManager();
@@ -530,12 +528,12 @@ public class WorldManager extends AbstractManager implements IGameCycle {
         return enviromentManager;
     }
 
-    /**
-     * @return the weatherManager
-     */
-    public WeatherManager getWeatherManager() {
-        return weatherManager;
-    }
+//    /**
+//     * @return the weatherManager
+//     */
+//    public WeatherManager getWeatherManager() {
+//        return weatherManager;
+//    }
 
     /**
      * @return the worldLODManager

@@ -25,26 +25,24 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * This is a control attached to RootNode to help all editing operation in the
+ * rootNode.
  *
  * @author hungcuong
  */
 public class HelperManager extends AbstractControl {
-    
-    
+
     public Node helperNode, targetNode;
-    
     public String nowAction;
-    
     private CommonTool commonTool;
-    
     // THE HELPER
     private WorkingHelper workingHelper;
-    private GizmoHelper gizmoHelper; 
+    private GizmoHelper gizmoHelper;
     private MarkHelper markHelper;
     private ShapeOperationHelper shapeHelper;
     private GridHelper gridHelper;
-    
     private List<AbstractHelper> helperList = new LinkedList<AbstractHelper>();
+    // Move to selection manager?
     private SpatialList selectableList = new SpatialList();
     private CollisionResult results;
 
@@ -55,7 +53,7 @@ public class HelperManager extends AbstractControl {
     public void initHelper() {
         this.gizmoHelper = new GizmoHelper(this);
         this.gridHelper = new GridHelper(this);
-        this.workingHelper = new WorkingHelper( this);
+        this.workingHelper = new WorkingHelper(this);
         this.markHelper = new MarkHelper(this);
         this.shapeHelper = new ShapeOperationHelper(this);
 
@@ -70,12 +68,12 @@ public class HelperManager extends AbstractControl {
         helperList.add(markHelper);
         helperList.add(shapeHelper);
         helperList.add(gridHelper);
-        
+
         helperNode.attachChild(gridHelper.getSubNode());
         helperNode.attachChild(gizmoHelper.getSubNode());
-        
+
         commonTool.getRootNode().attachChild(helperNode);
-        
+
         initHelperAction();
 
     }
@@ -88,32 +86,33 @@ public class HelperManager extends AbstractControl {
         commonTool.getInputManager().addMapping("RotateUp", new MouseAxisTrigger(MouseInput.AXIS_Y, false));
 
         commonTool.getInputManager().addMapping("RotateDown", new MouseAxisTrigger(MouseInput.AXIS_Y, true));
-        
-        commonTool.getInputManager().addListener(gizmoHelper, new String[]{"RotateUp", "RotateDown","RotateLeft","RotateRight"});
+
+        commonTool.getInputManager().addListener(gizmoHelper, new String[]{"RotateUp", "RotateDown", "RotateLeft", "RotateRight"});
     }
     /*
-    public void doClickMarkObject() {
-        if (results.size() > 0) {
-            CollisionResult closest = results.getClosestCollision();
-            markHelper.setMarkObject(closest.getGeometry());
-            markHelper.setMarkLocation(closest.getContactPoint());
-            markHelper.setMarkVisible(true);
-        } else {
-            markHelper.setMarkVisible(false);
+     public void doClickMarkObject() {
+     if (results.size() > 0) {
+     CollisionResult closest = results.getClosestCollision();
+     markHelper.setMarkObject(closest.getGeometry());
+     markHelper.setMarkLocation(closest.getContactPoint());
+     markHelper.setMarkVisible(true);
+     } else {
+     markHelper.setMarkVisible(false);
 
             
-            if (markHelper.markObj != null) {
-            if (isSelectable(markHelper.markObj)) {
-            doHighlightObject(markHelper.markObj, true);
-            }
-            }
+     if (markHelper.markObj != null) {
+     if (isSelectable(markHelper.markObj)) {
+     doHighlightObject(markHelper.markObj, true);
+     }
+     }
              
-        }
-    }
-    */
-    public boolean isHelperNode(Spatial node){
-        for (AbstractHelper helper:helperList){
-            if (helper.isHelperNode(node)){
+     }
+     }
+     */
+
+    public boolean isHelperNode(Spatial node) {
+        for (AbstractHelper helper : helperList) {
+            if (helper.isHelperNode(node)) {
                 return true;
             }
         }
@@ -124,8 +123,8 @@ public class HelperManager extends AbstractControl {
      * @return the selectableList
      */
     public SpatialList getSelectableList() {
-       for (AbstractHelper helper:helperList){
-           selectableList.addList(helper.getSelectableList());
+        for (AbstractHelper helper : helperList) {
+            selectableList.addList(helper.getSelectableList());
         }
         return selectableList;
     }
@@ -147,5 +146,4 @@ public class HelperManager extends AbstractControl {
     public CollisionResults getCurrentShootResult() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
-    
 }

@@ -17,7 +17,7 @@ import sg.atom.core.AbstractManager;
  *
  * <p>ManagableObject is Bean an also can be marked with Atom annotation to
  * retrieve most efficient performance.
- *
+ * 
  * @author CuongNguyen
  */
 public interface ManagableObject {

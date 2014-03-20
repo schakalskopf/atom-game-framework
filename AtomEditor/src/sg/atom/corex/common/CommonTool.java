@@ -5,8 +5,6 @@
 package sg.atom.corex.common;
 
 import sg.atom.corex.camera.CamUtil;
-import sg.atom.editor.managers.HelperManager;
-import sg.atom.editor.managers.EditorSelectionManager;
 import sg.atom.corex.scenegraph.shape.ShapeUtil;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.AssetManager;
@@ -14,19 +12,19 @@ import com.jme3.input.InputManager;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Node;
+import sg.atom.core.AbstractManager;
 
 /**
  * CommonTool is the singleton reference beside of Global in an editing
  * enviroment.
  *
  * <p>It's the bootstrap module to run the whole application.
- * 
- * 
+ *
  * @author hungcuong
  */
 public class CommonTool {
 
-    private static CommonTool singletonObject;
+    private static CommonTool defaultInstance;
     /**
      * A private Constructor prevents any other class from instantiating.
      */
@@ -43,9 +41,9 @@ public class CommonTool {
     private Camera currentCam;
     private ShapeUtil shapeUtil;
     // ___
-    private EditorSelectionManager selectionManager;
-    private HelperManager helperManager;
 
+//    private EditorSelectionManager selectionManager;
+//    private HelperManager helperManager;
     private CommonTool(SimpleApplication app) {
 
         // Low Level
@@ -56,25 +54,24 @@ public class CommonTool {
         this.rootNode = app.getRootNode();
         this.guiNode = app.getGuiNode();
         this.renderManager = app.getRenderManager();
-        this.shapeUtil = ShapeUtil.getDefault();
         // App Level
+        // Use common discovery to search for manager and plugins.
 
         // Tool Level
-
+        this.shapeUtil = ShapeUtil.getDefault();
         this.camUtil = new CamUtil(getCurrentCam(), app.getFlyByCamera(), getInputManager());
-        this.selectionManager = new EditorSelectionManager();
-        this.helperManager = new HelperManager();
+
     }
 
     public static synchronized CommonTool getDefault(SimpleApplication app) {
-        if (singletonObject == null) {
+        if (defaultInstance == null) {
             if (app == null) {
                 throw new NullPointerException("You don't init the SimpleApplication that Use the tool !");
             } else {
-                singletonObject = new CommonTool(app);
+                defaultInstance = new CommonTool(app);
             }
         }
-        return singletonObject;
+        return defaultInstance;
     }
 
     @Override
@@ -208,31 +205,11 @@ public class CommonTool {
         this.shapeUtil = shapeUtil;
     }
 
-    /**
-     * @return the selectionManager
-     */
-    public EditorSelectionManager getSelectionManager() {
-        return selectionManager;
+    public <T extends AbstractManager> T getManager(Class<T> aClass) {
+        return null;
     }
 
-    /**
-     * @param selectionManager the selectionManager to set
-     */
-    public void setSelectionManager(EditorSelectionManager selectionManager) {
-        this.selectionManager = selectionManager;
-    }
-
-    /**
-     * @return the helperManager
-     */
-    public HelperManager getHelperManager() {
-        return helperManager;
-    }
-
-    /**
-     * @param helperManager the helperManager to set
-     */
-    public void setHelperManager(HelperManager helperManager) {
-        this.helperManager = helperManager;
+    public <T> T getRegistered(Class<T> aClass) {
+        return null;
     }
 }

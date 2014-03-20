@@ -35,7 +35,8 @@ public abstract class AtomEditorAction implements Runnable{
 
     public AtomEditorCommand actionFinish() {
         this.status = ActionStatus.ACTION_FINISHED;
-        return new AtomEditorCommand(this);
+        //return new AtomEditorCommand(this);
+        return null;
     }
 
     public abstract void actionPerformed(String name);

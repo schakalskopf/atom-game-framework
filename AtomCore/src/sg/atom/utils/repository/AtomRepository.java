@@ -10,11 +10,12 @@ import sg.atom.utils.factory.IAtomFactory;
 /**
  * <p>AtomRepository is the first implementation of IRepository, with maximize
  * the usage of Guava and Guice to implement an "in-memory" mini datacenter. It
- * have pools, gates, caches and suitable for concurrent access. One can compare
- * and choose between this in memory datacenter and a TupleSpace with agents or
- * Topology in the flow package. This one this simplier compare to TupleSpace
- * and more complex than Flow's Topology; and use only few well-defined query to
- * query upon the data:
+ * have pools, gates, caches and suitable for concurrent access.
+ *
+ * <p>One can compare and choose between this in memory datacenter and a
+ * TupleSpace with agents or Topology in the flow package. This one this
+ * simplier compare to TupleSpace and more complex than Flow's Topology; and use
+ * only few well-defined query to query upon the data:
  *
  * <p><b>Linda and TupleSpace:</b>The original Linda model requires four
  * operations that individual workers perform on the tuples and the tuplespace:
@@ -27,7 +28,8 @@ import sg.atom.utils.factory.IAtomFactory;
  * <p><b>AtomRepository</b> only offer there operations: insert/ remove, then
  * accumulate changes with a ChangeQueue by default. It can be config to use
  * more efficient (non-blocking) methods using gpars. AtomRepository is a kind
- * of MVCC database.
+ * of MVCC database. Read:
+ * http://en.wikipedia.org/wiki/Multiversion_concurrency_control
  *
  * <p><b>AtomFlowTopology</b> only offer two operations: insert/ remove; Changes
  * affect directly to the model.
@@ -36,8 +38,12 @@ import sg.atom.utils.factory.IAtomFactory;
  * MapReduce in it data. Whenever it locked, queries can query and read from it
  * really quick.
  *
- * <p>It opens ports as Agent to work upon its data. <p>Going to extend with
- * Guava supplier.
+ * <p>It opens ports as Agent to work upon its data.
+ *
+ * <p>Going to extend with Guava Supplier.
+ *
+ * <p>Going to bridge to Content repository API JCR .
+ * http://en.wikipedia.org/wiki/Content_repository_API_for_Java
  *
  * @author CuongNguyen
  */

@@ -15,7 +15,8 @@ import de.lessvoid.nifty.EndNotify
 
 
 /**
- * Proxy for Nifty elements
+ * Proxy for Nifty elements.
+ * 
  * @author cuong.nguyenmanh2
  */
 public  class GQElement implements GroovyInterceptable {

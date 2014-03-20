@@ -1,6 +1,6 @@
 package sg.atom.swing.tools;
 
-import sg.atom.editor.components.AnimationManager;
+import sg.atom.editor.ui.nifty.components.AnimationManager;
 import sg.atom.corex.animation.AnimationView;
 import sg.atom.corex.material.color.ColorUtil;
 import sg.atom.corex.common.CommonTool;

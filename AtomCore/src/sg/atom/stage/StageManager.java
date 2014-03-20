@@ -90,28 +90,22 @@ public class StageManager extends AbstractManager implements TimeProvider, IGame
     protected GameLevel currentLevel;
     protected ConcurrentSkipListSet<AtomActor> actorList = new ConcurrentSkipListSet<AtomActor>();
 
+    /**
+     * For use in singleton! Note that make StageManager hollow is very
+     * dangerous!
+     */
     public StageManager() {
-        //For use in singleton!
     }
 
     public StageManager(AtomMain app) {
-        this.app = app;
-        this.rootNode = app.getRootNode();
-        this.guiNode = app.getGuiNode();
-        this.assetManager = app.getAssetManager();
-
-        this.inputManager = app.getInputManager();
-        this.gameGUIManager = app.getGameGUIManager();
-        this.renderManager = app.getRenderManager();
-        this.viewPort = app.getViewPort();
+        lazyInit(app);
     }
 
-    public void lazyInit(AtomMain app) {
+    public final void lazyInit(AtomMain app) {
         this.app = app;
         this.rootNode = app.getRootNode();
         this.guiNode = app.getGuiNode();
         this.assetManager = app.getAssetManager();
-
         this.inputManager = app.getInputManager();
         this.gameGUIManager = app.getGameGUIManager();
         this.renderManager = app.getRenderManager();

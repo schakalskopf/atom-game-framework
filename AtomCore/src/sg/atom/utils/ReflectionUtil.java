@@ -8,6 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sg.atom.utils.pool.StringBuilderPool;
 
+/**
+ * Replaced with Guava facilities.
+ * 
+ * @author cuong.nguyenmanh2
+ */@Deprecated
 public class ReflectionUtil {
 
     private static final Logger log = LoggerFactory.getLogger(ReflectionUtil.class);

@@ -9,12 +9,12 @@ import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
 import com.jme3.renderer.Camera;
-import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial.CullHint;
 
 /**
+ * Better stats.
  *
  * @author hungcuong
  */
@@ -73,7 +73,7 @@ public class StatusDisplay {
         textNode.setLocalTranslation(10, cam.getHeight() - 30, 0);
 
         guiNode.attachChild(textNode);
-        labels.setText("Yeu voiu cua a nhat!");
+        labels.setText("A Status!");
 
 
 

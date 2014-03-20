@@ -103,11 +103,7 @@ public class AtomMain extends SimpleApplication implements IGameCycle {
     protected AtomMain() {
     }
 
-    public AtomMain(GameGUIManager gameGUIManager, StageManager stageManager, GameStateManager gameStateManager, SoundManager soundManager, GameTimer internalGameTimer, Properties properties) {
-        this.gameGUIManager = gameGUIManager;
-        this.stageManager = stageManager;
-        this.gameStateManager = gameStateManager;
-        this.soundManager = soundManager;
+    public AtomMain(GameTimer internalGameTimer, Properties properties) {
         this.internalGameTimer = internalGameTimer;
         this.properties = properties;
     }

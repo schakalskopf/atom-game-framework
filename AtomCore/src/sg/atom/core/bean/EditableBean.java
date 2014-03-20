@@ -10,6 +10,8 @@ import java.util.Properties;
 /**
  * Replaced with BeanUtils.
  * 
+ * <p>Taken from Chain's ContextBase.
+ * 
  * @author cuong.nguyenmanh2
  */
 public interface EditableBean {

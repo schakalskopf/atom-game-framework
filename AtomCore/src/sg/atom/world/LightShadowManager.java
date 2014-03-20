@@ -16,6 +16,8 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import com.jme3.shadow.PssmShadowRenderer;
 import com.jme3.util.SkyFactory;
+import java.util.Properties;
+import sg.atom.core.AbstractManager;
 import sg.atom.stage.StageManager;
 import sg.atom.stage.WorldManager;
 
@@ -26,7 +28,7 @@ import sg.atom.stage.WorldManager;
  *
  * @author atomix
  */
-public class LightShadowManager {
+public class LightShadowManager extends AbstractManager {
 
     WorldManager worldManager;
     AssetManager assetManager;
@@ -129,5 +131,40 @@ public class LightShadowManager {
         fpp.addFilter(ssaoFilter);
         stageManager.getApp().getViewPort().addProcessor(fpp);
 
+    }
+
+    @Override
+    public void init() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void load() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void config(Properties props) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void update(float tpf) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void finish() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public LifeCyclePhase getCurrentPhase() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public float getProgressPercent(LifeCyclePhase aPhrase) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

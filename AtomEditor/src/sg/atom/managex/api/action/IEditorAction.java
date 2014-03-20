@@ -7,7 +7,9 @@ package sg.atom.managex.api.action;
 /**
  * Action in an Editor.
  * 
- * Support chain of resposibility pattern.
+ * <p>Support chain of resposibility pattern.
+ * 
+ * <p>Support memeto pattern to save compacted state (memeto).
  * 
  * @author cuong.nguyenmanh2
  */

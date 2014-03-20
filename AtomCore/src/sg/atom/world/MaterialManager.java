@@ -12,24 +12,27 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Node;
 import com.jme3.texture.Texture;
 import java.util.List;
+import java.util.Properties;
+import sg.atom.core.AbstractManager;
 import sg.atom.stage.WorldManager;
 
 /**
  * MaterialManager.
  *
- * <p>Manager and Wrapper for useful functions for Material. including Material
+ * <p>Manager and Wrapper for useful functions for Material, including Material
  * clone, conversion, Color, Light attributes (Shiny,diffuse,...) and low level
- * effects.
+ * effects. Tracked Material can be automaticly sync with each other in Atom
+ * life cycle.
  *
- * <p>Convert various Material format to JME pipeline
+ * <p>Convert various Material format to JME pipeline.
  *
  * <p>Manipulate Material quality, blending.
- * 
+ *
  * <p>Ready for different Material scheme.
  *
  * @author atomix
  */
-public class MaterialManager {
+public class MaterialManager extends AbstractManager{
 
     protected AssetManager assetManager;
     //FIXME: Default instance. Not a singleton!
@@ -129,7 +132,45 @@ public class MaterialManager {
         return null;
     }
 
+    public void injectShader(String code) {
+    }
     /* Some optimization functions */
+
     public void batchTextures() {
+    }
+
+    @Override
+    public void init() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void load() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void config(Properties props) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void update(float tpf) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void finish() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public LifeCyclePhase getCurrentPhase() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public float getProgressPercent(LifeCyclePhase aPhrase) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
