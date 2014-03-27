@@ -113,7 +113,7 @@ public class Box2DExample extends ApplicationAdapter {
 			PolygonShape boxPoly = new PolygonShape();
 			boxPoly.setAsBox(attachment.getWidth() / 2 * attachment.getScaleX(),
 				attachment.getHeight() / 2 * attachment.getScaleY(), vector.set(attachment.getX(), attachment.getY()),
-				attachment.getRotation() * MathUtils.degRad);
+				attachment.getRotation() * AtomFastMath.degRad);
 
 			BodyDef boxBodyDef = new BodyDef();
 			boxBodyDef.type = BodyType.StaticBody;
@@ -156,7 +156,7 @@ public class Box2DExample extends ApplicationAdapter {
 			float x = skeleton.x + slot.getBone().getWorldX();
 			float y = skeleton.y + slot.getBone().getWorldY();
 			float rotation = slot.getBone().getWorldRotation();
-			attachment.body.setTransform(x, y, rotation * MathUtils.degRad);
+			attachment.body.setTransform(x, y, rotation * AtomFastMath.degRad);
 		}
 
 		box2dRenderer.render(world, camera.combined);

@@ -7,8 +7,8 @@ package sg.atom2d.game2d.graphics.fx.particle.values;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
-import sg.atom.utils.CommonParser;
-import sg.atom.utils.math.MathUtils;
+import sg.atom.utils._commons.CommonParser;
+import sg.atom.utils.math.AtomFastMath;
 import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
 
 /**
@@ -21,7 +21,7 @@ public class RangedNumericValue extends EditableValue {
     public float lowMax;
 
     public float newLowValue() {
-        return lowMin + (lowMax - lowMin) * MathUtils.random();
+        return lowMin + (lowMax - lowMin) * AtomFastMath.random();
     }
 
     public void setLow(float value) {

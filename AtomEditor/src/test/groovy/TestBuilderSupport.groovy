@@ -1,4 +1,5 @@
-package test
+package test.groovy
+
 import groovy.util.BuilderSupport;
 
 class SpoofBuilder extends BuilderSupport{

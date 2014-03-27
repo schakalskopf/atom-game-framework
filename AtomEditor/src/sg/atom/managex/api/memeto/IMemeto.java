@@ -12,10 +12,16 @@ package sg.atom.managex.api.memeto;
  * has few basic types: Properties saving memeto, extract delta (differences)
  * memeto and inversefunction memeto. The details will be explain in each sub
  * interface.
+ * 
+ * <p>Memeto force the edit reify its editing into a piece of info.
  *
  * @author cuong.nguyenmanh2
  */
 public interface IMemeto<T> {
 
     public long getTimeStamp();
+
+    public boolean isExpired();
+
+    public Object getSavedInfo();
 }

@@ -5,9 +5,10 @@
 package sg.atom.logic;
 
 /**
- * Replaced with Guava predicate.
+ * Replaced with Guava predicate. Some parts are from JESS and Drools. For more
+ * sotiphicated Logic factory go to AtomAI.
  *
- * Logic Factory : create, compose, validate Logic. Use RETE matching to
+ * <p>Logic Factory : create, compose, validate Logic. Use RETE matching to
  * optimize condition check.
  *
  * @author cuong.nguyenmanh2

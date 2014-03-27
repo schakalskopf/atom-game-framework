@@ -20,7 +20,7 @@ public class AtomicProgress implements IProgress {
         NOT_YET, IN_PROGRESS, DONE, ERROR
     }
     // Replace with Atomic*
-    private static final float TOLERANCE = 0.0001f;
+    private static float TOLERANCE = 0.0001f;
     private float speed = 0.2f;
     private float start = 0f; // start value
     private float end = 1f; // middle value
@@ -34,12 +34,12 @@ public class AtomicProgress implements IProgress {
     }
 
     @Override
-    public void addProgress(final float toAdd) {
+    public void addProgress(float toAdd) {
         addProgress(toAdd, null);
     }
 
     @Override
-    public void addProgress(final float rate, final String activity) {
+    public void addProgress(float rate, final String activity) {
         this.progress += rate;
         this.activity = activity;
         if (progress > end) {
@@ -131,7 +131,7 @@ public class AtomicProgress implements IProgress {
      *
      * @param value
      */
-    public void setNow(final float value) {
+    public void setNow(float value) {
         this.current = value;
         this.progress = value;
     }
@@ -139,7 +139,7 @@ public class AtomicProgress implements IProgress {
     /**
      */
     @Override
-    public void setProgress(final float rate) {
+    public void setProgress(float rate) {
         setProgress(rate, null);
     }
 
@@ -159,7 +159,7 @@ public class AtomicProgress implements IProgress {
      *
      * @param speed
      */
-    public void setSpeed(final float speed) {
+    public void setSpeed(float speed) {
         this.speed = speed;
         if (maxSpeed < speed) {
             maxSpeed = speed;
@@ -168,7 +168,7 @@ public class AtomicProgress implements IProgress {
 
     /**
      */
-    public void update(final float time) {
+    public void update(float time) {
         if (current >= progress) {
             return;
         }

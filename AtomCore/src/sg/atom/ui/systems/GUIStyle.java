@@ -10,15 +10,15 @@ import java.util.Properties;
  *
  * @author cuong.nguyenmanh2
  */
-public interface GUIStyle<T extends GUISystemService> {
+public interface GUIStyle<T extends GUISystemService, E> {
 
     public Object getStyleDefinition();
 
-    public GUIStyle getParent();
+    //public GUIStyle<T, E> getParent();
 
-    public void apply(GUIElement element);
+    public GUIStyle<T, E> getAppliedStyle(GUIElement<T, E> element);
 
-    public GUIStyle getStyle(GUIElement element);
+    public void apply(GUIElement<T, E> element);
 
     public void config(Properties props);
 }

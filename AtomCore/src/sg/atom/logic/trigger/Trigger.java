@@ -1,6 +1,6 @@
 package sg.atom.logic.trigger;
 
-import sg.atom.core.bean.Behavioral;
+import sg.atom.core.annotations.BehavioralPattern;
 
 /**
  * Represent a piece of game logic. (Distinguish with low level JME's input
@@ -41,7 +41,7 @@ import sg.atom.core.bean.Behavioral;
  *
  * @author atomix
  */
-@Behavioral
+@BehavioralPattern
 public interface Trigger {
 
     public abstract void actived();

@@ -36,6 +36,11 @@ import sg.atom.utils.repository.IRepository;
  */
 public class SpriteSheet implements IRepository<Object, Sprite> {
 
+    @Override
+    public Sprite get(Object key) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     public static enum SpriteState {
 
         Original, Instanced

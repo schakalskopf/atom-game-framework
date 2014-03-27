@@ -91,8 +91,8 @@ public class RegionAttachment extends Attachment {
         localX2 *= scaleX;
         localY2 *= scaleY;
         float rotation = getRotation();
-        float cos = MathUtils.cosDeg(rotation);
-        float sin = MathUtils.sinDeg(rotation);
+        float cos = AtomFastMath.cosDeg(rotation);
+        float sin = AtomFastMath.sinDeg(rotation);
         float x = getX();
         float y = getY();
         float localXCos = localX * cos + x;

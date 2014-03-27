@@ -1,5 +1,6 @@
 package sg.atom.core;
 
+import java.lang.annotation.Annotation;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.ServiceLoader;
@@ -31,10 +32,6 @@ import sg.atom.utils.factory.IAtomFactory;
  */
 public final class Globals implements IAtomFactory<Object>, Iterable<AbstractManager> {
 
-    public static enum SupportedPattern {
-
-        PatternFactory, PatternRepository, PatternManager
-    }
 //     public static final String VERSION = "v0.1";
 //     public static final String DEFAULT_SERVER = "192.168.1.24";
 //     public static final String DEFAULT_SERVER = "127.0.0.1";
@@ -52,7 +49,6 @@ public final class Globals implements IAtomFactory<Object>, Iterable<AbstractMan
 //     //only applies for client, server doesnt render anyway
 //     public static boolean PHYSICS_THREADED = true;
 //     public static boolean PHYSICS_DEBUG = false;
-
     @Override
     public Object create(Object param) {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -85,7 +81,7 @@ public final class Globals implements IAtomFactory<Object>, Iterable<AbstractMan
         return null;
     }
 
-    public static Object getRegisteredInstance(Class clazz, SupportedPattern pattern) {
+    public static Object getRegisteredInstance(Class clazz, Annotation pattern) {
         return null;
     }
 

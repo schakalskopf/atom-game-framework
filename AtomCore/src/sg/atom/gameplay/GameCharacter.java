@@ -5,11 +5,9 @@
 package sg.atom.gameplay;
 
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
 import java.util.LinkedList;
 import java.util.Properties;
 import sg.atom.entity.Entity;
-import sg.atom.gameplay.action.common.MoveAction;
 import sg.atom.stage.actor.AtomActor;
 import sg.atom.gameplay.controls.AtomCharacterControl;
 
@@ -17,8 +15,8 @@ import sg.atom.gameplay.controls.AtomCharacterControl;
  * GameCharacter is a "Common" game pattern which a Player represent his/her
  * self as a Virtual representor, so call "Character" as in RPG.
  *
- * <p>GameCharacter can be built up from serveral infos and resources. It also get
- * methods to manipulate (get/set) custom data. A GameCharacter also refered
+ * <p>GameCharacter can be built up from serveral infos and resources. It also
+ * get methods to manipulate (get/set) custom data. A GameCharacter also refered
  * (link) to its associated GameCharacterControl</p>
  *
  * @author atomix
@@ -114,6 +112,4 @@ public class GameCharacter extends AtomActor {
     public LinkedList<Skill> getSkills() {
         return skills;
     }
-
-    
 }

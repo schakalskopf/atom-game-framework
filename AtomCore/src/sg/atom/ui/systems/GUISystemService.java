@@ -14,8 +14,8 @@ import sg.atom.ui.GameGUIManager;
 /**
  * GUISystem imply a hierachical GUI system. Which is:
  *
- * <ul><li> Can represented by a single top-most class <li>Id-Element based
- * <li>Screen base <li>Interaction based</ul>
+ * <ul><li> Can represented by a single top-most class <li>Element based with
+ * index <li>Screen base <li>Interaction based</ul>
  *
  * <p>This level of abstraction is higher than one existed in JME3 for Nifty
  * with: Input/Sound/Display/Renderer. And note that all the class is Generic!
@@ -27,12 +27,24 @@ import sg.atom.ui.GameGUIManager;
  * @author cuong.nguyenmanh2
  */
 @Beta
-public interface GUISystemService<T> extends IGameCycle{
+public interface GUISystemService<T, E> extends IGameCycle {
 
     public TypeToken<T> getTypeToken();
 
     @Inject
     public T getGUISystemInstance(GameGUIManager manager);
+
+    public E getElementByPath(String path);
+
+    public E getRootElement(GUIScreenInfo<? extends GUISystemService, ?> screen);
+
+    public void activeScreen(GUIScreenInfo<? extends GUISystemService, ?> screen);
+
+    public void deactiveScreen(GUIScreenInfo<? extends GUISystemService, ?> screen);
+
+    public void loadScreen(GUIScreenInfo<? extends GUISystemService, ?> screen);
+
+    public void refreshScreen(GUIScreenInfo<? extends GUISystemService, ?> screen);
 
     /**
      * Report a specific Interaction or Topic. This can be no op!
@@ -40,6 +52,12 @@ public interface GUISystemService<T> extends IGameCycle{
      * @param interaction
      */
     public void reportInteraction(GUIInteraction interaction);
+
+    public void doInteraction(GUIInteraction interaction);
+
+    public void interceptInteraction(GUIInteraction interaction);
+
+    public void reportInteraction(GUIInteraction interaction, GUIElement<? extends GUISystemService, ?> element);
 
     /**
      * Ignore a specific Interaction or Topic. This can be no op!
@@ -58,8 +76,11 @@ public interface GUISystemService<T> extends IGameCycle{
     public void crossInteraction(GUIInteraction interaction, GUIInteraction interaction2);
 
     public void muted();
-    
+
     public void refreshChanges();
-    
+
     public TreeTraverser<T> getElementTraverser();
+
+    public void loadPath(String filePath);
+
 }

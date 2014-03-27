@@ -5,7 +5,7 @@
  */
 package sg.atom.fx.tween.curve;
 
-import sg.atom.utils.math.MathUtils;
+import sg.atom.utils.math.AtomFastMath;
 
 /**
  * <p>The Easing class holds a set of general-purpose motion tweening functions
@@ -163,7 +163,7 @@ public interface Easing {
      */
     public static final Easing SINE_IN = new Easing() {
         public float ease(float t, float b, float c, float d) {
-            return -c * (float) MathUtils.cos(t / d * (MathUtils.PI / 2)) + c + b;
+            return -c * (float) AtomFastMath.cos(t / d * (AtomFastMath.PI / 2)) + c + b;
         }
     };
     /**
@@ -171,7 +171,7 @@ public interface Easing {
      */
     public static final Easing SINE_OUT = new Easing() {
         public float ease(float t, float b, float c, float d) {
-            return c * (float) MathUtils.sin(t / d * (MathUtils.PI / 2)) + b;
+            return c * (float) AtomFastMath.sin(t / d * (AtomFastMath.PI / 2)) + b;
         }
     };
     /**
@@ -179,7 +179,7 @@ public interface Easing {
      */
     public static final Easing SINE_IN_OUT = new Easing() {
         public float ease(float t, float b, float c, float d) {
-            return -c / 2 * ((float) MathUtils.cos(MathUtils.PI * t / d) - 1) + b;
+            return -c / 2 * ((float) AtomFastMath.cos(AtomFastMath.PI * t / d) - 1) + b;
         }
     };
     ///////////// EXPONENTIAL EASING: 2^t /////////////////
@@ -386,7 +386,7 @@ public interface Easing {
             } else {
                 s = p / (float) (2 * Math.PI) * (float) Math.asin(c / a);
             }
-            return a * (float) Math.pow(2, -10 * t) * (float) MathUtils.sin((t * d - s) * (2 * MathUtils.PI) / p) + c + b;
+            return a * (float) Math.pow(2, -10 * t) * (float) AtomFastMath.sin((t * d - s) * (2 * AtomFastMath.PI) / p) + c + b;
         }
     }
     /**
@@ -427,9 +427,9 @@ public interface Easing {
                 s = p / (float) (2 * Math.PI) * (float) Math.asin(c / a);
             }
             if (t < 1) {
-                return -.5f * (a * (float) Math.pow(2, 10 * (t -= 1)) * (float) MathUtils.sin((t * d - s) * (2 * MathUtils.PI) / p)) + b;
+                return -.5f * (a * (float) Math.pow(2, 10 * (t -= 1)) * (float) AtomFastMath.sin((t * d - s) * (2 * AtomFastMath.PI) / p)) + b;
             }
-            return a * (float) Math.pow(2, -10 * (t -= 1)) * (float) MathUtils.sin((t * d - s) * (2 * MathUtils.PI) / p) * .5f + c + b;
+            return a * (float) Math.pow(2, -10 * (t -= 1)) * (float) AtomFastMath.sin((t * d - s) * (2 * AtomFastMath.PI) / p) * .5f + c + b;
         }
     }
 

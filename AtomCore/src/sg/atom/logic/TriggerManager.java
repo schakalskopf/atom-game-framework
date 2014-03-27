@@ -5,7 +5,6 @@ import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 import java.util.Iterator;
 import sg.atom.core.timing.RegularTiming;
-import sg.atom.logic.conditions.Condition;
 import sg.atom.logic.trigger.Trigger;
 
 /**
@@ -18,8 +17,7 @@ import sg.atom.logic.trigger.Trigger;
  * validate</li>
  *
  * <p>Sequence of Trigger called pattern are recoginized by pattern matching, a
- * decision tree can be built and maintained upon Trigger conditions. Rete can
- * be used to implement a small scale Rule system.
+ * decision tree can be built and maintained upon Trigger conditions.
  *
  * <li>As Trigger Manager : manage list</li>
  *
@@ -40,7 +38,8 @@ public class TriggerManager {
     }
 
     public void remindAllTriggers(float tpf) {
-        // FIXME: Use Guava iterator instead to add much more features!
+        //FIXME: Use Guava iterator instead to add much more features!
+        //FIXME: Integrate RETE.
         Iterator<Trigger> iterator = triggerList.iterator();
         while (iterator.hasNext()) {
             Trigger t = iterator.next();

@@ -18,11 +18,17 @@ import java.util.List;
  *
  * @author cuong.nguyenmanh2
  */
-public interface GUIElement<T extends GUISystemService> {
+public interface GUIElement<T extends GUISystemService, E> {
 
     public void doInteraction(GUIInteraction<T> interaction);
 
     public void interceptInteraction(GUIInteraction<T> interaction);
 
-    public List<GUIInteraction<T>> getInteractionDescription();
+    public List<GUIInteraction<T>> getInteractions();
+
+    public E getElement();
+
+    public GUIStyle<T, E> getElementStyle();
+
+    public List<E> getChildren();
 }

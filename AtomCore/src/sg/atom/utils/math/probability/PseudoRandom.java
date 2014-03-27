@@ -1,17 +1,18 @@
 package sg.atom.utils.math.probability;
 
 import java.util.Random;
-import sg.atom.utils.math.MathUtils;
+import sg.atom.utils.math.AtomFastMath;
 
 /**
  * Apache Commons. Apache Commons Math probability distribution function of
  * normal distribution. http://mathworld.wolfram.com/NormalDistribution.html
  * 
-* <p>FIXME: Replace with Common's Math
-* 
+* <p>FIXME: Replace with Common's Math and AtomFastMath.
+ *
  * @author mulova
  *
- */@Deprecated
+ */
+@Deprecated
 public class PseudoRandom {
 
     private static final double NDConstant = 1.0 / Math.sqrt(2.0 * Math.PI);
@@ -119,13 +120,13 @@ public class PseudoRandom {
     public int nextIntClamp(int min, int max) {
         double localMax = nextDouble();
         int v = (int) (rand.nextDouble() * localMax);
-        return MathUtils.clamp(v, min, max);
+        return AtomFastMath.clamp(v, min, max);
     }
 
     public double nextDoubleClamp(int min, int max) {
         double localMax = nextDouble();
         double v = rand.nextDouble() * localMax;
-        return MathUtils.clamp(v, min, max);
+        return AtomFastMath.clamp(v, min, max);
     }
 
     public int nextInt(int mean, int variance) {

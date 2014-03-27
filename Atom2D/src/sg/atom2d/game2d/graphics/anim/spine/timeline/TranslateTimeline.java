@@ -5,7 +5,7 @@
 package sg.atom2d.game2d.graphics.anim.spine.timeline;
 
 import sg.atom.utils.collection.Array;
-import sg.atom.utils.math.MathUtils;
+import sg.atom.utils.math.AtomFastMath;
 import sg.atom2d.game2d.graphics.anim.spine.Animation;
 import sg.atom2d.game2d.graphics.anim.spine.event.Event;
 import sg.atom2d.game2d.graphics.anim.spine.skeleton.Bone;
@@ -68,7 +68,7 @@ public class TranslateTimeline extends CurveTimeline {
         float prevFrameX = frames[frameIndex - 2];
         float prevFrameY = frames[frameIndex - 1];
         float frameTime = frames[frameIndex];
-        float percent = MathUtils.clamp(1 - (time - frameTime) / (frames[frameIndex + PREV_FRAME_TIME] - frameTime), 0, 1);
+        float percent = AtomFastMath.clamp(1 - (time - frameTime) / (frames[frameIndex + PREV_FRAME_TIME] - frameTime), 0, 1);
         percent = getCurvePercent(frameIndex / 3 - 1, percent);
         bone.x += (bone.data.x + prevFrameX + (frames[frameIndex + FRAME_X] - prevFrameX) * percent - bone.x) * alpha;
         bone.y += (bone.data.y + prevFrameY + (frames[frameIndex + FRAME_Y] - prevFrameY) * percent - bone.y) * alpha;

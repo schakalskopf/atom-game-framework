@@ -9,7 +9,9 @@ import com.jme3.audio.AudioNode;
 import com.jme3.audio.AudioRenderer;
 import com.jme3.audio.LowPassFilter;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.logging.Logger;
+import sg.atom.core.AbstractManager;
 import sg.atom.core.AtomMain;
 import sg.atom.stage.WorldManager;
 
@@ -28,7 +30,7 @@ import sg.atom.stage.WorldManager;
  *
  * @author atomix
  */
-public class SoundManager {
+public class SoundManager extends AbstractManager{
     protected static final Logger logger = Logger.getLogger(SoundManager.class.getName());
     AudioRenderer audioRenderer;
     AssetManager assetManager;
@@ -87,5 +89,40 @@ public class SoundManager {
 
     public HashMap<String, LowPassFilter> getFilters() {
         return filters;
+    }
+
+    @Override
+    public void init() {
+        
+    }
+
+    @Override
+    public void load() {
+        
+    }
+
+    @Override
+    public void config(Properties props) {
+        
+    }
+
+    @Override
+    public void update(float tpf) {
+        
+    }
+
+    @Override
+    public void finish() {
+        
+    }
+
+    @Override
+    public LifeCyclePhase getCurrentPhase() {
+        return null;
+    }
+
+    @Override
+    public float getProgressPercent(LifeCyclePhase aPhrase) {
+        return 0;
     }
 }

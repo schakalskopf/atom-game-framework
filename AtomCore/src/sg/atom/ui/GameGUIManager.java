@@ -2,6 +2,7 @@ package sg.atom.ui;
 
 import com.gaurav.tree.Tree;
 import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.google.common.collect.MutableClassToInstanceMap;
 import com.google.common.collect.TreeTraverser;
 import com.google.common.reflect.TypeToken;
@@ -26,7 +27,8 @@ import sg.atom.core.AbstractManager;
 import sg.atom.core.AtomMain;
 import sg.atom.stage.SoundManager;
 import sg.atom.stage.StageManager;
-import sg.atom.ui.systems.nifty.ScreenAction;
+import sg.atom.ui.common.GUIScreenAction;
+import sg.atom.ui.services.nifty.NiftyGUIService;
 import sg.atom.ui.systems.GUIElement;
 import sg.atom.ui.systems.GUIScreenInfo;
 import sg.atom.ui.systems.GUIStyle;
@@ -37,7 +39,7 @@ import sg.atom.ui.systems.GUISystemService;
  *
  * <p><b>General: Presumes of simplest version of any GUI out there:</b> <ul>
  *
- * <li>GUI behaviors should be "formal" that mean user input are translated to a
+ * <li>GUI behaviors should be "formal" that mean user input are translated by a
  * "formal system" to be understand by GUI and the reaction is also
  * "expectable".
  *
@@ -116,6 +118,7 @@ public class GameGUIManager extends AbstractManager {
     // Screen management
     //FIXME: Replace with Concurent map.
     protected HashMap<String, GUIScreenInfo> commonScreens = new HashMap<String, GUIScreenInfo>();
+    protected HashMap<GUIScreenInfo, GUISystemService> commonScreensService = new HashMap<GUIScreenInfo, GUISystemService>();
     //private HashMap<String, JmeCursor> cursors = new HashMap<String, JmeCursor>();
     protected List<BitmapFont> managedFonts;
     protected List<GUIStyle> managedStyles;
@@ -162,13 +165,14 @@ public class GameGUIManager extends AbstractManager {
     @Override
     public void init() {
         initGUI();
+        initCustom();
     }
 
     @Override
     public void load() {
-        setupCommonStyles();
-        setupCommonEffects();
-        setupCommonScreens();
+        for (GUISystemService service : services.values()) {
+            service.load();
+        }
     }
 
     @Override
@@ -207,24 +211,26 @@ public class GameGUIManager extends AbstractManager {
         initJMEGUI();
         initGUIServices();
         disableLogger();
-        initCustom();
     }
 
-    public void initGUIServices(GUISystemService... registeredServices) {
-        //FIXME: Load all the GUISystemService
-        for (GUISystemService service : registeredServices) {
-            registeredGUIImpls.put(service.getTypeToken(), service);
-            //serviceManager.
+    public void initGUIServices(GUISystemService... servicesArray) {
+        //FIXME: If there is no GUI service registered. We going to use Nifty as Default GUI!
+        if (servicesArray == null) {
+        } else {
+            servicesArray = new GUISystemService[]{new NiftyGUIService(this)};
         }
-    }
+        services = MutableClassToInstanceMap.create();
 
-    public void setupCommonEffects() {
-    }
+        registeredGUIImpls = HashBiMap.create();
+        //FIXME: Load all the GUISystemService
+        for (GUISystemService service : servicesArray) {
+            services.put(service.getClass(), service);
+            service.init();
+            registeredGUIImpls.put(service.getTypeToken(), service);
+            //FIXME: Init service Manager;
+        }
 
-    public void setupCommonStyles() {
-    }
 
-    public void setupCommonScreens() {
     }
 
     public void initCustom() {
@@ -266,11 +272,16 @@ public class GameGUIManager extends AbstractManager {
     private void disableLogger() {
     }
 
-    public Set<BitmapFont> getAvailbleFonts() {
+    // Fonts and styles ========================================================
+    public void registerFont(String fontName,String path){
+        
+    }
+    
+    public Set<BitmapFont> getAvailableFonts() {
         return null;
     }
 
-    public Set<String> getAvailbleFontsName() {
+    public Set<String> getAvailableFontsName() {
         return null;
     }
 
@@ -289,7 +300,7 @@ public class GameGUIManager extends AbstractManager {
 //    public void enqueueActionWithScreenController(Class<? extends ScreenController> aClass, ScreenAction screenAction) {
 //        // wait until valid.
 //    }
-    public void enqueueAction(ScreenAction screenAction) {
+    public void enqueueAction(GUIScreenAction screenAction) {
         // just remove from list.
     }
     // Screen management methods =====================================================================
@@ -314,7 +325,20 @@ public class GameGUIManager extends AbstractManager {
 //    public <T extends Controller> T getQuickUIController(String elementId, Class<T> clazz) {
 //        return nifty.getCurrentScreen().findControl(elementId, clazz);
 //    }
-    // Navigation functions
+    // Screen Navigation ---------------------------------------------------
+    public void registerScreen(NiftyGUIService niftyService, String screenName, String screenPath) {
+        registerScreen(niftyService, screenName, new GUIScreenInfo(screenPath));
+    }
+
+    public void registerScreen(GUISystemService registeredService, String screenName, GUIScreenInfo screenPath) {
+        commonScreens.put(screenName, screenPath);
+        commonScreensService.put(screenPath, registeredService);
+    }
+
+    public GUISystemService getRegisteredScreenService(GUIScreenInfo screenPath) {
+        return commonScreensService.get(screenPath);
+    }
+
     public void loadAndGotoScreen(String screenId) {
         loadScreen(screenId);
         goToScreen(screenId);
@@ -336,13 +360,13 @@ public class GameGUIManager extends AbstractManager {
         if (path == null) {
             throw new IllegalArgumentException("No screen got the ID :" + screenId);
         }
-//        loadPath(path);
+        loadPath(path);
     }
 
     public void loadPath(GUIScreenInfo path) {
         if (!path.loaded) {
             String filePath = path.filePath;
-            //nifty.addXml(filePath);
+            getRegisteredScreenService(path).loadPath(filePath);
             path.loaded = true;
         }
     }
@@ -377,6 +401,18 @@ public class GameGUIManager extends AbstractManager {
 
     public InputManager getInputManager() {
         return inputManager;
+    }
+
+    public AudioRenderer getAudioRenderer() {
+        return audioRenderer;
+    }
+
+    public BitmapFont getGuiFont() {
+        return guiFont;
+    }
+
+    public ViewPort getGuiViewPort() {
+        return guiViewPort;
     }
 
     public Node getGuiNode() {
@@ -426,7 +462,7 @@ public class GameGUIManager extends AbstractManager {
             throw new RuntimeException("No valid link to SimpleApplication. May be you use AtomMain instead of SimpleApplication?");
         }
     }
-
+    //Debug=====================================================================
     public static boolean isDebugMode() {
         return GameGUIManager.debugMode;
     }

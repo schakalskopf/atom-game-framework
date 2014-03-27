@@ -8,6 +8,7 @@ package sg.atom.managex.api.memeto;
  *
  * @author cuong.nguyenmanh2
  */
-public interface FunctionMemeto {
-    
+public interface FunctionMemeto<T> extends IMemeto<T> {
+
+    public IMemeto<T> from(FunctionMemetoEdit<T> edit,IMemeto<T> wrapedMemeto);
 }

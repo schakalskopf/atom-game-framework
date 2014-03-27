@@ -4,8 +4,6 @@
  */
 package sg.atom.editor;
 
-import sg.atom.editor.managers.EditorGUIManager;
-import sg.atom.editor.managers.EditorSceneManager;
 import sg.atom.managex.api.function.AtomFunction;
 import sg.atom.managex.api.function.FunctionSystem;
 import com.jme3.app.Application;
@@ -17,8 +15,6 @@ import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import com.jme3.system.AppSettings;
 import sg.atom.corex.common.CommonTool;
-import sg.atom.editor.managers.EditorSelectionManager;
-import sg.atom.editor.managers.HelperManager;
 import sg.atom.managex.api.project.AtomEditorProject;
 
 /**

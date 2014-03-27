@@ -35,12 +35,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import sg.atom.utils.io.FileHandle;
-import sg.atom.utils.collection.Array;
-import sg.atom.utils.collection.ArrayMap;
-import sg.atom.utils.collection.ObjectMap;
-import sg.atom.utils.collection.ObjectMap.Entry;
-import sg.atom.utils.collection.ObjectMap.Values;
-import sg.atom.utils.collection.OrderedMap;
+import sg.atom.utils.datastructure.collection.Array;
+import sg.atom.utils.datastructure.collection.ArrayMap;
+import sg.atom.utils.datastructure.collection.ObjectMap;
+import sg.atom.utils.datastructure.collection.ObjectMap.Entry;
+import sg.atom.utils.datastructure.collection.ObjectMap.Values;
+import sg.atom.utils.datastructure.collection.OrderedMap;
 import sg.atom.utils.io.SerializationException;
 import sg.atom.assets.json.JsonWriter.OutputType;
 

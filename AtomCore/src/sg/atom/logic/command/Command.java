@@ -10,6 +10,8 @@ import sg.atom.stage.WorldManager;
 /**
  * Basic interface for Commands pattern as in Gof Chain of Resposibility.
  *
+ * <p>Different to Command in Apache Chain.
+ *
  * @author atomix
  */
 public interface Command {

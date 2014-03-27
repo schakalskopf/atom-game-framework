@@ -1,4 +1,4 @@
-package test
+package test.groovy
 
 import sg.atom.uix.nifty.controller.ClosureScreenController
 /**

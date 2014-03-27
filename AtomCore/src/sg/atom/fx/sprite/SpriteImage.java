@@ -53,17 +53,7 @@ public class SpriteImage implements IAnimationState<Sprite>, IPresenter<Sprite> 
     public AssetKey locate() {
         return new AssetKey();
     }
-    
-    @Override
-    public Object as(Function<Sprite, Object> convertor) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    @Override
-    public Object as(Class clazz) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
+       
     @Override
     public Sprite from(Converter<Object, Sprite> convertor) {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -81,6 +71,21 @@ public class SpriteImage implements IAnimationState<Sprite>, IPresenter<Sprite> 
 
     @Override
     public Sprite mix(Sprite... objects) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Sprite as() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public <E extends Sprite> E as(Function<Sprite, E> convertor) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public <E extends Sprite> E as(Class<E> clazz) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

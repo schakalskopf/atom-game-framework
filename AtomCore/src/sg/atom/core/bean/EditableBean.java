@@ -6,14 +6,14 @@ package sg.atom.core.bean;
 
 import java.util.Properties;
 
-@Deprecated
+
 /**
  * Replaced with BeanUtils.
  * 
  * <p>Taken from Chain's ContextBase.
  * 
  * @author cuong.nguyenmanh2
- */
+ */@Deprecated
 public interface EditableBean {
 
     public Properties getProperties();

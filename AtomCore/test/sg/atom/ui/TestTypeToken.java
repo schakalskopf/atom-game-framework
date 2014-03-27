@@ -11,8 +11,8 @@ import java.math.BigInteger;
 import java.util.Map;
 import org.junit.Test;
 import sg.atom.ui.systems.GUISystemService;
-import sg.atom.ui.systems.nifty.NiftyGUIService;
-import sg.atom.ui.systems.tonegodgui.TonegodGUIService;
+import sg.atom.ui.services.nifty.NiftyGUIService;
+import sg.atom.ui.services.tonegodgui.TonegodGUIService;
 
 /**
  *
@@ -38,7 +38,7 @@ public class TestTypeToken {
     public void testTokenInMap() {
         BiMap<TypeToken, GUISystemService> biMap = HashBiMap.create();
 
-        NiftyGUIService service1 = new NiftyGUIService();
+        NiftyGUIService service1 = new NiftyGUIService(null);
         TonegodGUIService service2 = new TonegodGUIService();
 
         biMap.put(service1.getTypeToken(), service1);

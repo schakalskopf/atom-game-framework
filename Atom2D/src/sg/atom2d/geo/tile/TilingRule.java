@@ -5,7 +5,7 @@
 package sg.atom2d.geo.tile;
 
 import java.util.Collection;
-import sg.atom.utils.collection.Pair;
+import sg.atom.utils.datastructure.collection.Pair;
 
 /**
  * An abstract tile rewrite rule (generative, transform, production) affect in

@@ -7,7 +7,7 @@ package sg.atom2d.game2d.graphics.fx.particle.values;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
-import sg.atom.utils.CommonParser;
+import sg.atom.utils._commons.CommonParser;
 import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
 import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
 

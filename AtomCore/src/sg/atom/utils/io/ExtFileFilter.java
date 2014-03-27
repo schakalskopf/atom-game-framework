@@ -2,12 +2,16 @@ package sg.atom.utils.io;
 
 import java.io.File;
 import java.io.FilenameFilter;
-
 import javax.swing.filechooser.FileFilter;
-
 import org.apache.commons.lang.StringUtils;
-import sg.atom.utils.Files.FileTypeFilters;
+import sg.atom.utils._commons.Files.FileTypeFilters;
 
+/**
+ * FIXME: repplace with FileUtils of Common IO
+ *
+ * @author CuongNguyen
+ */
+@Deprecated
 public class ExtFileFilter extends FileFilter implements java.io.FileFilter, FilenameFilter {
 
     private static final ExtFileFilter[] filters = new ExtFileFilter[FileTypeFilters.values().length];

@@ -9,7 +9,6 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
-import groovyx.gpars.actor.Actor;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -17,7 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import sg.atom.core.AbstractManager;
 import sg.atom.core.AtomMain;
-import sg.atom.core.lifecycle.AtomTask;
+import sg.atom.core.actor.Actor;
+import sg.atom.core.execution.AtomTask;
 import sg.atom.core.lifecycle.IGameCycle;
 import sg.atom.ui.GameGUIManager;
 import sg.atom.core.monitor.ProgressInfo;
@@ -87,9 +87,10 @@ public class StageManager extends AbstractManager implements TimeProvider, IGame
     //Gameplay
     //FIXME: Replace ArrayList with cache or repsitory implementation!
     protected ArrayList<GameLevel> gameLevelList = new ArrayList<GameLevel>();
-    protected GameLevel currentLevel;
     protected ConcurrentSkipListSet<AtomActor> actorList = new ConcurrentSkipListSet<AtomActor>();
-
+    protected GameLevel currentLevel;
+    protected GameScene currentGameScene;
+    
     /**
      * For use in singleton! Note that make StageManager hollow is very
      * dangerous!

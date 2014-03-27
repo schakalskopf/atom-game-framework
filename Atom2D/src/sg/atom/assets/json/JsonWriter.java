@@ -19,7 +19,7 @@ package sg.atom.assets.json;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.regex.Pattern;
-import sg.atom.utils.collection.Array;
+import sg.atom.utils.datastructure.collection.Array;
 
 /** Builder style API for emitting JSON.
  * @author Nathan Sweet */

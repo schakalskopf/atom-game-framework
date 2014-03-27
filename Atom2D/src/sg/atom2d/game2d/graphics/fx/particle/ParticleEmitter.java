@@ -26,8 +26,8 @@ import java.io.IOException;
 import java.io.Writer;
 
 import com.jme3.texture.Texture;
-import sg.atom.utils.CommonParser;
-import sg.atom.utils.math.MathUtils;
+import sg.atom.utils._commons.CommonParser;
+import sg.atom.utils.math.AtomFastMath;
 import sg.atom2d.game2d.graphics.jme3.texture.Sprite;
 import sg.atom2d.game2d.graphics.jme3.texture.SpriteBatch;
 
@@ -442,8 +442,8 @@ public class ParticleEmitter {
         if ((updateFlags & UPDATE_ANGLE) == 0) {
             angle = particle.angle + particle.angleDiff * angleValue.getScale(0);
             particle.angle = angle;
-            particle.angleCos = MathUtils.cosDeg(angle);
-            particle.angleSin = MathUtils.sinDeg(angle);
+            particle.angleCos = AtomFastMath.cosDeg(angle);
+            particle.angleSin = AtomFastMath.sinDeg(angle);
         }
 
         float spriteWidth = sprite.getWidth();
@@ -508,8 +508,8 @@ public class ParticleEmitter {
             case square: {
                 float width = spawnWidth + (spawnWidthDiff * spawnWidthValue.getScale(percent));
                 float height = spawnHeight + (spawnHeightDiff * spawnHeightValue.getScale(percent));
-                x += MathUtils.random(width) - width / 2;
-                y += MathUtils.random(height) - height / 2;
+                x += AtomFastMath.random(width) - width / 2;
+                y += AtomFastMath.random(height) - height / 2;
                 break;
             }
             case ellipse: {
@@ -525,17 +525,17 @@ public class ParticleEmitter {
                     float spawnAngle;
                     switch (spawnShapeValue.side) {
                         case top:
-                            spawnAngle = -MathUtils.random(179f);
+                            spawnAngle = -AtomFastMath.random(179f);
                             break;
                         case bottom:
-                            spawnAngle = MathUtils.random(179f);
+                            spawnAngle = AtomFastMath.random(179f);
                             break;
                         default:
-                            spawnAngle = MathUtils.random(360f);
+                            spawnAngle = AtomFastMath.random(360f);
                             break;
                     }
-                    float cosDeg = MathUtils.cosDeg(spawnAngle);
-                    float sinDeg = MathUtils.sinDeg(spawnAngle);
+                    float cosDeg = AtomFastMath.cosDeg(spawnAngle);
+                    float sinDeg = AtomFastMath.sinDeg(spawnAngle);
                     x += cosDeg * radiusX;
                     y += sinDeg * radiusX / scaleY;
                     if ((updateFlags & UPDATE_ANGLE) == 0) {
@@ -546,8 +546,8 @@ public class ParticleEmitter {
                 } else {
                     float radius2 = radiusX * radiusX;
                     while (true) {
-                        float px = MathUtils.random(width) - radiusX;
-                        float py = MathUtils.random(width) - radiusX;
+                        float px = AtomFastMath.random(width) - radiusX;
+                        float py = AtomFastMath.random(width) - radiusX;
                         if (px * px + py * py <= radius2) {
                             x += px;
                             y += py / scaleY;
@@ -561,11 +561,11 @@ public class ParticleEmitter {
                 float width = spawnWidth + (spawnWidthDiff * spawnWidthValue.getScale(percent));
                 float height = spawnHeight + (spawnHeightDiff * spawnHeightValue.getScale(percent));
                 if (width != 0) {
-                    float lineX = width * MathUtils.random();
+                    float lineX = width * AtomFastMath.random();
                     x += lineX;
                     y += lineX * (height / (float) width);
                 } else {
-                    y += height * MathUtils.random();
+                    y += height * AtomFastMath.random();
                 }
                 break;
             }
@@ -603,8 +603,8 @@ public class ParticleEmitter {
             float velocityX, velocityY;
             if ((updateFlags & UPDATE_ANGLE) != 0) {
                 float angle = particle.angle + particle.angleDiff * angleValue.getScale(percent);
-                velocityX = velocity * MathUtils.cosDeg(angle);
-                velocityY = velocity * MathUtils.sinDeg(angle);
+                velocityX = velocity * AtomFastMath.cosDeg(angle);
+                velocityY = velocity * AtomFastMath.sinDeg(angle);
                 if ((updateFlags & UPDATE_ROTATION) != 0) {
                     float rotation = particle.rotation + particle.rotationDiff * rotationValue.getScale(percent);
                     if (aligned) {

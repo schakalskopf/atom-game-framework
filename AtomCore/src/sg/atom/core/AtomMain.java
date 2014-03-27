@@ -15,7 +15,7 @@ import sg.atom.core.lifecycle.IGameCycle;
 import sg.atom.core.timing.GameTimer;
 import sg.atom.stage.SoundManager;
 import sg.atom.stage.StageManager;
-import sg.atom.state.LoadingAppState;
+import sg.atom.state.common.LoadingAppState;
 import sg.atom.ui.GameGUIManager;
 
 /**
@@ -153,20 +153,20 @@ public class AtomMain extends SimpleApplication implements IGameCycle {
         if (gameGUIManager == null) {
             gameGUIManager = new GameGUIManager(this);
         }
-        gameGUIManager.initGUI();
+        gameGUIManager.init();
     }
 
     public void initStage() {
         if (stageManager == null) {
             stageManager = new StageManager(this);
         }
-        stageManager.initStage();
+        stageManager.init();
         // NOTE: Can also call stageManager.init();
     }
 
     public void initSound() {
         this.soundManager = new SoundManager(this);
-        soundManager.initSound();
+        soundManager.init();
     }
 
     @Override

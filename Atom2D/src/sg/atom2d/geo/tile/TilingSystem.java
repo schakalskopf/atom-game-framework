@@ -9,7 +9,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Table;
 import java.util.Collection;
 import java.util.Map;
-import sg.atom.algorimth.travel.ITravel;
+import sg.atom.utils.algorimth.travel.ITravel;
 
 /**
  * A tiling system offer a context for tiling jobs and handy methods for Tile,

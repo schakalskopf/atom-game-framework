@@ -10,10 +10,11 @@ package sg.atom.utils.factory;
  *
  * <p>Note that this solution belonged to the era "before" Dependency injection.
  *
- * <p>Going to merge with Guava supplier.
- * 
+ * <p>Going to merge with Guava Supplier.
+ *
  * @author cuong.nguyenmanh2
- */ @Deprecated
+ */
+@Deprecated
 public interface IAtomFactory<T> {
 
     public T create(Object param);

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import sg.atom2d.geometry.BoxInt;
-import sg.atom.utils.collection.Pair;
+import sg.atom2d.geo.optimized.BoxInt;
+import sg.atom.utils.datastructure.collection.Pair;
 import sg.atom2d.geo.tile.Tilable;
 
 /**

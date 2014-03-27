@@ -6,7 +6,7 @@ package sg.atom2d.geo.map;
 
 import java.util.List;
 import java.util.Set;
-import sg.atom.utils.collection.Pair;
+import sg.atom.utils.datastructure.collection.Pair;
 
 /**
  * Positional map in 2D.

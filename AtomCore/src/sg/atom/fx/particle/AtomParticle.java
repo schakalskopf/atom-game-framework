@@ -9,9 +9,9 @@ import com.jme3.collision.Collidable;
 import com.jme3.collision.CollisionResults;
 import com.jme3.collision.UnsupportedCollisionException;
 import com.jme3.effect.Particle;
-import com.jme3.effect.ParticleEmitter;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Node;
 import com.jme3.scene.SceneGraphVisitor;
 import com.jme3.scene.Spatial;
 import java.util.Queue;
@@ -19,7 +19,7 @@ import java.util.Queue;
 /**
  * Represents a single particle in the whole particle system. In this level of
  * abstract AtomParticle is just a Spatial, which no garantee what is its
- * representor ̣mean no graphics sides. So for short: It's just a moving point!
+ * representor mean no graphics sides. So for short: It's just a moving point!
  * No more no less.
  *
  * <p>What make AtomParticle fancy is: It can be used in much more wide range of
@@ -59,7 +59,7 @@ import java.util.Queue;
  *
  * @author atomix
  */
-public class AtomParticle extends Spatial {
+public class AtomParticle extends Node {
 
     /**
      * Particle velocity.

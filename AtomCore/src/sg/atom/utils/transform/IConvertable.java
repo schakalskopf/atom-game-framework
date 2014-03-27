@@ -8,6 +8,6 @@ package sg.atom.utils.transform;
  *
  * @author cuong.nguyenmanh2
  */
-public interface IConvertable {
+public @interface IConvertable {
     
 }

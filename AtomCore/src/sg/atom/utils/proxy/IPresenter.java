@@ -29,10 +29,12 @@ import java.lang.reflect.Proxy;
  * @author cuong.nguyenmanh2
  */
 public interface IPresenter<T> {
+    
+    public <E extends T> E as(Function<T, E> convertor);
 
-    public Object as(Function<T, Object> convertor);
+    public <E extends T> E as(Class<E> clazz);
 
-    public Object as(Class clazz);
+    public T as();
 
     public T from(Converter<Object, T> convertor);
 

@@ -29,7 +29,7 @@ package sg.atom2d.game2d.graphics.anim.spine.skeleton;
 
 
 import com.jme3.math.Matrix3f;
-import sg.atom.utils.math.MathUtils;
+import sg.atom.utils.math.AtomFastMath;
 
 public class Bone {
 
@@ -98,8 +98,8 @@ public class Bone {
             worldScaleY = scaleY;
             worldRotation = rotation;
         }
-        float cos = MathUtils.cosDeg(worldRotation);
-        float sin = MathUtils.sinDeg(worldRotation);
+        float cos = AtomFastMath.cosDeg(worldRotation);
+        float sin = AtomFastMath.sinDeg(worldRotation);
         m00 = cos * worldScaleX;
         m10 = sin * worldScaleX;
         m01 = -sin * worldScaleY;

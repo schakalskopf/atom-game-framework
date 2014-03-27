@@ -7,8 +7,8 @@ package sg.atom2d.game2d.graphics.fx.particle.values;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
-import sg.atom.utils.CommonParser;
-import sg.atom.utils.math.MathUtils;
+import sg.atom.utils._commons.CommonParser;
+import sg.atom.utils.math.AtomFastMath;
 import sg.atom2d.game2d.graphics.fx.particle.ParticleEmitter;
 
 /**
@@ -23,7 +23,7 @@ public class ScaledNumericValue extends RangedNumericValue {
     public boolean relative;
 
     public float newHighValue() {
-        return highMin + (highMax - highMin) * MathUtils.random();
+        return highMin + (highMax - highMin) * AtomFastMath.random();
     }
 
     public void setHigh(float value) {

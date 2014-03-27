@@ -4,6 +4,7 @@
  */
 package sg.atom.fx.particle;
 
+import sg.atom.fx.particle.generation.AtomParticleEmitter;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.renderer.RenderManager;
@@ -28,7 +29,7 @@ import java.io.IOException;
  */
 public class AtomParticleControl implements Control {
 
-    AtomParticleEmitter parentEmitter;
+    public AtomParticleEmitter parentEmitter;
 
     public AtomParticleControl() {
     }

@@ -4,6 +4,7 @@ import com.jme3.scene.Spatial;
 
 /**
  *
+ * <p>FIXME: Replace with Guava predicate or atom condition
  * @author atomix
  */
 public interface SelectCondition {

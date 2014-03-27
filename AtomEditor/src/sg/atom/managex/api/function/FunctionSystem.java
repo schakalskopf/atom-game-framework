@@ -22,6 +22,7 @@ public class FunctionSystem extends AbstractAppState implements ActionListener {
     AtomEditorAction previousAction;
     AtomEditorAction nextAction;
     private final SimpleApplication app;
+    private EditorMode editorMode;
 
     public FunctionSystem(SimpleApplication app) {
         this.app = app;
@@ -52,5 +53,13 @@ public class FunctionSystem extends AbstractAppState implements ActionListener {
 
     public ArrayList<AtomFunction> getFunctions() {
         return functionList;
+    }
+    
+    public void switchMode(EditorMode editorMode){
+        this.editorMode = editorMode;
+    }
+    
+    private void doSwitchMode(){
+        
     }
 }

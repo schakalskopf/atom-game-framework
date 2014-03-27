@@ -145,7 +145,7 @@ public class Animation {
 			frameNumber = keyFrames.length -1 - Math.abs(frameNumber - keyFrames.length + 1);//keyFrames.length - 2 - (frameNumber - keyFrames.length);
 			break;
 		case LOOP_RANDOM:
-			frameNumber = MathUtils.random(keyFrames.length - 1);
+			frameNumber = AtomFastMath.random(keyFrames.length - 1);
 			break;
 		case REVERSED:
 			frameNumber = Math.max(keyFrames.length - frameNumber - 1, 0);

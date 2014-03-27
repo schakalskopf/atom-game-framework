@@ -17,7 +17,7 @@
  */
 package sg.atom.utils.io;
 
-import sg.atom.utils.StreamUtils;
+import sg.atom.utils._commons.StreamUtils;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -32,7 +32,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-import sg.atom.utils.Files.FileType;
+import sg.atom.utils._commons.Files.FileType;
 
 /**
  * Represents a file or directory on the filesystem, classpath, Android SD card,

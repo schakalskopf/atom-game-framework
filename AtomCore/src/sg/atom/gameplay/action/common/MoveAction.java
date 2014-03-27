@@ -4,7 +4,7 @@
  */
 package sg.atom.gameplay.action.common;
 
-import sg.atom.algorimth.optimization.Optimizable;
+import sg.atom.utils.algorimth.optimization.Optimizable;
 import sg.atom.core.annotations.Atom;
 import sg.atom.gameplay.action.InternalAction;
 

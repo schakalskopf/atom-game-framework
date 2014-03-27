@@ -44,6 +44,7 @@ public class SceneGraphHelper {
 
     private static Control controlResult = null;
     private static Object dataResult = null;
+    private static Spatial result = null;
     
     // Travel recusively ------------------------------------------------------------
     public static Spatial travelUpFindControl(Spatial sp, Class<? extends Control> aClass) {
@@ -101,7 +102,7 @@ public class SceneGraphHelper {
         }
         return geoms;
     }
-    static Spatial result = null;
+
 
     public static Spatial findSpatialByName(final String name, Node parent, final boolean useReg) {
 

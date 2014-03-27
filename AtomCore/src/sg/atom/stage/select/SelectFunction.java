@@ -16,6 +16,8 @@ import sg.atom.stage.SelectManager;
 /**
  * <b>SelectFunction</b> has a SelectCondition and determine a SelectShape,
  * which will be represent by a SelectUI.
+ * 
+ * <p>FIXME: Replace with Guava function
  *
  * @author CuongNguyen
  */

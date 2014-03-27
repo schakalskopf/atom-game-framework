@@ -1,7 +1,7 @@
 package sg.atom.stage.actor;
 
+import sg.atom.core.actor.Actor;
 import sg.atom.gameplay.GameAction;
-import groovyx.gpars.actor.Actor;
 
 /**
  * Actor is a "term" for special kind of "Managed Game Object" beside of Entity.
@@ -41,6 +41,7 @@ import groovyx.gpars.actor.Actor;
  * http://sujitpal.blogspot.com/2009/01/more-java-actor-frameworks-compared.html
  * http://akka.io/ </p>
  *
+ * <p><b>The current code is borrowed from Jumi Actors and Actors guild which are under Apache License 2!</b>
  */
 public abstract class AtomActor {
     //FIXME: Remove the dependency on the GameLoop!
@@ -50,7 +51,7 @@ public abstract class AtomActor {
 
     public abstract void doAction(GameAction a);
 
-    public groovyx.gpars.actor.Actor warpGparsActor() {
+    public Actor wrapGparsActor() {
         return null;
     }
 }

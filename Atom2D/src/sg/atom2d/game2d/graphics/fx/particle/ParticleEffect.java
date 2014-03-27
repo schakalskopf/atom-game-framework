@@ -29,7 +29,7 @@ import java.io.Writer;
 import com.jme3.texture.Texture;
 import jme3tools.optimize.TextureAtlas;
 import sg.atom.utils.io.FileHandle;
-import sg.atom.utils.collection.Array;
+import sg.atom.utils.datastructure.collection.Array;
 import sg.atom2d.game2d.graphics.jme3.Simple2DApplication;
 import sg.atom2d.game2d.graphics.jme3.texture.Sprite;
 import sg.atom2d.game2d.graphics.jme3.texture.SpriteBatch;

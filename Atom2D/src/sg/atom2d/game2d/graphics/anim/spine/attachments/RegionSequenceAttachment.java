@@ -59,7 +59,7 @@ public class RegionSequenceAttachment extends RegionAttachment {
 			if (frameIndex >= regions.length) frameIndex = regions.length - 1 - (frameIndex - regions.length);
 			break;
 		case random:
-			frameIndex = MathUtils.random(regions.length - 1);
+			frameIndex = AtomFastMath.random(regions.length - 1);
 			break;
 		case backward:
 			frameIndex = Math.max(regions.length - frameIndex - 1, 0);

@@ -2,7 +2,7 @@ package sg.atom.fx.timing;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArraySet;
-import sg.atom.core.execution.WrappedRunnable;
+import sg.atom.utils.execution.WrappedRunnable;
 
 /**
  * This class provides provides a base implementation for arbitrary timers that

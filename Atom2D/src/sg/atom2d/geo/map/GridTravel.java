@@ -4,8 +4,8 @@
  */
 package sg.atom2d.geo.map;
 
-import sg.atom.algorimth.travel.ITravel;
-import sg.atom.utils.collection.Pair;
+import sg.atom.utils.algorimth.travel.ITravel;
+import sg.atom.utils.datastructure.collection.Pair;
 
 /**
  * A Travel in Grid Space.

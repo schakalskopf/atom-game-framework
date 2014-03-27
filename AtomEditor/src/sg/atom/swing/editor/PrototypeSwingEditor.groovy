@@ -60,6 +60,7 @@ public class PrototypeSwingEditor{
     def menuActions = [:]
     
     // UIs
+    def jFrame
     def toolbar,menubar,userToolbar
     def mainPanel,palletePanel,projectPanel,propertyPanel
     def searchBox
@@ -69,24 +70,24 @@ public class PrototypeSwingEditor{
         
     }
         
-    def createNimRODLAF(){
-        /*
-        NimRODTheme nt = new NimRODTheme();
-        nt.setPrimary1( new Color(255,255,255));
-        //nt.setPrimary2( new Color(20,20,20));
-        //nt.setPrimary3( new Color(30,30,30));
-        nt.setPrimary( new Color(0,150,250))
-        nt.setBlack( new Color(255,255,250))
-        nt.setWhite( Color.lightGray)
-        nt.setSecondary( Color.gray)
- 
-        NimRODLookAndFeel NimRODLF = new NimRODLookAndFeel();
-        NimRODLF.setCurrentTheme( nt);
-
-        //lookAndFeel("com.nilo.plaf.nimrod.NimRODLookAndFeel")
-        return NimRODLF;
-         */
-    }
+    //    def createNimRODLAF(){
+    //        
+    //        NimRODTheme nt = new NimRODTheme();
+    //        nt.setPrimary1( new Color(255,255,255));
+    //        //nt.setPrimary2( new Color(20,20,20));
+    //        //nt.setPrimary3( new Color(30,30,30));
+    //        nt.setPrimary( new Color(0,150,250))
+    //        nt.setBlack( new Color(255,255,250))
+    //        nt.setWhite( Color.lightGray)
+    //        nt.setSecondary( Color.gray)
+    // 
+    //        NimRODLookAndFeel NimRODLF = new NimRODLookAndFeel();
+    //        NimRODLF.setCurrentTheme( nt);
+    //
+    //        //lookAndFeel("com.nilo.plaf.nimrod.NimRODLookAndFeel")
+    //        return NimRODLF;
+    //        
+    //    }
     // Icon and images
     def createIcon(String path){
         //FIXME: Load icon from different kind of sources also.
@@ -216,7 +217,7 @@ public class PrototypeSwingEditor{
     }
     //Monitors
     def createLogComponent(){
-        textArea(text:"Log")
+        //textArea(text:"Log")
         /*
         textPane(text:"""
         <html>
@@ -262,7 +263,7 @@ public class PrototypeSwingEditor{
     }
     // Pallete =========================================
     def createPalette(){
-        swing{
+        swing.panel(){
             borderLayout()
             button(constraints:BL.NORTH,text:"Add")
             scrollPane (constraints:BL.CENTER){
@@ -310,19 +311,19 @@ public class PrototypeSwingEditor{
     }
     //CREATE FRAME UI =============================================
     def createUI(title){
+        
+        println swing
         swing.edt {
-            jFrame = frame( title: title, size: screenSize,
-                locationRelativeTo: null, show: true ,defaultCloseOperation: JFrame.EXIT_ON_CLOSE){
+            jFrame=frame( title: title, size: screenSize, show: true , defaultCloseOperation: JFrame.EXIT_ON_CLOSE){
         
                 borderLayout()
         
                 createMenu(swing)
         
                 createToolbar(swing)
-        
+                
                 mainPanel=panel(constraints:BL.CENTER,id:"gp"){
-
-
+                    
                 }
                 panel(constraints:BL.WEST){
                     panel(constraints:"up"){
@@ -330,15 +331,14 @@ public class PrototypeSwingEditor{
                         panel(constraints:BL.SOUTH,background:Color.white,preferredSize:[220,200]){
                             borderLayout()
                             label(text:"Navigator",constraints:BL.NORTH)
-
                         }
                         tabbedPane(constraints:BL.CENTER){
                             panel(title:"Project"){
                                 borderLayout()
-
+                                
                             }
                             panel(title:"Palette"){
-
+                                borderLayout()
                             }
                             panel(title:"Structure"){
                                 borderLayout()
@@ -356,14 +356,12 @@ public class PrototypeSwingEditor{
                             createResultComponent()
                         }
                         scrollPane (title:"Log"){
-                            createLogComponent()
+                            //createLogComponent()
                         }
                     }
                 }
                 panel(constraints:BL.EAST){
                     borderLayout()
-                    
-                    
                 }
             }
         }
@@ -375,9 +373,9 @@ public class PrototypeSwingEditor{
     
     // View -------------
     // List 
-    def getRow={list, point->                    
-        return list.locationToIndex(point);
-    }
+    //    def getRow={list, point->                    
+    //        return list.locationToIndex(point);
+    //    }
     // Tables 
     def addRow(){
     }

@@ -8,6 +8,7 @@ import sg.atom.entity.SpatialEntity;
 
 /**
  *
+ * <p>FIXME: Replace with Guava predicate or Atom's condition.
  * @author CuongNguyen
  */
 public abstract class EntitySelectCondition {

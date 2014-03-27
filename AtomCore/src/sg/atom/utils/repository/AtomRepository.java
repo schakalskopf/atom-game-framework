@@ -26,21 +26,21 @@ import sg.atom.utils.factory.IAtomFactory;
  * into tuplespace.
  *
  * <p><b>AtomRepository</b> only offer there operations: insert/ remove, then
- * accumulate changes with a ChangeQueue by default. It can be config to use
+ * accumulate changes with a "ChangeQueue" by default. It can be config to use
  * more efficient (non-blocking) methods using gpars. AtomRepository is a kind
- * of MVCC database. Read:
- * http://en.wikipedia.org/wiki/Multiversion_concurrency_control
+ * of MVCC database. Additionally, it opens ports as Agent to work upon its
+ * data. Read: http://en.wikipedia.org/wiki/Multiversion_concurrency_control
  *
  * <p><b>AtomFlowTopology</b> only offer two operations: insert/ remove; Changes
- * affect directly to the model.
+ * affect directly to the model. It can lock write operation and allow batch
+ * tasks, usually reffered as MapReduce in it data. Whenever it locked, queries
+ * can query and read from it really quick.
  *
- * <p>It can lock write operation and allow batch tasks, usually reffered as
- * MapReduce in it data. Whenever it locked, queries can query and read from it
- * really quick.
+ * <p>=====================================================================<br>
  *
- * <p>It opens ports as Agent to work upon its data.
- *
- * <p>Going to extend with Guava Supplier.
+ * Current code borrowed from Prevayler and MVCC pojo, extended with Guava Cache
+ * and Supplier. In the future, going to move completely to prevayler as the
+ * code getting mature recently. Treedoc also concerned as a delegation.
  *
  * <p>Going to bridge to Content repository API JCR .
  * http://en.wikipedia.org/wiki/Content_repository_API_for_Java
@@ -71,6 +71,11 @@ public class AtomRepository implements IRepository<Object, Object> {
 
     @Override
     public void store(Object key, Object value) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Object get(Object key) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -20,7 +20,7 @@ import sg.atom.utils.proxy.IPresenter;
  * @author hungcuong
  */
 public class SpatialPresentor implements IPresenter<Spatial> {
-    
+
     public static final int NORMAL = 0;
     public static final int BOX = 1;
     public static final int VERTEX = 2;
@@ -30,37 +30,37 @@ public class SpatialPresentor implements IPresenter<Spatial> {
     protected Vector3f localTranslate;
     protected Spatial orginalSpatial;
     protected Transform localTransform;
-    
+
     public SpatialPresentor(Spatial spatial, int type) {
         this.type = type;
         this.localTranslate = new Vector3f(Vector3f.ZERO);
         this.orginalSpatial = spatial;
         this.currentDisplayType = 0;
     }
-    
+
     public Spatial getCurrentSpatial() {
         switch (currentDisplayType) {
             case NORMAL:
                 return this.getOrginalSpatial();
-            
+
         }
         return null;
     }
-    
+
     public void initPresentor() {
         createBox();
         createBillboard();
         createPoint();
     }
-    
+
     private void createBox() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
-    
+
     private void createBillboard() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
-    
+
     private void createPoint() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
@@ -92,28 +92,32 @@ public class SpatialPresentor implements IPresenter<Spatial> {
     public void setOrginalSpatial(Spatial orginalSpatial) {
         this.orginalSpatial = orginalSpatial;
     }
-    
-    public Object as(Function<Spatial, Object> convertor) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    public Object as(Class clazz) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
+
     public Spatial from(Converter<Object, Spatial> convertor) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     public Spatial from(Object object) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     public Proxy asProxy() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     public Spatial mix(Spatial... objects) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public <E extends Spatial> E as(Function<Spatial, E> convertor) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public <E extends Spatial> E as(Class<E> clazz) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Spatial as() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

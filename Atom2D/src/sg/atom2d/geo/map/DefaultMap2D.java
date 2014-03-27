@@ -14,8 +14,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import sg.atom.algorimth.travel.ITravel;
-import sg.atom.utils.collection.Pair;
+import sg.atom.utils.algorimth.travel.ITravel;
+import sg.atom.utils.datastructure.collection.Pair;
 import sg.atom2d.geo.tile.Tilable;
 import sg.atom2d.geo.tile.Tile2D;
 import sg.atom2d.geo.tile.TilingSystem;
@@ -54,6 +54,87 @@ import sg.atom2d.geo.tile.TilingSystem;
  */
 public class DefaultMap2D extends GridMap<Cell2D> implements TilingSystem<Tile2D> {
 
+    public static enum DefaultMapType {
+
+        Normal, Isometric
+    }
+    DefaultMapType type;
+    ArrayList<GridMap> layers;
+    Transform mapTransform;
+
+    public DefaultMap2D() {
+        super(Cell2D.class);
+    }
+
+    public DefaultMap2D(int width, int height) {
+        super(Cell2D.class, width, height);
+    }
+
+    // Layer management -----------------------------------------------------
+    public List<GridMap> getLayers() {
+        return new ArrayList<GridMap>();
+    }
+
+    public void addLayer(GridMap layer) {
+        layers.add(layer);
+    }
+
+    public List<Map2D> getChildren() {
+        List<Map2D> result = new LinkedList<Map2D>();
+        result.addAll(layers);
+        return result;
+    }
+
+    public GridMap getLayer(int index) {
+        return layers.get(index);
+    }
+
+    public void removeLayer(int index){
+        layers.remove(index);
+    }
+    
+    public void removeLayer(GridMap layer){
+        layers.remove(layer);
+    }
+    // Positional --------------------------------------------------------------
+    public boolean isInside(Pair position) {
+        for (GridMap c : layers) {
+            if (c.isInside(position)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Cell2D getAt(Pair position) {
+        Cell2D locatedCell = this.getAt(position);
+        if (locatedCell.isDirty()) {
+            //this.put(position, this);
+        }
+        return null;
+    }
+
+    public void query(Object q) {
+    }
+
+    public Cell2D buildCellData(Pair position) {
+        Cell2D newCell = new Cell2D();
+        List result = new LinkedList();
+        for (GridMap c : layers) {
+            result.add(c.getAt(position));
+        }
+        newCell.setData(result);
+        return newCell;
+    }
+
+    public Set<Pair> coveredPosition() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Cell2D putAt(Pair position, Cell2D tile) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     public Tilable getTileAt(Object location) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -91,86 +172,6 @@ public class DefaultMap2D extends GridMap<Cell2D> implements TilingSystem<Tile2D
     }
 
     public void notifyTileEvent(Object location, Tilable tile) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public static enum DefaultMapType {
-
-        Normal, Isometric
-    }
-    DefaultMapType type;
-    ArrayList<GridMap> layers;
-    Transform mapTransform;
-
-    public DefaultMap2D() {
-        super(Cell2D.class);
-    }
-
-    public DefaultMap2D(int width, int height) {
-        super(Cell2D.class, width, height);
-    }
-
-    public List<GridMap> getLayers() {
-        return new ArrayList<GridMap>();
-    }
-
-    public void addLayer(GridMap layer) {
-        layers.add(layer);
-    }
-
-    public List<Map2D> getChildren() {
-        List<Map2D> result = new LinkedList<Map2D>();
-        result.addAll(layers);
-        return result;
-    }
-
-    public boolean isInside(Pair position) {
-        for (GridMap c : layers) {
-            if (c.isInside(position)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Cell2D getAt(Pair position) {
-        Cell2D locatedCell = this.getAt(position);
-        if (locatedCell.isDirty()) {
-            //this.put(position, this);
-        }
-        return null;
-    }
-
-    public void query(Object q) {
-    }
-
-    public Cell2D buildCellData(Pair position) {
-        Cell2D newCell = new Cell2D();
-        List result = new LinkedList();
-        for (GridMap c : layers) {
-            result.add(c.getAt(position));
-        }
-        newCell.setData(result);
-        return newCell;
-    }
-
-    public Set<Pair> coveredPosition() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public static Pair<Integer, Integer> getPair(int x, int y) {
-        return new Pair<Integer, Integer>(x, y);
-    }
-
-    public static Pair<Float, Float> getPair(float x, float y) {
-        return new Pair<Float, Float>(x, y);
-    }
-
-    public static Pair<Double, Double> getPair(double x, double y) {
-        return new Pair<Double, Double>(x, y);
-    }
-
-    public Cell2D putAt(Pair position, Cell2D tile) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

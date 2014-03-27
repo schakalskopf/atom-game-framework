@@ -4,7 +4,7 @@
  */
 package sg.atom.fx.constraint;
 
-import sg.atom.algorimth.constraint.AbstractConstraint;
+import sg.atom.utils.algorimth.constraint.AbstractConstraint;
 import com.jme3.math.Transform;
 
 /**

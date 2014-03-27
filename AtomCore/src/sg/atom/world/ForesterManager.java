@@ -30,9 +30,13 @@ import sg.atom.stage.StageManager;
 import sg.atom.stage.WorldManager;
 
 /**
+ * Facilities to use Forester and a-like in Atom enviroment and terrain.
+ *
+ * <p>Support forestor till androlo drop it. Going to pick another libs soon!
  *
  * @author atomix
  */
+@Deprecated
 public class ForesterManager {
 
     WorldManager worldManager;

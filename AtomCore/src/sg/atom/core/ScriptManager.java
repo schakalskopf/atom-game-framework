@@ -24,6 +24,7 @@ import sg.atom.stage.StageManager;
  * @author atomix
  */
 public class ScriptManager implements IGameCycle {
+
     protected static final Logger logger = Logger.getLogger(ScriptManager.class.getName());
     private ScriptEngineManager factory;
     private ScriptEngine genericScriptEngine;
@@ -56,15 +57,15 @@ public class ScriptManager implements IGameCycle {
          */
     }
 
-    void initScriptEngine() {
+    public void initScriptEngine() {
         //CompilerConfiguration compiler = new CompilerConfiguration();
         // The Engine
     }
 
-    void initCommonBinding() {
+    public void initCommonBinding() {
     }
 
-    void setBaseClassForScript() {
+    public void setBaseClassForScript() {
         //compiler.setScriptBaseClass("jme3test.animation.CinematicScriptBaseClass");
         //binding = new Binding();
         // The shell

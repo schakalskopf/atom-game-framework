@@ -8,7 +8,7 @@ import com.jme3.math.Vector2f;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import sg.atom.utils.collection.Pair;
+import sg.atom.utils.datastructure.collection.Pair;
 import sg.atom2d.geo.map.Map2D;
 
 /**

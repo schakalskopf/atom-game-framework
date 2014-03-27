@@ -21,14 +21,14 @@ import sg.atom2d.game2d.graphics.jme3.Simple2DApplication;
  * @author cuong.nguyenmanh2
  */
 public class Sprite {
-
-    protected Geometry s_geometry;
-    protected int s_frames, s_rows, s_direction = 2, s_currentFrame = 0, s_frameWidth;
-    protected Texture s_spritesheet;
-    protected Quad s_quad;
-    private Material s_material;
-    private AssetManager assetManager;
+    
     private int width, height;
+    protected Geometry geometry;
+    protected int s_frames, s_rows, s_direction = 2, s_currentFrame = 0, s_frameWidth;
+    protected Texture spritesheet;
+    protected Quad quad;
+    private Material material;
+    private AssetManager assetManager;
 
     public Sprite() {
     }
@@ -36,23 +36,25 @@ public class Sprite {
     public Sprite(Texture loadTexture) {
         assetManager = Simple2DApplication.getInstance().getAssetManager();
         //Texture s_spritesheet = assetManager.loadTexture(imageLocation);
-        s_spritesheet = loadTexture;
+        spritesheet = loadTexture;
         this.s_frames = 1;
         this.s_rows = 1;
-        width = s_spritesheet.getImage().getWidth() / s_frames;
-        height = s_spritesheet.getImage().getHeight() / s_rows;
-        s_quad = new Quad(width, height);
-        s_geometry = new Geometry("sprite", s_quad);
+        width = spritesheet.getImage().getWidth() / s_frames;
+        height = spritesheet.getImage().getHeight() / s_rows;
+        
+        
+        quad = new Quad(width, height);
+        geometry = new Geometry("sprite", quad);
 
-        s_material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        s_material.setTexture("ColorMap", s_spritesheet);
+        material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        material.setTexture("ColorMap", spritesheet);
     }
 
     private void updateUV() {
     }
 
     public Texture getTexture() {
-        return this.s_spritesheet;
+        return this.spritesheet;
     }
 
     public float getWidth() {
@@ -76,26 +78,26 @@ public class Sprite {
     }
 
     public void setRotation(float rotation) {
-        s_geometry.rotate(0, rotation, 0);
+        geometry.rotate(0, rotation, 0);
     }
 
     public void setScale(float f) {
-        s_geometry.scale(f);
+        geometry.scale(f);
     }
 
     public void translate(float velocityX, float velocityY) {
-        s_geometry.setLocalTranslation(velocityX, velocityY, 0);
+        geometry.setLocalTranslation(velocityX, velocityY, 0);
     }
 
     public void setColor(float r, float g, float b, float a) {
-        s_material.setColor("Color", new ColorRGBA(r, g, b, a));
+        material.setColor("Color", new ColorRGBA(r, g, b, a));
     }
 
     public void setBounds(float f, float f0, float spriteWidth, float spriteHeight) {
     }
 
     public void setTexture(Texture texture) {
-        s_spritesheet = texture;
+        spritesheet = texture;
     }
 
     public void setOrigin(float originX, float originY) {

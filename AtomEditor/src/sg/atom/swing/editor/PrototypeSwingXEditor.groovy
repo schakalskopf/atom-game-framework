@@ -32,7 +32,7 @@ import sg.atom.swing.tools.*
 import sg.atom.swing.editor.components.*
 import sg.atom.swing.editor.components.tree.*
 import sg.atom.swing.editor.components.curves.ui.*
-*/
+ */
 
 import sg.atom.swing.SwingSimple3DApp
 
@@ -46,14 +46,31 @@ public class PrototypeSwingXEditor extends PrototypeSwingEditor{
     def swing = new SwingXBuilder() 
     def perspective
     def mode
+    def multiSplitPane1
     
+    def createLayout(){
+        String layoutDef ="(ROW (COLUMN weight=0.9 (LEAF name=leftup weight=0.8) (LEAF name=leftdown weight=0.2)) (COLUMN weight=0.1 (LEAF name=up weight=0.5) (LEAF name=down weight=0.5)))";
+        MultiSplitLayout.Node modelRoot = MultiSplitLayout.parseModel(layoutDef);
+
+        multiSplitPane1 = new JXMultiSplitPane();
+        multiSplitPane1.getMultiSplitLayout().setModel(modelRoot);
+    
+        /*
+        def children =[ 
+        new Leaf("left"),
+        new Divider(), 
+        new Leaf("right")];
+        Split modelRoot = new Split();
+        modelRoot.setChildren(children);
+
+        JXMultiSplitPane multiSplitPane1 = new JXMultiSplitPane();
+        multiSplitPane1.getMultiSplitLayout().setModel(modelRoot);
+         */
+        
+        multiSplitPane1.setDividerSize(3)
+    }
     def createUI(title){
         swing.edt{
-            //lookAndFeel("com.oyoaha.swing.plaf.oyoaha.OyoahaLookAndFeel")
-
-            //lookAndFeel(createNimRODLAF())
-
-                    
             frame(title: title, defaultCloseOperation: JFrame.EXIT_ON_CLOSE,
                 size: screenSize, 
                 minimumSize: [350,500],
@@ -63,38 +80,16 @@ public class PrototypeSwingXEditor extends PrototypeSwingEditor{
 
                 toolbar = createToolbar(swing)
 
-                menubar = createMenuBar(swing)
+                menubar = createMenu(swing)
         
-                String layoutDef ="(ROW (COLUMN weight=0.9 (LEAF name=leftup weight=0.8) (LEAF name=leftdown weight=0.2)) (COLUMN weight=0.1 (LEAF name=up weight=0.5) (LEAF name=down weight=0.5)))";
-                MultiSplitLayout.Node modelRoot = MultiSplitLayout.parseModel(layoutDef);
-
-                JXMultiSplitPane multiSplitPane1 = new JXMultiSplitPane();
-                multiSplitPane1.getMultiSplitLayout().setModel(modelRoot);
-    
-                /*
-                def children =[ 
-                new Leaf("left"),
-                new Divider(), 
-                new Leaf("right")];
-                Split modelRoot = new Split();
-                modelRoot.setChildren(children);
-
-                JXMultiSplitPane multiSplitPane1 = new JXMultiSplitPane();
-                multiSplitPane1.getMultiSplitLayout().setModel(modelRoot);
-                 */
-        
-
-                multiSplitPane1.setDividerSize(3)
+                createLayout()
+                
                 multiSplitPane(multiSplitPane1,constraints:BL.CENTER){
                     tabbedPane(constraints:"leftup"){
-                        /*
-                        panel(title:"Layout", new LayoutCreatorComponent(this)){
 
-                        }
-                         */
                         panel(title:"Particle Editor"){
                             borderLayout()
-                            widget(app3d.createAndStartCanvas(800,600),constraints:BL.CENTER)
+                            //widget(app3d.createAndStartCanvas(800,600),constraints:BL.CENTER)
                         }
                 
                         panel(title:"Text"){
@@ -107,14 +102,7 @@ public class PrototypeSwingXEditor extends PrototypeSwingEditor{
                     }
                     tabbedPane(constraints:"leftdown"){
                         scrollPane (title:"Result"){
-                            /*
-                            textPane(new XmlTextPane(),text:"""
-<html>
-    <body>
-    </body>
-</html>
-""")
-*/
+                            textArea(text:"Result")
                         }
                         scrollPane (title:"Log"){
                             textArea(text:"Log")
@@ -146,13 +134,13 @@ public class PrototypeSwingXEditor extends PrototypeSwingEditor{
                         panel(constraints:BL.SOUTH,background:Color.white,preferredSize:[200,200]){
                             borderLayout()
                             label(text:"Preview",constraints:BL.NORTH)
-                            //previewPanel=widget(new TexturePanel(),constraints:BL.CENTER)
+                            
                     
                         }
                         tabbedPane(constraints:BL.CENTER){
                             panel(title:"History"){
                                 borderLayout()
-                                //panel(new HistoryTreeComponent(this),constraints:BL.CENTER)
+                                
                             }
                             panel(title:"Project"){
                                 borderLayout()

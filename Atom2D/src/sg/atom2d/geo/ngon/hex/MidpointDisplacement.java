@@ -1,6 +1,6 @@
 package sg.atom2d.geo.ngon.hex;
 
-import sg.atom.utils.math.MathUtils;
+import sg.atom.utils.math.AtomFastMath;
 
 
 
@@ -35,7 +35,7 @@ public class MidpointDisplacement {
     public int[][] getMap(int n, int wmult, int hmult) {
 
         // get the dimensions of the map
-        int power = MathUtils.pow(2, n);
+        int power = AtomFastMath.pow(2, n);
         int width = wmult * power + 1;
         int height = hmult * power + 1;
 
@@ -55,7 +55,7 @@ public class MidpointDisplacement {
         // Initialize the grid points
         for (int i = 0; i < width; i += 2 * step) {
             for (int j = 0; j < height; j += 2 * step) {
-                map[i][j] = MathUtils.random(2 * h);
+                map[i][j] = AtomFastMath.random(2 * h);
             }
         }
 
@@ -68,7 +68,7 @@ public class MidpointDisplacement {
                             map[x - step][y + step] + //up-left
                             map[x + step][y - step] + //down-right
                             map[x + step][y + step];  //up-right
-                    map[x][y] = sum / 4 + MathUtils.random(-h, h);
+                    map[x][y] = sum / 4 + AtomFastMath.random(-h, h);
                 }
             }
 
@@ -94,7 +94,7 @@ public class MidpointDisplacement {
                         count++;
                     }
                     if (count > 0) {
-                        map[x][y] = sum / count + MathUtils.random(-h, h);
+                        map[x][y] = sum / count + AtomFastMath.random(-h, h);
                     } else {
                         map[x][y] = 0;
                     }
@@ -150,7 +150,7 @@ public class MidpointDisplacement {
 
     public float[][] getMap2(int n, int wmult, int hmult) {
         // get the dimensions of the map
-        int power = MathUtils.pow(2, n);
+        int power = AtomFastMath.pow(2, n);
         int width = wmult * power + 1;
         int height = hmult * power + 1;
 
@@ -168,7 +168,7 @@ public class MidpointDisplacement {
         // Initialize the grid points
         for (int i = 0; i < width; i += 2 * step) {
             for (int j = 0; j < height; j += 2 * step) {
-                map[i][j] = MathUtils.random(2 * h);
+                map[i][j] = AtomFastMath.random(2 * h);
             }
         }
 
@@ -181,7 +181,7 @@ public class MidpointDisplacement {
                             map[x - step][y + step] + //up-left
                             map[x + step][y - step] + //down-right
                             map[x + step][y + step];  //up-right
-                    map[x][y] = sum / 4 + MathUtils.random(-h, h);
+                    map[x][y] = sum / 4 + AtomFastMath.random(-h, h);
                 }
             }
 
@@ -207,7 +207,7 @@ public class MidpointDisplacement {
                         count++;
                     }
                     if (count > 0) {
-                        map[x][y] = sum / count + MathUtils.random(-h, h);
+                        map[x][y] = sum / count + AtomFastMath.random(-h, h);
                     } else {
                         map[x][y] = 0;
                     }

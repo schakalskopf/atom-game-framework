@@ -17,7 +17,7 @@
  */
 package sg.atom2d.game2d.graphics.fx.particle;
 
-import sg.atom.utils.pool.Pool;
+import sg.atom.utils.repository.pool.Pool;
 import sg.atom2d.game2d.graphics.fx.particle.ParticleEffectPool.PooledEffect;
 
 public class ParticleEffectPool extends Pool<PooledEffect> {

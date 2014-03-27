@@ -5,9 +5,9 @@ import sg.atom.gameplay.score.ScoreInfo;
 /**
  * LevelInfo (Common Implementation) is the description of a GameLevel.
  *
- * <p>The Reason to made up a lightwieght "Description" of a level is to
- * maximize reuse a GameLevel; custom data is packed into different
- * LevelInfo. </p>
+ * <p>The Reason to made up a lightweight "Description" of a level is to
+ * maximize reuse a GameLevel; custom data is packed into different LevelInfo.
+ * </p>
  *
  * @author atomix
  */

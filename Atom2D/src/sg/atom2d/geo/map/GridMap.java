@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import sg.atom.utils.collection.Pair;
+import sg.atom.utils.datastructure.collection.Pair;
 
 /**
  * A Generic Grid map with each Cell is an object with utils. A GridMap is a
@@ -331,5 +331,18 @@ public class GridMap<T> implements Map2D<T>, Map<Pair, T> {
 
     // Some bitmap functions
     public void paint(Map2D brush) {
+    }
+
+    // Static integer
+    public static Pair<Integer, Integer> getPair(int x, int y) {
+        return new Pair<Integer, Integer>(x, y);
+    }
+
+    public static Pair<Float, Float> getPair(float x, float y) {
+        return new Pair<Float, Float>(x, y);
+    }
+
+    public static Pair<Double, Double> getPair(double x, double y) {
+        return new Pair<Double, Double>(x, y);
     }
 }

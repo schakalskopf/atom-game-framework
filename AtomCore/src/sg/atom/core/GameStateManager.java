@@ -9,11 +9,11 @@ import java.util.Properties;
 import java.util.Set;
 import org.customsoft.stateless4j.StateMachine;
 import sg.atom.core.lifecycle.IGameCycle;
-import sg.atom.state.HelloWarningAppState;
-import sg.atom.state.IngameAppState;
-import sg.atom.state.LoadingAppState;
-import sg.atom.state.MainMenuAppState;
-import sg.atom.structure.state.IObjectiveStateManager;
+import sg.atom.state.common.HelloWarningAppState;
+import sg.atom.state.common.IngameAppState;
+import sg.atom.state.common.LoadingAppState;
+import sg.atom.state.common.MainMenuAppState;
+import sg.atom.utils.datastructure.state.IObjectiveStateManager;
 
 /**
  * GameStateManager is a warper for various game state function. State is one
