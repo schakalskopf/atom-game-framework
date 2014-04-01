@@ -23,12 +23,12 @@ package sg.atom.utils.datastructure.collection;
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
  * the License.
- *****************************************************************************
+ * ****************************************************************************
  */
-import sg.atom.utils.datastructure.collection.sort.Sorts;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import sg.atom.utils.datastructure.collection.sort.Sorts;
 import sg.atom.utils.math.AtomFastMath;
 
 /**

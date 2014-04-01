@@ -24,8 +24,8 @@ public class CommandControl implements Control {
 
     protected Spatial spatial;
     protected boolean enabled = true;
-    protected LinkedList<Command> commands = new LinkedList<Command>();
-    protected Command defaultCommand;
+    protected LinkedList<AtomCommand> commands = new LinkedList<AtomCommand>();
+    protected AtomCommand defaultCommand;
     protected long actorId;
     protected long entityId;
     protected WorldManager world;
@@ -36,14 +36,14 @@ public class CommandControl implements Control {
         this.entityId = entityId;
     }
 
-    public Command initializeCommand(Command command) {
+    public AtomCommand initializeCommand(AtomCommand command) {
         return command.initialize(world, actorId, entityId, spatial);
     }
 
-    public void addCommand(Command command) {
+    public void addCommand(AtomCommand command) {
         command.setRunning(true);
         for (int i = 0; i < commands.size(); i++) {
-            Command command1 = commands.get(i);
+            AtomCommand command1 = commands.get(i);
             if (command1.getPriority() < command.getPriority()) {
                 commands.add(i, command);
                 return;
@@ -52,14 +52,14 @@ public class CommandControl implements Control {
         commands.add(command);
     }
 
-    public void removeCommand(Command command) {
+    public void removeCommand(AtomCommand command) {
         command.setRunning(false);
         commands.remove(command);
     }
 
     public void clearCommands() {
-        for (Iterator<Command> it = commands.iterator(); it.hasNext();) {
-            Command command = it.next();
+        for (Iterator<AtomCommand> it = commands.iterator(); it.hasNext();) {
+            AtomCommand command = it.next();
             command.setRunning(false);
         }
         commands.clear();
@@ -69,10 +69,10 @@ public class CommandControl implements Control {
         if (!enabled) {
             return;
         }
-        for (Iterator<Command> it = commands.iterator(); it.hasNext();) {
-            Command command = it.next();
+        for (Iterator<AtomCommand> it = commands.iterator(); it.hasNext();) {
+            AtomCommand command = it.next();
             //do command and remove if returned true, else stop processing
-            Command.CommandProcessingState commandState = command.doCommand(tpf);
+            AtomCommand.CommandProcessingState commandState = command.doCommand(tpf);
             switch (commandState) {
                 case Finished:
                     command.setRunning(false);

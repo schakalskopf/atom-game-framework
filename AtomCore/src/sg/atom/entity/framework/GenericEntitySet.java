@@ -8,6 +8,6 @@ package sg.atom.entity.framework;
  *
  * @author cuong.nguyenmanh2
  */
-public class GenericEntitySet {
+public interface GenericEntitySet {
     
 }

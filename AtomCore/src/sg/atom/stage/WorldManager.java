@@ -34,7 +34,7 @@ import sg.atom.world.WorldSettings;
 import sg.atom.world.gen.WorldGenerator;
 import sg.atom.world.lod.DefaultLODManager;
 import sg.atom.world.lod.WorldLODManager;
-import sg.atom.world.spatial.SceneGraphHelper;
+import sg.atom.world.spatial.SceneGraphUtils;
 import sg.atom.world.spatial.SpatialInfo;
 import sg.atom.world.terrain.GenericTerrain;
 import sg.atom.world.visibility.DefaultWorldVisibilityManager;
@@ -277,7 +277,7 @@ public class WorldManager extends AbstractManager implements IGameCycle {
     public void configWorld() {
         if (worldSettings.useTerrainLOD) {
             // Terrain
-            terrain = SceneGraphHelper.findGenericTerrain(levelNode);
+            terrain = SceneGraphUtils.findGenericTerrain(levelNode);
             if (terrain == null) {
                 throw new RuntimeException("Can not find Terrain in this Level !");
             }
@@ -378,7 +378,7 @@ public class WorldManager extends AbstractManager implements IGameCycle {
 
     private void createTerrainPhysic() {
         // Terrain
-        terrain = SceneGraphHelper.findGenericTerrain(levelNode);
+        terrain = SceneGraphUtils.findGenericTerrain(levelNode);
         if (terrain == null) {
             throw new RuntimeException("Can not find Terrain in this Level !");
         }

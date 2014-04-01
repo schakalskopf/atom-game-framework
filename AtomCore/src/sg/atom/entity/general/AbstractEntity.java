@@ -50,34 +50,4 @@ public interface AbstractEntity {
      */
     public Object getIdentify();
 
-    /**
-     * Get a "unique" Component of a specific Class.
-     *
-     * The Component should be valid in this Entity scope at the moment of
-     * return, that mean if the Entity context contract to be an consitent view
-     * of all Entities, so do the components.
-     *
-     * @param <T>
-     * @param type
-     * @return
-     */
-    public <T extends AbstractComponent> T get(Class<T> type);
-
-    /**
-     * The a "unique" Component of a specific Class.
-     *
-     * The Component should be valid in this Entity scope at the moment of
-     * return, that mean if the Entity context contract to be an consitent view
-     * of all Entities, so do the components.
-     *
-     * @param c
-     */
-    public void set(AbstractComponent c);
-
-    /**
-     * Capture a view of all components that this entity associated with.
-     *
-     * @return
-     */
-    public AbstractComponent[] getComponents();
 }

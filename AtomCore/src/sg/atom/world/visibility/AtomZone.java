@@ -12,7 +12,7 @@ package sg.atom.world.visibility;
  * </p>
  *
  * <p>Zone are non overlap and contain a PVSTree. If embed in a GameLevel, Zones
- * are automaticly active and deactive by WorldVisibilityManager.
+ * are automaticly active and deactive by WorldVisibilityManager and EnviromentManager.
  *
  *
  * @author cuong.nguyenmanh2

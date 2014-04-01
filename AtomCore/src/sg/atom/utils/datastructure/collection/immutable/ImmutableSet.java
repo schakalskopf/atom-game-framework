@@ -38,7 +38,7 @@ import sg.atom.utils.concurrent.Immutable;
  * 
  * @param <T> the type of the list elements.
  * @see Immutable
- */
+ */@Deprecated
 @Immutable
 public final class ImmutableSet<T> implements Iterable<T> {
 	private static final long serialVersionUID = 1631952082155811251L;

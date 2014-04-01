@@ -9,8 +9,8 @@ import sg.atom.core.event.eventizers.EventizerProvider;
 import sg.atom.core.exceptions.FailureHandler;
 import sg.atom.core.event.listeners.MessageListener;
 import sg.atom.core.event.message.MessageProcessor;
-import sg.atom.core.event.queue.MessageQueue;
-import sg.atom.core.event.queue.MessageSender;
+import sg.atom.core.event.message.MessageQueue;
+import sg.atom.core.event.message.MessageSender;
 import sg.atom.utils.concurrent.Immutable;
 import sg.atom.utils.concurrent.NotThreadSafe;
 import sg.atom.utils.concurrent.ThreadSafe;
@@ -20,8 +20,9 @@ import sg.atom.utils.concurrent.ThreadSafe;
  * communication between individual actors. Use one of the implementations of
  * this class.
  *
- * @see MultiThreadedActors
- * @see SingleThreadedActors
+ * FIXME: Replacable with Javolution concurrent context? 
+ * @see MultiThreadedWorkers
+ * @see SingleThreadedWorkers
  */
 @ThreadSafe
 public abstract class Workers {

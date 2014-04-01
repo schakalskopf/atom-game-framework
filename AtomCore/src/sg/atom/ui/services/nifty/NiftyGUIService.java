@@ -49,14 +49,14 @@ public class NiftyGUIService extends AbstractExecutionThreadService implements G
     private AudioRenderer audioRenderer;
     private ViewPort guiViewPort;
     private AssetManager assetManager;
-    
+
     public NiftyGUIService(GameGUIManager guiManager) {
         this.inputManager = guiManager.getInputManager();
         this.audioRenderer = guiManager.getAudioRenderer();
         this.guiViewPort = guiManager.getGuiViewPort();
         this.assetManager = guiManager.getAssetManager();
     }
-    
+
     @Override
     protected void run() throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -82,11 +82,11 @@ public class NiftyGUIService extends AbstractExecutionThreadService implements G
     public static void setText(Element el, String text) {
         el.getRenderer(TextRenderer.class).setText(text);
     }
-    
+
     public void setText(String elId, String text) {
         nifty.getCurrentScreen().findElementByName(elId).getRenderer(TextRenderer.class).setText(text);
     }
-    
+
     public static void setImage(Element el, NiftyImage image) {
         el.getRenderer(ImageRenderer.class).setImage(image);
     }
@@ -108,29 +108,29 @@ public class NiftyGUIService extends AbstractExecutionThreadService implements G
             //loadAndGotoScreen(screenName);
         }
     }
-    
+
     @Override
     public Nifty getGUISystemInstance(GameGUIManager manager) {
         return nifty;
     }
-    
+
     public void setupCommonEffects() {
         nifty.registerEffect(new RegisterEffectType("imageOverlayPulsateBlend", "sg.atom.ui.common.effects.ImageOverlayPulsateBlend"));
         nifty.registerEffect(new RegisterEffectType("motionAxis", "sg.atom.ui.common.effects.MotionAxis"));
     }
-    
+
     public void setupCommonStyles() {
     }
-    
+
     public void setupCommonScreens() {
     }
-    
+
     @Inject
     public void initGUI(AssetManager assetManager,
             InputManager inputManager,
             AudioRenderer audioRenderer,
             ViewPort guiViewPort) {
-        
+
         niftyDisplay = new NiftyJmeDisplay(assetManager,
                 inputManager,
                 audioRenderer,
@@ -143,7 +143,7 @@ public class NiftyGUIService extends AbstractExecutionThreadService implements G
         attachNifty();
     }
     /* Nifty functions */
-    
+
     public void attachNifty() {
         // attach the nifty display to the gui view port as a processor
         if (!GameGUIManager.isEnabled()) {
@@ -151,14 +151,14 @@ public class NiftyGUIService extends AbstractExecutionThreadService implements G
             //enabled = true;
         }
     }
-    
+
     public void detachNifty() {
         if (!GameGUIManager.isEnabled()) {
             guiViewPort.removeProcessor(niftyDisplay);
             //enabled = false;
         }
     }
-    
+
     public <T extends ScreenController> T getCurrentScreenController(String screenName, Class<T> clazz) {
         Screen currentScreen = nifty.getCurrentScreen();
         if (currentScreen.getScreenId().equals(screenName)) {
@@ -167,15 +167,15 @@ public class NiftyGUIService extends AbstractExecutionThreadService implements G
             return null;
         }
     }
-    
+
     public ScreenController getCurrentScreenController() {
         return nifty.getCurrentScreen().getScreenController();
     }
-    
+
     public <T extends ScreenController> T getCurrentScreenController(Class<T> clazz) {
         return (T) getCurrentScreenController();
     }
-    
+
     public <T extends Controller> T getQuickUIController(String elementId, Class<T> clazz) {
         return nifty.getCurrentScreen().findControl(elementId, clazz);
     }
@@ -190,13 +190,13 @@ public class NiftyGUIService extends AbstractExecutionThreadService implements G
      */
     public <T extends Controller> T getController(Class<T> clazz, String path) {
         String[] array = path.split("/");
-        
+
         if (array.length < 2) {
             throw (new IllegalArgumentException(" This path is wrong : " + path));
         }
         Element thisElement = getElementByPath(path);
         T result = null;
-        
+
         result = thisElement.getControl(clazz);
         if (result != null) {
             return result;
@@ -207,8 +207,8 @@ public class NiftyGUIService extends AbstractExecutionThreadService implements G
                 return null;
             }
         }
-        
-        
+
+
     }
 
     /**
@@ -223,13 +223,13 @@ public class NiftyGUIService extends AbstractExecutionThreadService implements G
     public <T extends ElementRenderer> T getRenderer(Class<T> aClass, String path)
             throws IllegalArgumentException {
         String[] array = path.split("/");
-        
+
         if (array.length < 2) {
             throw (new IllegalArgumentException(" This path is wrong : " + path));
         }
         Element thisElement = getElementByPath(path);
         T result = null;
-        
+
         result = thisElement.getRenderer(aClass);
         if (result != null) {
             return result;
@@ -240,148 +240,148 @@ public class NiftyGUIService extends AbstractExecutionThreadService implements G
                 return null;
             }
         }
-        
+
     }
-    
+
     public Element getElementByPath(String path)
             throws IllegalArgumentException {
         String[] array = path.split("/");
-        
+
         if (array.length < 2) {
             throw (new IllegalArgumentException(" This path is wrong : " + path));
         }
         Element thisElement, parent;
         Screen thisScene = nifty.getScreen(array[0]);
         thisElement = thisScene.findElementByName(array[1]);
-        
+
         for (int i = 1; i < array.length; i++) {
             String thisName = array[i];
             parent = thisElement;
             thisElement = parent.findElementByName(thisName);
-            
+
         }
         return thisElement;
     }
-    
+
     private void disableLogger() {
         Logger.getLogger("de.lessvoid.nifty").setLevel(Level.WARNING);
         Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.WARNING);
         Logger.getLogger("NiftyEventBusLog").setLevel(Level.WARNING);
         Logger.getLogger("NiftyImageManager").setLevel(Level.WARNING);
     }
-    
+
     @Override
     public void reportInteraction(GUIInteraction interaction) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void ignoreInteraction(GUIInteraction interaction) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void crossInteraction(GUIInteraction interaction, GUIInteraction interaction2) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void muted() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public TypeToken getTypeToken() {
         return TypeToken.of(Nifty.class);
     }
-    
+
     @Override
     public void refreshChanges() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void init() {
         initGUI(assetManager, inputManager, audioRenderer, guiViewPort);
     }
-    
+
     @Override
     public void load() {
         setupCommonEffects();
         setupCommonStyles();
         setupCommonScreens();
     }
-    
+
     @Override
     public void config(Properties props) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void update(float tpf) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void finish() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public LifeCyclePhase getCurrentPhase() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public float getProgressPercent(LifeCyclePhase aPhrase) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public TreeTraverser<Nifty> getElementTraverser() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public Element getRootElement(GUIScreenInfo screen) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void activeScreen(GUIScreenInfo<? extends GUISystemService, ?> screen) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void deactiveScreen(GUIScreenInfo<? extends GUISystemService, ?> screen) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void loadScreen(GUIScreenInfo<? extends GUISystemService, ?> screen) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void refreshScreen(GUIScreenInfo<? extends GUISystemService, ?> screen) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void doInteraction(GUIInteraction interaction) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void interceptInteraction(GUIInteraction interaction) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void reportInteraction(GUIInteraction interaction, GUIElement<? extends GUISystemService, ?> element) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void loadPath(String filePath) {
         nifty.addXml(filePath);

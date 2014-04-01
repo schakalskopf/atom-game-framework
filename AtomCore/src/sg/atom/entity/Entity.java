@@ -4,6 +4,7 @@
  */
 package sg.atom.entity;
 
+import sg.atom.entity.framework.GenericComponentSet;
 import sg.atom.entity.general.AbstractComponent;
 import sg.atom.entity.general.AbstractEntity;
 
@@ -19,8 +20,8 @@ import sg.atom.entity.general.AbstractEntity;
  * its associated Component.</p>
  *
  * <p>This implementation only Support minimal management by:
- * id,name,type,group,status. With entities's type ( a String) as primary lookup method.
- * Already enough for common usecases. </p>
+ * id,name,type,group,status. With entities's type ( a String) as primary lookup
+ * method. Already enough for common usecases. </p>
  *
  * <p>This implementation have no contract about the enviroment of Entities,
  * also the purity of the Entity. To be managed as Actor in a Actor framework
@@ -37,7 +38,7 @@ import sg.atom.entity.general.AbstractEntity;
  *
  * @author atomix
  */
-public class Entity implements AbstractEntity {
+public class Entity implements AbstractEntity, GenericComponentSet {
 
     public Long id;
     // Basic properties. FIXME: Remove them!
@@ -77,7 +78,7 @@ public class Entity implements AbstractEntity {
     public Object getIdentify() {
         return getId();
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -106,12 +107,11 @@ public class Entity implements AbstractEntity {
 
     /**
      * Provide "read only" view of its internal component.
-     * @return 
+     *
+     * @return
      */
     @Override
     public AbstractComponent[] getComponents() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
 }

@@ -30,6 +30,7 @@ import java.nio.ByteBuffer;
 /**
  * <p> This class implements the LZF lossless data compression algorithm. LZF is
  * a Lempel-Ziv variant with byte-aligned output, and optimized for speed. </p>
+ *
  * <p> Safety/Use Notes: </p> <ul> <li>Each instance should be used by a single
  * thread only.</li> <li>The data buffers should be smaller than 1 GB.</li>
  * <li>For performance reasons, safety checks on expansion are omitted.</li>

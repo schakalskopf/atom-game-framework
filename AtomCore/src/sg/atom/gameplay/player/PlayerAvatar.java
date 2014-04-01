@@ -12,8 +12,42 @@ package sg.atom.gameplay.player;
  */
 public class PlayerAvatar {
 
-    public String title;
-    public String image;
-    public String id;
-    public String avatarName;
+    private String title;
+    private String image;
+    private String id;
+    private String avatarName;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getAvatarName() {
+        return avatarName;
+    }
+
+    public void setAvatarName(String avatarName) {
+        this.avatarName = avatarName;
+    }
+    
+    
 }

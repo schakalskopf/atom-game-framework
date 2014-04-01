@@ -28,7 +28,7 @@ import sg.atom.utils.concurrent.Immutable;
 
 /**
  * A helper for dealing with immutable values.
- */
+ */@Deprecated
 @Immutable
 public class ImmutableHelper {
 

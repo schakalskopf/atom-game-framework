@@ -37,7 +37,7 @@ sg.atom.fx			Concepts and Facilities to create and manage animations and effects
 
 sg.atom.gameplay	Concepts and facilities for games (cross-genre)
 	action			Concepts and interfaces for action in games
-	controls		Additional to JME3 character controls
+	controls		Additions for JME3 character controls
 	league			Leagues  group and tournament of players
 	managers		Manager of leagues  group and tournament of players
 	player			Player and their data
@@ -52,7 +52,7 @@ sg.atom.stage		Concepts and facilities for cinematography like games
 	actor			Bridge from entities to actor framework!
 	cine			Sostiphicate cinematic framework for complex video games
 	helpers			"Inplace" controls which know about Stage. Bridge from JME3 Controls concepts
-	input			Sostiphicate high level input system use for develop and test game
+	input			Sophisticate high level input system use for develop and test game
 	select			Facilities for selecting (from input) an on screen spatial or entities
 	sound			Additional facilities to JME3 sound system
 	sync			Additional facilities to syncing between multi thread progress
@@ -68,11 +68,11 @@ sg.atom.world		Concepts and interfaces to build and manage the game world and en
 	gen				Generate the world from data
 	geometry		Maths for geometries
 	lod				Level of detail framework provides a lot of methods to optimize scene and geometry. 
-	material		Additional to JME3 material system
-	physics			Additional to JME3 physic system
-	rendering		Additional to JME3 render system
-	terrain			Additional to JME3 terrain system
-	visibility		Additional to JME3 cull and partition system
+	material		Additions for JME3 material system
+	physics			Additions for JME3 physic system
+	rendering		Additions for JME3 render system
+	terrain			Additions for JME3 terrain system
+	visibility		Additions for JME3 cull and partition system
 	
 
 ================================================================================

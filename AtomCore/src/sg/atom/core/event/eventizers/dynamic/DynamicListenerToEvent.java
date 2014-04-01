@@ -5,7 +5,7 @@ package sg.atom.core.event.eventizers.dynamic;
 
 import java.lang.reflect.*;
 import sg.atom.core.event.eventizers.Event;
-import sg.atom.core.event.queue.MessageSender;
+import sg.atom.core.event.message.MessageSender;
 import sg.atom.utils.concurrent.ThreadSafe;
 
 @ThreadSafe

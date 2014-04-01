@@ -15,17 +15,22 @@ import sg.atom.stage.actor.AtomicAction;
 /**
  * Hierachy named task ultilities.
  *
- * <p>Expanded version of JME3's AppTask! This kind of Task stick with
+ * <p>Expanded ultimate version of JME3's AppTask! This kind of Task stick with
  * AbstractManager not the Application level. Shouldn't extends This class
- * because its have complex linking mechanism underlying!<ul>
+ * because its have complex linking mechanism underlying!
  *
- * <li>It can wrap around GameAction, AppState, Runnable, Closure, ProgressInfo,
- * IProgress
+ * <p>Task dispatching is the foundation of execution of the JVM. Read:
+ * http://spring.io/blog/2013/05/13/reactor-a-foundation-for-asynchronous-applications-on-the-jvm
+ * <ul>
+ *
+ * <li>That's why to make a game perfomance superiorthis AtomTask is a strict
+ * morphable-monitored-threadsafe-eventbased-selfcontained runnable. It can wrap
+ * around GameAction, AppState, Runnable, Closure, ProgressInfo, IProgress...
  *
  * <li>Embed in a load balance and advance execution/concurency enviroment.
  *
- * <li>Hook to GPar Task and also Concurent MultiThread, Guava Service
- * architecture.</ul> </p>
+ * <li>Hook to GPar Task, Concurent MultiThread, Guava Service architecture,
+ * Reactor consumer...</ul> </p>
  *
  * <p><b>Current code borrowed from Jumi actors. In the end if this cause too
  * much confusion between Service - Task, and Task - Actor, Actor - Agent this

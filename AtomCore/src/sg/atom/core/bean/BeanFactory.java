@@ -15,9 +15,9 @@
  */
 package sg.atom.core.bean;
 
-import sg.atom.utils.datastructure.collection.immutable.Props;
 import sg.atom.core.actor.controller.Controller;
 import sg.atom.core.annotations.Initializer;
+import sg.atom.utils.datastructure.collection.immutable.Props;
 
 /**
  * ActorProxyFactory is an interface for factories that generate actors and

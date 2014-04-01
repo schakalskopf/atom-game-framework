@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 import sg.atom.entity.EntityManager;
 import sg.atom.entity.SpatialEntity;
 import sg.atom.entity.SpatialEntityControl;
-import sg.atom.stage.input.AtomRawInputManager;
+import sg.atom.logic.input.AtomRawInputManager;
 import sg.atom.stage.select.EntitySelectCondition;
 import sg.atom.stage.select.HoverFunction;
 import sg.atom.stage.select.SelectFunction;
@@ -27,7 +27,7 @@ import sg.atom.stage.select.SelectListener;
 import sg.atom.stage.select.SpatialSelectControl;
 import sg.atom.stage.select.condition.EmptyEntitySelectCondition;
 import sg.atom.ui.GameGUIManager;
-import sg.atom.world.spatial.SceneGraphHelper;
+import sg.atom.world.spatial.SceneGraphUtils;
 
 /**
 @author atomix
@@ -166,7 +166,7 @@ public class SelectManager {
             Geometry geo = closest.getGeometry();
 
             // check SpatialEntityControl
-            Spatial selectableSpatial = SceneGraphHelper.travelUpFindControl(geo, SpatialEntityControl.class);
+            Spatial selectableSpatial = SceneGraphUtils.travelUpFindControl(geo, SpatialEntityControl.class);
             if (selectableSpatial == null) {
                 funcDeselectAll();
                 return null;

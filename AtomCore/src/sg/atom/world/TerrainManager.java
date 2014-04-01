@@ -4,7 +4,7 @@
  */
 package sg.atom.world;
 
-import sg.atom.world.spatial.SceneGraphHelper;
+import sg.atom.world.spatial.SceneGraphUtils;
 import com.jme3.asset.AssetManager;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -145,7 +145,7 @@ public class TerrainManager implements IAtomFactory<GenericTerrain> {
 
     public void loadTerrain() {
         // Terrain
-        terrain = SceneGraphHelper.findGenericTerrain(worldManager.getLevelNode());
+        terrain = SceneGraphUtils.findGenericTerrain(worldManager.getLevelNode());
         if (terrain == null) {
             throw new RuntimeException("Can not find Terrain in this Level !");
         }

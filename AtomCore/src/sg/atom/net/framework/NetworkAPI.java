@@ -5,8 +5,8 @@
 package sg.atom.net.framework;
 
 /**
- *
-@author atomix
+ * Configable module to use Atom Net.
+ * @author atomix
  */
 public class NetworkAPI {
     

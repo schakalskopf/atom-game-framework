@@ -28,6 +28,7 @@ import sg.atom.stage.WorldManager;
  * A Helper class go along with WorldManager to help create simple stuff for
  * testing. Mainly extract from examples of JME3 Testsuite!
  *
+ * FIXME: Going to change to Utils to get name convention persist.
  * @author atomix
  */
 public class WorldTestHelper {

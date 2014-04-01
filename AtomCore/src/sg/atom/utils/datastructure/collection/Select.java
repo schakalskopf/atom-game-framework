@@ -4,8 +4,8 @@
  */
 package sg.atom.utils.datastructure.collection;
 
-import sg.atom.utils.datastructure.collection.sort.QuickSelect;
 import java.util.Comparator;
+import sg.atom.utils.datastructure.collection.sort.QuickSelect;
 
 /**
  * This class is for selecting a ranked element (kth ordered statistic) from an

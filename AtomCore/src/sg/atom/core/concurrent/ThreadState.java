@@ -17,8 +17,8 @@ package sg.atom.core.concurrent;
 
 import java.util.ArrayList;
 import sg.atom.core.actor.controller.Controller;
-import sg.atom.core.execution.workers.WorkerState;
 import sg.atom.core.event.message.MessageInvocation;
+import sg.atom.core.execution.workers.WorkerState;
 import sg.atom.utils.concurrent.ThreadUsage;
 
 /**

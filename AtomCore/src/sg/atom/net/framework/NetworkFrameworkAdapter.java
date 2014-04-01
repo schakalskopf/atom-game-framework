@@ -5,8 +5,8 @@
 package sg.atom.net.framework;
 
 /**
- *
-@author atomix
+ * Interface for framework service to hook into AtomNet.
+ * @author atomix
  */
 public class NetworkFrameworkAdapter {
     

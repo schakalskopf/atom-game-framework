@@ -16,7 +16,6 @@
 package sg.atom.core.actor.controller;
 
 import java.util.concurrent.locks.ReentrantLock;
-
 import sg.atom.core.actor.Agent;
 import sg.atom.core.actor.internal.ActorState;
 import sg.atom.core.actor.internal.KeepRunningInterface;

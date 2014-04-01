@@ -24,6 +24,8 @@ import sg.atom.utils._commons.MultiThreadLogger;
 /**
  * Worker is the Runnable thread that is managed by
  * {@link ControllerImplementation} to execute messages.
+ * 
+ * <p>Context bound (thread) progress
  */
 public final class Worker implements Runnable {
 

@@ -12,7 +12,8 @@ import sg.atom.core.AbstractManager;
  *
  * Including Light, Skybox,.
  *
- * <ul> <li>Load configs about different Enviroment</li>
+ * <ul> <li>Load configs about different Enviroment. Load asset attached to
+ * specific enviroment description.</li>
  *
  * <li>Handle Transistion between Enviroment</li>
  *

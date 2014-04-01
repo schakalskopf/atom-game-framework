@@ -11,24 +11,18 @@ import sg.atom.stage.WorldManager;
  *
  * @author normenhansen, atomix
  */
-public abstract class AbstractActorCommand implements Command {
+public abstract class AbstractActorCommand implements AtomCommand {
 
     protected int priority = -1;
     protected long actorId = -1;
     protected long entityId = -1;
     protected Spatial entity = null;
-    /*
-     protected long targetPlayerId = -1;
-     protected long targetEntityId = -1;
-     protected Spatial targetEntity = null;
-     protected Vector3f targetLocation = new Vector3f();
-     * */
     private boolean running = false;
     protected WorldManager world;
 
     public abstract CommandProcessingState doCommand(float tpf);
 
-    public Command initialize(WorldManager world, long playerId, long entityId, Spatial spat) {
+    public AtomCommand initialize(WorldManager world, long playerId, long entityId, Spatial spat) {
         this.world = world;
         this.actorId = playerId;
         this.entityId = entityId;

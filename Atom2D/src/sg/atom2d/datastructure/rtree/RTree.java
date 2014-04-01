@@ -18,16 +18,17 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 package sg.atom2d.datastructure.rtree;
 
-import com.jme3.scene.Node;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.procedure.TIntProcedure;
-import gnu.trove.stack.TIntStack;
+import gnu.trove.stack.array.TIntArrayStack;
+import java.io.Serializable;
 import java.util.Properties;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sg.atom.utils.datastructure.collection.PriorityQueue;
 import sg.atom.utils.datastructure.collection.SortedList;
-import sg.atom2d.algorimth.partioning.SpatialIndex;
+import sg.atom2d.algorimth.partioning.SpatialIndex2D;
 import sg.atom2d.geo.Point;
 import sg.atom2d.geo.Rectangle;
 
@@ -43,8 +44,9 @@ import sg.atom2d.geo.Rectangle;
  * avoidance of the creation of unnecessary objects, mainly achieved by using
  * primitive collections from the trove4j library.</p>
  */
-public class RTree implements SpatialIndex {
+public class RTree implements SpatialIndex2D, Serializable {
 
+    private static final long serialVersionUID = 5946232781609920309L;
     private static final Logger log = LoggerFactory.getLogger(RTree.class);
     private static final Logger deleteLog = LoggerFactory.getLogger(RTree.class.getName() + "-delete");
     // parameters of the tree
@@ -55,7 +57,7 @@ public class RTree implements SpatialIndex {
     // map of nodeId -> node object
     // TODO eliminate this map - it should not be needed. Nodes
     // can be found by traversing the tree.
-    private TIntObjectHashMap<Node> nodeMap = new TIntObjectHashMap<Node>();
+    private TIntObjectHashMap<RTreeNode> nodeMap = new TIntObjectHashMap<RTreeNode>();
     // internal consistency checking - set to true if debugging tree corruption
     private final static boolean INTERNAL_CONSISTENCY_CHECKING = false;
     // used to mark the status of entries during a node split
@@ -66,8 +68,8 @@ public class RTree implements SpatialIndex {
     // stacks used to store nodeId and entry index of each node 
     // from the root down to the leaf. Enables fast lookup
     // of nodes when a split is propagated up the tree.
-    private TIntStack parents = new TIntStack();
-    private TIntStack parentsEntry = new TIntStack();
+    private TIntArrayStack parents = new TIntArrayStack();
+    private TIntArrayStack parentsEntry = new TIntArrayStack();
     // initialisation
     private int treeHeight = 1; // leaves are always level 1
     private int rootNodeId = 0;
@@ -77,7 +79,7 @@ public class RTree implements SpatialIndex {
     // Deleted node objects are retained in the nodeMap, 
     // so that they can be reused. Store the IDs of nodes
     // which can be reused.
-    private TIntStack deletedNodeIds = new TIntStack();
+    private TIntArrayStack deletedNodeIds = new TIntArrayStack();
     // List of nearest rectangles. Use a member variable to
     // avoid recreating the object each time nearest() is called.
     private TIntArrayList nearestIds = new TIntArrayList();
@@ -149,7 +151,7 @@ public class RTree implements SpatialIndex {
             initialEntryStatus[i] = ENTRY_STATUS_UNASSIGNED;
         }
 
-        Node root = new Node(rootNodeId, 1, maxNodeEntries);
+        RTreeNode root = new RTreeNode(rootNodeId, 1, maxNodeEntries);
         nodeMap.put(rootNodeId, root);
 
         log.debug("init() " + " MaxNodeEntries = " + maxNodeEntries + ", MinNodeEntries = " + minNodeEntries);
@@ -178,8 +180,8 @@ public class RTree implements SpatialIndex {
     private void add(float minX, float minY, float maxX, float maxY, int id, int level) {
         // I1 [Find position for new record] Invoke ChooseLeaf to select a 
         // leaf node L in which to place r
-        Node n = chooseNode(minX, minY, maxX, maxY, level);
-        Node newLeaf = null;
+        RTreeNode n = chooseNode(minX, minY, maxX, maxY, level);
+        RTreeNode newLeaf = null;
 
         // I2 [Add record to leaf node] If L has room for another entry, 
         // install E. Otherwise invoke SplitNode to obtain L and LL containing
@@ -192,17 +194,17 @@ public class RTree implements SpatialIndex {
 
         // I3 [Propagate changes upwards] Invoke AdjustTree on L, also passing LL
         // if a split was performed
-        Node newNode = adjustTree(n, newLeaf);
+        RTreeNode newNode = adjustTree(n, newLeaf);
 
         // I4 [Grow tree taller] If node split propagation caused the root to 
         // split, create a new root whose children are the two resulting nodes.
         if (newNode != null) {
             int oldRootNodeId = rootNodeId;
-            Node oldRoot = getNode(oldRootNodeId);
+            RTreeNode oldRoot = getNode(oldRootNodeId);
 
             rootNodeId = getNextNodeId();
             treeHeight++;
-            Node root = new Node(rootNodeId, treeHeight, maxNodeEntries);
+            RTreeNode root = new RTreeNode(rootNodeId, treeHeight, maxNodeEntries);
             root.addEntry(newNode.mbrMinX, newNode.mbrMinY, newNode.mbrMaxX, newNode.mbrMaxY, newNode.nodeId);
             root.addEntry(oldRoot.mbrMinX, oldRoot.mbrMinY, oldRoot.mbrMaxX, oldRoot.mbrMaxY, oldRoot.nodeId);
             nodeMap.put(rootNodeId, root);
@@ -224,12 +226,12 @@ public class RTree implements SpatialIndex {
         // to determine if it contains r. For each entry found, invoke
         // findLeaf on the node pointed to by the entry, until r is found or
         // all entries have been checked.
-        parents.reset();
+        parents.clear();
         parents.push(rootNodeId);
 
-        parentsEntry.reset();
+        parentsEntry.clear();
         parentsEntry.push(-1);
-        Node n = null;
+        RTreeNode n = null;
         int foundIndex = -1;  // index of entry to be deleted in leaf
 
         while (foundIndex == -1 && parents.size() > 0) {
@@ -269,7 +271,7 @@ public class RTree implements SpatialIndex {
 
         // shrink the tree if possible (i.e. if root node has exactly one entry,and that 
         // entry is not a leaf node, delete the root (it's entry becomes the new root)
-        Node root = getNode(rootNodeId);
+        RTreeNode root = getNode(rootNodeId);
         while (root.entryCount == 1 && treeHeight > 1) {
             deletedNodeIds.push(rootNodeId);
             root.entryCount = 0;
@@ -299,7 +301,7 @@ public class RTree implements SpatialIndex {
      * @see com.infomatiq.jsi.SpatialIndex#nearest(Point, TIntProcedure, float)
      */
     public void nearest(Point p, TIntProcedure v, float furthestDistance) {
-        Node rootNode = getNode(rootNodeId);
+        RTreeNode rootNode = getNode(rootNodeId);
 
         float furthestDistanceSq = furthestDistance * furthestDistance;
         nearest(p, rootNode, furthestDistanceSq);
@@ -317,10 +319,10 @@ public class RTree implements SpatialIndex {
             return;
         }
 
-        parents.reset();
+        parents.clear();
         parents.push(rootNodeId);
 
-        parentsEntry.reset();
+        parentsEntry.clear();
         parentsEntry.push(-1);
 
         // TODO: possible shortcut here - could test for intersection with the 
@@ -329,7 +331,7 @@ public class RTree implements SpatialIndex {
         float furthestDistanceSq = furthestDistance * furthestDistance;
 
         while (parents.size() > 0) {
-            Node n = getNode(parents.peek());
+            RTreeNode n = getNode(parents.peek());
             int startIndex = parentsEntry.peek() + 1;
 
             if (!n.isLeaf()) {
@@ -453,10 +455,10 @@ public class RTree implements SpatialIndex {
             return;
         }
 
-        parents.reset();
+        parents.clear();
         parents.push(rootNodeId);
 
-        parentsEntry.reset();
+        parentsEntry.clear();
         parentsEntry.push(-1);
 
         nearestNIds.init(count);
@@ -467,7 +469,7 @@ public class RTree implements SpatialIndex {
         float furthestDistanceSq = furthestDistance * furthestDistance;
 
         while (parents.size() > 0) {
-            Node n = getNode(parents.peek());
+            RTreeNode n = getNode(parents.peek());
             int startIndex = parentsEntry.peek() + 1;
 
             if (!n.isLeaf()) {
@@ -521,7 +523,7 @@ public class RTree implements SpatialIndex {
      * @see com.infomatiq.jsi.SpatialIndex#intersects(Rectangle, TIntProcedure)
      */
     public void intersects(Rectangle r, TIntProcedure v) {
-        Node rootNode = getNode(rootNodeId);
+        RTreeNode rootNode = getNode(rootNodeId);
         intersects(r, v, rootNode);
     }
 
@@ -532,17 +534,17 @@ public class RTree implements SpatialIndex {
         // find all rectangles in the tree that are contained by the passed rectangle
         // written to be non-recursive (should model other searches on this?)
 
-        parents.reset();
+        parents.clear();
         parents.push(rootNodeId);
 
-        parentsEntry.reset();
+        parentsEntry.clear();
         parentsEntry.push(-1);
 
         // TODO: possible shortcut here - could test for intersection with the 
         // MBR of the root node. If no intersection, return immediately.
 
         while (parents.size() > 0) {
-            Node n = getNode(parents.peek());
+            RTreeNode n = getNode(parents.peek());
             int startIndex = parentsEntry.peek() + 1;
 
             if (!n.isLeaf()) {
@@ -594,7 +596,7 @@ public class RTree implements SpatialIndex {
     public Rectangle getBounds() {
         Rectangle bounds = null;
 
-        Node n = getNode(getRootNodeId());
+        RTreeNode n = getNode(getRootNodeId());
         if (n != null && n.entryCount > 0) {
             bounds = new Rectangle();
             bounds.minX = n.mbrMinX;
@@ -609,7 +611,7 @@ public class RTree implements SpatialIndex {
      * @see com.infomatiq.jsi.SpatialIndex#getVersion()
      */
     public String getVersion() {
-        return "RTree-" + BuildProperties.getVersion();
+        return "RTree-";
     }
     //-------------------------------------------------------------------------
     // end of SpatialIndex methods
@@ -631,7 +633,7 @@ public class RTree implements SpatialIndex {
     /**
      * Get a node object, given the ID of the node.
      */
-    public Node getNode(int id) {
+    public RTreeNode getNode(int id) {
         return nodeMap.get(id);
     }
 
@@ -655,7 +657,7 @@ public class RTree implements SpatialIndex {
      *
      * @return new node object.
      */
-    private Node splitNode(Node n, float newRectMinX, float newRectMinY, float newRectMaxX, float newRectMaxY, int newId) {
+    private RTreeNode splitNode(RTreeNode n, float newRectMinX, float newRectMinY, float newRectMaxX, float newRectMaxY, int newId) {
         // [Pick first entry for each group] Apply algorithm pickSeeds to 
         // choose two entries to be the first elements of the groups. Assign
         // each to a group.
@@ -673,8 +675,8 @@ public class RTree implements SpatialIndex {
 
         System.arraycopy(initialEntryStatus, 0, entryStatus, 0, maxNodeEntries);
 
-        Node newNode = null;
-        newNode = new Node(getNextNodeId(), n.level, maxNodeEntries);
+        RTreeNode newNode = null;
+        newNode = new RTreeNode(getNextNodeId(), n.level, maxNodeEntries);
         nodeMap.put(newNode.nodeId, newNode);
 
         pickSeeds(n, newRectMinX, newRectMinY, newRectMaxX, newRectMaxY, newId, newNode); // this also sets the entryCount to 1
@@ -746,7 +748,7 @@ public class RTree implements SpatialIndex {
             float newArea = Rectangle.area(n.mbrMinX, n.mbrMinY, n.mbrMaxX, n.mbrMaxY)
                     + Rectangle.area(newNode.mbrMinX, newNode.mbrMinY, newNode.mbrMaxX, newNode.mbrMaxY);
             float percentageIncrease = (100 * (newArea - initialArea)) / initialArea;
-            log.debug("Node " + n.nodeId + " split. New area increased by " + percentageIncrease + "%");
+            log.debug("RTreeNode " + n.nodeId + " split. New area increased by " + percentageIncrease + "%");
         }
 
         return newNode;
@@ -756,7 +758,7 @@ public class RTree implements SpatialIndex {
      * Pick the seeds used to split a node. Select two entries to be the first
      * elements of the groups
      */
-    private void pickSeeds(Node n, float newRectMinX, float newRectMinY, float newRectMaxX, float newRectMaxY, int newId, Node newNode) {
+    private void pickSeeds(RTreeNode n, float newRectMinX, float newRectMinY, float newRectMaxX, float newRectMaxY, int newId, RTreeNode newNode) {
         // Find extreme rectangles along all dimension. Along each dimension,
         // find the entry whose rectangle has the highest low side, and the one 
         // with the lowest high side. Record the separation.
@@ -934,7 +936,7 @@ public class RTree implements SpatialIndex {
      * yet in a group, calculate the area increase required in the covering
      * rectangles of each group
      */
-    private int pickNext(Node n, Node newNode) {
+    private int pickNext(RTreeNode n, RTreeNode newNode) {
         float maxDifference = Float.NEGATIVE_INFINITY;
         int next = 0;
         int nextGroup = 0;
@@ -949,7 +951,7 @@ public class RTree implements SpatialIndex {
             if (entryStatus[i] == ENTRY_STATUS_UNASSIGNED) {
 
                 if (n.ids[i] == -1) {
-                    log.error("Error: Node " + n.nodeId + ", entry " + i + " is null");
+                    log.error("Error: RTreeNode " + n.nodeId + ", entry " + i + " is null");
                 }
 
                 float nIncrease = Rectangle.enlargement(n.mbrMinX, n.mbrMinY, n.mbrMaxX, n.mbrMaxY,
@@ -1018,7 +1020,7 @@ public class RTree implements SpatialIndex {
      *
      * TODO rewrite this to be non-recursive?
      */
-    private float nearest(Point p, Node n, float furthestDistanceSq) {
+    private float nearest(Point p, RTreeNode n, float furthestDistanceSq) {
         for (int i = 0; i < n.entryCount; i++) {
             float tempDistanceSq = Rectangle.distanceSq(n.entriesMinX[i], n.entriesMinY[i], n.entriesMaxX[i], n.entriesMaxY[i], p.x, p.y);
             if (n.isLeaf()) { // for leaves, the distance is an actual nearest distance 
@@ -1047,7 +1049,7 @@ public class RTree implements SpatialIndex {
      *
      * TODO rewrite this to be non-recursive? Make sure it doesn't slow it down.
      */
-    private boolean intersects(Rectangle r, TIntProcedure v, Node n) {
+    private boolean intersects(Rectangle r, TIntProcedure v, RTreeNode n) {
         for (int i = 0; i < n.entryCount; i++) {
             if (Rectangle.intersects(r.minX, r.minY, r.maxX, r.maxY, n.entriesMinX[i], n.entriesMinY[i], n.entriesMaxX[i], n.entriesMaxY[i])) {
                 if (n.isLeaf()) {
@@ -1055,7 +1057,7 @@ public class RTree implements SpatialIndex {
                         return false;
                     }
                 } else {
-                    Node childNode = getNode(n.ids[i]);
+                    RTreeNode childNode = getNode(n.ids[i]);
                     if (!intersects(r, v, childNode)) {
                         return false;
                     }
@@ -1072,14 +1074,14 @@ public class RTree implements SpatialIndex {
      * Note that the parent and parentEntry stacks are expected to contain the
      * nodeIds of all parents up to the root.
      */
-    private void condenseTree(Node l) {
+    private void condenseTree(RTreeNode l) {
         // CT1 [Initialize] Set n=l. Set the list of eliminated
         // nodes to be empty.
-        Node n = l;
-        Node parent = null;
+        RTreeNode n = l;
+        RTreeNode parent = null;
         int parentEntry = 0;
 
-        TIntStack eliminatedNodeIds = new TIntStack();
+        TIntArrayStack eliminatedNodeIds = new TIntArrayStack();
 
         // CT2 [Find parent entry] If N is the root, go to CT6. Otherwise 
         // let P be the parent of N, and let En be N's entry in P  
@@ -1120,7 +1122,7 @@ public class RTree implements SpatialIndex {
         // the tree, so that leaves of their dependent subtrees will be on the same
         // level as leaves of the main tree
         while (eliminatedNodeIds.size() > 0) {
-            Node e = getNode(eliminatedNodeIds.pop());
+            RTreeNode e = getNode(eliminatedNodeIds.pop());
             for (int j = 0; j < e.entryCount; j++) {
                 add(e.entriesMinX[j], e.entriesMinY[j], e.entriesMaxX[j], e.entriesMaxY[j], e.ids[j], e.level);
                 e.ids[j] = -1;
@@ -1133,11 +1135,11 @@ public class RTree implements SpatialIndex {
     /**
      * Used by add(). Chooses a leaf to add the rectangle to.
      */
-    private Node chooseNode(float minX, float minY, float maxX, float maxY, int level) {
+    private RTreeNode chooseNode(float minX, float minY, float maxX, float maxY, int level) {
         // CL1 [Initialize] Set N to be the root node
-        Node n = getNode(rootNodeId);
-        parents.reset();
-        parentsEntry.reset();
+        RTreeNode n = getNode(rootNodeId);
+        parents.clear();
+        parentsEntry.clear();
 
         // CL2 [Leaf check] If N is a leaf, return N
         while (true) {
@@ -1184,7 +1186,7 @@ public class RTree implements SpatialIndex {
      * Ascend from a leaf node L to the root, adjusting covering rectangles and
      * propagating node splits as necessary.
      */
-    private Node adjustTree(Node n, Node nn) {
+    private RTreeNode adjustTree(RTreeNode n, RTreeNode nn) {
         // AT1 [Initialize] Set N=L. If L was split previously, set NN to be 
         // the resulting second node.
 
@@ -1194,7 +1196,7 @@ public class RTree implements SpatialIndex {
             // AT3 [Adjust covering rectangle in parent entry] Let P be the parent 
             // node of N, and let En be N's entry in P. Adjust EnI so that it tightly
             // encloses all entry rectangles in N.
-            Node parent = getNode(parents.pop());
+            RTreeNode parent = getNode(parents.pop());
             int entry = parentsEntry.pop();
 
             if (parent.ids[entry] != n.nodeId) {
@@ -1221,7 +1223,7 @@ public class RTree implements SpatialIndex {
             // Enni enclosing all rectangles in NN. Add Enn to P if there is room. 
             // Otherwise, invoke splitNode to produce P and PP containing Enn and
             // all P's old entries.
-            Node newNode = null;
+            RTreeNode newNode = null;
             if (nn != null) {
                 if (parent.entryCount < maxNodeEntries) {
                     parent.addEntry(nn.mbrMinX, nn.mbrMinY, nn.mbrMaxX, nn.mbrMaxY, nn.nodeId);
@@ -1254,7 +1256,7 @@ public class RTree implements SpatialIndex {
     private boolean checkConsistency(int nodeId, int expectedLevel, Rectangle expectedMBR) {
         // go through the tree, and check that the internal data structures of 
         // the tree are not corrupted.        
-        Node n = getNode(nodeId);
+        RTreeNode n = getNode(nodeId);
 
         if (n == null) {
             log.error("Error: Could not read node " + nodeId);
@@ -1271,7 +1273,7 @@ public class RTree implements SpatialIndex {
         }
 
         if (n.level != expectedLevel) {
-            log.error("Error: Node " + nodeId + ", expected level " + expectedLevel + ", actual level " + n.level);
+            log.error("Error: RTreeNode " + nodeId + ", expected level " + expectedLevel + ", actual level " + n.level);
             return false;
         }
 
@@ -1282,7 +1284,7 @@ public class RTree implements SpatialIndex {
         actualMBR.maxX = n.mbrMaxX;
         actualMBR.maxY = n.mbrMaxY;
         if (!actualMBR.equals(calculatedMBR)) {
-            log.error("Error: Node " + nodeId + ", calculated MBR does not equal stored MBR");
+            log.error("Error: RTreeNode " + nodeId + ", calculated MBR does not equal stored MBR");
             if (actualMBR.minX != n.mbrMinX) {
                 log.error("  actualMinX=" + actualMBR.minX + ", calc=" + calculatedMBR.minX);
             }
@@ -1299,19 +1301,19 @@ public class RTree implements SpatialIndex {
         }
 
         if (expectedMBR != null && !actualMBR.equals(expectedMBR)) {
-            log.error("Error: Node " + nodeId + ", expected MBR (from parent) does not equal stored MBR");
+            log.error("Error: RTreeNode " + nodeId + ", expected MBR (from parent) does not equal stored MBR");
             return false;
         }
 
         // Check for corruption where a parent entry is the same object as the child MBR
         if (expectedMBR != null && actualMBR.sameObject(expectedMBR)) {
-            log.error("Error: Node " + nodeId + " MBR using same rectangle object as parent's entry");
+            log.error("Error: RTreeNode " + nodeId + " MBR using same rectangle object as parent's entry");
             return false;
         }
 
         for (int i = 0; i < n.entryCount; i++) {
             if (n.ids[i] == -1) {
-                log.error("Error: Node " + nodeId + ", Entry " + i + " is null");
+                log.error("Error: RTreeNode " + nodeId + ", Entry " + i + " is null");
                 return false;
             }
 
@@ -1328,7 +1330,7 @@ public class RTree implements SpatialIndex {
      * Given a node object, calculate the node MBR from it's entries. Used in
      * consistency checking
      */
-    private Rectangle calculateMBR(Node n) {
+    private Rectangle calculateMBR(RTreeNode n) {
         Rectangle mbr = new Rectangle();
 
         for (int i = 0; i < n.entryCount; i++) {

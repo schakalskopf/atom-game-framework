@@ -1,6 +1,5 @@
 package sg.atom.ui;
 
-import com.gaurav.tree.Tree;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.MutableClassToInstanceMap;
@@ -61,7 +60,7 @@ import sg.atom.ui.systems.GUISystemService;
  * sounds...etc. Enable creating, loading, removing GUI resource properly.
  *
  * <p>Support automatic screen localization and input for multi language. Handle
- * own events. Enable bean binding and mapping
+ * own events. Enable bean binding and mapping or functional reactive programming?
  *
  * <p>Support cache other than AssetManager
  *
@@ -126,7 +125,7 @@ public class GameGUIManager extends AbstractManager {
      * The tree of the elements. This particular view is unnessary. Going to be
      * removed and use TreeTraverer instead.
      */
-    protected Tree<GUIElement> elementTree;
+    //protected Tree<GUIElement> elementTree;
     protected TreeTraverser<GUIElement> treeTraverser;
     //Common stuffs
     protected BitmapFont guiFont;
@@ -273,10 +272,9 @@ public class GameGUIManager extends AbstractManager {
     }
 
     // Fonts and styles ========================================================
-    public void registerFont(String fontName,String path){
-        
+    public void registerFont(String fontName, String path) {
     }
-    
+
     public Set<BitmapFont> getAvailableFonts() {
         return null;
     }
@@ -432,7 +430,7 @@ public class GameGUIManager extends AbstractManager {
         return result;
     }
 
-    public synchronized <T> T getGUIService(Class<T> clazz) {// throws IllegalAccessException {
+    public synchronized <T extends GUISystemService> T getGUIService(Class<T> clazz) {// throws IllegalAccessException {
         GUISystemService matchedService = services.get(clazz);
 
         T result = (T) matchedService;
@@ -463,6 +461,7 @@ public class GameGUIManager extends AbstractManager {
         }
     }
     //Debug=====================================================================
+
     public static boolean isDebugMode() {
         return GameGUIManager.debugMode;
     }

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import sg.atom.utils.repository.pool.StringBuilderPool;
 
 /**
- * Replaced with Guava facilities.
+ * Replaced with Guava facilities. or BeanUtils.
  *
  * @author cuong.nguyenmanh2
  */

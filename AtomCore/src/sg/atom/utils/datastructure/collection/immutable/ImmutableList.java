@@ -42,7 +42,7 @@ import sg.atom.utils.concurrent.Immutable;
  * @param <T> the type of the list elements.
  * @see FreezableList
  * @see Immutable
- */
+ */@Deprecated
 @Immutable
 public class ImmutableList<T> implements Iterable<T> {
 

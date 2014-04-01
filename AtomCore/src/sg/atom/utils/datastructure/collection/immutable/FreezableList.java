@@ -38,7 +38,7 @@ import sg.atom.utils.concurrent.Immutable;
  *
  * @param <T> the type of the list elements
  * @see ImmutableList
- */
+ */@Deprecated
 @Immutable
 public class FreezableList<T> extends AbstractList<T> {
 

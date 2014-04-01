@@ -4,7 +4,7 @@
 
 package sg.atom.core.event.eventizers;
 
-import sg.atom.core.event.queue.MessageSender;
+import sg.atom.core.event.message.MessageSender;
 
 /**
  * Converts method calls to event objects, and those event objects back to method calls.

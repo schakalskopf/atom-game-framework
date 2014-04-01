@@ -4,7 +4,7 @@
 
 package sg.atom.core.event.eventizers.dynamic;
 
-import sg.atom.core.event.queue.MessageSender;
+import sg.atom.core.event.message.MessageSender;
 
 import java.lang.reflect.Proxy;
 import sg.atom.core.event.eventizers.Event;

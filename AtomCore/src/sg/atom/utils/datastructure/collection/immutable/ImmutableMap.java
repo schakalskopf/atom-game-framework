@@ -35,7 +35,7 @@ import sg.atom.utils.concurrent.Immutable;
  * @param <K> the type of the keys
  * @param <V> the type of the values
  * @see Immutable
- */
+ */@Deprecated
 @Immutable
 public final class ImmutableMap<K, V> {
 
