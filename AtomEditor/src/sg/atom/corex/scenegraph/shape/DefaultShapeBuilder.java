@@ -7,7 +7,7 @@ package sg.atom.corex.scenegraph.shape;
 import sg.atom.corex.scenegraph.shape.ShapeUtil;
 import sg.atom.corex.scenegraph.shape.ShapeUtilBuilder;
 import sg.atom.corex.scenegraph.shape.Shape;
-import sg.atom.corex.material.MaterialUtil;
+import sg.atom.corex.material.MaterialUtils;
 import sg.atom.corex.scenegraph.shape.Shape;
 import sg.atom.corex.scenegraph.shape.ShapeUtil;
 import com.jme3.material.Material;
@@ -33,7 +33,7 @@ public class DefaultShapeBuilder implements ShapeUtilBuilder<Shape> {
     private Bucket bucket = Bucket.Opaque;
     private boolean wired = false;
     int attachType = Shape.SHAPE;
-    private MaterialUtil matUtil;
+    private MaterialUtils matUtil;
     
     public ShapeUtil shapeUtil;
     

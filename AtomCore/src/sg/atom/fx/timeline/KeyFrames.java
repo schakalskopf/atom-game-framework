@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import sg.atom.fx.automatic.KnownEvaluators;
+import sg.atom.fx.tween.KnownEvaluators;
 import sg.atom.fx.tween.Evaluator;
 import sg.atom.fx.tween.Interpolator;
 

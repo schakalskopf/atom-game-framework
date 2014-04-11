@@ -16,9 +16,9 @@ import sg.atom.utils.datastructure.collection.Pair;
 /**
  * Utility and fast math functions for 3D.
  *
- * <p>Merged with MathUtils.
+ * <p><b>DONE </b><s>Merged with MathUtils.</s>
  *
- * <p>FIXME: Replace with Common's Math
+ * <p>FIXME: Replace with Common's Math!
  *
  * @author atomix
  */
@@ -26,7 +26,6 @@ public class AtomFastMath {
 
     public static Random random = new Random();
     public static float PI = 3.14159265358979323846f;
-    
     public static float HALF_PI = (PI / 2);
     static public final float PI2 = PI * 2;
     static private final int SIN_BITS = 14; // 16KB. Adjust for accuracy.
@@ -137,8 +136,8 @@ public class AtomFastMath {
     public static IntPair randomIntPair(int min, int max) {
         return new IntPair(FastMath.nextRandomInt(min, max), FastMath.nextRandomInt(min, max));
     }
-    
-        static private class Sin {
+
+    static private class Sin {
 
         static final float[] table = new float[SIN_COUNT];
 
@@ -235,7 +234,6 @@ public class AtomFastMath {
         int yi = (int) (y * invDiv);
         return (Atan2.table[yi * ATAN2_DIM + xi] + add) * mul;
     }
-
 
     /**
      * Returns a random number between 0 (inclusive) and the specified value
@@ -449,9 +447,8 @@ public class AtomFastMath {
         s = f.format(num);
         return s;
     }
-    
+
     //Curves Math --------------------------------------------------------------
-    
     public static ArrayList<Vector3f> interpolateCurve(Spline curve, int segs) {
         List<Vector3f> controlPoints = curve.getControlPoints();
         ArrayList<Vector3f> interPoints = new ArrayList<Vector3f>();
@@ -466,12 +463,23 @@ public class AtomFastMath {
         interPoints.add(controlPoints.get(controlPoints.size() - 1).clone());
         return interPoints;
     }
+
     /**
      * Interpolate a curve and adding an offset with direction.
+     *
      * @param curve
-     * @param segs 
+     * @param segs
      */
-    public static void interpolateCurveOffest(Spline curve,int segs){
-        
+    public static void interpolateCurveOffest(Spline curve, int segs) {
     }
+    //Surface Math--------------------------------------------------------------
+
+    //Algebra--------------------------------------------------------------------
+//    public static String inverseFunction(String functionText) {
+//        return functionText;
+//    }
+//    
+//    public static Number parse(String functionText){
+//        return 0;
+//    }
 }

@@ -6,7 +6,7 @@ package sg.atom.core.lifecycle;
 
 import com.jme3.app.Application;
 import com.jme3.asset.AssetManager;
-import java.util.Properties;
+import org.apache.commons.configuration.Configuration;
 import sg.atom.core.AbstractManager;
 
 /**
@@ -26,9 +26,7 @@ public interface ManagableObject {
 
     public void load(AssetManager assetManager);
 
-    public void config(Properties props);
-
-    public void config(Object... params);
+    public void config(Configuration configuration);
 
     public void update(float tpf);
 

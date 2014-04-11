@@ -20,19 +20,26 @@ import sg.atom.core.AbstractManager;
 
 /**
  * S
+ *
  * @author hungcuong
  */
-public class EditorSelectionManager extends AbstractManager{
+public class EditorSelectionManager extends AbstractManager {
 
     private CommonTool commonTool;
+    
+    // Select methods
     private Node shootables;
     private CollisionResults results;
     private Ray ray;
+    
+    // List of selectable objects
     private SpatialList listSelectedSpatial = new SpatialList();
     private SpatialList listGeo;
     private SpatialList listHelper;
     private Geometry currentSelectedObject;
     private Geometry overGeo;
+    
+    // List of helper to exclude
     private GizmoHelper gizmoHelper;
 
     public EditorSelectionManager() {

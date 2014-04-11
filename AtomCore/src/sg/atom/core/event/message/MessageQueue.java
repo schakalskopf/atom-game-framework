@@ -8,7 +8,7 @@ import sg.atom.utils.concurrent.ThreadSafe;
 
 /**
  * Asynchronous unbounded queue for message passing.
- * 
+ *
  * FIXME: Replace with generic BlockingQueue or RingBuffer.
  */
 @ThreadSafe

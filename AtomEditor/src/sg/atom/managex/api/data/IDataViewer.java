@@ -5,7 +5,6 @@
 package sg.atom.managex.api.data;
 
 import java.util.Map;
-import sg.atom.core.config.IConfigurable;
 import sg.atom.corex.asset.DataStructure;
 
 /**
@@ -15,7 +14,7 @@ import sg.atom.corex.asset.DataStructure;
  * 
  * @author cuong.nguyenmanh2
  */
-public interface IDataViewer<T extends DataStructure> extends IConfigurable{
+public interface IDataViewer<T extends DataStructure>{
 
     public IDataViewPort<T> getViewPort();
 

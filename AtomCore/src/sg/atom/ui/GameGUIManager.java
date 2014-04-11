@@ -225,7 +225,7 @@ public class GameGUIManager extends AbstractManager {
         for (GUISystemService service : servicesArray) {
             services.put(service.getClass(), service);
             service.init();
-            registeredGUIImpls.put(service.getTypeToken(), service);
+            registeredGUIImpls.put(service.getScreenType(), service);
             //FIXME: Init service Manager;
         }
 

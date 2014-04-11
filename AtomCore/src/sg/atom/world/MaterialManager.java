@@ -14,7 +14,6 @@ import com.jme3.texture.Texture;
 import java.util.List;
 import java.util.Properties;
 import sg.atom.core.AbstractManager;
-import sg.atom.stage.WorldManager;
 
 /**
  * MaterialManager.
@@ -32,7 +31,7 @@ import sg.atom.stage.WorldManager;
  *
  * @author atomix
  */
-public class MaterialManager extends AbstractManager{
+public class MaterialManager extends AbstractManager {
 
     protected AssetManager assetManager;
     //FIXME: Default instance. Not a singleton!
@@ -134,10 +133,19 @@ public class MaterialManager extends AbstractManager{
 
     public void injectShader(String code) {
     }
+
+    public Material blendMaterials(Material mat1, Material mat2, float fraction) {
+        return null;
+    }
+
+    public MaterialDef bridge(MaterialDef def1, MaterialDef def2) {
+        return null;
+    }
     /* Some optimization functions */
 
     public void batchTextures() {
     }
+    //Cycle------------------------------------------------------------------------
 
     @Override
     public void init() {

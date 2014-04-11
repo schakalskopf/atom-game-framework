@@ -8,14 +8,13 @@ import com.jme3.app.Application;
 import com.jme3.app.state.AppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.renderer.RenderManager;
-import sg.atom.core.context.NanoContext;
 
 /**
  *
  * @author cuong.nguyenmanh2
  */
 @Deprecated
-public class NanoGameEditor extends Application implements NanoContext, AppState {
+public class NanoGameEditor extends Application implements AppState {
 
     public void initialize(AppStateManager stateManager, Application app) {
         throw new UnsupportedOperationException("Not supported yet.");

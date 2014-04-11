@@ -4,10 +4,11 @@
  */
 package sg.atom.editor.managers;
 
+import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 import java.util.Properties;
 import sg.atom.core.AbstractManager;
-import sg.atom.corex.scenegraph.spatial.SpatialInfo;
+import sg.atom.corex.scenegraph.spatial.EditorSpatialInfo;
 import sg.atom.corex.scenegraph.spatial.SpatialList;
 import sg.atom.corex.common.CommonTool;
 import sg.atom.corex.scenegraph.spatial.SpatialGroup;
@@ -21,14 +22,19 @@ public class EditorSpatialManager extends AbstractManager {
     private CommonTool commonTool;
     // SubTool Level
     SpatialList globalSpatialList;
-    SpatialInfo rootNodeInfo;
+    EditorSpatialInfo rootNodeInfo;
     ArrayList<SpatialGroup> layers;
 
     public EditorSpatialManager() {
         this.commonTool = CommonTool.getDefault(null);
         this.globalSpatialList = new SpatialList();
-        this.rootNodeInfo = new SpatialInfo(commonTool.getRootNode(), null);
+        this.rootNodeInfo = new EditorSpatialInfo(commonTool.getRootNode(), null);
     }
+    //Management -----------------------------------------------------------
+    public void cloneSpatial(Spatial spatial){
+        
+    }
+    //Cycle -----------------------------------------------------------
 
     public void init() {
         throw new UnsupportedOperationException("Not supported yet.");

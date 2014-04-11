@@ -15,4 +15,12 @@ package sg.atom.ui.systems;
  * @author cuong.nguyenmanh2
  */
 public interface GUIInteraction<T extends GUISystemService> {
+    
+    public GUIElement getSource();
+    
+    public Object getTarget();
+    
+    public void disable();
+    
+    public void stopPropagation();
 }

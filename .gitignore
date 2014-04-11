@@ -1,4 +1,3 @@
-
 /Atom2D/nbproject/private/
 /AtomCore/nbproject/private/
 /AtomEditor/nbproject/private/
@@ -27,9 +26,14 @@
 *.bz2
 
 #Images file
-*.png
-*.gif
-*.jpg
 *.psd
 
 # Tiled files
+Atom2D/assets/tiled/**.png
+
+
+AtomCore/Emodels/
+
+
+Atom2D/assets/tiled/tileset/*.png
+Atom2D/assets/tiled/

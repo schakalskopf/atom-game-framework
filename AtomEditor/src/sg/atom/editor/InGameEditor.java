@@ -4,7 +4,6 @@
  */
 package sg.atom.editor;
 
-import sg.atom.managex.api.function.AtomFunction;
 import sg.atom.managex.api.function.FunctionSystem;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
@@ -15,7 +14,10 @@ import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import com.jme3.system.AppSettings;
 import sg.atom.corex.common.CommonTool;
+import sg.atom.editor.system.AtomEditorFunctionSystem;
+import sg.atom.managex.api.config.EditorConfiguration;
 import sg.atom.managex.api.project.AtomEditorProject;
+import sg.atom.managex.api.system.EditorSystem;
 
 /**
  * InGameEditor is an AppState dedicated to all in-game editing purpose. It can
@@ -23,9 +25,10 @@ import sg.atom.managex.api.project.AtomEditorProject;
  *
  * <p>It's different from EmbedApplication in Testbed framework as its
  * contracted with the JME3 system to run in SimpleApplication level but not
- * lower. If you want to use full-fleged editor just use AtomSDK, desktop
- * editing that what is for. Experimental NanoGameEditor (lower level) is
- * unstable and also lack of purposes right now!
+ * lower. This editor also integrated better if you use AtomMain as its
+ * application! If you want to use full-fleged editor just use AtomSDK, desktop
+ * editing that what is for. <s>Experimental NanoGameEditor (lower level) is
+ * unstable and also lack of purposes right now!</s>
  *
  * <p>To run this application from command line.
  *
@@ -36,20 +39,31 @@ import sg.atom.managex.api.project.AtomEditorProject;
  * @author cuong.nguyenmanh2
  */
 public class InGameEditor extends SimpleApplication implements AppState {
+//Shortcut -------------------------------------------------------------
 
     private SimpleApplication wrapedApplication;
-    private AtomEditorProject project;
-    private FunctionSystem functionSystem;
+    // Managers ------------------------------------------------------------
 //    private EditorGUIManager guiManager;
 //    private EditorSceneManager sceneHelper;
 //    private EditorSelectionManager selectionManager;
 //    private HelperManager helperManager;
-    //Shortcut
-    public Camera cam;
+    private AtomEditorFunctionSystem functionSystem;
     private CommonTool commonTool;
+    // Stage
+    private Camera managedCam;
+    //Status
+    EditorConfiguration editorConfiguration;
     private boolean enableStatus;
     private boolean initialized;
-    public boolean runAsApplication = true;
+    private boolean runAsApplication = true;
+    //Project related
+    private AtomEditorProject currentProject;
+    String tempPath;
+    String userPath;
+    String dataPath;
+    String projectPath;
+    // Plugins
+    EditorSystem editorSystem;
 
     public InGameEditor() {
     }
@@ -73,84 +87,55 @@ public class InGameEditor extends SimpleApplication implements AppState {
 
     public void simpleInitApp() {
         proxySetup();
-        setupFunctions();
+        setupSystems();
         setupManagers();
-        setupInput();
+    }
+
+    protected void setupSystems() {
+        editorSystem.bootStrap();
+        setupFunctions();
+        setupProject();
         setupCamera();
     }
 
     protected void setupManagers() {
         this.commonTool = CommonTool.getDefault(wrapedApplication);
-        
+
 //        this.guiManager = new EditorGUIManager(this);
 //        this.sceneHelper = new EditorSceneManager(this);
 //        this.selectionManager = new EditorSelectionManager();
 //        this.helperManager = new HelperManager();
     }
 
-    void setupFunctions() {
+    protected void setupFunctions() {
         //FIXME: Dynamicly load the functions and chain from outside maybe?
 
-        functionSystem = new FunctionSystem(this.wrapedApplication);
-        functionSystem.addFunction(new AtomFunction("Move", "Move", "sprite:20,23,0"));
-        functionSystem.addFunction(new AtomFunction("Rotate", "Rotate", "sprite:20,23,1"));
-        functionSystem.addFunction(new AtomFunction("Scale", "Scale", "sprite:20,23,2"));
-        functionSystem.addFunction(new AtomFunction("Select", "Select", "sprite:20,23,46"));
-    }
-
-    void setupInput() {
-        /*
-         inputManager.addMapping("PressH",
-         new KeyTrigger(KeyInput.KEY_SPACE));
-         inputManager.addListener(functionSystem, "PressH");
-         */
-    }
-
-    public static void main(String[] args) {
-        final InGameEditor inGameEditor = new InGameEditor();
-
-        // Run as wraper
-        SimpleApplication app = new SimpleApplication() {
-            @Override
-            public void simpleInitApp() {
-                inGameEditor.setApp(this);
-                inGameEditor.simpleInitApp();
-            }
-        };
-
-        AppSettings cfg = new AppSettings(true);
-
-        cfg.setResolution(1024, 768);
-        cfg.setTitle("InGameEditor");
-        app.setSettings(cfg);
-        app.setShowSettings(false);
-        app.setDisplayStatView(false);
-        app.setDisplayFps(false);
-        app.start();
+        functionSystem = new AtomEditorFunctionSystem(this.wrapedApplication);
+        functionSystem.setupFunctions();
 
     }
 
     private void setupCamera() {
-        this.cam = wrapedApplication.getCamera();
-        cam.setLocation(new Vector3f(-10, 10, -10));
-        cam.lookAt(Vector3f.ZERO.clone(), Vector3f.UNIT_Y.clone());
+        this.managedCam = wrapedApplication.getCamera();
+        managedCam.setLocation(new Vector3f(-10, 10, -10));
+        managedCam.lookAt(Vector3f.ZERO.clone(), Vector3f.UNIT_Y.clone());
     }
 
-    public FunctionSystem getFunctionSystem() {
-        return functionSystem;
+    public void setupProject() {
+        //FIXME: Project loading method
+        //Check if there any project save in session?
+
+        //Open in directory?
+        currentProject = new AtomEditorProject();
     }
 
     private void proxySetup() {
     }
 
-    public void setApp(SimpleApplication app) {
-        this.wrapedApplication = app;
+    public void commandLine() {
     }
 
-    public SimpleApplication getApp() {
-        return wrapedApplication;
-    }
-
+    // State management -----------------------------------------------------------
     public boolean isInitialized() {
         return initialized;
     }
@@ -179,5 +164,51 @@ public class InGameEditor extends SimpleApplication implements AppState {
     }
 
     public void cleanup() {
+    }
+// Setter & getter -----------------------------------------------------------
+
+    public void setApp(SimpleApplication app) {
+        this.wrapedApplication = app;
+    }
+
+    public SimpleApplication getApp() {
+        return wrapedApplication;
+    }
+
+    public FunctionSystem getFunctionSystem() {
+        return functionSystem;
+    }
+
+    public EditorConfiguration getEditorConfiguration() {
+        return editorConfiguration;
+    }
+
+    public AtomEditorProject getCurrentProject() {
+        return currentProject;
+    }
+
+    // Standalone application -----------------------------------------------
+    public static void main(String[] args) {
+        final InGameEditor inGameEditor = new InGameEditor();
+
+        // Run as wraper
+        SimpleApplication app = new SimpleApplication() {
+            @Override
+            public void simpleInitApp() {
+                inGameEditor.setApp(this);
+                inGameEditor.simpleInitApp();
+            }
+        };
+
+        AppSettings cfg = new AppSettings(true);
+
+        cfg.setResolution(1024, 768);
+        cfg.setTitle("InGameEditor");
+        app.setSettings(cfg);
+        app.setShowSettings(false);
+        app.setDisplayStatView(false);
+        app.setDisplayFps(false);
+        app.start();
+
     }
 }

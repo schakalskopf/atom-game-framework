@@ -22,7 +22,6 @@ import com.jme3.scene.debug.Grid;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 import com.jme3.util.SkyFactory;
-import sg.atom.stage.WorldManager;
 
 /**
  * A Helper class go along with WorldManager to help create simple stuff for

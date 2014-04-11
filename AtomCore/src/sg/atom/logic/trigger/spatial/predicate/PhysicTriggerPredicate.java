@@ -9,7 +9,7 @@ import com.jme3.bullet.control.GhostControl;
 import com.jme3.scene.Spatial;
 import sg.atom.logic.trigger.Trigger;
 import sg.atom.logic.trigger.spatial.PhysicTrigger;
-import sg.atom.stage.WorldManager;
+import sg.atom.world.WorldManager;
 
 /**
  *

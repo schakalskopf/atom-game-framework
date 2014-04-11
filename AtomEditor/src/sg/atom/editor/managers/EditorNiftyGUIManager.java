@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sg.atom.editor.managers;
+package sg.atom.editor.ui.nifty;
 
 import com.jme3.niftygui.NiftyJmeDisplay;
 import de.lessvoid.nifty.Nifty;
@@ -18,6 +18,7 @@ import de.lessvoid.nifty.screen.ScreenController;
 import java.util.ArrayList;
 import java.util.Properties;
 import sg.atom.editor.InGameEditor;
+import sg.atom.editor.managers.EditorGUIManager;
 import sg.atom.editor.ui.nifty.components.ExNiftyComponent;
 import sg.atom.editor.ui.nifty.components.MainMenuComponent;
 import sg.atom.editor.ui.nifty.components.SceneGraphTreeComponent;

@@ -23,23 +23,23 @@ import java.util.Set;
  */
 public class SpatialList implements Selectable, List<Spatial>, Set<Spatial> {
 
-    private List<SpatialInfo> list = new LinkedList<SpatialInfo>();
+    private List<EditorSpatialInfo> list = new LinkedList<EditorSpatialInfo>();
 
     /**
      * @return the list
      */
-    public List<SpatialInfo> getList() {
+    public List<EditorSpatialInfo> getList() {
         return list;
     }
 
     /**
      * @param list the list to set
      */
-    public void setList(List<SpatialInfo> list) {
+    public void setList(List<EditorSpatialInfo> list) {
         this.list = list;
     }
 
-    public void add(SpatialInfo spatialInfo) {
+    public void add(EditorSpatialInfo spatialInfo) {
         list.add(spatialInfo);
     }
 

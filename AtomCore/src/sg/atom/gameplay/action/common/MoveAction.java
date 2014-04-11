@@ -4,6 +4,7 @@
  */
 package sg.atom.gameplay.action.common;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import sg.atom.utils.algorimth.optimization.Optimizable;
 import sg.atom.core.annotations.Atom;
 import sg.atom.gameplay.action.InternalAction;
@@ -41,5 +42,20 @@ public class MoveAction extends InternalAction {
     @Override
     public void actionEnd() {
         //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public AtomicBoolean isContexted() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Object call() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void run() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

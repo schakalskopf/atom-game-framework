@@ -7,10 +7,11 @@ package sg.atom.core.execution;
 import com.google.common.util.concurrent.Service;
 import com.jme3.app.AppTask;
 import com.jme3.app.state.AppState;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import sg.atom.core.AbstractManager;
 import sg.atom.core.monitor.ProgressInfo;
 import sg.atom.gameplay.GameAction;
-import sg.atom.stage.actor.AtomicAction;
 
 /**
  * Hierachy named task ultilities.
@@ -102,5 +103,12 @@ public final class AtomTask {
     }
 
     public void failed() throws Exception {
+    }
+
+    public ConcurrentLinkedQueue<AtomTask> decompose() {
+        return null;
+    }
+
+    public void compose(Set<AtomTask> tasks) {
     }
 }

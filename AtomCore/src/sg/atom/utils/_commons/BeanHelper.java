@@ -16,8 +16,9 @@
 package sg.atom.utils._commons;
 
 /**
- * Static helpers for generated beans.  BeanUtils.
- */@Deprecated
+ * Static helpers for generated beans. Replace with BeanUtils.
+ */
+@Deprecated
 public class BeanHelper {
 
     private BeanHelper() {

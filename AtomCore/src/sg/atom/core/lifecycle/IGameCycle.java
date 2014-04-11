@@ -23,7 +23,7 @@ public interface IGameCycle {
 
     public static enum LifeCyclePhase {
 
-        PhaseInit, PhaseLoad, PhaseConfig, PhaseUpdate, PhaseFinish, PhaseStartGame
+        PhaseInit, PhaseLoad, PhaseConfig, PhaseUpdate, PhaseFinish, PhaseNull
     }
 
     public void init();

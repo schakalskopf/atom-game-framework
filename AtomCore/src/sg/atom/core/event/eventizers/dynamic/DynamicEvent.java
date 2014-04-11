@@ -7,7 +7,7 @@ package sg.atom.core.event.eventizers.dynamic;
 
 import java.io.*;
 import java.lang.reflect.*;
-import sg.atom.core.event.eventizers.Event;
+import sg.atom.utils.event.Event;
 import sg.atom.core.event.eventizers.EventToString;
 import sg.atom.utils.concurrent.ThreadSafe;
 

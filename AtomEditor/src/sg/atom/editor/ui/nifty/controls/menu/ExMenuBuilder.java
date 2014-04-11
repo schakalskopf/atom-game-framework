@@ -8,12 +8,11 @@ import de.lessvoid.nifty.builder.ControlBuilder;
 
 /**
  * Use plain Tree of Strings / Tree of Functions / or a Groovy Builder.
- * 
- * 
+ *
  * @author cuong.nguyenmanh2
  */
-public class ExMenuBuilder  extends ControlBuilder {
-    
+public class ExMenuBuilder extends ControlBuilder {
+
     public ExMenuBuilder(String name) {
         super(name);
     }

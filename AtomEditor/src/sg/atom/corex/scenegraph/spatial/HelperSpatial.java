@@ -10,9 +10,9 @@ import com.jme3.scene.Spatial;
  *
  * @author hungcuong
  */
-public class HelperSpatial extends SpatialInfo{
+public class HelperSpatial extends EditorSpatialInfo{
 
-    public HelperSpatial(Spatial spatial, SpatialInfo parentInfo) {
+    public HelperSpatial(Spatial spatial, EditorSpatialInfo parentInfo) {
         super(spatial, parentInfo);
     }
     

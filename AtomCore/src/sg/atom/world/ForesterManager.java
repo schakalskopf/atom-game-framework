@@ -27,7 +27,6 @@ import forester.image.FormatReader.Channel;
 import forester.trees.TreeLayer;
 import forester.trees.TreeLoader;
 import sg.atom.stage.StageManager;
-import sg.atom.stage.WorldManager;
 
 /**
  * Facilities to use Forester and a-like in Atom enviroment and terrain.
@@ -112,7 +111,7 @@ public class ForesterManager {
         readyToUpdate = true;
     }
 
-    void createTrees() {
+    public void createTrees() {
 
 
 
@@ -141,7 +140,7 @@ public class ForesterManager {
         treeLayer.setMinimumScale(2f);
     }
 
-    void createGrasses() {
+    public void createGrasses() {
         //Adding some grass as well.
 
         MapGrid grid = grassLoader.createMapGrid();
@@ -187,7 +186,7 @@ public class ForesterManager {
 
     }
 
-    void createRocks() {
+    public void createRocks() {
 
         TreeLayer rockLayer = treeLoader.addTreeLayer(rockModel, true);
         rockLayer.setDensityTextureData(0, Channel.Green);
@@ -197,10 +196,10 @@ public class ForesterManager {
         rockLayer.setMinimumScale(1f);
     }
 
-    void createImpostor() {
+    public void createImpostor() {
     }
 
-    void createAnimals() {
+    public void createAnimals() {
     }
 
     public void update(float tpf) {

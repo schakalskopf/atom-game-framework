@@ -5,7 +5,7 @@
 package sg.atom.logic.command;
 
 import sg.atom.logic.annotations.Command;
-import sg.atom.utils.datastructure.LongArray;
+import sg.atom.utils.datastructure.collection.LongArray;
 
 /**
  *

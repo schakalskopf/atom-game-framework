@@ -4,10 +4,12 @@
  */
 package sg.atom.entity.framework.atomes;
 
+import sg.atom.entity.general.EntityContext;
+
 /**
  *
  * @author CuongNguyen
  */
-public class AtomESFramework {
+public class AtomESFramework implements EntityContext{
     
 }

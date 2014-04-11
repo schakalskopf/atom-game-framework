@@ -5,7 +5,8 @@
 package sg.atom.entity.general;
 
 /**
- * Simple and fake Entity with Java type and all the inheriatance fails!.
+ * AbstractEntity is the indentify of something of the context. Simple and fake
+ * Entity with Java type and all the inheriatance fails!.
  *
  * <p><b>NOTE: This is not the Entity as seen in a "Pure" EntityComponent
  * framework!</b></p>
@@ -38,16 +39,15 @@ package sg.atom.entity.general;
  *
  * @author atomix
  */
-public interface AbstractEntity {
+public interface AbstractEntity<C extends EntityContext> {
 
     /**
      * Get a meaningful indetify in some embeded context.
      *
-     * The implementation has to be taking care of its conrespondent context and
-     * meaning.
+     * <p>The implementation has to be taking care of its conrespondent context
+     * and meaning.
      *
      * @return
      */
     public Object getIdentify();
-
 }

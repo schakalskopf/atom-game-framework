@@ -29,7 +29,7 @@ import sg.atom.ui.GameGUIManager;
 @Beta
 public interface GUISystemService<T, E> extends IGameCycle {
 
-    public TypeToken<T> getTypeToken();
+    public TypeToken<T> getScreenType();
 
     @Inject
     public T getGUISystemInstance(GameGUIManager manager);
@@ -82,5 +82,9 @@ public interface GUISystemService<T, E> extends IGameCycle {
     public TreeTraverser<T> getElementTraverser();
 
     public void loadPath(String filePath);
+    
+    public TypeToken getBoundaryModel();
+    
+    public TypeToken getLayoutModel();
 
 }

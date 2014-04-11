@@ -4,6 +4,7 @@
  */
 package sg.atom.managex.api.memeto;
 
+import com.google.common.base.Converter;
 import com.google.common.base.Function;
 
 /**
@@ -13,14 +14,18 @@ import com.google.common.base.Function;
  *
  * @author CuongNguyen
  */
-public abstract class FunctionMemetoEdit<T> implements IMemetoEdit<T>, Function<T, T> {
+public abstract class FunctionMemetoEdit<T> extends Converter<T, T> implements IMemetoEdit<T> {
 
     protected FunctionMemeto<T> savedMemeto;
 
-    public T apply(T input) {
-        savedMemeto.from(this, generateMemeto(input));
+    @Override
+    protected T doForward(T input) {
+        //savedMemeto.from(this, generateMemeto(input));
         return input;
     }
 
-    public abstract Function<T, T> getInverseFunction();
+    @Override
+    protected T doBackward(T b) {
+        return (T) savedMemeto.from(this, savedMemeto).getSavedInfo();
+    }
 }

@@ -23,7 +23,6 @@ package sg.atom.utils.datastructure.collection;
  */
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import sg.atom.utils.datastructure.LongArray;
 import sg.atom.utils.math.AtomFastMath;
 
 /**

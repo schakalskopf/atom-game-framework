@@ -10,11 +10,19 @@ import sg.atom.core.timing.TimeProvider;
 
 /**
  * A simple but useful delayed attach/ detachment system. That's it, it's not a
- * bunch of complex cinematic events, nor have a timeline nor trying to notify
- * anyone else.
+ * bunch of complex cinematic events, nor have a timeline nor trying to "notify"
+ * anyone else. Beside of that, its enable highly concurrent and timing jobs
+ * upon the scenegraph.
  *
  * <p>Work together with StageManager to make character and actor, entities
  * work.</p>
+ *
+ * <p>FIXME: Use guava Cache instead of HashMap. Use forwardingCache to search
+ * in SceneGraphUtils mainCache. So if the Spatial relation already changed in
+ * another thread, it will not cause any exception.
+ *
+ * <p>FIXME: Going to extends AlignedScheduler for better alignment and
+ * coordnation with other scheduler and concurrent controls.
  *
  * @author cuong.nguyenmanh2
  */

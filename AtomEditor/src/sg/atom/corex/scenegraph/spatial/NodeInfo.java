@@ -14,9 +14,9 @@ import com.jme3.scene.Spatial;
  *
  * @author hungcuong
  */
-public class NodeInfo extends SpatialInfo {
+public class NodeInfo extends EditorSpatialInfo {
 
-    public NodeInfo(Spatial spatial, SpatialInfo parentInfo) {
+    public NodeInfo(Spatial spatial, EditorSpatialInfo parentInfo) {
         super(spatial, parentInfo);
     }
 }

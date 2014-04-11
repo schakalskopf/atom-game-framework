@@ -20,6 +20,7 @@ public class GUIScreenInfo<T extends GUISystemService, S> {
     public String filePath;
     public boolean loaded = false;
     public AssetKey assetKey;
+    private T system;
 
     public GUIScreenInfo(String filePath) {
         this.filePath = filePath;
@@ -43,5 +44,9 @@ public class GUIScreenInfo<T extends GUISystemService, S> {
 
     public TypeToken getTypeToken() {
         return TypeToken.of(Object.class);
+    }
+    
+    public T getSystemService(){
+        return system;
     }
 }

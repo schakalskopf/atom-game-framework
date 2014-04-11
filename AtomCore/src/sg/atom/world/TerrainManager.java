@@ -26,7 +26,6 @@ import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 import java.util.ArrayList;
 import java.util.List;
-import sg.atom.stage.WorldManager;
 import sg.atom.utils.factory.IAtomFactory;
 import sg.atom.world.terrain.FlatTerrain;
 import sg.atom.world.terrain.GenericTerrain;
@@ -34,6 +33,9 @@ import sg.atom.world.terrain.TerrainQuadAdapter;
 
 /**
  * TerrainManager, Factory, Wrapper for useful functions for terrain.
+ * 
+ * <p>Support streaming for infinite terrain.
+ * 
  *
  * @author atomix
  */
@@ -297,5 +299,10 @@ public class TerrainManager implements IAtomFactory<GenericTerrain> {
 
     public void setTerrain(GenericTerrain terrain) {
         this.terrain = terrain;
+    }
+
+    @Override
+    public GenericTerrain get() {
+        return null;
     }
 }

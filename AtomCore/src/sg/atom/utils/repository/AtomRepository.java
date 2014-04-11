@@ -8,11 +8,11 @@ import java.util.Collection;
 import sg.atom.utils.factory.IAtomFactory;
 
 /**
- * <p>AtomRepository is the first implementation of IRepository, with maximize
+ * AtomRepository is the first implementation of IRepository, with maximize
  * the usage of Guava and Guice to implement an "in-memory" mini datacenter. It
  * have pools, gates, caches and suitable for concurrent access.
  *
- * <p>One can compare and choose between this in memory datacenter and a
+ * <hr><p><b>Note : </b>One can compare and choose between this in memory datacenter and a
  * TupleSpace with agents or Topology in the flow package. This one this
  * simplier compare to TupleSpace and more complex than Flow's Topology; and use
  * only few well-defined query to query upon the data:
@@ -36,14 +36,21 @@ import sg.atom.utils.factory.IAtomFactory;
  * tasks, usually reffered as MapReduce in it data. Whenever it locked, queries
  * can query and read from it really quick.
  *
- * <p>=====================================================================<br>
- *
- * Current code borrowed from Prevayler and MVCC pojo, extended with Guava Cache
+ * <hr><p>Current code borrowed from Prevayler and MVCC pojo, extended with Guava Cache
  * and Supplier. In the future, going to move completely to prevayler as the
  * code getting mature recently. Treedoc also concerned as a delegation.
  *
  * <p>Going to bridge to Content repository API JCR .
  * http://en.wikipedia.org/wiki/Content_repository_API_for_Java
+ * 
+ * <hr><h4>How is work</h4><ul>
+ * 
+ * <li>Gates : same as Disruptor slots
+ * 
+ * <li>Caches : pojo persitent with policies
+ * </ul>
+ * 
+ * <p>
  *
  * @author CuongNguyen
  */

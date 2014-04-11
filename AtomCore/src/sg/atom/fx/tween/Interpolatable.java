@@ -5,7 +5,7 @@
 package sg.atom.fx.tween;
 
 /**
- * Concept different from Interpolatable of javafx.animation.
+ * Concept from Interpolatable of javafx.animation (different).
  *
  * @author cuong.nguyenmanh2
  */

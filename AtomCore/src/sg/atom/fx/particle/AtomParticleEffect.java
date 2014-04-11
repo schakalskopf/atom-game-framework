@@ -8,6 +8,7 @@ import com.jme3.app.Application;
 import com.jme3.asset.AssetManager;
 import com.jme3.scene.Spatial;
 import java.util.Properties;
+import org.apache.commons.configuration.Configuration;
 import sg.atom.core.AbstractManager;
 import sg.atom.fx.AtomEffect;
 
@@ -45,22 +46,17 @@ public class AtomParticleEffect implements AtomEffect{
     }
 
     @Override
-    public void config(Properties props) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void config(Object... params) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public void update(float tpf) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void finish() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void config(Configuration configuration) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

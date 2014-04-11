@@ -15,7 +15,7 @@ public class FlowError extends RuntimeException {
      * considered bad practice.
      *
      * @param text a description of the error
-   *
+     *
      */
     static final long serialVersionUID = 362498820763181265L;
 
@@ -35,7 +35,7 @@ public class FlowError extends RuntimeException {
      * once, typically never returning.
      *
      * @param text a description of the error
-   *
+     *
      */
     public static void complain(final String text) {
         throw new FlowError(text);

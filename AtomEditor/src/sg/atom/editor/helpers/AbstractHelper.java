@@ -13,7 +13,8 @@ import com.jme3.scene.control.AbstractControl;
  * Helper is facilities of system which always there to help. It meant to be
  * "on-screen" facilities helping the designer work.
  *
- * <p>Helper is no contracted to be heavy lifted as Manager.
+ * <p>Helper is no contracted to be heavy lifted as Manager. Helper going to be
+ * first class in Atom!
  *
  * @author hungcuong
  */

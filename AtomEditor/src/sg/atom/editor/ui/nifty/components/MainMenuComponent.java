@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import org.bushe.swing.event.EventTopicSubscriber;
+import sg.atom.utils.datastructure.tree.Tree;
 
 /**
  * MainMenuComponent is the topmost component of the editor.
@@ -39,6 +40,8 @@ public class MainMenuComponent extends ExNiftyComponent implements EventTopicSub
 
     public MainMenuComponent(EditorGUIManager guiManager) {
         super("mainMenu", guiManager);
+        
+        //FIXME: Replace with Tree.
         //System.out.println("mnuFile".matches("mnu.*"));
         menuNames.put("File", new ArrayList<String>(Arrays.asList(new String[]{"A", "B"})));
         menuNames.put("Edit", new ArrayList<String>(Arrays.asList(new String[]{"A1", "B1"})));
@@ -49,6 +52,14 @@ public class MainMenuComponent extends ExNiftyComponent implements EventTopicSub
 
     }
 
+    public void putLabels(String... strings){
+        
+    }
+    
+    public void putTree(Tree tree){
+        
+    }
+    
     @Override
     public void bind(Nifty nifty, Screen screen) {
         super.bind(nifty, screen);

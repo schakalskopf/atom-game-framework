@@ -41,11 +41,11 @@ public class TestTypeToken {
         NiftyGUIService service1 = new NiftyGUIService(null);
         TonegodGUIService service2 = new TonegodGUIService();
 
-        biMap.put(service1.getTypeToken(), service1);
-        biMap.put(service2.getTypeToken(), service2);
+        biMap.put(service1.getScreenType(), service1);
+        biMap.put(service2.getScreenType(), service2);
 
-        assert biMap.get(service1.getTypeToken()).equals(service1);
-        assert biMap.get(service2.getTypeToken()).equals(service2);
+        assert biMap.get(service1.getScreenType()).equals(service1);
+        assert biMap.get(service2.getScreenType()).equals(service2);
     }
 
     public static void main(String[] args) {

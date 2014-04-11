@@ -8,9 +8,10 @@ import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import java.util.HashMap;
 import java.util.Properties;
+import org.apache.bsf.util.Bean;
 import sg.atom.core.lifecycle.IGameCycle.LifeCyclePhase;
 import sg.atom.editor.InGameEditor;
-import sg.atom.editor.ui.nifty.components.ToolbarComponent;
+import sg.atom.managex.api.presentation.Perspective;
 import sg.atom.ui.GameGUIManager;
 
 /**
@@ -37,6 +38,8 @@ public abstract class EditorGUIManager extends GameGUIManager {
     protected String defaultIconPath = "Interface/icons/blenderbuttons3.png";
     protected HashMap<String, JmeCursor> cursors = new HashMap<String, JmeCursor>();
     private String perspectiveLayout;
+    //ArrayList<>
+    private Perspective currentPerspective;
 
     public EditorGUIManager(InGameEditor editor) {
         this.editor = editor;
@@ -61,18 +64,33 @@ public abstract class EditorGUIManager extends GameGUIManager {
         flyCam.setDragToRotate(true);
     }
 
-    // HANDLE 
+    // Handle inputs ----------------------------------------------------------- 
     public abstract void setupInput();
 
     public abstract void doFunction(String functionName);
+    //Perspectives -----------------------------------------------------------
 
-    public InGameEditor getEditor() {
-        return editor;
+    public void loadAllPerspectives() {
     }
 
-    public String getDefaultIconPath() {
-        return defaultIconPath;
+    public void selectPerspective(Perspective perspective) {
+        this.currentPerspective.setEnabled(false);
+        this.currentPerspective = perspective;
+        this.currentPerspective.setEnabled(true);
     }
+    //Management -----------------------------------------------------------
+
+    /**
+     * Build up metaGUI for this single bean.
+     *
+     * @param singleBean
+     */
+    public void meta(Bean singleBean) {
+    }
+
+    public void onSelected(Object object) {
+    }
+    //Cycle -----------------------------------------------------------
 
     public void init() {
         startUp();
@@ -100,6 +118,16 @@ public abstract class EditorGUIManager extends GameGUIManager {
 
     public float getProgressPercent(LifeCyclePhase aPhrase) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    // Setter & Getter
+    //
+    public InGameEditor getEditor() {
+        return editor;
+    }
+
+    public String getDefaultIconPath() {
+        return defaultIconPath;
     }
 
     public <T> T getComponent(Class<T> aClass) {

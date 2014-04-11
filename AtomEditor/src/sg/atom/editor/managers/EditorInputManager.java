@@ -24,8 +24,8 @@ public class EditorInputManager extends AbstractManager {
     public void loadConfigs() {
     }
 
+    //Cycle--------------------------------------------------------------------------
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void load() {

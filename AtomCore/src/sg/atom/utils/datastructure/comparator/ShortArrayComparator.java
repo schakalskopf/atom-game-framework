@@ -19,102 +19,73 @@
  */
 package sg.atom.utils.datastructure.comparator;
 
-
 import java.util.Comparator;
-
 
 /**
  * Compares short arrays
- * 
- * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
+ *
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory
+ * Project</a>
  */
-public class ShortArrayComparator implements Comparator<short[]>
-{
+public class ShortArrayComparator implements Comparator<short[]> {
+
     /**
      * Compare two short arrays.
-     * 
+     *
      * @param shortArray1 First short array
      * @param shortArray2 Second short array
-     * @return 1 if shortArray1 > shortArray2, 0 if shortArray1 == shortArray2, -1 if shortArray1 < shortArray2
+     * @return 1 if shortArray1 > shortArray2, 0 if shortArray1 == shortArray2,
+     * -1 if shortArray1 < shortArray2
      */
-    public int compare( short[] shortArray1, short[] shortArray2 )
-    {
-        if ( shortArray1 == shortArray2 )
-        {
+    public int compare(short[] shortArray1, short[] shortArray2) {
+        if (shortArray1 == shortArray2) {
             return 0;
         }
 
-        if ( shortArray1 == null )
-        {
-            if ( shortArray2 == null )
-            {
+        if (shortArray1 == null) {
+            if (shortArray2 == null) {
                 return 0;
-            }
-            else
-            {
+            } else {
                 return -1;
             }
-        }
-        else
-        {
-            if ( shortArray2 == null )
-            {
+        } else {
+            if (shortArray2 == null) {
                 return 1;
-            }
-            else
-            {
-                if ( shortArray1.length < shortArray2.length )
-                {
+            } else {
+                if (shortArray1.length < shortArray2.length) {
                     int pos = 0;
 
-                    for ( short short1 : shortArray1 )
-                    {
+                    for (short short1 : shortArray1) {
                         short short2 = shortArray2[pos];
 
-                        if ( short1 == short2 )
-                        {
+                        if (short1 == short2) {
                             pos++;
-                        }
-                        else if ( short1 < short2 )
-                        {
+                        } else if (short1 < short2) {
                             return -1;
-                        }
-                        else
-                        {
+                        } else {
                             return 1;
                         }
                     }
 
                     return -1;
-                }
-                else
-                {
+                } else {
                     int pos = 0;
 
-                    for ( short short2 : shortArray2 )
-                    {
+                    for (short short2 : shortArray2) {
                         short short1 = shortArray1[pos];
 
-                        if ( short1 == short2 )
-                        {
+                        if (short1 == short2) {
                             pos++;
-                        }
-                        else if ( short1 < short2 )
-                        {
+                        } else if (short1 < short2) {
                             return -1;
-                        }
-                        else
-                        {
+                        } else {
                             return 1;
                         }
                     }
 
-                    if ( pos < shortArray1.length )
-                    {
+                    if (pos < shortArray1.length) {
                         return 1;
-                    }
-                    else
-                    {
+                    } else {
                         return 0;
                     }
                 }

@@ -5,7 +5,7 @@
 package sg.atom.logic.command;
 
 import com.jme3.scene.Spatial;
-import sg.atom.stage.WorldManager;
+import sg.atom.world.WorldManager;
 
 /**
  *

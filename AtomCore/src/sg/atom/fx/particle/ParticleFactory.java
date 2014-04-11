@@ -282,4 +282,9 @@ public class ParticleFactory implements IAtomFactory<ParticleEmitter> {
     public ParticleEmitter cloneObject(ParticleEmitter orginal) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public ParticleEmitter get() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

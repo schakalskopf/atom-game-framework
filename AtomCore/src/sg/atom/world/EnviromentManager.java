@@ -8,22 +8,22 @@ import java.util.Properties;
 import sg.atom.core.AbstractManager;
 
 /**
- * Manager and Wrapper for useful functions for Enviroment.
+ * Manager and Wrapper for useful functions for Enviroment. To make an earth like enviroment.
  *
  * Including Light, Skybox,.
  *
  * <ul> <li>Load configs about different Enviroment. Load asset attached to
  * specific enviroment description.</li>
  *
- * <li>Handle Transistion between Enviroment</li>
+ * <li>Handle Transistion between Enviroment
  *
- * <li></li>
+ * <li>Generator with Fractal, Voronoi, Tiling.
  *
- * <li></li>
+ * <li>Simulation some aspects
  *
- * <li></li>
+ * <li>
  *
- * <li></li>
+ * <li>
  *
  * </ul>
  *
@@ -31,6 +31,15 @@ import sg.atom.core.AbstractManager;
  */
 public class EnviromentManager extends AbstractManager {
 
+    public void setWeather(){
+        
+    }
+
+    public void getCurrentWeather(){
+        
+    }
+
+    //Cycle---------------------------------------------------------------------
     @Override
     public void init() {
         throw new UnsupportedOperationException("Not supported yet.");

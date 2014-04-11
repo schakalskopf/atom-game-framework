@@ -28,7 +28,7 @@ public class TonegodGUIService extends AbstractExecutionThreadService implements
     }
 
     @Override
-    public TypeToken getTypeToken() {
+    public TypeToken getScreenType() {
         return TypeToken.of(Screen.class);
     }
 
@@ -150,5 +150,15 @@ public class TonegodGUIService extends AbstractExecutionThreadService implements
     @Override
     public void loadPath(String filePath) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public TypeToken getBoundaryModel() {
+        return TypeToken.of(Element.class);
+    }
+
+    @Override
+    public TypeToken getLayoutModel() {
+        return TypeToken.of(Element.class);
     }
 }

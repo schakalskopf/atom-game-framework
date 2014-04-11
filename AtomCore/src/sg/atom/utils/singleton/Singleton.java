@@ -2,13 +2,14 @@ package sg.atom.utils.singleton;
 
 /**
  * Fast and avoid double-checked locking algorithm Implementation based on
- * 
+ *
  * <p>Replaced with Guice!
  *
  * @author mulova
  *
  * @param <T>
- */@Deprecated
+ */
+@Deprecated
 public class Singleton<T> {
 
     private volatile T singleton;

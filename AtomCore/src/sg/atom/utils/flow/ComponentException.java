@@ -5,25 +5,24 @@
  */
 package sg.atom.utils.flow;
 
-
 public class ComponentException extends Exception {
 
-  private int intError;
+    private int intError;
 
-  public ComponentException(final int intErrNo) {
-    intError = intErrNo;
-  }
+    public ComponentException(final int intErrNo) {
+        intError = intErrNo;
+    }
 
-  public ComponentException(final String strMessage) {
-    super(strMessage);
-  }
+    public ComponentException(final String strMessage) {
+        super(strMessage);
+    }
 
-  @Override
-  public String toString() {
-    return "Component exception - value: " + intError;
-  }
+    @Override
+    public String toString() {
+        return "Component exception - value: " + intError;
+    }
 
-  int getValue() {
-    return intError;
-  }
+    int getValue() {
+        return intError;
+    }
 }

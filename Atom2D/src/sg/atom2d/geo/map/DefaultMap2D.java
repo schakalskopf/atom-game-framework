@@ -4,6 +4,7 @@
  */
 package sg.atom2d.geo.map;
 
+import sg.atom2d.geo.grid.GridMap;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Table;

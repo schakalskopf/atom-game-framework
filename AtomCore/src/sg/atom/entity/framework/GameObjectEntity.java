@@ -13,5 +13,5 @@ package sg.atom.entity.framework;
  * @author atomix
  */
 @Deprecated
-public class GameObjectEntity {
+public abstract class GameObjectEntity {
 }

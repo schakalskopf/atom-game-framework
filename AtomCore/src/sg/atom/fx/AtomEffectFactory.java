@@ -27,5 +27,10 @@ public class AtomEffectFactory implements IAtomFactory<AtomEffect> {
     public AtomEffect cloneObject(AtomEffect orginal) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public AtomEffect get() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }

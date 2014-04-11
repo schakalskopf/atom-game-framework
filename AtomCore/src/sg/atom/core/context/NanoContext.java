@@ -4,10 +4,16 @@
  */
 package sg.atom.core.context;
 
+import javolution.context.AbstractContext;
+
 /**
  *
  * @author cuong.nguyenmanh2
  */
-public interface NanoContext {
-    
+public final class NanoContext extends AbstractContext {
+
+    @Override
+    protected AbstractContext inner() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

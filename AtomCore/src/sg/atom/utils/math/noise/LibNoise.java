@@ -7,7 +7,7 @@ package sg.atom.utils.math.noise;
 /**
  *
 @author atomix
- */
+ */@Deprecated
 public class LibNoise {
     
 }

@@ -8,6 +8,7 @@ import com.google.common.base.Converter;
 import com.google.common.base.Function;
 import com.jme3.asset.AssetKey;
 import com.jme3.math.Vector2f;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Proxy;
 import sg.atom.fx.anim.IAnimationState;
 import sg.atom.utils.proxy.IPresenter;
@@ -75,17 +76,22 @@ public class SpriteImage implements IAnimationState<Sprite>, IPresenter<Sprite> 
     }
 
     @Override
-    public Sprite as() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public <E extends Sprite> E as(Function<Sprite, E> convertor) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public <E extends Sprite> E as(Class<E> clazz) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public <E> E as(Function<Sprite, E> convertor) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public WeakReference<Sprite> getWeakReference() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Sprite get() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

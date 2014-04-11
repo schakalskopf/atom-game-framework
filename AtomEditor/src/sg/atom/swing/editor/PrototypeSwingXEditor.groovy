@@ -34,8 +34,7 @@ import sg.atom.swing.editor.components.tree.*
 import sg.atom.swing.editor.components.curves.ui.*
  */
 
-import sg.atom.swing.SwingSimple3DApp
-
+//import sg.atom.swing.SwingSimple3DApp
 /**
  * Expasion of Prototype Swing which support SwingX and other components, docking frameworks. 
  * 

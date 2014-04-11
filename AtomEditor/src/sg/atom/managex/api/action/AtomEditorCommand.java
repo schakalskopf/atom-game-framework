@@ -4,6 +4,8 @@
  */
 package sg.atom.managex.api.action;
 
+import java.util.concurrent.Callable;
+
 /**
  * Command is a transferable medium of a Action. Which can be sent from one to
  * another attendent in the system.
@@ -13,7 +15,7 @@ package sg.atom.managex.api.action;
  *
  * @author cuong.nguyenmanh2
  */
-public abstract class AtomEditorCommand {
+public abstract class AtomEditorCommand implements Callable{
 
     private final AtomEditorAction parent;
 

@@ -8,10 +8,11 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.control.Control;
 import java.util.Properties;
+import org.apache.commons.configuration.Configuration;
 import sg.atom.core.AbstractManager;
 import sg.atom.core.lifecycle.IGameCycle;
 import sg.atom.core.lifecycle.ManagableObject;
-import sg.atom.stage.WorldManager;
+import sg.atom.world.WorldManager;
 
 /**
  * GameLevel (Common Implementation) is a Common pattern seen in Game.
@@ -151,7 +152,8 @@ public class GameLevel implements IGameCycle, ManagableObject {
     }
 
     @Override
-    public void config(Object... params) {
-        //throw new UnsupportedOperationException("Not supported yet.");
+    public void config(Configuration configuration) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
+
 }

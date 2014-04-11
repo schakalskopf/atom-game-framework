@@ -13,7 +13,7 @@ import com.jme3.scene.control.Control;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
-import sg.atom.stage.WorldManager;
+import sg.atom.world.WorldManager;
 
 /**
  * Handles the command queue of a Actor with SpatialEntity.

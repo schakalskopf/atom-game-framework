@@ -67,4 +67,9 @@ public class ValueCurveFactory implements IAtomFactory<ValueCurve<Float>> {
      }
         
      */
+
+    @Override
+    public ValueCurve<Float> get() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

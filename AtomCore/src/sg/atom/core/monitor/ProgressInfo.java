@@ -10,6 +10,8 @@ import com.jme3.export.Savable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import sg.atom.core.execution.AtomTask;
+import sg.atom.core.execution.OperatingBudget;
 
 /**
  * Hierachy named task description.
@@ -75,8 +77,11 @@ public class ProgressInfo implements Cloneable, Savable {
     public void read(JmeImporter im) throws IOException {
         //throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    public void notifyProgress(){
-        
+
+    public void notifyProgress() {
+    }
+
+    public OperatingBudget<AtomTask> remainBudget() {
+        return null;
     }
 }

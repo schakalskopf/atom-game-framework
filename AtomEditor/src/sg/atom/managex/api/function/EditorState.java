@@ -5,9 +5,11 @@
 package sg.atom.managex.api.function;
 
 /**
- *
+ * A hierachical State in the Editor. Drive the formal part of the FunctionSystem.
+ * 
+ * <p>
  * @author cuong.nguyenmanh2
  */
-public class EditorState {
+public class EditorState{
     
 }

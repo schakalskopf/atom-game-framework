@@ -4,7 +4,7 @@
 
 package sg.atom.core.event.eventizers.dynamic;
 
-import sg.atom.core.event.eventizers.Event;
+import sg.atom.utils.event.Event;
 import sg.atom.core.event.message.MessageSender;
 
 import sg.atom.utils.concurrent.ThreadSafe;

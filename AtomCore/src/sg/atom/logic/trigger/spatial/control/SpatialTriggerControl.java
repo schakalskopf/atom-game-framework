@@ -4,7 +4,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 import sg.atom.logic.trigger.Trigger;
 import sg.atom.logic.trigger.spatial.SpatialTrigger;
-import sg.atom.stage.WorldManager;
+import sg.atom.world.WorldManager;
 
 /**
  * SpatialTriggerControl is the default implementation of trigger which related

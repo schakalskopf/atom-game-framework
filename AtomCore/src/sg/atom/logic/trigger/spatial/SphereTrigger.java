@@ -10,7 +10,7 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import sg.atom.stage.StageManager;
 import sg.atom.entity.EntityManager;
-import sg.atom.stage.WorldManager;
+import sg.atom.world.WorldManager;
 
 /**
  *

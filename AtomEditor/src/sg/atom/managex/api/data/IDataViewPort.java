@@ -4,7 +4,6 @@
  */
 package sg.atom.managex.api.data;
 
-import sg.atom.core.config.IConfigurable;
 import sg.atom.corex.asset.DataStructure;
 
 /**
@@ -18,7 +17,7 @@ import sg.atom.corex.asset.DataStructure;
  *
  * @author cuong.nguyenmanh2
  */
-public interface IDataViewPort<T extends DataStructure> extends IConfigurable {
+public interface IDataViewPort<T extends DataStructure>{
 
     public Object getBoundary();
 

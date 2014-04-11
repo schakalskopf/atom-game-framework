@@ -18,6 +18,8 @@ import org.apache.commons.configuration.ConfigurationException;
 
 /**
  * Common implementation.
+ * 
+ * <p>Settings for rendering methods.
  *
  * @author atomix
  */

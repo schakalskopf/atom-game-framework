@@ -26,24 +26,38 @@ import com.jme3.scene.shape.Line;
 import java.util.HashMap;
 
 /**
+ * Working helpers are visual stuff help editing operations. They include :
+ *
+ * <ul> <li>working plane: indicate surface
+ *
+ * <li>working point: indicate position <li>working normal: indicate normal of
+ * surface
+ *
+ * <li>working line : indicate alignment
+ *
+ * <li>working linkage: indicate linkage. </ul>
  *
  * @author hungcuong
  */
 public class WorkingHelper extends AbstractHelper {
     // Tool level
+
     private CommonTool commonTool;
     private ShapeUtil shapeUtil;
     private HelperManager helperManager;
-    
     // SubTool Level
-    public String nowAction;
     public HashMap<String, Vector3f> workingPoints;
     public Plane workingPlane;
+    public Line workingLine;
+    public Line workingLinkageLine;
     private Geometry tempLine;
+    //Function
+    //FIXME: This should get via CommonTools, HelperManager or EditorContext
+    public String nowAction;
 
     public WorkingHelper(HelperManager helperManagers) {
         super("WorkingHelper");
-        
+
         this.commonTool = CommonTool.getDefault(null);
         this.shapeUtil = commonTool.getShapeUtil();
         this.helperManager = helperManager;
@@ -114,6 +128,4 @@ public class WorkingHelper extends AbstractHelper {
     public SpatialList getSelectableList() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
 }

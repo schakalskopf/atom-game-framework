@@ -22,6 +22,8 @@ import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ElementRenderer;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
 import de.lessvoid.nifty.elements.render.TextRenderer;
+import de.lessvoid.nifty.layout.Box;
+import de.lessvoid.nifty.layout.LayoutPart;
 import de.lessvoid.nifty.loaderv2.types.RegisterEffectType;
 import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
@@ -291,7 +293,7 @@ public class NiftyGUIService extends AbstractExecutionThreadService implements G
     }
 
     @Override
-    public TypeToken getTypeToken() {
+    public TypeToken getScreenType() {
         return TypeToken.of(Nifty.class);
     }
 
@@ -385,5 +387,15 @@ public class NiftyGUIService extends AbstractExecutionThreadService implements G
     @Override
     public void loadPath(String filePath) {
         nifty.addXml(filePath);
+    }
+
+    @Override
+    public TypeToken getBoundaryModel() {
+        return TypeToken.of(Box.class);
+    }
+
+    @Override
+    public TypeToken getLayoutModel() {
+        return TypeToken.of(LayoutPart.class);
     }
 }

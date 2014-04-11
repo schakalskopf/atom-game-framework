@@ -9,6 +9,7 @@ import com.google.common.base.Function;
 import com.jme3.math.Transform;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Proxy;
 import sg.atom.utils.proxy.IPresenter;
 
@@ -109,15 +110,20 @@ public class SpatialPresentor implements IPresenter<Spatial> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public <E extends Spatial> E as(Function<Spatial, E> convertor) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     public <E extends Spatial> E as(Class<E> clazz) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Spatial as() {
+    public Spatial get() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public WeakReference<Spatial> getWeakReference() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public <E> E as(Function<Spatial, E> convertor) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

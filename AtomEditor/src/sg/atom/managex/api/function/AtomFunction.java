@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Description of an Action. Different from AWT implemenatation! The same with
- * Netbean Action framework.
+ * Netbean Action framework but has no dependencies in AWT.
  *
  * @author cuong.nguyenmanh2
  */

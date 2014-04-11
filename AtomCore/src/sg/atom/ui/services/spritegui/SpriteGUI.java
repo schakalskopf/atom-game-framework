@@ -16,6 +16,9 @@ import sg.atom.ui.systems.GUIScreenInfo;
 import sg.atom.ui.systems.GUISystemService;
 
 /**
+ * This light-weight GUI framework use Atom Sprite as unit element and reactive
+ * as fundamental interactions handling. Eventbus are used as underlying events
+ * propagation.
  *
  * @author cuong.nguyenmanh2
  */
@@ -23,13 +26,12 @@ public class SpriteGUI implements GUISystemService<SpriteGUI, Sprite> {
 
     Node guiRootNode;
     Node spriteGUIRootNode;
-    
+
     public SpriteGUI(GameGUIManager guiManager) {
-        
     }
 
     @Override
-    public TypeToken<SpriteGUI> getTypeToken() {
+    public TypeToken<SpriteGUI> getScreenType() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -150,6 +152,16 @@ public class SpriteGUI implements GUISystemService<SpriteGUI, Sprite> {
 
     @Override
     public float getProgressPercent(LifeCyclePhase aPhrase) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public TypeToken getBoundaryModel() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public TypeToken getLayoutModel() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

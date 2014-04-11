@@ -26,7 +26,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.Control;
-import sg.atom.corex.scenegraph.spatial.SpatialInfo;
+import sg.atom.corex.scenegraph.spatial.EditorSpatialInfo;
 import sg.atom.editor.managers.EditorSelectionManager;
 
 /**
@@ -42,7 +42,7 @@ public class GizmoHelper extends AbstractHelper implements ActionListener, Analo
     private Camera cam;
     private boolean camFix;
     Transform targetTransform;
-    SpatialInfo targetSpatial;
+    EditorSpatialInfo targetSpatial;
     
     // SubTool Level
     private Node gizmo;

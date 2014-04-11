@@ -18,10 +18,10 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Map;
-import sg.atom.core.config.IConfigurable;
 import sg.atom.utils.proxy.IPresenter;
 
 /**
@@ -42,18 +42,20 @@ import sg.atom.utils.proxy.IPresenter;
  * (transforming, translating, ordering ..) are represented as float. A local
  * Transform also stored and sync with those attributes to help use in JME's
  * context easier. Through Transform, this Sprite implementation also support
- * scaling and rotating. </p>
+ * scaling and rotating. 
  *
  * <p> If use as Spatial (Node,Geometry) the Spatial is associate with custom
  * user data under name "__sprite_{attribute}". Through Spatial, Sprite can be
  * nested as an element of the scenegraph. If as in Mesh/Quad level, the vertex
  * indexes/uv/position can be retransformed. In Material/Shader level, Texture
- * or TextureCell are pushed down to JME3 system.</p>
+ * or TextureCell are pushed down to JME3 system.
+ * 
+ * <p>Use convertor and bean mapping to morph through layers. Interpolator to mix between instances
  *
  * <p> An internal SpriteControl are in charge to various "View" mataining for
- * Spatial accoringly if changes are made in the model. Interaction and event
- * propagation are also be handled in SpriteControl. </p>
- *
+ * Spatial accoringly if changes are made in the model. Interactions and event
+ * propagation are also be handled in SpriteControl. 
+ * 
  * <p><b>Custom usage:</b> <ul><li>Sprite in UI for example can composed
  * attributes in various format, such as Nifty's GUI Sprite-ImageMode.. Also the
  * as(Class) method and as(Convertor) imply that this model can be convert into
@@ -64,19 +66,32 @@ import sg.atom.utils.proxy.IPresenter;
  *
  * @author CuongNguyen
  */
-public class Sprite implements IPresenter<Spatial>,IConfigurable {
+public class Sprite implements IPresenter<Spatial> {
+
+    @Override
+    public <E> E as(Function<Spatial, E> convertor) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public WeakReference<Spatial> getWeakReference() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Spatial get() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
     public static enum SpriteStatus {
 
         STATUS_ORIGINAL, STATUS_INSTANCED, STATUS_UNLINK
     }
-    
-    public static enum SpriteDisplay{
-        
+
+    public static enum SpriteDisplay {
     }
-    
-    public static enum SpriteStyle{
-        
+
+    public static enum SpriteStyle {
     }
     // Four float positional attributes for common usecases
     public float x, y, width, height;
@@ -143,27 +158,27 @@ public class Sprite implements IPresenter<Spatial>,IConfigurable {
     public Node asNode() {
         return null;
     }
-    
-    @Override
-    public void config(String key, Object value) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
-    @Override
-    public Object getConfig(String key) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+//    @Override
+//    public void config(String key, Object value) {
+//        throw new UnsupportedOperationException("Not supported yet.");
+//    }
+//
+//    @Override
+//    public Object getConfig(String key) {
+//        throw new UnsupportedOperationException("Not supported yet.");
+//    }
+//
+//    @Override
+//    public <T> T getConfig(String key, Class<T> clazz) {
+//        throw new UnsupportedOperationException("Not supported yet.");
+//    }
+//
+//    @Override
+//    public Map<String, Object> getConfigs() {
+//        throw new UnsupportedOperationException("Not supported yet.");
+//    }
 
-    @Override
-    public <T> T getConfig(String key, Class<T> clazz) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Map<String, Object> getConfigs() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
     @Override
     public Spatial from(Converter<Object, Spatial> convertor) {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -171,11 +186,6 @@ public class Sprite implements IPresenter<Spatial>,IConfigurable {
 
     @Override
     public Spatial from(Object object) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public <E extends Spatial> E as(Function<Spatial, E> convertor) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -191,11 +201,6 @@ public class Sprite implements IPresenter<Spatial>,IConfigurable {
 
     @Override
     public Spatial mix(Spatial... objects) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Spatial as() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

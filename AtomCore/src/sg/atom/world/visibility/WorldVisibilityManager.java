@@ -4,6 +4,9 @@
  */
 package sg.atom.world.visibility;
 
+import com.jme3.scene.Spatial;
+import java.util.ArrayList;
+
 /**
  * WorldVisibilityManager manage the visibility of Spatial and Entities with
  * some higher degree/resolution than WorldLODManager; it decide whenever a
@@ -20,4 +23,13 @@ package sg.atom.world.visibility;
  * @author cuong.nguyenmanh2
  */
 public interface WorldVisibilityManager {
+    ArrayList<AtomZone> getZones();
+    
+    void enterZone(AtomZone zone);
+    
+    void exitZone(AtomZone zone);
+    
+    void toogle(Spatial spatial);
+    
+    void mark(Spatial spatial,Object mark);
 }

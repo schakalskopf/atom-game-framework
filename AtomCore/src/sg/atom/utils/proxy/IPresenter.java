@@ -6,6 +6,8 @@ package sg.atom.utils.proxy;
 
 import com.google.common.base.Converter;
 import com.google.common.base.Function;
+import com.google.common.base.Supplier;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Proxy;
 
 /**
@@ -14,8 +16,9 @@ import java.lang.reflect.Proxy;
  * <p>Presenter object are mixed of proxy pattern and decorator pattern. It's a
  * special pattern for object that heavily decorated, but conceptional similar
  * to another. Decorator concept in Graphics usually refered as Style or Filter,
- * contracted to preserve the basis of the affected. The proxy is "changed
- * version" of the orginal object.
+ * contracted to preserve the basis of the affection. The proxy is "changed
+ * version" of the orginal object. Via getReference() return a WeakReference of
+ * the Object for some usecases but use with caution!
  *
  * <p>This interface assume that this class can be translated to another form
  * without any futher information but a generic convertor or a destination
@@ -28,13 +31,11 @@ import java.lang.reflect.Proxy;
  *
  * @author cuong.nguyenmanh2
  */
-public interface IPresenter<T> {
-    
-    public <E extends T> E as(Function<T, E> convertor);
+public interface IPresenter<T> extends Supplier<T> {
+
+    public <E> E as(Function<T, E> convertor);
 
     public <E extends T> E as(Class<E> clazz);
-
-    public T as();
 
     public T from(Converter<Object, T> convertor);
 
@@ -43,4 +44,6 @@ public interface IPresenter<T> {
     public Proxy asProxy();
 
     public T mix(T... objects);
+
+    public WeakReference<T> getWeakReference();
 }

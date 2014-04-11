@@ -40,10 +40,12 @@ import sg.atom.swing.editor.components.curves.ui.*
 import sg.atom.swing.editor.*
 import sg.atom.swing.*
 
-app3d = new SwingSimple3DApp()
-appUI = new PrototypeSwingXEditor()
-appUI.app3d = app3d
-appUI.actions=[:]
+//import sg.atom.swing.SwingSimple3DApp
+
+//app3d = new SwingSimple3DApp()
+//appUI = new PrototypeSwingXEditor()
+//appUI.app3d = app3d
+//appUI.actions=[:]
 
 //app.swing{
 //    app.actions["Align"] = action(shortDescription :"Align",smallIcon: app.createIcon("gimp_icon/DPixel-black/images/align-22.png"))
@@ -59,4 +61,4 @@ appUI.actions=[:]
 //    app.actions["Picker"] = action(shortDescription :"Align",smallIcon: app.createIcon("gimp_icon/DPixel-black/images/color-picker-22.png"))
 //}
 
-appUI.createUI("Game2DEditor")
+//appUI.createUI("Game2DEditor")

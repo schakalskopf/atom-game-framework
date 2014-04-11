@@ -7,7 +7,7 @@ package sg.atom.core.timing;
 /**
  * A Pair of Time and Value.
  *
- * FIXME: in a Map Enviroment?
+ * <p>FIXME: in a Map Enviroment? Is it a TimeInterval?
  *
  * @author cuong.nguyenmanh2
  */

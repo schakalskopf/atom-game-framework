@@ -3,12 +3,10 @@ package sg.atom.utils.repository.pool;
 import java.util.*;
 
 /**
- * 분류가 가능한 pool<br> pool에 존재하지 않으면 null을 반환한다.<br> null을 반환하지 않으려면 AbstractPool을
- * 사용하라.<br>
  * <code>
  * get() {
  * 	i = pool.instance(key)
- * 	instance를 얻고 나면 항상 i의 pool과 key를 저장.
+ *
  * }
  *
  * reuse() {

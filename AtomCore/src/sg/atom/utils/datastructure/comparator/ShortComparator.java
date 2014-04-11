@@ -19,60 +19,44 @@
  */
 package sg.atom.utils.datastructure.comparator;
 
-
 import java.util.Comparator;
-
 
 /**
  * Compares shorts
- * 
- * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
+ *
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory
+ * Project</a>
  */
-public class ShortComparator implements Comparator<Short>
-{
+public class ShortComparator implements Comparator<Short> {
+
     /**
      * Compare two shorts.
-     * 
+     *
      * @param short1 First short
      * @param short2 Second short
-     * @return 1 if short1 > short2, 0 if short1 == short2, -1 if short1 < short2
+     * @return 1 if short1 > short2, 0 if short1 == short2, -1 if short1 <
+     * short2
      */
-    public int compare( Short short1, Short short2 )
-    {
-        if ( short1 == short2 )
-        {
+    public int compare(Short short1, Short short2) {
+        if (short1 == short2) {
             return 0;
         }
 
-        if ( short1 == null )
-        {
-            if ( short2 == null )
-            {
+        if (short1 == null) {
+            if (short2 == null) {
                 return 0;
-            }
-            else
-            {
+            } else {
                 return -1;
             }
-        }
-        else
-        {
-            if ( short2 == null )
-            {
+        } else {
+            if (short2 == null) {
                 return 1;
-            }
-            else
-            {
-                if ( short1 < short2 )
-                {
+            } else {
+                if (short1 < short2) {
                     return -1;
-                }
-                else if ( short1 > short2 )
-                {
+                } else if (short1 > short2) {
                     return 1;
-                }
-                else
-                {
+                } else {
                     return 0;
                 }
             }

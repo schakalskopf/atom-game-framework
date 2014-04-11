@@ -1,5 +1,6 @@
 package sg.atom.stage;
 
+import sg.atom.world.WorldManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;

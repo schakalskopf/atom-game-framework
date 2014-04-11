@@ -22,7 +22,12 @@ import com.jme3.input.event.TouchEvent;
  * <p>Sequence of Input called pattern are recoginized by pattern matching (by
  * complex determistic finite automata (DFA)).
  *
- * <p>It replace the default broadcast mechanism with EventBus
+ * <p>Adapt input filter and producer to input pipeline to reduce or include
+ * inputs.
+ *
+ * <p>It replace the default broadcast mechanism with EventBus.
+ *
+ * <p>It can serialize input signal to byte stream again!
  *
  * @author atomix
  */

@@ -20,12 +20,15 @@ import com.jme3.scene.shape.Line;
 import com.jme3.shadow.PssmShadowRenderer;
 import java.util.Properties;
 import sg.atom.core.AbstractManager;
-import sg.atom.corex.scenegraph.spatial.SpatialInfo;
+import sg.atom.corex.scenegraph.spatial.EditorSpatialInfo;
 import sg.atom.editor.InGameEditor;
 
 /**
- * Extension of WorldTestHelper. but use Atom Shape instead of JME3 Shape.
+ * Extension of WorldTestHelper. but use Atom Shape instead of JME3 Shape and
+ * other wrapers.
  *
+ * <p>
+ * 
  * @author cuong.nguyenmanh2
  */
 public class EditorSceneManager extends AbstractManager {
@@ -34,8 +37,7 @@ public class EditorSceneManager extends AbstractManager {
     private final InGameEditor editor;
     private AssetManager assetManager;
     private ViewPort viewPort;
-    
-    //The scene split into three Nodes.
+    //The scene split into three Nodes. ----------------------------------------
     private Node rootNode;
     private Node gizmo = new Node("Gizmo");
     private Node toolNode = new Node("ToolNode");
@@ -84,7 +86,7 @@ public class EditorSceneManager extends AbstractManager {
         toolNode.attachChild(gridNode);
     }
 
-    void createLight() {
+    public void createLight() {
         /**
          * A white, spot light source.
          */
@@ -129,7 +131,7 @@ public class EditorSceneManager extends AbstractManager {
     public void setView(String viewPreset) {
     }
 
-    public void isolateObject(SpatialInfo spatial) {
+    public void isolateObject(EditorSpatialInfo spatial) {
     }
 
     public void setupWindows(String windowPreset) {

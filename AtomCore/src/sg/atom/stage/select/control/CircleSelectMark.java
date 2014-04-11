@@ -19,7 +19,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.scene.shape.Torus;
 import java.util.ArrayList;
-import sg.atom.stage.WorldManager;
+import sg.atom.world.WorldManager;
 import sg.atom.stage.select.SpatialSelectControl;
 
 /**

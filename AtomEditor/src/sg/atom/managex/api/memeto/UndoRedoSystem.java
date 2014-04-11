@@ -6,6 +6,7 @@ package sg.atom.managex.api.memeto;
 
 import com.google.common.eventbus.Subscribe;
 import java.util.ArrayList;
+import org.apache.commons.configuration.AbstractConfiguration;
 import sg.atom.managex.api.action.AtomEditorAction;
 import sg.atom.managex.api.system.TransactionalEditingSystem;
 
@@ -23,7 +24,7 @@ import sg.atom.managex.api.system.TransactionalEditingSystem;
  * by default. The simple property change listener also supported but not
  * recommended.
  *
- * <p><b>Note:</b>Other CCD used to have troubles with their undo and redo
+ * <p><b>Note:</b> Other CCD used to have troubles with their undo and redo
  * system. Because every action is recoreded with this system, cause this system
  * to become the black hole of failure, which is not a good design scenario!
  * Best practices show that this System should only record lightweight changes,
@@ -49,8 +50,15 @@ import sg.atom.managex.api.system.TransactionalEditingSystem;
  */
 public class UndoRedoSystem implements TransactionalEditingSystem {
 
+    //FIXME: Should manage a chain of command instead?
     ArrayList<IMemetoEdit> edits;
 
+    //Settings
+    int savedStep;
+    int maxStep;
+    int expireTime;
+    AbstractConfiguration configuration;
+    
     public void undo(AtomEditorAction action) {
         //action.getCommand().undo();
     }
@@ -65,7 +73,7 @@ public class UndoRedoSystem implements TransactionalEditingSystem {
     }
 
     @Subscribe
-    public void reportEdit(IMemetoEdit edit) {
+    public void recordEdit(IMemetoEdit edit) {
         edits.add(edit);
     }
 }

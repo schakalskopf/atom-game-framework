@@ -7,10 +7,11 @@ package sg.atom.managex.api.memeto;
 import java.util.Hashtable;
 
 /**
- *
+ * Properties memeto take modified properties of object.
+ * 
  * @author cuong.nguyenmanh2
  */
-public interface PropertiesMemeto<T> extends IMemeto<T> {
+public interface PropertiesMemeto<T> extends IObjectiveMemeto<T>  {
 
     /**
      * Upon receiving this message the receiver should place any relevant state

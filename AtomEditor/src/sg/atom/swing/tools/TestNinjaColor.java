@@ -2,7 +2,7 @@ package sg.atom.swing.tools;
 
 import sg.atom.editor.ui.nifty.components.AnimationManager;
 import sg.atom.corex.animation.AnimationView;
-import sg.atom.corex.material.color.ColorUtil;
+import sg.atom.corex.material.color.ColorUtils;
 import sg.atom.corex.common.CommonTool;
 import sg.atom.corex.scenegraph.shape.ArrowShape;
 import sg.atom.corex.scenegraph.shape.GridHelperShape;
@@ -307,7 +307,7 @@ public class TestNinjaColor extends SimpleApplication {
             } else {
                 value = (maxdis - dis) / maxdis;
                 //System.out.println(" value :"+value);
-                Vector3f color1 = ColorUtil.HSVtoRGB((1 - value) * 360, 1, 1);
+                Vector3f color1 = ColorUtils.HSVtoRGB((1 - value) * 360, 1, 1);
 
                 valueR = color1.x;
                 valueG = color1.y;

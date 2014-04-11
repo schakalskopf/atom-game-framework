@@ -33,6 +33,8 @@ public class GameEffectManager extends AbstractManager implements TimeProvider{
     
     //Factory
     protected FilterPostProcessor fpp;
+    
+    //FIXME: Replace with HierarchicalFactory
     protected ParticleFactory defaultFactory;
 
     public GameEffectManager(StageManager stageManager) {

@@ -9,7 +9,7 @@ import com.jme3.scene.Spatial;
 /**
  * Basic interface for Commands pattern as in Gof Chain of Resposibility.
  *
- * <p>Different to Command in Apache Chain.
+ * <p>Different to Command in Apache Chain. May extends?
  *
  * @author atomix
  */

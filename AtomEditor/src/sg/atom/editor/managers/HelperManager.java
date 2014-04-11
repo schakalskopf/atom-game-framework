@@ -35,7 +35,7 @@ public class HelperManager extends AbstractControl {
     public Node helperNode, targetNode;
     public String nowAction;
     private CommonTool commonTool;
-    // THE HELPER
+    // THE HELPERs
     private WorkingHelper workingHelper;
     private GizmoHelper gizmoHelper;
     private MarkHelper markHelper;

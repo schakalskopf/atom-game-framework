@@ -15,11 +15,16 @@ import sg.atom.core.lifecycle.IGameCycle;
 import sg.atom.stage.StageManager;
 
 /**
- * ScriptManager manage script (facade) for GameObjects, Settings with Groovy
- * (and others).
+ * ScriptManager manage script (facade) for GameObjects, Settings. with Groovy
+ * by default and (and others).
  *
- * Support dynamic/obsevered script binding and loading and watching specific
+ * <p>Support dynamic/obsevered script binding and loading and watching specific
  * script folders
+ *
+ * <p>Atom also offer a simple embedable language based in Preon's Limbo call
+ * Atom's Dot because it just contain numbers/names/operations and a lot of
+ * dots(.) The different between Limbo and Dot is Dot include operation for
+ * reactive extension: Dot arrow (.->) like in ELM.
  *
  * @author atomix
  */
@@ -43,20 +48,19 @@ public class ScriptManager implements IGameCycle {
     public void initScriptManager() {
         // For the script
         initScriptEngine();
-        initCineScript();
+        //initCineScript();
     }
 
-    private void initCineScript() {
-        /*
-         try {
-         // run the Script to Setup Cinematic
-         //gse.run("", binding);
-         } catch (ResourceException ex) {
-         } catch (ScriptException ex) {
-         }
-         */
-    }
-
+//    private void initCineScript() {
+//        /*
+//         try {
+//         // run the Script to Setup Cinematic
+//         //gse.run("", binding);
+//         } catch (ResourceException ex) {
+//         } catch (ScriptException ex) {
+//         }
+//         */
+//    }
     public void initScriptEngine() {
         //CompilerConfiguration compiler = new CompilerConfiguration();
         // The Engine

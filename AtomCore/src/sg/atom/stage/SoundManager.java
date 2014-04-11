@@ -4,6 +4,7 @@
  */
 package sg.atom.stage;
 
+import sg.atom.world.WorldManager;
 import sg.atom.stage.sound.SoundClip;
 import com.google.common.collect.HashBiMap;
 import com.jme3.asset.AssetManager;

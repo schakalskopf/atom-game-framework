@@ -6,10 +6,10 @@ package sg.atom.gameplay;
 
 import com.jme3.app.Application;
 import sg.atom.core.AbstractManager;
-import sg.atom.stage.actor.AtomicAction;
+import sg.atom.core.execution.AtomicAction;
 
 /**
- * GameAction is a unit of execution for the GameStage level.
+ * GameAction is a unit of execution for the GameStage level context.
  *
  * <p>This implementation work upon existed JME3 architecture of GameLoop and
  * open the possibilites to modern Actor architecture.

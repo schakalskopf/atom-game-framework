@@ -10,7 +10,7 @@ import com.google.inject.Inject;
 import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 import sg.atom.logic.trigger.TriggerListener;
-import sg.atom.stage.WorldManager;
+import sg.atom.world.WorldManager;
 
 /**
  * SpatialTrigger is the default implementation of trigger which related to

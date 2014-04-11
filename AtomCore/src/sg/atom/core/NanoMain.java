@@ -24,5 +24,7 @@ import sg.atom.core.context.NanoContext;
  *
  * @author cuong.nguyenmanh2
  */
-public class NanoMain implements NanoContext {
+public abstract class NanoMain {
+
+    public abstract NanoContext getContext();
 }

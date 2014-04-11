@@ -23,7 +23,6 @@ import com.jme3.texture.Texture2D;
 import com.jme3.water.SimpleWaterProcessor;
 import com.jme3.water.WaterFilter;
 import sg.atom.stage.StageManager;
-import sg.atom.stage.WorldManager;
 
 /**
  *

@@ -92,4 +92,9 @@ public final class Globals implements IAtomFactory<Object>, Iterable<AbstractMan
         return null;
 
     }
+
+    @Override
+    public Object get() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

@@ -16,7 +16,6 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sg.atom.fx.particle.ParticleFactory;
-import sg.atom.world.WorldTestHelper;
 
 /**
  * A simple swing application, in which is simplier than AtomMain.
@@ -85,11 +84,11 @@ public class SwingSimple3DApp extends SimpleApplication {
         flyCam.setMoveSpeed(40f);
 
         //Create tesint enviroment
-        WorldTestHelper worldHelper = new WorldTestHelper(rootNode, assetManager);
-        worldHelper.createLight();
-        worldHelper.createGrid(40, 40);
-        worldHelper.createFlatGround(80);
-        worldHelper.createSkyBox();
+//        WorldTestHelper worldHelper = new WorldTestHelper(rootNode, assetManager);
+//        worldHelper.createLight();
+//        worldHelper.createGrid(40, 40);
+//        worldHelper.createFlatGround(80);
+//        worldHelper.createSkyBox();
         createParticle();
         initInput();
     }

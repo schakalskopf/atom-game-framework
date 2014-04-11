@@ -6,6 +6,7 @@ package sg.atom.gameplay.action.skill;
 
 import com.jme3.app.Application;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import sg.atom.core.AbstractManager;
 import sg.atom.stage.actor.AtomActor;
@@ -92,6 +93,21 @@ public class SkillAction extends ExternalAction {
 
     @Override
     public AtomicInteger getIndex() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public AtomicBoolean isContexted() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Object call() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void run() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

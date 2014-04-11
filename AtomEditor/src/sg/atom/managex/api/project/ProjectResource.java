@@ -7,11 +7,13 @@ package sg.atom.managex.api.project;
 import com.jme3.asset.AssetKey;
 
 /**
- * Extension of Asset. Same as DataObject.
- * 
+ * Extension of Asset. Work with DataObject.
+ *
  * @author cuong.nguyenmanh2
  */
-public class ProjectResource {
-    AssetKey key;
+public class ProjectResource<T> extends AssetKey<T> {
+
+    //AssetKey key;
+    
     String title;
 }

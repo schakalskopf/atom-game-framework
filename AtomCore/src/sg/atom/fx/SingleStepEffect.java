@@ -180,18 +180,10 @@ public abstract class SingleStepEffect implements AtomEffect, EditableBean, Seri
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
-    public void config(Properties props) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     @Override
     public void finish() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
-    public void config(Object... params) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 }

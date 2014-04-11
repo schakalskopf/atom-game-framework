@@ -9,7 +9,7 @@ import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import java.util.List;
-import sg.atom.stage.WorldManager;
+import sg.atom.world.WorldManager;
 import sg.atom.world.WorldTestHelper;
 
 /**

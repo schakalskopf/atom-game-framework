@@ -56,6 +56,7 @@ public abstract class DataStructure {
      * Not: Just save the soft reference!
      */
     private SoftReference<Object> data;
+    
     public int uid;
 
     public void associateData(Object input) {

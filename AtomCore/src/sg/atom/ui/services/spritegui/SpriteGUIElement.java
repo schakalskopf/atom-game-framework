@@ -11,6 +11,7 @@ import sg.atom.ui.systems.GUIInteraction;
 import sg.atom.ui.systems.GUIStyle;
 
 /**
+ * Use sprite as unit element. Reactive!
  *
  * @author cuong.nguyenmanh2
  */

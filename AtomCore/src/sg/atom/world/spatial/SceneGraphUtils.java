@@ -17,11 +17,11 @@ import sg.atom.world.terrain.TerrainQuadAdapter;
 
 /**
  * SceneGraphHelper provide various functions in the scenegraph and spatial
- * related in corporated with Spatials. SceneGraphHelper consier a scenegraph is
- * just like a repository of data or "a big fat tree model" for slurping and
+ * related in corporated with Spatials. SceneGraphHelper consider a scenegraph
+ * is just like a repository of data or "a big fat tree model" for slurping and
  * searching around.
  *
- * <b>Features</b>
+ * <p><b>Features</b>
  *
  * <ul> <li>It provide various ways to do query (scan) in the scenegraph: by
  * spanning type (no condition), By name, by path, by type, by hash, by a path
@@ -34,10 +34,19 @@ import sg.atom.world.terrain.TerrainQuadAdapter;
  * monitors and events are possible!</li>
  *
  * <li>It provide specific Lock/ transactional/ authority aware functions over
- * any spatial.</li>
+ * any spatial. </li>
  *
- * </ul>
- * FIXME: Going to change to Utils to get name convention persist.
+ * </ul> <p>SceneGraphUtils.wrap(Node rootNode) builds a SpatialInfos MVCC
+ * concurrent tree upon the rootNode. Any operation over the holded SpatialInfo
+ * of the associated Node will result as concurrent operations (delay, defered,
+ * lazy, parallel ...) and the dataflow is monitored in the dataflow framework.
+ *
+ * <p>SceneGraphUtils.$(Node rootNode) provide fluent (JQuery like) upon the
+ * tree.
+ *
+ * <p>CHANGE V.1.0: Changed SceneGraphHelper to SceneGraphUtils to get name
+ * convention persist.
+ *
  * @author atomix
  */
 public class SceneGraphUtils {
@@ -45,7 +54,7 @@ public class SceneGraphUtils {
     private static Control controlResult = null;
     private static Object dataResult = null;
     private static Spatial result = null;
-    
+
     // Travel recusively ------------------------------------------------------------
     public static Spatial travelUpFindControl(Spatial sp, Class<? extends Control> aClass) {
         if (sp.getControl(aClass) == null) {
@@ -102,7 +111,6 @@ public class SceneGraphUtils {
         }
         return geoms;
     }
-
 
     public static Spatial findSpatialByName(final String name, Node parent, final boolean useReg) {
 

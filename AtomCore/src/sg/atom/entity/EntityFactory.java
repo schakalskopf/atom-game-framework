@@ -5,7 +5,7 @@
 package sg.atom.entity;
 
 import sg.atom.stage.StageManager;
-import sg.atom.stage.WorldManager;
+import sg.atom.world.WorldManager;
 import sg.atom.utils.factory.IAtomFactory;
 
 /**
@@ -46,5 +46,10 @@ public class EntityFactory implements IAtomFactory<Entity> {
     @Override
     public Entity cloneObject(Entity orginal) {
         return null;
+    }
+
+    @Override
+    public Entity get() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

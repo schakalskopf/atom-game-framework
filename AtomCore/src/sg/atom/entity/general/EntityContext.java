@@ -7,8 +7,6 @@ package sg.atom.entity.general;
 /**
  * Concept borrowed of EJB.
  * 
- * 
- * 
  * @author cuong.nguyenmanh2
  */
 public interface EntityContext {

@@ -4,6 +4,7 @@
 
 package sg.atom.core.event.eventizers;
 
+import sg.atom.utils.event.Event;
 import sg.atom.core.event.message.MessageSender;
 
 /**

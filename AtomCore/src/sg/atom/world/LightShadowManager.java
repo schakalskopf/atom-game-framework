@@ -19,12 +19,11 @@ import com.jme3.util.SkyFactory;
 import java.util.Properties;
 import sg.atom.core.AbstractManager;
 import sg.atom.stage.StageManager;
-import sg.atom.stage.WorldManager;
 
 /**
- * <p>Manager and Wrapper for useful functions for sg.atom.utils.space.
+ * <p>Manager and Wrapper for useful functions for Lights.
  *
- * <p>Ready for different light scheme.
+ * <p>FIXME: Ready for different light scheme like Deferred lights
  *
  * @author atomix
  */
@@ -34,7 +33,7 @@ public class LightShadowManager extends AbstractManager {
     AssetManager assetManager;
     StageManager stageManager;
     private Node rootNode;
-    // The main sg.atom.utils.space of the screen
+    // The main lights of the screen
     DirectionalLight sun;
     DirectionalLight dl;
     PointLight light;
@@ -45,6 +44,7 @@ public class LightShadowManager extends AbstractManager {
         this.assetManager = worldManager.getAssetManager();
 
     }
+
 
     public void initLights() {
         /* Compute the light, sky and color 
@@ -112,7 +112,7 @@ public class LightShadowManager extends AbstractManager {
         viewPort.addProcessor(pssm);
     }
 
-    DirectionalLight getFirstDirectionalLight(Node node) {
+    public DirectionalLight getFirstDirectionalLight(Node node) {
         for (Light l : node.getLocalLightList()) {
             if (l.getType() == Light.Type.Directional) {
                 return (DirectionalLight) l;
@@ -132,7 +132,7 @@ public class LightShadowManager extends AbstractManager {
         stageManager.getApp().getViewPort().addProcessor(fpp);
 
     }
-
+    //Cycle---------------------------------------------------------------------
     @Override
     public void init() {
         throw new UnsupportedOperationException("Not supported yet.");

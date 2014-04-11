@@ -4,6 +4,8 @@
  */
 package sg.atom.world.enviroment;
 
+import javolution.context.AbstractContext;
+
 /**
  * Enviroment are context for game actor and action and effects.
  *
@@ -14,5 +16,10 @@ package sg.atom.world.enviroment;
  *
  * @author cuong.nguyenmanh2
  */
-public class AtomEnviroment {
+public class AtomEnviroment extends AbstractContext {
+
+    @Override
+    protected AbstractContext inner() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

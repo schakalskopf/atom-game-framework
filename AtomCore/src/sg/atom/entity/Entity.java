@@ -5,6 +5,7 @@
 package sg.atom.entity;
 
 import sg.atom.entity.framework.GenericComponentSet;
+import sg.atom.entity.framework.atomes.AtomESFramework;
 import sg.atom.entity.general.AbstractComponent;
 import sg.atom.entity.general.AbstractEntity;
 
@@ -38,7 +39,7 @@ import sg.atom.entity.general.AbstractEntity;
  *
  * @author atomix
  */
-public class Entity implements AbstractEntity, GenericComponentSet {
+public class Entity implements AbstractEntity<AtomESFramework>, GenericComponentSet {
 
     public Long id;
     // Basic properties. FIXME: Remove them!

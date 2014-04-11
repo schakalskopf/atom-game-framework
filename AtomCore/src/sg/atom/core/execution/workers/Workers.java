@@ -3,7 +3,7 @@
 // The license text is at http://www.apache.org/licenses/LICENSE-2.0
 package sg.atom.core.execution.workers;
 
-import sg.atom.core.event.eventizers.Event;
+import sg.atom.utils.event.Event;
 import sg.atom.core.event.eventizers.Eventizer;
 import sg.atom.core.event.eventizers.EventizerProvider;
 import sg.atom.core.exceptions.FailureHandler;

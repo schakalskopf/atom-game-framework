@@ -15,7 +15,7 @@ import sg.atom.core.AtomMain;
 import sg.atom.core.lifecycle.IGameCycle;
 import sg.atom.gameplay.player.Player;
 import sg.atom.stage.StageManager;
-import sg.atom.stage.WorldManager;
+import sg.atom.world.WorldManager;
 import sg.atom.ui.GameGUIManager;
 
 /**
