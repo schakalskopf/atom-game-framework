@@ -1,7 +1,7 @@
 /* Glazed Lists                                                 (c) 2003-2006 */
 /* http://publicobject.com/glazedlists/                      publicobject.com,*/
 /*                                                     O'Dell Engineering Ltd.*/
-package ca.odell.glazedlists.migrationkit;
+package sg.atom.swing.additionals.migrationkit;
 
 // the core Glazed Lists packages
 import ca.odell.glazedlists.EventList;

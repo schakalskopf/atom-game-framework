@@ -7,17 +7,27 @@ import groovy.util.GroovyScriptEngine;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sg.atom.script.engine.AtomScriptEngine;
 
 /**
- *
+ * AtomGroovyScriptEngine is the script engine for Groovy in Atom.
+ * 
+ * <h4>Features</h4><ul>
+ * 
+ * <li>
+ * 
+ * <li>
+ * 
+ * <li>
+ * 
+ * </ul>
  * @author hungcuong
  */
-public class AtomGroovyScriptEngine {
-    
+public class AtomGroovyScriptEngine extends AtomScriptEngine {
+
     protected GroovyShell shell;
     protected GroovyScriptEngine scriptEngine;
     protected GroovyClassLoader loader;
-
     private static final Logger logger = Logger.getLogger(AtomGroovyScriptEngine.class.getName());
     protected boolean viaLoader = false;
     protected Binding binding;
@@ -42,19 +52,19 @@ public class AtomGroovyScriptEngine {
         } catch (IOException ex) {
         }
     }
-/*
-    public boolean check(String text) {
-        try {
-            if (text.equals("")) {
-                return false;
-            }
-            shell.parse(text);
-        } catch (CompilationFailedException ex) {
-            return false;
-        } catch (Exception ex) {
-            return false;
-        }
-        return true;
-    }
-*/
+    /*
+     public boolean check(String text) {
+     try {
+     if (text.equals("")) {
+     return false;
+     }
+     shell.parse(text);
+     } catch (CompilationFailedException ex) {
+     return false;
+     } catch (Exception ex) {
+     return false;
+     }
+     return true;
+     }
+     */
 }

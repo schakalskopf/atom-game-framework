@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.logging.Logger;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import org.codehaus.groovy.control.CompilationFailedException;
 
 /**
  *
@@ -42,9 +41,6 @@ public class SimpleScriptShellUI {
                 resultLines.add(new ScriptString("null", ""));
                 return null;
             }
-        } catch (CompilationFailedException ex) {
-            resultLines.add(new ScriptString("Syntax", line + ex.getMessage()));
-            return null;
         } catch (Exception ex) {
             resultLines.add(new ScriptString("Exception", ex.getMessage()));
             return null;
