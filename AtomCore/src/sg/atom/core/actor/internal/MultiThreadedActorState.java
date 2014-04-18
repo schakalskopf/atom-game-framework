@@ -15,9 +15,9 @@
  */
 package sg.atom.core.actor.internal;
 
-import sg.atom.core.concurrent.ThreadState;
+import sg.atom.utils.concurrent.ThreadState;
 import sg.atom.core.actor.controller.Controller;
-import sg.atom.core.event.message.MessageInvocation;
+import sg.atom.utils.event.message.MessageInvocation;
 import sg.atom.core.actor.Actor;
 
 /**

@@ -5,21 +5,24 @@
 package sg.atom.world;
 
 /**
- * Complex physics based time-light management.
- * s
+ * Complex physics based time-light management. Concepts borrow from Ogre's SkyX
+ *
+ * <p>Gradient based sky color and sun lights
+ *
+ * <p>
+ *
  * @author atomix
  */
 public class DayNightTimeManager {
 
     // Real world constants
-    
     // Configurable
-    public void getSonarPosition(){
-        
+    public void getSonarPosition() {
     }
-    public void getLunarPosition(){
-        
+
+    public void getLunarPosition() {
     }
+
     public void simulateTime() {
     }
 

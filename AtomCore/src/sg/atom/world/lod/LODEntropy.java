@@ -9,7 +9,17 @@ import gnu.trove.list.array.TIntArrayList;
 import java.io.Serializable;
 
 /**
- * LODEntropy will be attach to spatial or entity to determinate the LOD of it.
+ * LODEntropy will be attach to a spatial or entity to determinate the LOD of
+ * it. This is the units and working data of the system.
+ *
+ * <p>Note that LODEntropy can also "contains" additional infos that need for
+ * LOD operations. For example:<ul>
+ *
+ * <li>it can form a "graph", like when used in hierachical tweaker.
+ *
+ * <li>it can "link" to a simplized mesh that shared between serveral meshes.
+ * Later the system may interest in this connections when it tweak lod of one or
+ * serveral mesh...
  *
  * @author cuong.nguyenmanh2
  */

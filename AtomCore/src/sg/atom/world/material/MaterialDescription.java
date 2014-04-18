@@ -6,7 +6,7 @@ package sg.atom.world.material;
 
 /**
  * Material description for common usage. Especially when using import/export
- * from CCD Program. Can be translated to Material definition and virce vesa
+ * from CCD Program. Can be translated to Material definition and virce vesa.
  *
  * @author cuong.nguyenmanh2
  */

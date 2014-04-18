@@ -25,7 +25,7 @@ import sg.atom.core.actor.internal.ActorState;
 import sg.atom.core.actor.internal.KeepRunningInterface;
 import sg.atom.core.execution.workers.Worker;
 import sg.atom.core.execution.workers.WorkerState;
-import sg.atom.utils.datastructure.collection.FastQueue;
+import sg.atom.utils.datastructure.collection.fast.FastQueue;
 
 /**
  * Main class. Controls threads as well as the list of actors that have work to do.

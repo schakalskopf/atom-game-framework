@@ -24,8 +24,8 @@ import sg.atom.core.actor.controller.ControllerImplementation;
 import sg.atom.core.actor.exceptions.ConfigurationException;
 import sg.atom.core.actor.exceptions.WrappedException;
 import sg.atom.core.actor.internal.AsyncResultImpl;
-import sg.atom.core.concurrent.AsyncResult;
-import sg.atom.core.concurrent.ThreadState;
+import sg.atom.utils.concurrent.AsyncResult;
+import sg.atom.utils.concurrent.ThreadState;
 import sg.atom.utils._commons.MultiThreadLogger;
 import sg.atom.utils.datastructure.collection.immutable.Props;
 

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html><head>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+--><title>Algorithms for games</title>
+
+
+    
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>
+        <div>Single (or serveral) objective algorimths useful for games. 
+            
+            <br>
+<br>
+http://en.wikipedia.org/wiki/Algorithm<br>
+<br>
+Algorithm is a step-by-step procedure for calculations. An algorithm is
+an effective method expressed as a finite list[1] of well-defined
+instructions[2] for calculating a function.[3] Starting from an initial
+state and initial input (perhaps empty),[4] the instructions describe a
+computation that, when executed, proceeds through a finite[5] number of
+well-defined successive states, eventually producing "output"[6] and
+terminating at a final ending state. The transition from one state to
+the next is not necessarily deterministic; some algorithms, known as
+randomized algorithms, incorporate random input.[7]<sup id="cite_ref-7" class="reference"><a href="http://en.wikipedia.org/wiki/Algorithm#cite_note-7"><span></span></a></sup>
+<h2>Why use this ... for games?</h2>
+This package provides algorithms common in game developments. More to
+come but first let's take a look of those problems it trying to solve
+to distingish the objective and goals of this package compare to
+collection and others.<br>
+<h3>It's not another Collection (DataStructure) or Pattern package!<br>
+</h3>
+Sort, concurrent, packing, data compressing is also partial relate to
+its processing method (that's algorithm) but first, they are provided
+as the core of the programming language, second we want to care more
+about the high level of abstraction, not the details. It use
+"interface" of structure for its explaination and progress.<br>
+<br>
+Also, pattern is the term refered to a popular method in software
+developmenet. Pattern is also in higher level of abstraction compare to
+algorimths. So consider pattern is the law and algorimth is the
+effective way of making the job work effectively obey that law.<br>
+<br>
+Algorithms involve logic, a lot of them. But it higher level than
+logic. And of course algorithms need math (some physics, philosophy
+also) to be smart!<br>
+<br>
+Algorithms are used heavily in AI. But this package only provide pure algorithms 
+which can be used also outside of AI topics. <br>
+<br>
+That's said: <br>
+<ul>
+  <li>Datastructure, Pattern, Logic and AI are supported elsewhere! </li>
+  <li>Algorimths depends in Pattern, Logic, Interface of Structure. </li>
+</ul>
+<h3>Each algorithm has a goal (or several) to accomplish!</h3>
+Developer want to use the algorithm they know to solve one or more
+goals (problem, requirement, aspect, situation, ... what ever you call
+it). The algorithms provided here to are the bricks for you to use and
+reuse for different purpose. And you may notice the package also
+arrange into purpose instead of implementation - techniques or another
+structure. That's explained the reason!<br>
+<h3>For games?</h3>
+Yes, not all of the problems we know are solved by this library...???
+You've already know. It not even sotiphicated like the alternatives
+below but they are extremely useful for average programmers; especially
+game programmer, who, usually focus in the fun side (Am I right? :) ) <br>
+<br>
+The library try to provide useful algorithms (best practices and
+wisdoms) enough for a wide range of usecases and also used in Atom
+framework its self. The algorimths them self may use another algorimths
+to solve sub-problems. Of course, it also come with examples and a lot
+of applications suggestion, which its the algorithms use for you to
+quickly and smartly solve your own problem thank to it.<br>
+<h2>Support algorithms by purposes<br>
+</h2>
+<ol>
+  <li>Allocation: solve problems about resources. <br>
+  </li>
+  <ol>
+    <li><span style="font-weight: bold;">Allocate</span> resources efficiently on demand and sastify requirements:</li>
+    <ol>
+      <li>in an amount of time (interval, arrangement, progess, budget)<br>
+      </li>
+      <li>with specific capacities of the network and memory (flow, route, budget)</li>
+      <li>with dependencies (order)</li>
+      <li>skip or retry if unsuccess (fault-tolerant)<br>
+      </li>
+      <li>cache</li>
+    </ol>
+    <li><span style="font-weight: bold;">Skip</span> resources that fault-tolerant: ( aka Reject)<br>
+    </li>
+    <ol>
+      <li>Not affect its dependencies, or skip those dependant</li>
+      <li>Preseved the continuous, so the flow still smooth</li>
+    </ol>
+    <li><span style="font-weight: bold;">Release</span> resources ( aka Remove)<br>
+    </li>
+    <ol>
+      <li>Determiate which resource are no more needed</li>
+      <li>Help the gabbage collector, cache to remove it</li>
+    </ol>
+    <li><span style="font-weight: bold;">Update</span> resources</li>
+    <ol>
+      <li>Only what that need to be update</li>
+      <li>Deffered till the update process not abuse the other pioritied operations<br>
+      </li>
+    </ol>
+  </ol>
+  <li>Balance: find a division, equallity equilibrium between inputs of forces (presure).</li>
+  <ol>
+    <li>Exchange: when force interact</li>
+    <li>Equilibrium: when force include, conccure together and zero total</li>
+  </ol>
+  <li>Energy : more than just physics simulation, its applied physics-math based methods <br>
+  </li>
+  <ol>
+    <li>Static: <br>
+    </li>
+    <li>Dynamic:</li>
+    <li>Potential:&nbsp;</li>
+    <li>Tension: <br>
+    </li>
+  </ol>
+  <li>Constraint: find a solution that sastify a list of constraints. <br>
+  </li>
+  <ol>
+    <li>Search for sollution in avaiable space (travel)<br>
+    </li>
+    <li>Generate a sollution base in template<br>
+    </li>
+  </ol>
+  <li>Interval: various problems related to intervals (values a duration of time).</li>
+  <ol>
+    <li>Progress monitoring</li>
+    <li>Schedule jobs<br>
+    </li>
+  </ol>
+  <li>Optimization: to optimize toward a goal</li>
+  <ol>
+    <li>Maximize - minimize: <br>
+    </li>
+    <li>Resolution: Find a solution upon a known solution (aka neirghboor search)</li>
+    <li>Boost: wisdoms&nbsp; to make higher performance and more efficient algorithms if not saturated  (without resolution)<br>
+    </li>
+    <ol>
+      <li>Reactive</li>
+      <li>Adaptive</li>
+      <li>Fractal<br>
+      </li>
+    </ol>
+
+  </ol>
+  <li>Relate: solve problems between things relate to other (Very close to abstract aglebra):<br>
+  </li>
+  <ol>
+    <li>Reconfiguration: if one change, others react<br>
+    </li>
+    <li>Coupling: link-relink-relax link-remove link between two or a group by cateria (aka clustering)<br>
+    </li>
+    <li>Dependency: direct/ indirect depend on other and how to isolate</li>
+    <li>Order: study of ordering, very similar to sorting wisdoms but in higher level.<br>
+    </li>
+  </ol>
+  <li>Score:
+Study the "number","amount" (aka quantity) of things; summarize and
+judge (aka quality). Wisdoms about: Measuring, scale, approximation,
+coloring or the alike.</li>
+  <ol>
+    <li>Budget: <br>
+</li>
+    <li>Audit: (aka Accounting)<br></li>
+
+    <li>Cardinality:<br>
+    </li>
+  </ol>
+  <li>Travel: Study the step by step "move" between unit of things. This is a fundamental and essential spirit of algorithms.</li>
+  <ol>
+    <li>Search: Study the exploring in space.<br>
+    </li>
+    <li>Trace: Study the affection (footprint, operations, cost.. ) the algorithms left each step<br>
+    </li>
+    <li>Track:&nbsp; Study the&nbsp; route&nbsp; (path, track, flow,...)&nbsp; the algorithms&nbsp; pass. <br>
+    </li>
+  </ol>
+  <li>&nbsp;Generation: good practises in making new things<br>
+  </li>
+  <ol>
+    <li>Template is the resource of generation</li>
+    <li>Production is the progress of creating new things<br>
+    </li>
+  </ol>
+</ol>
+<h2>Concepts</h2><br>
+<h2>Implementation details</h2>
+
+Only simple forms. External libs can be hooked.<br>
+<br>
+Use interface from sg.atom.world.physics package<br>
+<br>
+<h2>Applications</h2>
+Used in Asset/Task packages<br>
+<br>
+<h2>Alternatives</h2><span style="font-weight: bold;">For scientific wisdom in Java:<br>
+<br>
+</span>http://jscience.org/<span style="font-weight: bold;"><br>
+<br>
+</span>
+<span style="font-weight: bold;">For full-ledged multi objective meta heristic algorithms, try JMetal or Opt4j<br>
+<br>
+</span>http://opt4j.sourceforge.net/<span style="font-weight: bold;"><br>
+<br>
+</span>http://jmetal.sourceforge.net/<span style="font-weight: bold;"><br>
+</span></div>
+        
+        
+    </body></html>

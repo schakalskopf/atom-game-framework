@@ -19,7 +19,7 @@ public class TextureDescription {
     public String type;
     public float scale;
     public Texture original;
-    
+
     public Properties asProperties() {
         Properties result = new Properties();
         result.setProperty("Scale", Float.toString(scale));

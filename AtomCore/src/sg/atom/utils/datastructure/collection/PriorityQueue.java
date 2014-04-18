@@ -1,3 +1,4 @@
+/**
 //  PriorityQueue.java
 //  Java Spatial Index Library
 //  Copyright (C) 2008 aled@sourceforge.net
@@ -15,6 +16,7 @@
 //  You should have received a copy of the GNU Lesser General Public
 //  License along with this library; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+*/ 
 package sg.atom.utils.datastructure.collection;
 
 import gnu.trove.list.array.TFloatArrayList;
@@ -40,13 +42,16 @@ import gnu.trove.list.array.TIntArrayList;
  * </p> <p> Inserting new elements is much faster than if the entire array was
  * kept sorted; a new element is appended to the array, and then recursively
  * swapped with each parent to maintain the "parent is sorted w.r.t it's
- * children" property. </p> <p> To return the "next" value it is necessary to
- * remove the root element. The last element in the array is placed in the root
- * of the tree, and is recursively swapped with one of it's children until the
- * "parent is sorted w.r.t it's children" property is restored. </p> <p> Random
- * access is slow (eg for deleting a particular value), and is not implemented
- * here - if this functionality is required, then a heap probably isn't the
- * right data structure. </p>
+ * children" property. </p>
+ *
+ * <p> To return the "next" value it is necessary to remove the root element.
+ * The last element in the array is placed in the root of the tree, and is
+ * recursively swapped with one of it's children until the "parent is sorted
+ * w.r.t it's children" property is restored. </p>
+ *
+ * <p> Random access is slow (eg for deleting a particular value), and is not
+ * implemented here - if this functionality is required, then a heap probably
+ * isn't the right data structure. </p>
  */
 public class PriorityQueue {
 

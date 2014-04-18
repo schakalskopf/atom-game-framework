@@ -15,7 +15,7 @@
  */
 package sg.atom.core.execution.workers;
 
-import sg.atom.core.concurrent.ThreadState;
+import sg.atom.utils.concurrent.ThreadState;
 import sg.atom.core.actor.controller.Controller;
 import sg.atom.core.actor.internal.ActorState;
 import sg.atom.core.actor.internal.KeepRunningInterface;

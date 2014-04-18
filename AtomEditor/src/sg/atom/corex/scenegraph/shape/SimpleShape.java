@@ -4,7 +4,7 @@
  */
 package sg.atom.corex.scenegraph.shape;
 
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
+import sg.atom.corex.scenegraph.shape.ShapeUtils;
 import sg.atom.corex.scenegraph.shape.Shape;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState.BlendMode;
@@ -28,7 +28,7 @@ public class SimpleShape extends Shape {
     protected ColorRGBA color = ColorRGBA.Gray;
     protected Material material;
     protected float opacity = 1;
-    protected ShapeUtil shapeUtil;
+    protected ShapeUtils shapeUtil;
     protected Bucket bucket=Bucket.Opaque;
     public List<Geometry> geoList = new LinkedList<Geometry>();
         
@@ -41,7 +41,7 @@ public class SimpleShape extends Shape {
         protected float width = 1f, height = 1f, length = 1f;
         protected Vector3f allSize = new Vector3f(width, height, length);
 
-        public Builder(String name, Node root, ShapeUtil shapeUtil) {
+        public Builder(String name, Node root, ShapeUtils shapeUtil) {
             super(name, root, shapeUtil);
         }
 

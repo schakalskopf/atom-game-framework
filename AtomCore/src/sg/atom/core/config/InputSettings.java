@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author atomix
  */
-public class InputSettings extends GameSettings{
+public class InputSettings{// extends GameSettings{
 
     public Map<String, Input> getInterpretedView() {
         return null;

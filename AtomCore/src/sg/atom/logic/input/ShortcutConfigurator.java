@@ -6,7 +6,7 @@ import sg.atom.logic.annotations.Shortcut;
 import sg.atom.logic.command.CommandController;
 import sg.atom.logic.command.CommandManager;
 import sg.atom.utils.datastructure.collection.Array;
-import sg.atom.utils.datastructure.collection.LongMap;
+import sg.atom.utils.datastructure.collection.primitives.LongMap;
 
 final class ShortcutConfigurator {
 

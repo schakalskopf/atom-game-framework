@@ -5,6 +5,8 @@
 package sg.atom.gameplay.player;
 
 import java.util.Date;
+import java.util.Iterator;
+import org.apache.commons.configuration.AbstractConfiguration;
 
 /**
  * Profile (Common implementation) is usually seen as a gamer's representor
@@ -12,7 +14,7 @@ import java.util.Date;
  *
  * @author atomix
  */
-public class PlayerProfile {
+public class PlayerProfile extends AbstractConfiguration{
 
     private String id;
     private int uid;
@@ -72,5 +74,30 @@ public class PlayerProfile {
     
     public boolean validateProfile(){
         return true;
+    }
+
+    @Override
+    protected void addPropertyDirect(String key, Object value) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isEmpty() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean containsKey(String key) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Object getProperty(String key) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Iterator<String> getKeys() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

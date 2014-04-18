@@ -41,7 +41,7 @@
 package sg.atom.utils.datastructure.serializable;
 
 import java.io.IOException;
-import sg.atom.utils._commons.WrappedRuntimeException;
+import sg.atom.utils._commons.exception.WrappedRuntimeException;
 
 /**
  * Default java serializer.

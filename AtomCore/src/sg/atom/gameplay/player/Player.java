@@ -20,7 +20,7 @@ public class Player {
     private PlayerAvatar playerAvatar;
     private PlayerProfile playerProfile;
     private GameCharacter playerMainCharacter;
-    ClassToInstanceMap datas = MutableClassToInstanceMap.create();
+    private ClassToInstanceMap datas = MutableClassToInstanceMap.create();
 
     public Player(StageManager stageManager, String name) {
         this.stageManager = stageManager;

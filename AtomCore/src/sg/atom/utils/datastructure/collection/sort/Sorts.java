@@ -7,16 +7,19 @@ package sg.atom.utils.datastructure.collection.sort;
 import java.util.Comparator;
 import sg.atom.utils.datastructure.collection.Array;
 
-@Deprecated
 /**
  * Provides methods to sort arrays of objects. Sorting requires working memory
  * and this class allows that memory to be reused to avoid allocation. The
- * sorting is otherwise identical to the Arrays.sort methods (uses timsort).<br>
- * <br> Note that sorting primitive arrays with the Arrays.sort methods does not
+ * sorting is otherwise identical to the Arrays.sort methods (uses timsort).
+ *
+ * <p> Note that sorting primitive arrays with the Arrays.sort methods does not
  * allocate memory (unless sorting large arrays of char, short, or byte).
  *
- * @author Nathan Sweet, * cuong.nguyenmanh2
+ * FIXME: Replace usages with other Sorts
+ * 
+ * @author Nathan Sweet,
  */
+@Deprecated
 public class Sorts {
 
     static private Sorts instance;

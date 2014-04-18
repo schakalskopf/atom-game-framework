@@ -5,9 +5,9 @@
 package sg.atom.gameplay.controls;
 
 /**
- *
-@author atomix
- */
+ * 
+ * @author atomix
+ */@Deprecated
 public class GameCameraControl {
     
 }

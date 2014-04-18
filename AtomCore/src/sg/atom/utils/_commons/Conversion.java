@@ -41,7 +41,7 @@
 package sg.atom.utils._commons;
 
 /**
- * Miscelaneous conversion utility methods. Replace with CommonIO
+ * Miscelaneous conversion utility methods. Replace with Common Lang or IO.
  *
  * @author <a href="mailto:boisvert@intalio.com">Alex Boisvert</a>
  * @version $Id: Conversion.java,v 1.3 2002/05/31 06:33:20 boisvert Exp $

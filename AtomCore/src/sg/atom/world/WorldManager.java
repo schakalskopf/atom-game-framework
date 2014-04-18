@@ -26,14 +26,6 @@ import sg.atom.gameplay.GameLevel;
 import sg.atom.stage.GameScene;
 import sg.atom.stage.SoundManager;
 import sg.atom.stage.StageManager;
-import sg.atom.world.DayNightTimeManager;
-import sg.atom.world.EnviromentManager;
-import sg.atom.world.ForesterManager;
-import sg.atom.world.LightShadowManager;
-import sg.atom.world.MaterialManager;
-import sg.atom.world.TerrainManager;
-import sg.atom.world.WaterManager;
-import sg.atom.world.WorldSettings;
 import sg.atom.world.gen.WorldGenerator;
 import sg.atom.world.lod.DefaultLODManager;
 import sg.atom.world.lod.WorldLODManager;
@@ -180,15 +172,15 @@ public class WorldManager extends AbstractManager implements IGameCycle {
             waterManager = new WaterManager(stageManager, this);
         }
         if (this.worldSettings.useEnviroment) {
-            enviromentManager = new EnviromentManager();
+            enviromentManager = new EnviromentManager(stageManager, this);
         }
 //        if (this.worldSettings.useWeather) {
 //            weatherManager = new WeatherManager();
 //        }
 
         //FIXME:
-        worldLODManager = new DefaultLODManager();
-        worldVisibilityManager = new DefaultWorldVisibilityManager();
+        worldLODManager = new DefaultLODManager(stageManager, this);
+        worldVisibilityManager = new DefaultWorldVisibilityManager(stageManager, this);
 
         if (this.worldSettings.useForestor) {
             foresterManager = new ForesterManager(this, stageManager);

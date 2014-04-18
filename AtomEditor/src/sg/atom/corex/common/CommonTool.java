@@ -5,7 +5,7 @@
 package sg.atom.corex.common;
 
 import sg.atom.corex.camera.CamUtils;
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
+import sg.atom.corex.scenegraph.shape.ShapeUtils;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.AssetManager;
 import com.jme3.input.InputManager;
@@ -39,7 +39,7 @@ public class CommonTool {
     // ___ Common
     private CamUtils camUtil;
     private Camera currentCam;
-    private ShapeUtil shapeUtil;
+    private ShapeUtils shapeUtil;
     // ___
 
 //    private EditorSelectionManager selectionManager;
@@ -58,7 +58,7 @@ public class CommonTool {
         // Use common discovery to search for manager and plugins.
 
         // Tool Level
-        this.shapeUtil = ShapeUtil.getDefault();
+        this.shapeUtil = ShapeUtils.getDefault();
         this.camUtil = new CamUtils(getCurrentCam(), app.getFlyByCamera(), getInputManager());
 
     }
@@ -194,14 +194,14 @@ public class CommonTool {
     /**
      * @return the shapeUtil
      */
-    public ShapeUtil getShapeUtil() {
+    public ShapeUtils getShapeUtil() {
         return shapeUtil;
     }
 
     /**
      * @param shapeUtil the shapeUtil to set
      */
-    public void setShapeUtil(ShapeUtil shapeUtil) {
+    public void setShapeUtil(ShapeUtils shapeUtil) {
         this.shapeUtil = shapeUtil;
     }
 

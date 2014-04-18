@@ -5,7 +5,7 @@
 package sg.atom.corex.scenegraph.shape;
 
 import sg.atom.corex.scenegraph.shape.Shape;
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
+import sg.atom.corex.scenegraph.shape.ShapeUtils;
 import sg.atom.corex.scenegraph.shape.SimpleShape;
 import com.jme3.material.Material;
 import com.jme3.scene.Geometry;
@@ -29,7 +29,7 @@ public class CylinderShape extends SimpleShape {
         float radius2 = 2;
         int axisSamples = 4, radialSamples = 8;
         float height = 1f;
-        public Builder(String name, Node root, ShapeUtil shapeUtil) {
+        public Builder(String name, Node root, ShapeUtils shapeUtil) {
             super(name, root, shapeUtil);
         }
 

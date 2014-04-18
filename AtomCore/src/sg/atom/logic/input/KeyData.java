@@ -3,8 +3,8 @@ package sg.atom.logic.input;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import sg.atom.logic.command.CommandController;
-import sg.atom.utils.datastructure.collection.IntArray;
-import sg.atom.utils.datastructure.collection.LongMap;
+import sg.atom.utils.datastructure.collection.primitives.IntArray;
+import sg.atom.utils.datastructure.collection.primitives.LongMap;
 
 public final class KeyData {
 

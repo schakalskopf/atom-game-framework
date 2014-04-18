@@ -11,7 +11,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static java.util.concurrent.atomic.AtomicReferenceFieldUpdater.newUpdater;
-import sg.atom.utils.datastructure.collection.AtomicArray;
+import sg.atom.utils.datastructure.collection.concurrent.AtomicArray;
 
 /**
  * LoadBalancerExecutor try to bring load balance and pioritized tasks to JME

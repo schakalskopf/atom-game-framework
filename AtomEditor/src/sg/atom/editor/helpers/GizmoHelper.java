@@ -12,7 +12,7 @@ import sg.atom.corex.scenegraph.shape.ArrowShape;
 import sg.atom.corex.scenegraph.shape.BoxShape;
 import sg.atom.corex.scenegraph.shape.CylinderShape;
 import sg.atom.corex.scenegraph.shape.Shape;
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
+import sg.atom.corex.scenegraph.shape.ShapeUtils;
 import sg.atom.corex.scenegraph.shape.SphereShape;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.AnalogListener;
@@ -37,7 +37,7 @@ public class GizmoHelper extends AbstractHelper implements ActionListener, Analo
 
     // Tool level
     private CommonTool commonTool;
-    private ShapeUtil shapeUtil;
+    private ShapeUtils shapeUtil;
     private HelperManager helperManager;
     private Camera cam;
     private boolean camFix;

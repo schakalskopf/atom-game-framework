@@ -17,7 +17,7 @@
  */
 package sg.atom.utils.concurrent;
 
-import sg.atom.utils.datastructure.collection.LinkedNode;
+import sg.atom.utils.datastructure.collection.link.LinkedNode;
 
 /**
  * A rendezvous channel, similar to those used in CSP and Ada. Each put must

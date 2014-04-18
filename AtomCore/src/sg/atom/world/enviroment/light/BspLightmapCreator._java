@@ -1,0 +1,716 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package sg.atom.world.visibility.bsp;
+
+import java.util.LinkedList;
+import sg.atom.world.geometry.Light;
+import sg.atom.world.geometry.Polygon;
+import sg.atom.world.geometry.Triangle;
+import sg.atom.world.geometry.Vertex;
+import sg.atom.world.geometry.algebra.Vec2d;
+import sg.atom.world.geometry.algebra.Vec3d;
+
+/**
+ *
+ * @author CuongNguyen
+ */
+public class BspLightmapCreator {
+        // Default values for lightmap generation.
+    public static int LIGHTMAP_SIZE = 256;
+    public static int LIGHTMAP_ELEMENT = 32;
+    public static int LIGHTMAP_ELEMENT_AREA = 1000;
+    // Toggles lightmap creation.
+    static boolean lmaps = true;
+    
+    // The static lightmap creator.
+    private static LightmapCreator lightmapCreator = null;
+    
+    public void create(String filename){
+        
+        
+                // load lights
+        lights = data.getLights();
+        // create the lightmap creator
+        lightmapCreator = new LightmapCreator(filename, LIGHTMAP_SIZE, LIGHTMAP_ELEMENT);
+        
+          if (lmaps) {
+            System.out.println("\nComputing lightmaps...");
+            if (verbose) {
+                System.out.println("Level has " + lights.size() + " lights.");
+            }
+            if (verbose) {
+                System.out.println(lights);
+            }
+
+            // calculate the light maps in the order they were created
+            for (int i = 0; i < leafs.size(); i++) {
+                System.out.print("\r" + (int) (100f * (float) i / (float) leafs.size()) + "% done");
+                ((Bsp) leafs.get(leafs.size() - 1 - i)).generateLightmap();
+                ((Bsp) leafs.get(leafs.size() - 1 - i)).dfsValue = 0;
+            }
+            // write the last lightmap
+//            lightmapCreator.write();
+        }
+    }
+    
+    public void generateTree(){
+                    // Divide the poly set and create lightmap coordinates
+            polySet = lightmapDivide(polySet);
+            // Store the final triangulated set
+            if (lmaps) {
+                createLightmapCoordinates(polySet);
+            }
+            
+            node.polySet = pruneDegenerates(Triangulate.triangulateConvexPolygonSet(polySet));
+    }
+    /**
+     * Divides the given triangle below the given area treshold. Tries to retain
+     * quad forms. Recursive.
+     *
+     * @param tri The triangle to divide.
+     * @param area The treshold area.
+     * @return The resulting polygons.
+     */
+    LinkedList lightmapDivideTriangle(Polygon tri, float area) {
+        LinkedList result = new LinkedList();
+        if (tri.area() > area) {
+
+            float[] angles = {1, 1, 1};
+            Vec3d v1, v2;
+            // find the largest angle
+            v1 = (tri.vertices[1].pos.sub(tri.vertices[0].pos)).normalize();
+            v2 = (tri.vertices[2].pos.sub(tri.vertices[0].pos)).normalize();
+            angles[0] = Math.abs(v1.dot(v2));
+            v1 = (tri.vertices[0].pos.sub(tri.vertices[1].pos)).normalize();
+            v2 = (tri.vertices[2].pos.sub(tri.vertices[1].pos)).normalize();
+            angles[1] = Math.abs(v1.dot(v2));
+            v1 = (tri.vertices[0].pos.sub(tri.vertices[2].pos)).normalize();
+            v2 = (tri.vertices[1].pos.sub(tri.vertices[2].pos)).normalize();
+            angles[2] = Math.abs(v1.dot(v2));
+
+            Vertex a0 = null, a1 = null, a2 = null;
+
+            if (angles[0] < angles[1]) {
+                if (angles[0] < angles[2]) {
+                    a0 = tri.vertices[0];
+                    a1 = tri.vertices[1];
+                    a2 = tri.vertices[2];
+                } else {
+                    a0 = tri.vertices[2];
+                    a1 = tri.vertices[0];
+                    a2 = tri.vertices[1];
+                }
+            } else {
+                if (angles[1] < angles[2]) {
+                    a0 = tri.vertices[1];
+                    a1 = tri.vertices[2];
+                    a2 = tri.vertices[0];
+                } else {
+                    a0 = tri.vertices[2];
+                    a1 = tri.vertices[0];
+                    a2 = tri.vertices[1];
+                }
+            }
+
+            // Divide into 2 triangles and a quad.
+
+            Vertex mid01 = new Vertex(a0);
+            mid01.addTo(a1);
+            mid01.scaleTo(0.5f);
+            Vertex mid12 = new Vertex(a1);
+            mid12.addTo(a2);
+            mid12.scaleTo(0.5f);
+            Vertex mid20 = new Vertex(a2);
+            mid20.addTo(a0);
+            mid20.scaleTo(0.5f);
+
+            Polygon quad1 = new Polygon(new Vertex(a0),
+                    new Vertex(mid01),
+                    new Vertex(mid12),
+                    new Vertex(mid20),
+                    tri.getPrimaryTextureName(),
+                    tri.getSecondaryTextureName());
+
+            Polygon tri1 = new Polygon(new Vertex(mid01),
+                    new Vertex(a1),
+                    new Vertex(mid12),
+                    tri.getPrimaryTextureName(),
+                    tri.getSecondaryTextureName());
+
+            Polygon tri2 = new Polygon(new Vertex(mid12),
+                    new Vertex(a2),
+                    new Vertex(mid20),
+                    tri.getPrimaryTextureName(),
+                    tri.getSecondaryTextureName());
+
+            result.addAll(lightmapDivideQuad(quad1, area));
+            result.addAll(lightmapDivideTriangle(tri1, area));
+            result.addAll(lightmapDivideTriangle(tri2, area));
+            return result;
+        }
+        result.add(tri);
+        return result;
+    }
+
+    /**
+     * Divides the given quad below the given area treshold. Retains quad forms.
+     * Recursive.
+     *
+     * @param tri The quad to divide.
+     * @param area The treshold area.
+     * @return The resulting polygons.
+     */
+    LinkedList lightmapDivideQuad(Polygon quad, float area) {
+        LinkedList result = new LinkedList();
+        if (quad.area() > area) {
+            float len1 = quad.vertices[1].pos.sub(quad.vertices[0].pos).len();
+            float len2 = quad.vertices[2].pos.sub(quad.vertices[1].pos).len();
+            Polygon quad1 = null;
+            Polygon quad2 = null;
+            if (len1 > len2) {
+                Vertex mid01 = new Vertex(quad.vertices[0]);
+                mid01.addTo(quad.vertices[1]);
+                mid01.scaleTo(0.5f);
+                Vertex mid23 = new Vertex(quad.vertices[2]);
+                mid23.addTo(quad.vertices[3]);
+                mid23.scaleTo(0.5f);
+                quad1 = new Polygon(quad.vertices[0],
+                        new Vertex(mid01),
+                        new Vertex(mid23),
+                        quad.vertices[3],
+                        quad.getPrimaryTextureName(),
+                        quad.getSecondaryTextureName());
+                quad2 = new Polygon(new Vertex(mid01),
+                        quad.vertices[1],
+                        quad.vertices[2],
+                        new Vertex(mid23),
+                        quad.getPrimaryTextureName(),
+                        quad.getSecondaryTextureName());
+            } else {
+                Vertex mid12 = new Vertex(quad.vertices[1]);
+                mid12.addTo(quad.vertices[2]);
+                mid12.scaleTo(0.5f);
+                Vertex mid30 = new Vertex(quad.vertices[3]);
+                mid30.addTo(quad.vertices[0]);
+                mid30.scaleTo(0.5f);
+                quad1 = new Polygon(quad.vertices[1],
+                        new Vertex(mid12),
+                        new Vertex(mid30),
+                        quad.vertices[0],
+                        quad.getPrimaryTextureName(),
+                        quad.getSecondaryTextureName());
+                quad2 = new Polygon(new Vertex(mid12),
+                        quad.vertices[2],
+                        quad.vertices[3],
+                        new Vertex(mid30),
+                        quad.getPrimaryTextureName(),
+                        quad.getSecondaryTextureName());
+            }
+            result.addAll(lightmapDivideQuad(quad1, area));
+            result.addAll(lightmapDivideQuad(quad2, area));
+            return result;
+        }
+        result.add(quad);
+        return result;
+    }
+
+    /**
+     * Divides the given polygon below the given area treshold. The polygon is
+     * triangulated. Recursive.
+     *
+     * @param tri The polygon to divide.
+     * @param area The treshold area.
+     * @return The resulting polygons.
+     */
+    LinkedList lightmapDividePolygon(Polygon poly, float area) {
+        LinkedList result = new LinkedList();
+        Polygon[] set = Triangulate.triangulateConvexPolygonToPolySet(poly);
+        if (set.length == 1) {
+            return lightmapDivideTriangle(set[0], area);
+        }
+        if (poly.area() > area) {
+            for (int i = 0; i < set.length; i++) {
+                result.addAll(lightmapDividePolygon(set[i], area));
+            }
+        } else {
+            for (int i = 0; i < set.length; i++) {
+                result.add(set[i]);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Divides the given polygon set below the given area treshold. Quad forms
+     * are preserved whenever possible.
+     *
+     * @param tri The polygon set to divide.
+     * @return The resulting polygons.
+     */
+    Polygon[] lightmapDivide(Polygon[] polySet) {
+        LinkedList list = new LinkedList();
+        for (int j = 0; j < polySet.length; j++) {
+            Polygon poly = polySet[j];
+            if (poly.getNumPoints() == 3) {
+                list.addAll(lightmapDivideTriangle(poly, LIGHTMAP_ELEMENT_AREA));
+            }
+            if (poly.getNumPoints() == 4) {
+                list.addAll(lightmapDivideQuad(poly, LIGHTMAP_ELEMENT_AREA));
+            }
+            if (poly.getNumPoints() > 4) {
+                list.addAll(lightmapDividePolygon(poly, LIGHTMAP_ELEMENT_AREA));
+            }
+        }
+        Polygon result[] = new Polygon[list.size()];
+        list.toArray(result);
+        return result;
+    }
+
+    /**
+     * Assigns lightmap coordinates to the given set of polygons. The set is
+     * assumed to consist of triangles and quads. Uses the LightmapCreator
+     * class. Uses some optimization to gain the best fit. With triangles the
+     * whole lightmap element is filled using a "gum" polygon.
+     *
+     * @param polySet The set of polygons to equip with coordinates.
+     */
+    void createLightmapCoordinates(Polygon[] polySet) {
+        if (verbose) {
+            System.out.println("Generating lightmap coordinates.");
+        }
+        for (int i = 0; i < polySet.length; i++) {
+            Polygon poly = polySet[i];
+            for (int j = 0; j < poly.getNumPoints(); j++) {
+                poly.vertices[j] = new Vertex(poly.vertices[j]);
+            }
+
+            // allocate the element
+            Vec2d origin = lightmapCreator.getElement();
+            String textureName = lightmapCreator.getTextureName();
+            poly.setSecondaryTextureName(textureName);
+
+            // Triangles are not easy. Apply a gum triangle to 
+            // get rid of black areas.
+            if (poly.getNumPoints() == 3) {
+                float[] angles = {1, 1, 1};
+                Vec3d v1, v2;
+                // find the largest angle
+                v1 = (poly.vertices[1].pos.sub(poly.vertices[0].pos)).normalize();
+                v2 = (poly.vertices[2].pos.sub(poly.vertices[0].pos)).normalize();
+                angles[0] = Math.abs(v1.dot(v2));
+                v1 = (poly.vertices[0].pos.sub(poly.vertices[1].pos)).normalize();
+                v2 = (poly.vertices[2].pos.sub(poly.vertices[1].pos)).normalize();
+                angles[1] = Math.abs(v1.dot(v2));
+                v1 = (poly.vertices[0].pos.sub(poly.vertices[2].pos)).normalize();
+                v2 = (poly.vertices[1].pos.sub(poly.vertices[2].pos)).normalize();
+                angles[2] = Math.abs(v1.dot(v2));
+                Triangle gum = null;
+                Vertex gumVertex = null;
+                if (angles[0] < angles[1]) {
+                    if (angles[0] < angles[2]) {
+                        poly.vertices[0].tex2 = origin;
+                        poly.vertices[1].tex2 = origin.add(new Vec2d(lightmapCreator.getElementLength(), 0));
+                        poly.vertices[2].tex2 = origin.add(new Vec2d(0, lightmapCreator.getElementLength()));
+                        gumVertex = new Vertex(poly.vertices[1]);
+                        gumVertex.addTo(poly.vertices[1]);
+                        gumVertex.scaleTo(0.5f);
+                        gumVertex.tex2 = origin.add(new Vec2d(lightmapCreator.getElementLength(), lightmapCreator.getElementLength()));
+                        gum = new Triangle(new Vertex(poly.vertices[1]),
+                                new Vertex(poly.vertices[2]),
+                                gumVertex,
+                                poly.getPrimaryTextureName(),
+                                poly.getSecondaryTextureName());
+                    } else {
+                        poly.vertices[2].tex2 = origin;
+                        poly.vertices[1].tex2 = origin.add(new Vec2d(lightmapCreator.getElementLength(), 0));
+                        poly.vertices[0].tex2 = origin.add(new Vec2d(0, lightmapCreator.getElementLength()));
+                        gumVertex = new Vertex(poly.vertices[0]);
+                        gumVertex.addTo(poly.vertices[1]);
+                        gumVertex.scaleTo(0.5f);
+                        gumVertex.tex2 = new Vec2d(origin.add(new Vec2d(lightmapCreator.getElementLength(), lightmapCreator.getElementLength())));
+                        gum = new Triangle(new Vertex(poly.vertices[0]),
+                                new Vertex(poly.vertices[1]),
+                                gumVertex,
+                                poly.getPrimaryTextureName(),
+                                poly.getSecondaryTextureName());
+                    }
+                } else {
+                    if (angles[1] < angles[2]) {
+                        poly.vertices[1].tex2 = origin;
+                        poly.vertices[0].tex2 = origin.add(new Vec2d(lightmapCreator.getElementLength(), 0));
+                        poly.vertices[2].tex2 = origin.add(new Vec2d(0, lightmapCreator.getElementLength()));
+                        gumVertex = new Vertex(poly.vertices[0]);
+                        gumVertex.addTo(poly.vertices[2]);
+                        gumVertex.scaleTo(0.5f);
+                        gumVertex.tex2 = origin.add(new Vec2d(lightmapCreator.getElementLength(), lightmapCreator.getElementLength()));
+                        gum = new Triangle(new Vertex(poly.vertices[0]),
+                                new Vertex(poly.vertices[2]),
+                                gumVertex,
+                                poly.getPrimaryTextureName(),
+                                poly.getSecondaryTextureName());
+                    } else {
+                        poly.vertices[2].tex2 = origin;
+                        poly.vertices[1].tex2 = origin.add(new Vec2d(lightmapCreator.getElementLength(), 0));
+                        poly.vertices[0].tex2 = origin.add(new Vec2d(0, lightmapCreator.getElementLength()));
+                        gumVertex = new Vertex(poly.vertices[0]);
+                        gumVertex.addTo(poly.vertices[1]);
+                        gumVertex.scaleTo(0.5f);
+                        gumVertex.tex2 = origin.add(new Vec2d(lightmapCreator.getElementLength(), lightmapCreator.getElementLength()));
+                        gum = new Triangle(new Vertex(poly.vertices[0]),
+                                new Vertex(poly.vertices[1]),
+                                gumVertex,
+                                poly.getPrimaryTextureName(),
+                                poly.getSecondaryTextureName());
+                    }
+                }
+                gumPolySet.add(gum);
+                gumNormalSet.add(poly.toPlane().getNormal());
+            } else if (poly.getNumPoints() == 4) {
+                poly.vertices[0].tex2 = new Vec2d(origin);
+                poly.vertices[1].tex2 = new Vec2d(origin.add(new Vec2d(lightmapCreator.getElementLength(), 0)));
+                poly.vertices[2].tex2 = new Vec2d(origin.add(new Vec2d(lightmapCreator.getElementLength(), lightmapCreator.getElementLength())));
+                poly.vertices[3].tex2 = new Vec2d(origin.add(new Vec2d(0, lightmapCreator.getElementLength())));
+            } else {
+                System.out.println("This is not happening !!");
+            }
+        }
+    }
+
+    /**
+     * Calculates the lightmap elements for this leaf.
+     */
+    void generateLightmap() {
+        if (verbose) {
+            System.out.println("Mapping lights.");
+        }
+        if (verbose) {
+            System.out.println("Mapping leaf " + leafCounter);
+        }
+        int gumindex = 0;
+        for (int i = 0; i < polySet.length; i++) {
+            Triangle tri = polySet[i];
+            if (tri.area() > 0) {
+                Vec3d[] texture = lightmapCreator.getTexture(tri.getSecondaryTextureName());
+                drawLightmapTriangle(tri.a.tex2, tri.b.tex2, tri.c.tex2,
+                        tri.a.pos, tri.b.pos, tri.c.pos, texture, tri.toPlane().getNormal());
+                if (gumindex < gumPolySet.size()) {
+                    Triangle gum = (Triangle) gumPolySet.get(gumindex);
+                    if (tri.getSecondaryTextureName().equals(gum.getSecondaryTextureName())) {
+                        drawLightmapTriangle(gum.a.tex2, gum.b.tex2, gum.c.tex2,
+                                gum.a.pos, gum.b.pos, gum.c.pos, texture, (Vec3d) gumNormalSet.get(gumindex));
+                        gumindex++;
+                    }
+                }
+            } else {
+                System.out.println("The polygon is degenerate !");
+            }
+        }
+        for (int i = 0; i < gumPolySet.size(); i++) {
+        }
+        for (int i = 0; i < polySet.length; i++) {
+            Triangle tri = polySet[i];
+            tri.a.tex2 = new Vec2d(tri.a.tex2.c[0], 1.0f - tri.a.tex2.c[1]);
+            tri.b.tex2 = new Vec2d(tri.b.tex2.c[0], 1.0f - tri.b.tex2.c[1]);
+            tri.c.tex2 = new Vec2d(tri.c.tex2.c[0], 1.0f - tri.c.tex2.c[1]);
+        }
+    }
+
+    /**
+     * A texture mapper scanline.
+     *
+     * @param x1 x1 (u coordinate in lightmap)
+     * @param x2 x2 (u coordinate in lightmap)
+     * @param y y (v coordinate in lightmap)
+     * @param pos1 World coordinates corresponding to x1
+     * @param pos2 World coordinates corresponding to x2
+     * @param target The destination texture.
+     * @param normal Face normal for Lambert lighting.
+     */
+    void drawLightmapScanline(float x1, float x2, int y,
+            Vec3d pos1, Vec3d pos2,
+            Vec3d[] target, Vec3d normal) {
+        if (x2 < x1) {
+            // swap coordinates so we can draw left-to-right
+            Vec3d tmp1 = pos1;
+            pos1 = pos2;
+            pos2 = tmp1;
+            float tmp2 = x1;
+            x1 = x2;
+            x2 = tmp2;
+        }
+
+        // start coordinates as integers
+        int ix1 = (int) Math.floor(x1);
+        int ix2 = (int) Math.floor(x2);
+
+        if ((ix2 - ix1) == 0) {
+            return;
+        }
+
+        float width = x2 - x1;
+
+        // distance to the horizontal pixel center (0.5)
+        float fix = (float) (0.5 - ((double) x1 - Math.floor((double) x1)));
+
+        // horizontal traversal delta calculation
+        Vec3d dpos = (pos2.sub(pos1)).scale(1.0f / width);
+        Vec3d pos = pos1.add(dpos.scale(fix));
+
+        // draw the scanline
+        // TODO: handle scanline ends separately, maybe pixel coverage weighting
+        for (int x = ix1; x < ix2; x++) {
+            if (x >= 0 && x < LIGHTMAP_SIZE) {
+                target[LIGHTMAP_SIZE * y + x] = computeLightColor(pos, normal);
+                pos.addTo(dpos);
+            }
+        }
+    }
+
+    /**
+     * Compute the light color at given point. This method takes all lights
+     * visible from the given point.
+     *
+     * @param pos point to compute the color at
+     * @param normal surface normal at given point
+     * @return the light color at pos as RGB vector
+     */
+    Vec3d computeLightColor(Vec3d pos, Vec3d normal) {
+        Vec3d color = new Vec3d(0, 0, 0);
+        Bsp sampleLeaf = root.locateLeafBrute(pos);
+
+        for (int i = 0; i < lights.size(); i++) {
+            Light light = (Light) lights.get(i);
+
+            Bsp lightLeaf = root.locateLeafBrute(light.getPos());
+
+            if (lightLeaf.pvs.contains(sampleLeaf) && canSee(pos, light.getPos())) {
+                color.addTo(light.computeColorAt(pos, normal));
+            }
+        }
+
+        // Clamp the color to interval [0, 1]
+        color.clamp();
+
+        return color;
+    }
+
+    /**
+     * A texture mapper for mapping polygons into the lightmap elements. Slight
+     * overkill with this simple lightmap allocation.
+     *
+     * @param point1 Texture point 1
+     * @param point2 Texture point 2
+     * @param point3 Texture point 3
+     * @param coord1 World position 1, respectively
+     * @param coord2 World position 2, respectively
+     * @param coord3 World position 3, respectively
+     * @param target The destination texture.
+     * @param normal The normal vector for this triangle.
+     */
+    void drawLightmapTriangle(Vec2d point1, Vec2d point2, Vec2d point3,
+            Vec3d coord1, Vec3d coord2, Vec3d coord3,
+            Vec3d[] target, Vec3d normal) {
+
+        Vec2d[] pos = {point1.scale((float) LIGHTMAP_SIZE),
+            point2.scale((float) LIGHTMAP_SIZE),
+            point3.scale((float) LIGHTMAP_SIZE)};
+
+        Vec3d[] coord = {coord1, coord2, coord3};
+
+        //    System.out.println("Mapping polygon: " + pos[0] + " - " + pos[1] + " - " + pos[2]);
+        //    System.out.println("Mapping coords:  " + coord[0] + " - " + coord[1] + " - " + coord[2]);
+
+        // vertex indices: top, pIndex[0] == top+1, pIndex[1] == top-1
+        int top = 0;
+        int[] pIndex = {1, 2};
+
+        // find top vertex
+        for (int i = 1; i < 3; i++) {
+            if (pos[i].c[1] < pos[top].c[1]) {
+                top = i;
+            }
+        }
+
+        // correct other 2 vertices
+        pIndex[0] = top + 1;
+        pIndex[1] = top - 1;
+        if (pIndex[0] > 2) {
+            pIndex[0] = 0;
+        }
+        if (pIndex[1] < 0) {
+            pIndex[1] = 2;
+        }
+
+        // start drawing from this y
+        int y = (int) Math.floor((double) pos[top].c[1]);
+
+        // triangle edge position vectors used for traversing the texture
+        Vec2d[] p = {new Vec2d(pos[top]),
+            new Vec2d(pos[top]),
+            null};
+
+
+        // interpolant position vectors for triangle edge traversal
+        Vec3d[] c = {new Vec3d(coord[top]),
+            new Vec3d(coord[top]),
+            null};
+
+        // vertical distance to the middle (0.5) of the pixel
+        float yFix = (float) (0.5 - ((double) pos[top].c[1] - Math.floor((double) pos[top].c[1])));
+
+        float[] height = {
+            pos[pIndex[0]].c[1] - pos[top].c[1],
+            pos[pIndex[1]].c[1] - pos[top].c[1]
+        };
+
+        // integer heights of the triangle parts, used for looping
+        int[] iheight = {
+            (int) (Math.floor((double) pos[pIndex[0]].c[1]) - Math.floor((double) pos[top].c[1])),
+            (int) (Math.floor((double) pos[pIndex[1]].c[1]) - Math.floor((double) pos[top].c[1]))
+        };
+
+        //     for (int i = 0; i < 2; i++)
+        //       System.out.println("height["+i+"]: " + height[i] + ", iheight["+i+"]: " + iheight[i]);
+
+        Vec2d dp[] = {null, null};
+        Vec3d dc[] = {null, null};
+
+        for (int i = 0; i < 2; i++) {
+            if (iheight[i] > 0) {
+                dp[i] = pos[pIndex[i]].sub(pos[top]).scale(1.0f / height[i]);
+                dc[i] = coord[pIndex[i]].sub(coord[top]).scale(1.0f / height[i]);
+                p[i].addTo(dp[i].scale(yFix));
+                c[i].addTo(dc[i].scale(yFix));
+                //         System.out.println("dp["+i+"]: " + dp[i]);
+                //         System.out.println("dc["+i+"]: " + dc[i]);
+                //         System.out.println("p["+i+"]: " + p[i]);
+                //         System.out.println("c["+i+"]: " + c[i]);
+            }
+        }
+
+        /**
+         * drawState has the following states:
+         *
+         * 0 -- do not draw this hline, used when frac(startY) > 0.5 1 -- draw
+         * hline normally 2 -- draw hline normally, and afterwards set p[0] to
+         * p[2] 3 -- draw hline normally, and afterwards set p[1] to p[2]
+         */
+        int drawState = 1;
+        if (yFix < 0) {
+            drawState = 0;
+        }
+
+        // start drawing
+        for (int i = 2; i > 0;) {
+            while (iheight[0] > 0 && iheight[1] > 0) {
+                //         System.out.println("poly: p0: " + p[0] + ", p1: " + p[1] +", c0: " + c[0] + ", c1: " + c[1] + ", normal: " + normal);
+                if (drawState != 0) {
+                    if (y >= 0 && y < LIGHTMAP_SIZE) {
+                        drawLightmapScanline(p[0].c[0], p[1].c[0], y,
+                                c[0], c[1],
+                                target, normal);
+                    }
+                }
+                if (drawState != 1) {
+                    // apply drawState rules shown above
+                    if (drawState == 2) {
+                        p[0] = p[2];
+                        c[0] = c[2];
+                    } else if (drawState == 3) {
+                        p[1] = p[2];
+                        c[1] = c[2];
+                    }
+                    drawState = 1;
+                }
+
+
+                // update looping counters
+                y++;
+                iheight[0]--;
+                iheight[1]--;
+
+                // update edge positions
+                //         System.out.println("before c[1]: " + c[1]);
+                //         System.out.println("before dc[1]: " + dc[1]);
+                p[0].addTo(dp[0]);
+                c[0].addTo(dc[0]);
+                p[1].addTo(dp[1]);
+                c[1].addTo(dc[1]);
+                //         System.out.println("after  c[1]: " + c[1]);
+                //         System.out.println("after  dc[1]: " + dc[1]);
+            }
+
+            for (int j = 0; j < 2; j++) {
+                if (iheight[j] <= 0) {
+                    // get new point index
+                    int newIndex;
+                    if (j == 0) {
+                        newIndex = pIndex[j] + 1;
+                        if (newIndex > 2) {
+                            newIndex = 0;
+                        }
+                    } else {
+                        newIndex = pIndex[j] - 1;
+                        if (newIndex < 0) {
+                            newIndex = 2;
+                        }
+                    }
+
+                    // calculate new heights
+                    height[j] = pos[newIndex].c[1] - pos[pIndex[j]].c[1];
+                    iheight[j] = (int) (Math.floor((double) pos[newIndex].c[1]) - Math.floor((double) pos[pIndex[j]].c[1]));
+
+                    //           System.out.println("NEW! height["+j+"]: " + height[j] + ", iheight["+j+"]: " + iheight[j]);
+
+                    // if any rows exist, calculate new deltas and traverse edges
+                    if (iheight[j] > 0) {
+                        // grab old delta vectors
+                        Vec2d odp = dp[j];
+                        Vec3d odc = dc[j];
+
+                        // construct new edge traversal vectors
+                        p[j] = new Vec2d(pos[pIndex[j]]);
+                        c[j] = new Vec3d(coord[pIndex[j]]);
+                        dp[j] = pos[newIndex].sub(pos[pIndex[j]]).scale(1.0f / height[j]);
+                        dc[j] = coord[newIndex].sub(coord[pIndex[j]]).scale(1.0f / height[j]);
+
+                        // vertical distance to the middle (0.5) of the pixel
+                        yFix = (float) (0.5 - ((double) pos[pIndex[j]].c[1] - Math.floor((double) pos[pIndex[j]].c[1])));
+
+                        // > 0.5, go backwards along the last edge until y = 0.5
+                        // and generate a temporary position extrapolated backwards
+                        // from the next edge
+                        if (yFix < 0) {
+                            p[2] = p[j].add(dp[j].scale(yFix));
+                            c[2] = c[j].add(dc[j].scale(yFix));
+                            // if there exists previous traversal vectors,
+                            // extrapolate using the new vectors
+                            if (odp != null) {
+                                p[j].addTo(odp.scale(yFix));
+                                c[j].addTo(odc.scale(yFix));
+                            } // if there are no previous vectors,
+                            // extrapolate using the new vectors
+                            else {
+                                p[j].addTo(dp[j].scale(yFix));
+                                c[j].addTo(dc[j].scale(yFix));
+                            }
+                            drawState = 2 + j;
+                        } // <= 0.5, go forwards along the new edge until y = 0.5
+                        else {
+                            p[j].addTo(dp[j].scale(yFix));
+                            c[j].addTo(dc[j].scale(yFix));
+                        }
+                    }
+
+                    i--;
+                    if (i == 0) {
+                        break;
+                    }
+                    pIndex[j] = newIndex;
+                }
+            }
+        }
+    }
+}

@@ -15,17 +15,17 @@
  */
 package sg.atom.core.actor.internal;
 
-import sg.atom.core.concurrent.ThreadState;
+import sg.atom.utils.concurrent.ThreadState;
 import sg.atom.core.actor.controller.Controller;
-import sg.atom.core.event.message.MessageInvocation;
-import sg.atom.core.event.message.MessageCaller;
+import sg.atom.utils.event.message.MessageInvocation;
+import sg.atom.utils.event.message.MessageCaller;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicLong;
 
 import sg.atom.core.actor.Actor;
 import sg.atom.core.actor.DefaultAgent;
 import sg.atom.utils.concurrent.ThreadUsage;
-import sg.atom.utils.datastructure.collection.FastQueue;
+import sg.atom.utils.datastructure.collection.fast.FastQueue;
 import sg.atom.utils._commons.MultiThreadLogger;
 
 

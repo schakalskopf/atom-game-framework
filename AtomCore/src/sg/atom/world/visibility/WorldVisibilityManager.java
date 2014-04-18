@@ -4,6 +4,7 @@
  */
 package sg.atom.world.visibility;
 
+import sg.atom.world.AtomZone;
 import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 

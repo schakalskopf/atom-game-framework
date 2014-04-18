@@ -4,10 +4,9 @@
  */
 package sg.atom.managex.api.module.plugin;
 
-import com.samskivert.util.DependencyGraph;
 import java.util.ArrayList;
 import sg.atom.core.lifecycle.IGameCycle;
-import sg.atom.utils.algorimth.relate.Relation;
+import sg.atom.utils.datastructure.graph.DependencyGraph;
 
 /**
  * PluginManager is the main class reponsible to manage/load/disable plugins.

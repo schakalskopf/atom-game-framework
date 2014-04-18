@@ -14,7 +14,7 @@ import com.jme3.scene.shape.Line;
 import com.jme3.scene.shape.Sphere;
 import java.util.HashMap;
 import sg.atom.corex.common.CommonTool;
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
+import sg.atom.corex.scenegraph.shape.ShapeUtils;
 import sg.atom.editor.managers.HelperManager;
 
 /**
@@ -25,7 +25,7 @@ public class SphereOperations {
     // Tool level
 
     private CommonTool commonTool;
-    private ShapeUtil shapeUtil;
+    private ShapeUtils shapeUtil;
     private HelperManager helperManager;
     // SubTool Level
     private String nowAction;

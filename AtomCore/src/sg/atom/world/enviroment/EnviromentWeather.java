@@ -13,7 +13,7 @@ package sg.atom.world.enviroment;
  *
  * @author CuongNguyen
  */
-public class EnviromentWeather {
+public abstract class EnviromentWeather {
 
     //boolean isRaining;
     float rainyLevel;

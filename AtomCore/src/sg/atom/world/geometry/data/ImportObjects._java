@@ -1,0 +1,168 @@
+package sg.atom.world.geometry.data;
+
+import java.io.*;
+import cmp.LEDataStream.LEDataInputStream;
+
+import sg.atom.world.geometry.mesh.*;
+import sg.atom.world.geometry.algebra.*;
+import java.util.Vector;
+import java.util.LinkedList;
+
+import sg.atom.world.geometry.Polygon;
+import sg.atom.world.geometry.Vertex;
+import sg.atom.world.geometry.Light;
+
+/**
+ * A class for importing floating objects from NSE-files.
+ */
+public class ImportObjects {
+    // NSE chunk ID:s
+
+    private static final int CHUNK_GEOMETRY = 0x0001;
+    private static final int CHUNK_LIGHT = 0x0002;
+    private static final int CHUNK_DUMMY = 0x0016;
+    private static final int CHUNK_EOF = 0xffff;
+    // Verbose printing
+    private static final boolean verbose = true;
+    // The list of objects
+    private ObjectList objects = new ObjectList();
+
+    /**
+     * Creates the imported and loads the given file
+     *
+     * @param filename A file to load
+     */
+    public ImportObjects(String filename) {
+        load(filename);
+    }
+
+    /**
+     * Reads a node transformation matrix from the input.
+     *
+     * @param in The input stream.
+     * @return The position part of the transform.
+     */
+    private static Vec3d readNodeTM(LEDataInputStream in) throws IOException {
+        Vec3d result = new Vec3d(255, 255, 255);
+
+        for (int i = 0; i < 4; i++) {
+            float a = in.readFloat();
+            float b = in.readFloat();
+            float c = in.readFloat();
+            result = new Vec3d(a, b, c);
+            if (verbose) {
+                System.out.println(result);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Reads an ASCIIZ name from the stream. Needs some serious gumming.
+     *
+     * @param in The input stream.
+     * @return ASCIIZ string.
+     */
+    private static String readName(LEDataInputStream in) throws IOException {
+        LinkedList chars = new LinkedList();
+        // read in the bytes
+        byte c = in.readByte();
+        while (c != 0) {
+            chars.add(new Byte(c));
+            c = in.readByte();
+        }
+        // convert to array
+        byte[] array = new byte[chars.size()];
+        for (int i = 0; i < chars.size(); i++) {
+            array[i] = ((Byte) chars.get(i)).byteValue();
+        }
+        // make string from the array
+        return new String(array);
+    }
+
+    /**
+     * Gets the loadede objects.
+     *
+     * @return The loaded objects.
+     */
+    public ObjectList getObjects() {
+        return objects;
+    }
+
+    /**
+     * Load object data from file.
+     *
+     * @param filename filename to load from
+     * @return true if no errors occured
+     */
+    public boolean load(String filename) {
+        try {
+            LEDataInputStream in = new LEDataInputStream(new FileInputStream(filename));
+            boolean incomplete = true;
+            while (incomplete) {
+                int chunk = in.readInt();
+                switch (chunk) {
+                    case CHUNK_DUMMY:
+                        // Objects are in dummy chunks
+                        System.out.println("Importing dummy:");
+                        // read object name
+                        String name = readName(in);
+                        objects.objectNames.add(name);
+                        System.out.println("Name: " + name);
+                        // read object position
+                        Vec3d pos = readNodeTM(in);
+                        objects.objectPositions.add(pos);
+                        System.out.println("Position: " + pos);
+                        break;
+                    case CHUNK_GEOMETRY:
+                        // skip the real data as fast as possible
+                        in.skipBytes(48);
+                        short numVertices = in.readShort();
+                        boolean vertexColors = in.readBoolean();
+                        boolean texCoords = in.readBoolean();
+                        for (int i = 0; i < numVertices; i++) {
+                            in.skipBytes(24);
+                            if (vertexColors) {
+                                in.skipBytes(12);
+                            }
+                            if (texCoords) {
+                                in.skipBytes(8);
+                            }
+                        }
+                        int numTextures = in.readInt();
+                        int totalFaces = 0;
+                        for (int i = 0; i < numTextures; i++) {
+                            in.skipBytes(256);
+                            int faces = in.readUnsignedShort();
+                            for (int j = 0; j < faces; j++) {
+                                in.skipBytes(6);
+                            }
+                        }
+                        break;
+                    case CHUNK_LIGHT:
+                        // skip all
+                        in.skipBytes(80);
+                        break;
+                    case CHUNK_EOF:
+                        if (verbose) {
+                            System.out.println("Found chunk EOF");
+                        }
+                        incomplete = false;
+                        break;
+                    default:
+                        System.out.println("WARNING: unknown chunk (" + chunk + "), aborted.");
+                        in.close();
+                        return false;
+                }
+            }
+
+            in.close();
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+}

@@ -2,6 +2,8 @@ package sg.atom.utils.datastructure.collection;
 
 /**
  * Generic pair.
+ * 
+ * FIXME: Remove generic Pair but Tuple 2
  *
  * @author cuong.nguyenmanh2
  */

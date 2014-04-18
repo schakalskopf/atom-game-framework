@@ -4,10 +4,12 @@
  */
 package sg.atom.utils.datastructure.state.transition;
 
+import sg.atom.utils.datastructure.state.IObjectiveStateManager;
+
 /**
  *
  * @author CuongNguyen
  */
-public class RealTimeStateTransactions {
+public class RealTimeStateTransactions implements IObjectiveStateManager<Object> {
     
 }

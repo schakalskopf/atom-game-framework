@@ -4,10 +4,10 @@
 package sg.atom.core.execution.workers;
 
 import java.util.concurrent.Executor;
-import sg.atom.core.event.eventizers.EventizerProvider;
+import sg.atom.utils.event.eventizers.EventizerProvider;
 import sg.atom.core.exceptions.FailureHandler;
-import sg.atom.core.event.listeners.MessageListener;
-import sg.atom.core.event.message.MessageProcessor;
+import sg.atom.utils.event.listeners.MessageListener;
+import sg.atom.utils.event.message.MessageProcessor;
 import sg.atom.utils.concurrent.ThreadSafe;
 
 /**

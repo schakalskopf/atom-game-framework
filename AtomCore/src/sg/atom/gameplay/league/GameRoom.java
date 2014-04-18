@@ -9,12 +9,15 @@ import sg.atom.core.AtomMain;
 import sg.atom.gameplay.player.Player;
 
 /**
- * 
+ * A kind of collection of players which under a specific about the enviroment
+ * or style of gameplay. This is pre match group of players.
+ *
  * @author atomix
  */
-public class GameRoom<A extends AtomMain, T extends Player> {
+public class GameRoom<GAME extends AtomMain, PLAYER extends Player> {
 
     public Integer id;
     public String name;
-    public ArrayList<T> members;
+    public PLAYER host;
+    public ArrayList<PLAYER> members;
 }

@@ -7,7 +7,7 @@ package sg.atom.editor.helpers;
 import sg.atom.corex.scenegraph.spatial.SpatialList;
 import sg.atom.corex.common.CommonTool;
 import sg.atom.editor.managers.HelperManager;
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
+import sg.atom.corex.scenegraph.shape.ShapeUtils;
 import com.jme3.asset.AssetManager;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
@@ -31,7 +31,7 @@ import com.jme3.scene.shape.Sphere;
 public class MarkHelper extends AbstractHelper {
     // Tool level
     private CommonTool commonTool;
-    private ShapeUtil shapeUtil;
+    private ShapeUtils shapeUtil;
     private HelperManager helperManager;
     
     // SubTool Level

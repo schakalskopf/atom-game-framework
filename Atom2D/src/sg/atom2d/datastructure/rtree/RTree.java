@@ -27,7 +27,7 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sg.atom.utils.datastructure.collection.PriorityQueue;
-import sg.atom.utils.datastructure.collection.SortedList;
+import sg.atom.utils.datastructure.collection.TOrderedList;
 import sg.atom2d.algorimth.partioning.SpatialIndex2D;
 import sg.atom2d.geo.Point;
 import sg.atom2d.geo.Rectangle;
@@ -86,7 +86,7 @@ public class RTree implements SpatialIndex2D, Serializable {
     private TIntArrayList savedValues = new TIntArrayList();
     private float savedPriority = 0;
     // List of nearestN rectangles
-    private SortedList nearestNIds = new SortedList();
+    private TOrderedList nearestNIds = new TOrderedList();
     // List of nearestN rectanges, used in the alternative nearestN implementation.
     private PriorityQueue distanceQueue =
             new PriorityQueue(PriorityQueue.SORT_ORDER_ASCENDING);

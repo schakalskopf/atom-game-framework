@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import sg.atom.utils.algorimth.travel.ITravel;
+import sg.atom.utils.algorithm.travel.ITravel;
 import sg.atom.utils.datastructure.collection.Pair;
 import sg.atom2d.geo.tile.Tilable;
 import sg.atom2d.geo.tile.Tile2D;

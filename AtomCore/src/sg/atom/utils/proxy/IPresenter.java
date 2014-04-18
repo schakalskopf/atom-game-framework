@@ -11,9 +11,11 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.Proxy;
 
 /**
- * Presenter object, talking advantage of functional facilities in Guava.
+ * Presenter object, talking advantage of functional facilities in Guava. is a
+ * bridge between the visual aspect and the abstract aspect of the programming
+ * language such as Java.
  *
- * <p>Presenter object are mixed of proxy pattern and decorator pattern. It's a
+ * <p>Presenter objects are mixure of proxy pattern and decorator pattern. It's a
  * special pattern for object that heavily decorated, but conceptional similar
  * to another. Decorator concept in Graphics usually refered as Style or Filter,
  * contracted to preserve the basis of the affection. The proxy is "changed
@@ -28,6 +30,9 @@ import java.lang.reflect.Proxy;
  *
  * <p>This also assume that a mixing between few Presenter can procedure a new
  * Presentor.
+ *
+ * <p>A counter interface called {@link IProjection} use to generate the
+ * Converter for the presenter.
  *
  * @author cuong.nguyenmanh2
  */

@@ -17,19 +17,10 @@ import sg.atom.core.timing.TimeStamp;
  */
 public interface Transaction {
 
-    public class TransactionException extends RuntimeException {
-    }
-
-    public class TransactionAbortedException extends TransactionException {
-    }
-
     public class TransactionConflictException extends TransactionException {
     }
 
     public class TransactionTimeoutException extends TransactionException {
-    }
-
-    public class TransactionInteruptedException extends TransactionException {
     }
 
     TimeStamp getTimeStamp();

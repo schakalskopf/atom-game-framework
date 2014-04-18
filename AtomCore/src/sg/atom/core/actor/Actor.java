@@ -15,7 +15,7 @@
  */
 package sg.atom.core.actor;
 
-import sg.atom.core.concurrent.ImmediateResult;
+import sg.atom.utils.concurrent.ImmediateResult;
 import sg.atom.core.annotations.AgentBean;
 import sg.atom.core.annotations.Initializer;
 import sg.atom.core.annotations.Message;
@@ -24,8 +24,8 @@ import sg.atom.core.annotations.Prop;
 import sg.atom.utils.concurrent.Usage;
 import sg.atom.core.actor.internal.ActorProxy;
 import sg.atom.core.actor.internal.ActorState;
-import sg.atom.core.event.message.MessageInvocation;
-import sg.atom.core.concurrent.ThreadState;
+import sg.atom.utils.event.message.MessageInvocation;
+import sg.atom.utils.concurrent.ThreadState;
 import sg.atom.core.actor.exceptions.ActorRuntimeException;
 
 /**

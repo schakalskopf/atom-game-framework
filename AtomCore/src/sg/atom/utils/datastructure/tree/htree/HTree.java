@@ -47,7 +47,7 @@
 package sg.atom.utils.datastructure.tree.htree;
 
 import java.io.IOException;
-import sg.atom.utils.datastructure.collection.FastIterator;
+import sg.atom.utils.datastructure.collection.fast.FastIterator;
 import sg.atom.utils.repository.RecordManager;
 
 /**

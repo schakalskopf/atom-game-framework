@@ -5,7 +5,7 @@
 package sg.atom.corex.scenegraph.shape;
 
 import sg.atom.corex.scenegraph.shape.Shape;
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
+import sg.atom.corex.scenegraph.shape.ShapeUtils;
 import sg.atom.corex.scenegraph.shape.SimpleShape;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
@@ -36,7 +36,7 @@ public class GridShape extends SimpleShape {
         int xSamples = 5, ySamples = 5;
         float gridWidth = 0.2f;
 
-        public Builder(String name, Node root, ShapeUtil shapeUtil) {
+        public Builder(String name, Node root, ShapeUtils shapeUtil) {
             super(name, root, shapeUtil);
         }
 

@@ -4,13 +4,13 @@
 package sg.atom.core.execution.workers;
 
 import sg.atom.utils.event.Event;
-import sg.atom.core.event.eventizers.Eventizer;
-import sg.atom.core.event.eventizers.EventizerProvider;
+import sg.atom.utils.event.eventizers.Eventizer;
+import sg.atom.utils.event.eventizers.EventizerProvider;
 import sg.atom.core.exceptions.FailureHandler;
-import sg.atom.core.event.listeners.MessageListener;
-import sg.atom.core.event.message.MessageProcessor;
-import sg.atom.core.event.message.MessageQueue;
-import sg.atom.core.event.message.MessageSender;
+import sg.atom.utils.event.listeners.MessageListener;
+import sg.atom.utils.event.message.MessageProcessor;
+import sg.atom.utils.event.message.MessageQueue;
+import sg.atom.utils.event.message.MessageSender;
 import sg.atom.utils.concurrent.Immutable;
 import sg.atom.utils.concurrent.NotThreadSafe;
 import sg.atom.utils.concurrent.ThreadSafe;

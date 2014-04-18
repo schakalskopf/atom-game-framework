@@ -1,0 +1,179 @@
+package dataimport;
+
+import java.util.*;
+import java.io.*;
+
+import mesh.*;
+import mesh.texture.TextureBank;
+import network.Settings;
+import weaponry.*;
+import algebra.Vec3d;
+
+/**
+ * A class for importing preprocessed levels.
+ */
+public class LevelImporter extends Settings {
+    // Free object names (could be in XML)
+
+    protected static final String ENERGY_ORB_FILE = "data/energy.xml";
+    protected static final String SHIELD_ORB_FILE = "data/shield.xml";
+    // The level
+    protected Level level;
+
+    /**
+     * Empty constructor.
+     *
+     */
+    public LevelImporter() {
+        level = new Level();
+    }
+
+    /**
+     * Gets the level.
+     *
+     * @return The level
+     */
+    public Level getLevel() {
+        return level;
+    }
+
+    /**
+     * Loads a floating object list from the name modified from the given (BSP)
+     * file name.
+     *
+     * @param bspFilename The corresponding BSP file name.
+     */
+    public void loadFloatingObjectList(String bspFilename) {
+        try {
+            // Load a serialized list from the file
+            String objectFilename = bspFilename.substring(0, bspFilename.lastIndexOf('.')) + ".fol";
+            FileInputStream stream = new FileInputStream(objectFilename);
+            ObjectInputStream os = new ObjectInputStream(stream);
+            ObjectList objs = (ObjectList) os.readObject();
+            stream.close();
+
+            // Parse the names and add objects accordingly
+            int floatingCounter = 0;
+            Iterator nameIter = objs.objectNames.iterator();
+            Iterator posIter = objs.objectPositions.iterator();
+            for (; nameIter.hasNext() && posIter.hasNext();) {
+                String name = (String) nameIter.next();
+                Vec3d pos = (Vec3d) posIter.next();
+//         System.out.println("----------------");
+//         System.out.println("Object name:     " + name);
+//         System.out.println("Object position: " + pos);
+                if (name.startsWith("RespawnPosition")) {
+//           System.out.println("Adding respawn position at: " + pos);
+                    level.addRespawnPosition(pos);
+                } else if (name.startsWith("Weapon|")) {
+                    // Separate object type, filename
+                    String[] weaponFile = name.split("\\|");
+                    // Does the filename exist?
+                    if (weaponFile.length > 1) {
+//             System.out.println("Adding weapon '" + weaponFile[1]+ "' at: " + pos);
+                        Weapon w = level.findWeapon(weaponFile[1]);
+                        level.addFloatingObject(weaponFile[1] + "." + floatingCounter++,
+                                new FloatingObject(level, w, pos));
+                    } else {
+                        System.err.println("Invalid Weapon object description !");
+                    }
+                } else if (name.startsWith("Energy")) {
+//           System.out.println("Adding energy item at: " + pos);
+                    BonusItem item = level.findBonusItem(ENERGY_ORB_FILE);
+                    level.addFloatingObject(ENERGY_ORB_FILE + "." + floatingCounter++,
+                            new FloatingObject(level, item, pos));
+                } else if (name.startsWith("Shield")) {
+//           System.out.println("Adding shield item at: " + pos);
+                    BonusItem item = level.findBonusItem(SHIELD_ORB_FILE);
+                    level.addFloatingObject(SHIELD_ORB_FILE + "." + floatingCounter++,
+                            new FloatingObject(level, item, pos));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error loading supplemental level objects !");
+            System.out.println(e);
+        }
+    }
+
+    /**
+     * Reads the settings from XML.
+     *
+     */
+    protected void readSettings() {
+        try {
+            // load the level name
+            String levelFile = readString("Object", null);
+            System.out.println("level file: " + levelFile);
+            if (levelFile == null) {
+                System.out.println("LevelImporter: ERROR: level file description <Object /> needed");
+                return;
+            }
+
+            // load the level
+            level.load(levelFile);
+            if (level == null) {
+                System.out.println("LevelImporter: ERROR: unable to load level");
+                return;
+            }
+
+            // load the floaters
+            loadFloatingObjectList(levelFile);
+
+            // load all crafts
+            if (searchNode("Crafts")) {
+                for (findTags("Craft"); hasNextElement(); nextElement()) {
+                    String craftFile = iterReadString(null);
+                    System.out.println("craft descriptor file: " + craftFile);
+                    if (craftFile != null) {
+                        Craft c = level.findCraft(craftFile);
+                        //System.out.println(c);
+                    }
+                }
+            }
+            // load all weapons
+            if (searchNode("Weapons")) {
+                for (findTags("Weapon"); hasNextElement(); nextElement()) {
+                    String weaponFile = iterReadString(null);
+                    System.out.println("weapon descriptor file: " + weaponFile);
+                    if (weaponFile != null) {
+                        Weapon w = level.findWeapon(weaponFile);
+                        //System.out.println(w);
+                    }
+                }
+            }
+            // load all respawn positions
+            if (searchNode("RespawnPositions")) {
+                for (findTags("Position"); hasNextElement(); nextElement()) {
+                    String positionString = iterReadString(null);
+                    //System.out.println(positionString);
+                    StringTokenizer tokens = new StringTokenizer(positionString, ",");
+                    float[] pos = {0, 0, 0};
+                    try {
+                        int position = 0;
+                        while (tokens.hasMoreTokens() && position < 3) {
+                            String token = tokens.nextToken();
+                            float value = Float.parseFloat(token);
+                            pos[position++] = value;
+                        }
+                        level.addRespawnPosition(new Vec3d(pos[0], pos[1], pos[2]));
+                        System.out.println("Adding respawn position at: " + new Vec3d(pos[0], pos[1], pos[2]));
+                    } catch (Exception e) {
+                        System.out.println("Error loading respawn position !");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * For testing
+     */
+    public static void main(String[] args) {
+        System.out.println("Level importer test:");
+        LevelImporter limp = new LevelImporter();
+        limp.load("data/level1.xml");
+        System.out.println(limp.getLevel());
+    }
+}

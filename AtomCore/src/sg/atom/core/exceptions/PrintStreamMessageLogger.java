@@ -6,7 +6,7 @@ package sg.atom.core.exceptions;
 import java.io.PrintStream;
 import java.util.Locale;
 import java.util.concurrent.Executor;
-import sg.atom.core.event.listeners.MessageListener;
+import sg.atom.utils.event.listeners.MessageListener;
 import sg.atom.utils.concurrent.ThreadSafe;
 
 /**

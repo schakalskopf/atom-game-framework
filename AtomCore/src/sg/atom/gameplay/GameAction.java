@@ -22,7 +22,7 @@ import sg.atom.core.execution.AtomicAction;
  * better research about Actor framework such as AKKA!
  *
  *
- * FIXME: Move GameAction to AKKA.
+ * FIXME: Move GameAction to AKKA!
  *
  * @author atomix
  */

@@ -26,6 +26,8 @@ public interface WorldLODManager {
 
     Node getRootNode();
 
+    void tweakLOD(Object object, int level);
+
     void tweakLOD(Spatial spatial, int level);
 
     void blend(Spatial spatial, float fpf);

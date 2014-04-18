@@ -24,9 +24,10 @@ package sg.atom.utils.datastructure.collection;
  * is ordered. Keys can also be accessed and the order changed using
  * {@link #orderedKeys()}.
  *
+ * <p>FIXME: Replace with Map view of OrderedSet!
+ * 
  * @author Nathan Sweet
- */
-@Deprecated
+ */@Deprecated
 public class OrderedMap<K, V> extends ObjectMap<K, V> {
 
     final Array<K> keys;

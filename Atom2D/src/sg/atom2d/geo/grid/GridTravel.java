@@ -4,7 +4,7 @@
  */
 package sg.atom2d.geo.grid;
 
-import sg.atom.utils.algorimth.travel.ITravel;
+import sg.atom.utils.algorithm.travel.ITravel;
 import sg.atom.utils.datastructure.collection.Pair;
 
 /**

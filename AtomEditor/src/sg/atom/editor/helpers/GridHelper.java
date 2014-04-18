@@ -10,7 +10,7 @@ import sg.atom.editor.managers.HelperManager;
 import sg.atom.corex.scenegraph.shape.GridShape;
 import sg.atom.corex.scenegraph.shape.LineShape;
 import sg.atom.corex.scenegraph.shape.Shape;
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
+import sg.atom.corex.scenegraph.shape.ShapeUtils;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
@@ -28,7 +28,7 @@ public class GridHelper extends AbstractHelper {
 
     // Tool level
     private CommonTool commonTool;
-    private ShapeUtil shapeUtil;
+    private ShapeUtils shapeUtil;
     private HelperManager helperManager;
     
     // SubTool Level

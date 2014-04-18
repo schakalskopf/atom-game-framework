@@ -10,15 +10,15 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import sg.atom.utils.datastructure.collection.IntPair;
 import sg.atom.utils.datastructure.collection.Pair;
+import sg.atom.utils.datastructure.collection.primitives.IntPair;
 
 /**
  * Utility and fast math functions for 3D.
  *
  * <p><b>DONE </b><s>Merged with MathUtils.</s>
  *
- * <p>FIXME: Replace with Common's Math!
+ * <p>FIXME: Replace with Common's Math and JScience!
  *
  * @author atomix
  */
@@ -473,7 +473,6 @@ public class AtomFastMath {
     public static void interpolateCurveOffest(Spline curve, int segs) {
     }
     //Surface Math--------------------------------------------------------------
-
     //Algebra--------------------------------------------------------------------
 //    public static String inverseFunction(String functionText) {
 //        return functionText;

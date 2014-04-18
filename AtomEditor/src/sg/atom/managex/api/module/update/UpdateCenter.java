@@ -6,7 +6,7 @@ package sg.atom.managex.api.module.update;
 
 /**
  * UpdateCenter borrow concepts from Netbean API, Maveb and Getdown for a simple
- * application update and validate application modules.
+ * application update and validate application modules. The server side is on AtomEx!
  *
  * <p>How it work: <ol> 
  * 

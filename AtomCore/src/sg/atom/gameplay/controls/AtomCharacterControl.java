@@ -13,8 +13,24 @@ import com.jme3.scene.control.AbstractControl;
 import com.jme3.scene.control.Control;
 
 /**
+ * AtomCharacterControl hook to JME3 Spatial to control the Character. This is a
+ * Common approach! This is in a higher level than SpatialEntityControl!
  *
-@author atomix
+ * <h4>Features:</h4>
+ *
+ * <ul> <li>Integrated to Atom framework: With StageManager and SteeringManager.
+ * With AtomCharacter / Entity/ Spatial. And the chains for : Animation, AI,
+ * Movement, Grouping, Configure, Details!
+ *
+ * <li>EventBus intergerate for normal event dispatching. It's also reactive by
+ * default since Atom1.1
+ *
+ * <li>Clone in AtomCharacterControl is a deep clone by mapping and with levels
+ * of detail (LOD) concerning!
+ *
+ * </ul>
+ *
+ * @author atomix
  */
 public abstract class AtomCharacterControl extends AbstractControl implements ActionListener {
 

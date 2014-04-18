@@ -10,6 +10,7 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.renderer.RenderManager;
 
 /**
+ * In Game editor. To be run in Nano Scale. like Android or corporated editor.
  *
  * @author cuong.nguyenmanh2
  */

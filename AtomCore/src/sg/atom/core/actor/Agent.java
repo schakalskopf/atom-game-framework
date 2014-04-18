@@ -16,7 +16,7 @@
 package sg.atom.core.actor;
 
 import sg.atom.utils.datastructure.collection.immutable.Props;
-import sg.atom.core.concurrent.AsyncResult;
+import sg.atom.utils.concurrent.AsyncResult;
 import sg.atom.core.annotations.AgentBean;
 import sg.atom.core.annotations.DefaultValue;
 import sg.atom.core.annotations.Prop;

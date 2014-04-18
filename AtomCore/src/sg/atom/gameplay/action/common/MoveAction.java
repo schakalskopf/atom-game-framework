@@ -5,7 +5,6 @@
 package sg.atom.gameplay.action.common;
 
 import java.util.concurrent.atomic.AtomicBoolean;
-import sg.atom.utils.algorimth.optimization.Optimizable;
 import sg.atom.core.annotations.Atom;
 import sg.atom.gameplay.action.InternalAction;
 
@@ -22,7 +21,7 @@ import sg.atom.gameplay.action.InternalAction;
  * @author atomix
  */
 @Atom
-@Optimizable
+//@Optimizable
 public class MoveAction extends InternalAction {
     // Movement
 

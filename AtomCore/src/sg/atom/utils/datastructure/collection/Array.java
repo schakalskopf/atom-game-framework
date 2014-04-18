@@ -1,13 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package sg.atom.utils.datastructure.collection;
-
-/**
- *
- * @author cuong.nguyenmanh2
- */
 /**
  * *****************************************************************************
  * Copyright 2011 See AUTHORS file.
@@ -25,9 +15,15 @@ package sg.atom.utils.datastructure.collection;
  * the License.
  * ****************************************************************************
  */
+package sg.atom.utils.datastructure.collection;
+
+
+import sg.atom.utils._beta.functional.Predicate;
+import sg.atom.utils._commons.ArrayReflection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import sg.atom.utils._beta.functional.PredicateIterable;
 import sg.atom.utils.datastructure.collection.sort.Sorts;
 import sg.atom.utils.math.AtomFastMath;
 
@@ -49,7 +45,7 @@ public class Array<T> implements Iterable<T> {
     public int size;
     public boolean ordered;
     private ArrayIterable iterable;
-    private Predicate.PredicateIterable<T> predicateIterable;
+    private PredicateIterable<T> predicateIterable;
 
     /**
      * Creates an ordered array with a capacity of 16.
@@ -547,7 +543,7 @@ public class Array<T> implements Iterable<T> {
      */
     public Iterable<T> select(Predicate<T> predicate) {
         if (predicateIterable == null) {
-            predicateIterable = new Predicate.PredicateIterable<T>(this, predicate);
+            predicateIterable = new PredicateIterable<T>(this, predicate);
         } else {
             predicateIterable.set(this, predicate);
         }

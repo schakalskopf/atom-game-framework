@@ -6,8 +6,8 @@ package sg.atom.corex.scenegraph.shape;
 
 import sg.atom.corex.scenegraph.shape.Shape;
 import sg.atom.corex.scenegraph.shape.Shape;
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
+import sg.atom.corex.scenegraph.shape.ShapeUtils;
+import sg.atom.corex.scenegraph.shape.ShapeUtils;
 import sg.atom.corex.scenegraph.shape.SimpleShape;
 import sg.atom.corex.scenegraph.shape.SimpleShape;
 import sg.atom.corex.scenegraph.shape.SphereShape;
@@ -37,7 +37,7 @@ public class CameraShape extends SimpleShape {
         float height2 = 3f;
         ColorRGBA lightColor=ColorRGBA.Yellow;
 
-        Builder(String name, Node root, ShapeUtil shapeUtil) {
+        Builder(String name, Node root, ShapeUtils shapeUtil) {
             super(name, root, shapeUtil);
         }
 

@@ -12,7 +12,8 @@ import javolution.context.AbstractContext;
  * In this simple implementation, AtomEnviroment stands for the declarative of
  * scenery which effect the World,Screen and other Effects, Actions.
  *
- * This concept is borrowed from Context ... Javolution, EJB and Spring.
+ * <p>This concept is borrowed from Context ... Javolution, JScience EJB and
+ * Spring.
  *
  * @author cuong.nguyenmanh2
  */

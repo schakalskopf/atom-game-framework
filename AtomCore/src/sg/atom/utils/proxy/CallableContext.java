@@ -10,9 +10,9 @@ import sg.atom.utils._beta.aop.AppliesTo;
  * Callable context introduce a calling methods or execution within a name
  * space, context with named elements.
  *
- * <p>Implementation use 
+ * <p>Implementation
  * 
- * <p>FIXME: extends SemanticContext
+ * <p>FIXME: extends SemanticContext or ScriptingContext?
  *
  * @author cuong.nguyenmanh2
  */

@@ -5,7 +5,7 @@
 package sg.atom.corex.scenegraph.shape;
 
 import sg.atom.corex.scenegraph.shape.Shape;
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
+import sg.atom.corex.scenegraph.shape.ShapeUtils;
 import sg.atom.corex.scenegraph.shape.SimpleShape;
 import sg.atom.corex.scenegraph.shape.SphereShape;
 import com.jme3.material.Material;
@@ -37,7 +37,7 @@ public class LightShape extends SimpleShape {
         float height2 = 3f;
         ColorRGBA lightColor=ColorRGBA.Yellow;
 
-        public Builder(String name, Node root, ShapeUtil shapeUtil) {
+        public Builder(String name, Node root, ShapeUtils shapeUtil) {
             super(name, root, shapeUtil);
         }
 

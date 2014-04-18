@@ -22,9 +22,7 @@ import sg.atom.stage.StageManager;
  * script folders
  *
  * <p>Atom also offer a simple embedable language based in Preon's Limbo call
- * Atom's Dot because it just contain numbers/names/operations and a lot of
- * dots(.) The different between Limbo and Dot is Dot include operation for
- * reactive extension: Dot arrow (.->) like in ELM.
+ * Atom's Dot. because it contain a lot of dots(.)
  *
  * @author atomix
  */

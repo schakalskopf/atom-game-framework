@@ -23,7 +23,7 @@ public class SphereShape extends SimpleShape {
         float radius = 0;
         int zSamples = 8, radialSamples = 8;
 
-        public Builder(String name, Node root, ShapeUtil shapeUtil) {
+        public Builder(String name, Node root, ShapeUtils shapeUtil) {
             super(name, root, shapeUtil);
         }
 

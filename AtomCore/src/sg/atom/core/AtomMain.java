@@ -110,8 +110,7 @@ public class AtomMain extends SimpleApplication implements IGameCycle {
 
     @Override
     public void simpleInitApp() {
-        initGameStateManager();
-        startup();
+        init();
     }
 
     public void startup() {
@@ -179,12 +178,12 @@ public class AtomMain extends SimpleApplication implements IGameCycle {
     public void applySettings(Properties props) {
         // Empty implementation!
     }
-
-    public void applySettings(Object rawSetting) {
-    }
-
-    public void applySettings(InputStream externalStream) {
-    }
+//
+//    public void applySettings(Object rawSetting) {
+//    }
+//
+//    public void applySettings(InputStream externalStream) {
+//    }
     // =========== GETTER & SETTER ===============
 
     public AppSettings getSettings() {
@@ -225,27 +224,65 @@ public class AtomMain extends SimpleApplication implements IGameCycle {
 
     @Override
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // Init Globals singleton
+        
+        // Init GameStateManager
+        initGameStateManager();
+        // Init all first class Managers
+        
+        // Finally startup
+        startup();
+        
     }
 
     @Override
     public void load() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // If bootstrap load?8
+        
+        // If network load?
+        
+        // If pre-stage/world load?
+        
+        // If editor load?
+        
+        // If reload or streaming continue?
+        
+        // If networks extra load?
+        
+        // If monitors ask for workload done, or budget exceeded?
     }
 
     @Override
     public void config(Properties props) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+        // Load default configs
+        
+        // If auto config mode
+        
+        // If in development mode?
+        
+        // If enable ingame editor?
+        
+        // If enable hot asset reload?
+        
+        // Finish configs and try to load
+        
+        
     }
 
     @Override
     public void update(float tpf) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //
     }
 
+    /**
+     * This may be call to destroy all the managers and resources depend on the game
+     */
     @Override
     public void finish() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // Release all managers
+        
+        // Release all resources
     }
 
     @Override

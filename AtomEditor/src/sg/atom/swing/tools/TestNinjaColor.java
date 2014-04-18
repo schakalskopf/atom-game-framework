@@ -8,7 +8,7 @@ import sg.atom.corex.scenegraph.shape.ArrowShape;
 import sg.atom.corex.scenegraph.shape.GridHelperShape;
 import sg.atom.corex.scenegraph.shape.LightShape;
 import sg.atom.corex.scenegraph.shape.Shape;
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
+import sg.atom.corex.scenegraph.shape.ShapeUtils;
 import sg.atom.corex.scenegraph.shape.SkeletonDebugger;
 import sg.atom.corex.scenegraph.shape.SphereShape;
 import com.jme3.animation.AnimChannel;
@@ -163,7 +163,7 @@ public class TestNinjaColor extends SimpleApplication {
 
     public void initShape() {
 
-        ShapeUtil shapeUtil = new ShapeUtil();
+        ShapeUtils shapeUtil = new ShapeUtils();
 
 //        ((MyBoxShape.Builder) shapeUtil.createShape(MyShape.BOX, "Box1", rootNode))
 //                .setAllSize(1f, 1f, 1f)

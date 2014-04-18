@@ -25,6 +25,8 @@ import com.jme3.water.WaterFilter;
 import sg.atom.stage.StageManager;
 
 /**
+ * WaterManager simulate water and bounacy. Concepts borrow from Ogre's Hydrax.
+ *
  *
  * @author atomix
  */
@@ -33,6 +35,7 @@ public class WaterManager implements ActionListener {
     WorldManager worldManager;
     AssetManager assetManager;
     private final StageManager stageManager;
+    private final SoundManager soundManager;
     // More about the world
     private Node reflectionNode;
     private final Node rootNode;
@@ -43,9 +46,9 @@ public class WaterManager implements ActionListener {
     private float waterHeight = 0.0f;
     private float initialWaterHeight = 0.8f;
     private boolean uw = false;
-    SimpleWaterProcessor waterProcessor;
+    //Sceen processor and filters
+    private SimpleWaterProcessor waterProcessor;
     private WaterFilter waterFilter;
-    private final SoundManager soundManager;
 
     public WaterManager(StageManager stageManager, WorldManager worldManager) {
         this.worldManager = worldManager;

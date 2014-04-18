@@ -1,6 +1,6 @@
 package sg.atom.utils.datastructure.collection;
 
-import sg.atom.utils._commons.WrappedRuntimeException;
+import sg.atom.utils._commons.exception.WrappedRuntimeException;
 
 /**
  * Iteration exception.

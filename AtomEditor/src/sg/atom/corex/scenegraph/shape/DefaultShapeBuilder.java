@@ -4,12 +4,12 @@
  */
 package sg.atom.corex.scenegraph.shape;
 
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
+import sg.atom.corex.scenegraph.shape.ShapeUtils;
 import sg.atom.corex.scenegraph.shape.ShapeUtilBuilder;
 import sg.atom.corex.scenegraph.shape.Shape;
 import sg.atom.corex.material.MaterialUtils;
 import sg.atom.corex.scenegraph.shape.Shape;
-import sg.atom.corex.scenegraph.shape.ShapeUtil;
+import sg.atom.corex.scenegraph.shape.ShapeUtils;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -35,9 +35,9 @@ public class DefaultShapeBuilder implements ShapeUtilBuilder<Shape> {
     int attachType = Shape.SHAPE;
     private MaterialUtils matUtil;
     
-    public ShapeUtil shapeUtil;
+    public ShapeUtils shapeUtil;
     
-    public DefaultShapeBuilder(String name, Node root, ShapeUtil shapeUtil) {
+    public DefaultShapeBuilder(String name, Node root, ShapeUtils shapeUtil) {
         this.name = name;
         this.root = root;
         this.shapeUtil = shapeUtil;

@@ -10,7 +10,7 @@ import java.io.ObjectOutput;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import sg.atom.utils.datastructure.collection.FastIterator;
+import sg.atom.utils.datastructure.collection.fast.FastIterator;
 import sg.atom.utils.datastructure.collection.IterationException;
 import sg.atom.utils.repository.RecordManager;
 

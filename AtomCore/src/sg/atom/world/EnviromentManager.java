@@ -6,22 +6,23 @@ package sg.atom.world;
 
 import java.util.Properties;
 import sg.atom.core.AbstractManager;
+import sg.atom.stage.StageManager;
+import sg.atom.world.enviroment.EnviromentWeather;
 
 /**
- * Manager and Wrapper for useful functions for Enviroment. To make an earth like enviroment.
+ * Manager and Wrapper for useful functions for Enviroment. To make an earth
+ * like enviroment. Merged with WeatherManager.
  *
  * Including Light, Skybox,.
  *
  * <ul> <li>Load configs about different Enviroment. Load asset attached to
  * specific enviroment description.</li>
  *
- * <li>Handle Transistion between Enviroment
+ * <li>Handle Transistion between Enviroment by Fuzzy state machine.
  *
  * <li>Generator with Fractal, Voronoi, Tiling.
  *
- * <li>Simulation some aspects
- *
- * <li>
+ * <li>Simulation some aspects: Enviromental Time, Lighting, Sounds..
  *
  * <li>
  *
@@ -30,13 +31,27 @@ import sg.atom.core.AbstractManager;
  * @author atomix
  */
 public class EnviromentManager extends AbstractManager {
+    // Managers
 
-    public void setWeather(){
-        
+    protected StageManager stageManager;
+    protected WorldManager worldManager;
+    protected EnviromentManager enviromentManager;
+    protected MaterialManager materialManager;
+    protected TerrainManager terrainManager;
+    private EnviromentWeather currentWeather;
+
+    public EnviromentManager(StageManager stageManager, WorldManager worldManager) {
+        this.stageManager = stageManager;
+        this.worldManager = worldManager;
     }
 
-    public void getCurrentWeather(){
-        
+    //Weather management--------------------------------------------------------
+    public void setWeather(EnviromentWeather weather) {
+        this.currentWeather = weather;
+    }
+
+    public EnviromentWeather getCurrentWeather() {
+        return null;
     }
 
     //Cycle---------------------------------------------------------------------

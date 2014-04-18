@@ -1,7 +1,7 @@
 package sg.atom.logic.input;
 
 import java.util.Arrays;
-import sg.atom.utils.datastructure.collection.IntArray;
+import sg.atom.utils.datastructure.collection.primitives.IntArray;
 
 /**
  * @deprecated use Guava packing method instead.

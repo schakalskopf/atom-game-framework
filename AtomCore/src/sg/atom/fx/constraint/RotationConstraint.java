@@ -4,7 +4,7 @@
  */
 package sg.atom.fx.constraint;
 
-import sg.atom.utils.algorimth.constraint.AbstractConstraint;
+import sg.atom.utils.algorithm.constraint.AbstractConstraint;
 import com.jme3.math.Quaternion;
 
 /**
